@@ -19,32 +19,32 @@ class Rect implements SvgElement  {
     this.height = height
   }
 
-  Rect setX(Number x) {
+  Rect x(Number x) {
     this.x = x
     this
   }
 
-  Rect setY(Number y) {
+  Rect y(Number y) {
     this.y = y
     this
   }
 
-  Rect setRx(Number rx) {
+  Rect rx(Number rx) {
     this.rx = rx
     this
   }
 
-  Rect setRy(Number ry) {
+  Rect ry(Number ry) {
     this.ry = ry
     this
   }
 
-  Rect setStyle(String style) {
+  Rect style(String style) {
     this.style = style
     this
   }
 
-  Rect setFill(String fill) {
+  Rect fill(String fill) {
     this.fill = fill
     this
   }

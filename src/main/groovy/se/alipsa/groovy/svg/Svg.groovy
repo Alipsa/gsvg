@@ -20,6 +20,10 @@ class Svg {
     add(element)
   }
 
+  SvgElement getChild(int index) {
+    svgElements[index]
+  }
+
   String toXml() {
     def svg = new StringBuilder("""<svg width="${width}" height="${height}" xmlns="${xmlns}">\n  """)
     svgElements.each {
