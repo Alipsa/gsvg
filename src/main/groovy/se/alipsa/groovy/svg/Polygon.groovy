@@ -1,45 +1,24 @@
-package se.alipsa.groovy.svg;
+package se.alipsa.groovy.svg
 
-class Polygon implements SvgElement {
+import groovy.transform.PackageScope
+import org.dom4j.Attribute
+import org.dom4j.Element;
 
-  List<Coordinate> points = []
-  String style
+/**
+ * <polygon points="${points.collect({it.toString()}).join(' ')}" ${optionalAttr('style', style)} />
+ */
+class Polygon extends AbstractPoly<Polygon> {
 
-  Polygon(Coordinate... points) {
-    this.points = points as List<Coordinate>
+  @PackageScope
+  Polygon(Element parent, Coordinate... coordinates) {
+    super(parent.addElement('polygon'))
+    if (coordinates.length > 0) points(coordinates)
   }
 
-  Polygon(List<Number>... points) {
-    this.points = points.collect({it as Coordinate})
+  @PackageScope
+  Polygon(Element parent, List<Number>... coordinates) {
+    super(parent.addElement('polygon'))
+    if (coordinates.length > 0)  points(coordinates)
   }
 
-  Polygon points(Coordinate... points) {
-    this.points = points as List<Coordinate>
-    this
-  }
-
-  Polygon points(List<Number>... points) {
-    this.points = points.collect({it as Coordinate})
-    this
-  }
-
-  Polygon addPoints(Coordinate... points) {
-    this.points.addAll(points)
-    this
-  }
-
-  Polygon addPoint(Coordinate point) {
-    this.points << point
-    this
-  }
-
-  Polygon style(String style) {
-    this.style = style
-    this
-  }
-
-  @Override
-  String toXml() {
-    """<polygon points="${points.collect({it.toString()}).join(' ')}" ${optionalAttr('style', style)} />"""
-  }
 }

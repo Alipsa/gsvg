@@ -1,58 +1,45 @@
-package se.alipsa.groovy.svg;
+package se.alipsa.groovy.svg
 
-class Rect implements SvgElement  {
-  Number width
-  Number height
+import groovy.transform.PackageScope
+import org.dom4j.Element;
 
-  Number x = 0
-  Number y = 0
+/**
+ * <rect width="${width}" height="${height}" x="${x}" y="${y}" rx="${rx}" ry="${ry}" ${optionalAttr('fill', fill)} ${optionalAttr('style', style)}/>
+ */
+class Rect extends SvgElement<Rect>  {
 
-  Number rx = 0
-  Number ry = 0
-
-  String fill
-
-  String style
-
-  Rect(Number width, Number height) {
-    this.width = width
-    this.height = height
+  @PackageScope
+  Rect(Element parent, Number width, Number height) {
+    super(parent.addElement('rect'))
+    addAttribute('width', String.valueOf(width))
+    addAttribute('height', String.valueOf(height))
+    x(0)
+    y(0)
+    rx(0)
+    ry(0)
   }
 
   Rect x(Number x) {
-    this.x = x
-    this
+    addAttribute('x', String.valueOf(x))
   }
 
   Rect y(Number y) {
-    this.y = y
-    this
+    addAttribute('y', String.valueOf(y))
   }
 
   Rect rx(Number rx) {
-    this.rx = rx
-    this
+    addAttribute('rx', String.valueOf(rx))
   }
 
   Rect ry(Number ry) {
-    this.ry = ry
-    this
+    addAttribute('ry', String.valueOf(ry))
   }
 
   Rect style(String style) {
-    this.style = style
-    this
+    addAttribute('style', String.valueOf(style))
   }
 
   Rect fill(String fill) {
-    this.fill = fill
-    this
+    addAttribute('fill', String.valueOf(fill))
   }
-
-  @Override
-  String toXml() {
-    return """<rect width="${width}" height="${height}" x="${x}" y="${y}" rx="${rx}" ry="${ry}" ${optionalAttr('fill', fill)} ${optionalAttr('style', style)}/>"""
-  }
-
-
 }

@@ -36,6 +36,8 @@ dependencies {
     def groovyVersion = '4.0.18'
     def groovy = "org.apache.groovy:groovy:$groovyVersion"
     compileOnly groovy
+    implementation 'org.dom4j:dom4j:2.1.4'
+    implementation 'jaxen:jaxen:2.0.0'
 
     testImplementation groovy
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'

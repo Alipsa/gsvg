@@ -1,51 +1,38 @@
-package se.alipsa.groovy.svg;
+package se.alipsa.groovy.svg
 
-class Circle implements SvgElement {
+import groovy.transform.PackageScope
+import org.dom4j.Element;
 
-  Number cx
-  Number cy
-  Number r
-  String stroke
-  Number strokeWidth
-  String fill
+class Circle extends SvgElement<Circle> {
+
+
+  @PackageScope
+  Circle(Element parent) {
+    super(parent.addElement('circle'))
+  }
 
   Circle cx(Number cx) {
-    this.cx = cx
-    this
+    addAttribute('cx', "$cx")
   }
 
   Circle cy(Number cy) {
-    this.cy = cy
-    this
+    addAttribute('cy', "$cy")
   }
 
   Circle r(Number r) {
-    this.r = r
-    this
+    addAttribute('r', "$r")
   }
 
   Circle stroke(String stroke) {
-    this.stroke = stroke
-    this
+    addAttribute('stroke', "$stroke")
   }
 
   Circle strokeWidth(Number strokeWidth) {
-    this.strokeWidth = strokeWidth
-    this
+    addAttribute('stroke-width', "$strokeWidth")
   }
 
   Circle fill(String fill) {
-    this.fill = fill
-    this
+    addAttribute('fill', "$fill")
   }
 
-  @Override
-  String toXml() {
-    """<circle ${optionalAttr('cx', cx)} ${optionalAttr('cy', cy)} r="${r}" ${optionalAttr('stroke',stroke)} ${optionalAttr('stroke-width', strokeWidth)} ${optionalAttr('fill', fill)} />"""
-  }
-
-  @Override
-  String toString() {
-    toXml()
-  }
 }

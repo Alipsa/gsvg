@@ -1,10 +1,22 @@
 package se.alipsa.groovy.svg
 
-interface SvgElement {
+import org.dom4j.Element
 
-  String toXml()
+abstract class SvgElement<T extends SvgElement<T>> {
 
-  default String optionalAttr(String name, Object val) {
-    val == null ? '' : "${name}=\"${val}\""
+  protected Element element
+
+  String toXml() {
+    element.asXML()
   }
+
+  SvgElement(Element element) {
+    this.element = element
+  }
+
+  T addAttribute(String name, Object value) {
+    element.addAttribute(name, "$value")
+    this as T
+  }
+
 }

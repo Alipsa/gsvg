@@ -1,44 +1,23 @@
-package se.alipsa.groovy.svg;
+package se.alipsa.groovy.svg
 
-class Polyline implements SvgElement {
-  List<Coordinate> points = []
-  String style
+import groovy.transform.PackageScope
+import org.dom4j.Element;
 
-  Polyline(Coordinate... points) {
-    this.points = points as List<Coordinate>
+/**
+ * <polyline points="${points.collect({it.toString()}).join(' ')}" ${optionalAttr('style', style)} />
+ */
+class Polyline extends AbstractPoly<Polyline> {
+
+  @PackageScope
+  Polyline(Element parent, Coordinate... coordinates) {
+    super(parent.addElement('polyline'))
+    if (coordinates.length > 0) points(coordinates)
   }
 
-  Polyline(List<Number>... points) {
-    this.points = points.collect({it as Coordinate})
+  @PackageScope
+  Polyline(Element parent, List<Number>... coordinates) {
+    super(parent.addElement('polyline'))
+    if (coordinates.length > 0) points(coordinates)
   }
 
-  Polyline points(Coordinate... points) {
-    this.points = points as List<Coordinate>
-    this
-  }
-
-  Polyline points(List<Number>... points) {
-    this.points = points.collect({it as Coordinate})
-    this
-  }
-
-  Polyline addPoints(Coordinate... points) {
-    this.points.addAll(points)
-    this
-  }
-
-  Polyline addPoint(Coordinate point) {
-    this.points << point
-    this
-  }
-
-  Polyline style(String style) {
-    this.style = style
-    this
-  }
-
-  @Override
-  String toXml() {
-    """<polyline points="${points.collect({it.toString()}).join(' ')}" ${optionalAttr('style', style)} />"""
-  }
 }

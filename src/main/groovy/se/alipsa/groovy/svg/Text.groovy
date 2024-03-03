@@ -1,34 +1,80 @@
 package se.alipsa.groovy.svg
 
-class Text implements SvgElement {
+import org.dom4j.Element
+
+/**
+ * <text x="$x" y="$y" fill="$fill" font-size="$fontSize">$sb</text>
+ */
+class Text extends SvgElement<Text> {
+
+  Text(Element parent){
+    super(parent.addElement('text'))
+    x(0)
+    y(0)
+  }
+
+  Text(Element parent, String text) {
+    this(parent)
+    element.addText(text)
+  }
+
+  Text fill(String fill) {
+    addAttribute('fill', fill)
+  }
 
   /**The x position of the start of the text. Default is 0 */
-  Number x
+  Text x(Number x) {
+    addAttribute('x', String.valueOf(x))
+  }
 
   /** The y position of the start of the text. Default is 0 */
-  Number y
+  Text y(Number y) {
+    addAttribute('y', String.valueOf(y))
+  }
+
+  Text addText(String content) {
+    element.addText(content)
+    this
+  }
+
+  Tspan addTspan() {
+    return new Tspan(element)
+  }
+
+  Tspan addTspan(String content) {
+    return new Tspan(element, content)
+  }
+
+  Text fontSize(Number size) {
+    addAttribute('font-size', String.valueOf(size))
+  }
 
   /** The horizontal shift position for text (from previous text position) */
-  Number dx
+  Text dx(Number dx) {
+    addAttribute('dx', "$dx")
+  }
 
   /** The vertical shift position for text (from previous text position)*/
-  Number dy
+  Text dy(Number dy) {
+    addAttribute('dy', "$dy")
+  }
 
   /** The rotation (in degrees) applied to each letter of text */
-  Number rotate
+  Text rotate(Number rotate) {
+    addAttribute('rotate', "$rotate")
+  }
 
   /** The width that the text must fit in */
-  Number textLength
+  Text textLength(Number textLength) {
+    addAttribute('textLength', "$textLength")
+  }
 
   /** How the text should be compressed or stretched to fit the width defined by the textLength attribute */
-  Number lengthAdjust
+  Text lengthAdjust(Number lengthAdjust) {
+    addAttribute('lengthAdjust', "$lengthAdjust")
+  }
 
-  String transform
-
-  List<Tspan> tspans
-
-  @Override
-  String toXml() {
-    return null
+  Text transform(String transform) {
+    addAttribute('transform', "$transform")
   }
 }

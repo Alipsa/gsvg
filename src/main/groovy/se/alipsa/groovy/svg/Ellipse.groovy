@@ -1,35 +1,29 @@
-package se.alipsa.groovy.svg;
+package se.alipsa.groovy.svg
 
-class Ellipse implements SvgElement  {
+import groovy.transform.PackageScope
+import org.dom4j.Element;
 
-  Number rx
-  Number ry
-  Number cx
-  Number cy
-  String style
+/**
+ * <ellipse rx="${rx}" ry="${ry}" ${optionalAttr('cx', cx)} ${optionalAttr('cy', cy)} ${optionalAttr('style', style)} />
+ */
+class Ellipse extends SvgElement<Ellipse>  {
 
-  Ellipse(Number rx, Number ry) {
-    this.rx = rx
-    this.ry = ry
+  @PackageScope
+  Ellipse(Element parent, Number rx, Number ry) {
+    super(parent.addElement('ellipse'))
+    addAttribute('rx', "${rx}")
+    addAttribute('ry', "${ry}")
   }
 
   Ellipse cx(Number cx) {
-    this.cx = cx
-    this
+    addAttribute('cx', "${cx}")
   }
 
   Ellipse cy(Number cy) {
-    this.cy = cy
-    this
+    addAttribute('cy', "${cy}")
   }
 
   Ellipse style(String style) {
-    this.style = style
-    this
-  }
-
-  @Override
-  String toXml() {
-    """<ellipse rx="${rx}" ry="${ry}" ${optionalAttr('cx', cx)} ${optionalAttr('cy', cy)} ${optionalAttr('style', style)} />"""
+    addAttribute('style', "${style}")
   }
 }

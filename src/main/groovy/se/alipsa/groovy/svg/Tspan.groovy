@@ -1,33 +1,62 @@
 package se.alipsa.groovy.svg
 
+import org.dom4j.Element
+
 /**
  * The Tspan element is used to mark up parts of a text (just like the HTML <span> element).
  * It must be a child of a <text> element or another <tspan> element.
+ * <tspan fill="$fill" stroke="$stroke">$content</tspan>
  */
-class Tspan implements SvgElement {
+class Tspan extends SvgElement<Tspan> {
 
-    /**The x position of the start of the text. Default is 0 */
-    Number x
+  Tspan(Element parent) {
+    super(parent.addElement('tspan'))
+  }
 
-    /** The y position of the start of the text. Default is 0 */
-    Number y
+  Tspan(Element parent, String text) {
+    this(parent)
+    addText(text)
+  }
 
-    /** The horizontal shift position for text (from previous text position) */
-    Number dx
+  /**The x position of the start of the text. Default is 0 */
+  Tspan x(Number x) {
+    addAttribute('x', "$x")
+  }
 
-    /** The vertical shift position for text (from previous text position)*/
-    Number dy
+  /** The y position of the start of the text. Default is 0 */
+  Tspan y(Number y) {
+    addAttribute('y', "$y")
+  }
+  /** The horizontal shift position for text (from previous text position) */
+  Text dx(Number dx) {
+    addAttribute('dx', "$dx")
+  }
 
-    /** The rotation (in degrees) applied to each letter of text */
-    Number rotate
+  /** The vertical shift position for text (from previous text position)*/
+  Text dy(Number dy) {
+    addAttribute('dy', "$dy")
+  }
 
-    /** The width that the text must fit in */
-    Number textLength
+  /** The rotation (in degrees) applied to each letter of text */
+  Text rotate(Number rotate) {
+    addAttribute('rotate', "$rotate")
+  }
 
-    List<Tspan> tspans
+  /** The width that the text must fit in */
+  Text textLength(Number textLength) {
+    addAttribute('textLength', "$textLength")
+  }
 
-    @Override
-    String toXml() {
-        return null
-    }
+  Tspan fill(String fill) {
+    addAttribute('fill', fill)
+  }
+
+  Tspan stroke(String stroke) {
+    addAttribute('stroke', stroke)
+  }
+
+  Tspan addText(String text) {
+    element.setText(text)
+    this
+  }
 }

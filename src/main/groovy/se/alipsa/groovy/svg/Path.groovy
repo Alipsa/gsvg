@@ -1,28 +1,27 @@
-package se.alipsa.groovy.svg;
+package se.alipsa.groovy.svg
 
-class Path implements SvgElement {
+import groovy.transform.PackageScope
+import org.dom4j.Element;
 
-  String id
-  String d
-  String style
+/**
+ * <path ${optionalAttr('id', id)} d="$d" ${optionalAttr('style', style)} />
+ */
+class Path extends SvgElement<Path> {
+
+  @PackageScope
+  Path(Element parent) {
+    super(parent.addElement('path'))
+  }
 
   Path id(String id) {
-    this.id = id
-    this
+    addAttribute('id', id)
   }
 
   Path d(String d) {
-    this.d = d
-    this
+    addAttribute('d', d)
   }
 
   Path style(String style) {
-    this.style = style
-    this
-  }
-
-  @Override
-  String toXml() {
-    """<path ${optionalAttr('id', id)} d="$d" ${optionalAttr('style', style)} />"""
+    addAttribute('style', style)
   }
 }
