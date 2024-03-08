@@ -14,8 +14,8 @@ class Line extends SvgElement {
    * @param y2 The end of the line on the y-axis
    */
   @PackageScope
-  Line(Element parent, Number x1, Number y1, Number x2, Number y2) {
-    super(parent.addElement('line'))
+  Line(SvgElement parent, Number x1, Number y1, Number x2, Number y2) {
+    super(parent.element.addElement('line'))
     addAttribute('x1', String.valueOf(x1))
     addAttribute('y1', String.valueOf(y1))
     addAttribute('x2', String.valueOf(x2))

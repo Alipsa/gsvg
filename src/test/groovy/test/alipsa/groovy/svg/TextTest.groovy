@@ -23,17 +23,15 @@ class TextTest {
   @Test
   void testComplexContent() {
     Svg svg = new Svg(400, 200)
-    Text text = svg.addText()
+    Text text = svg.addText('Hello ')
         .x(5)
         .y(30)
         .fill('red')
         .fontSize(35)
-        .addText('Hello ')
-
-        text.addTspan('World')
+        .addTspan('World')
           .fill('none')
           .stroke('green')
-    text.addText('!')
+        .getParent(Text).addText('!')
 
     assertEquals("""<text xmlns="http://www.w3.org/2000/svg" x="5" y="30" fill="red" font-size="35">Hello <tspan fill="none" stroke="green">World</tspan>!</text>""",
         text.toXml())

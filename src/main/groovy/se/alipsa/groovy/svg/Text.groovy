@@ -1,19 +1,20 @@
 package se.alipsa.groovy.svg
 
-import org.dom4j.Element
-
 /**
  * <text x="$x" y="$y" fill="$fill" font-size="$fontSize">$sb</text>
  */
 class Text extends SvgElement<Text> {
 
-  Text(Element parent){
-    super(parent.addElement('text'))
+  SvgElement parent
+
+  Text(SvgElement parent){
+    super(parent.element.addElement('text'))
+    this.parent = parent
     x(0)
     y(0)
   }
 
-  Text(Element parent, String text) {
+  Text(SvgElement parent, String text) {
     this(parent)
     element.addText(text)
   }
@@ -38,11 +39,11 @@ class Text extends SvgElement<Text> {
   }
 
   Tspan addTspan() {
-    return new Tspan(element)
+    return new Tspan(this)
   }
 
   Tspan addTspan(String content) {
-    return new Tspan(element, content)
+    return new Tspan(this, content)
   }
 
   Text fontSize(Number size) {
@@ -76,5 +77,9 @@ class Text extends SvgElement<Text> {
 
   Text transform(String transform) {
     addAttribute('transform', "$transform")
+  }
+
+  SvgElement getParent() {
+    return parent
   }
 }

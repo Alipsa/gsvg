@@ -7,8 +7,8 @@ class Circle extends SvgElement<Circle> {
 
 
   @PackageScope
-  Circle(Element parent) {
-    super(parent.addElement('circle'))
+  Circle(SvgElement parent) {
+    super(parent.element.addElement('circle'))
   }
 
   Circle cx(Number cx) {

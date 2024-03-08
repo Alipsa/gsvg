@@ -9,8 +9,8 @@ import org.dom4j.Element;
 class Ellipse extends SvgElement<Ellipse>  {
 
   @PackageScope
-  Ellipse(Element parent, Number rx, Number ry) {
-    super(parent.addElement('ellipse'))
+  Ellipse(SvgElement parent, Number rx, Number ry) {
+    super(parent.element.addElement('ellipse'))
     addAttribute('rx', "${rx}")
     addAttribute('ry', "${ry}")
   }

@@ -9,8 +9,8 @@ import org.dom4j.Element;
 class Rect extends SvgElement<Rect>  {
 
   @PackageScope
-  Rect(Element parent, Number width, Number height) {
-    super(parent.addElement('rect'))
+  Rect(SvgElement parent, Number width, Number height) {
+    super(parent.element.addElement('rect'))
     addAttribute('width', String.valueOf(width))
     addAttribute('height', String.valueOf(height))
     x(0)

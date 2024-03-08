@@ -9,14 +9,14 @@ import org.dom4j.Element;
 class Polyline extends AbstractPoly<Polyline> {
 
   @PackageScope
-  Polyline(Element parent, Coordinate... coordinates) {
-    super(parent.addElement('polyline'))
+  Polyline(SvgElement parent, Coordinate... coordinates) {
+    super(parent.element.addElement('polyline'))
     if (coordinates.length > 0) points(coordinates)
   }
 
   @PackageScope
-  Polyline(Element parent, List<Number>... coordinates) {
-    super(parent.addElement('polyline'))
+  Polyline(SvgElement parent, List<Number>... coordinates) {
+    super(parent.element.addElement('polyline'))
     if (coordinates.length > 0) points(coordinates)
   }
 

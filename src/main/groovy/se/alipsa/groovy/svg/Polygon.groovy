@@ -10,14 +10,14 @@ import org.dom4j.Element;
 class Polygon extends AbstractPoly<Polygon> {
 
   @PackageScope
-  Polygon(Element parent, Coordinate... coordinates) {
-    super(parent.addElement('polygon'))
+  Polygon(SvgElement parent, Coordinate... coordinates) {
+    super(parent.element.addElement('polygon'))
     if (coordinates.length > 0) points(coordinates)
   }
 
   @PackageScope
-  Polygon(Element parent, List<Number>... coordinates) {
-    super(parent.addElement('polygon'))
+  Polygon(SvgElement parent, List<Number>... coordinates) {
+    super(parent.element.addElement('polygon'))
     if (coordinates.length > 0)  points(coordinates)
   }
 

@@ -1,7 +1,5 @@
 package se.alipsa.groovy.svg
 
-import org.dom4j.Element
-
 /**
  * The Tspan element is used to mark up parts of a text (just like the HTML <span> element).
  * It must be a child of a <text> element or another <tspan> element.
@@ -9,11 +7,14 @@ import org.dom4j.Element
  */
 class Tspan extends SvgElement<Tspan> {
 
-  Tspan(Element parent) {
-    super(parent.addElement('tspan'))
+  SvgElement parent
+
+  Tspan(SvgElement parent) {
+    super(parent.element.addElement('tspan'))
+    this.parent = parent
   }
 
-  Tspan(Element parent, String text) {
+  Tspan(SvgElement parent, String text) {
     this(parent)
     addText(text)
   }
@@ -28,22 +29,22 @@ class Tspan extends SvgElement<Tspan> {
     addAttribute('y', "$y")
   }
   /** The horizontal shift position for text (from previous text position) */
-  Text dx(Number dx) {
+  Tspan dx(Number dx) {
     addAttribute('dx', "$dx")
   }
 
   /** The vertical shift position for text (from previous text position)*/
-  Text dy(Number dy) {
+  Tspan dy(Number dy) {
     addAttribute('dy', "$dy")
   }
 
   /** The rotation (in degrees) applied to each letter of text */
-  Text rotate(Number rotate) {
+  Tspan rotate(Number rotate) {
     addAttribute('rotate', "$rotate")
   }
 
   /** The width that the text must fit in */
-  Text textLength(Number textLength) {
+  Tspan textLength(Number textLength) {
     addAttribute('textLength', "$textLength")
   }
 
@@ -58,5 +59,13 @@ class Tspan extends SvgElement<Tspan> {
   Tspan addText(String text) {
     element.setText(text)
     this
+  }
+
+  SvgElement getParent() {
+    return parent
+  }
+
+  <T> T getParent(Class<T> type) {
+    return type.cast(parent)
   }
 }
