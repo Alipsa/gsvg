@@ -8,9 +8,11 @@ import org.dom4j.Element;
  */
 class Path extends SvgElement<Path> {
 
+  static final String NAME='path'
+
   @PackageScope
   Path(SvgElement parent) {
-    super(parent.element.addElement('path'))
+    super(parent, NAME)
   }
 
   Path id(String id) {

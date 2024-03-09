@@ -5,8 +5,8 @@ import org.dom4j.Element
 
 class AbstractPoly<T extends AbstractPoly<T>> extends SvgElement<T> {
 
-  AbstractPoly(Element element) {
-    super(element)
+  AbstractPoly(SvgElement element, String name) {
+    super(element, name)
   }
 
   T points(Coordinate... points) {

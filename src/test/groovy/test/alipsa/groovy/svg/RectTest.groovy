@@ -1,11 +1,10 @@
 package test.alipsa.groovy.svg
 
-import se.alipsa.groovy.svg.XmlWriter
+import se.alipsa.groovy.svg.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.*
 
 import org.junit.jupiter.api.Test
-import se.alipsa.groovy.svg.Rect
 import se.alipsa.groovy.svg.Svg
 
 class RectTest {
@@ -23,6 +22,6 @@ class RectTest {
     assertIterableEquals(
         ['', '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200">',
         '  <rect width="200" height="100" x="100" y="50" rx="20" ry="20" fill="blue"/>',
-        '</svg>'], XmlWriter.toXmlPretty(svg).readLines())
+        '</svg>'], SvgWriter.toXmlPretty(svg).readLines())
   }
 }

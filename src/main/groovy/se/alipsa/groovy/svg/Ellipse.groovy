@@ -1,16 +1,22 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.PackageScope
-import org.dom4j.Element;
 
 /**
  * <ellipse rx="${rx}" ry="${ry}" ${optionalAttr('cx', cx)} ${optionalAttr('cy', cy)} ${optionalAttr('style', style)} />
  */
 class Ellipse extends SvgElement<Ellipse>  {
 
+  static final String NAME='ellipse'
+
+  @PackageScope
+  Ellipse(SvgElement parent) {
+    super(parent,NAME)
+  }
+
   @PackageScope
   Ellipse(SvgElement parent, Number rx, Number ry) {
-    super(parent.element.addElement('ellipse'))
+    this(parent)
     addAttribute('rx', "${rx}")
     addAttribute('ry', "${ry}")
   }

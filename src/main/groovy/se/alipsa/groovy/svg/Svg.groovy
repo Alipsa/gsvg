@@ -1,5 +1,6 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.PackageScope
 import org.dom4j.Document
 import org.dom4j.Element
 import org.dom4j.DocumentHelper
@@ -14,23 +15,45 @@ svgElements.each {
 class Svg extends SvgElement<Svg>{
   static final String xmlns="http://www.w3.org/2000/svg"
 
-  Svg(Number width, Number height) {
+  @PackageScope
+  Svg() {
     super(DocumentHelper.createDocument().addElement('svg', "${xmlns}"))
-    init(width, height)
   }
 
-  private Element init(  Number width, Number height) {
-    element
-        .addAttribute('width', "$width")
-        .addAttribute('height', "${height}")
+  Svg(Number width, Number height) {
+    this()
+    setWidth(width)
+    setHeight(height)
+  }
+
+  @PackageScope
+  Element setWidth(Number width) {
+    element.addAttribute('width', "$width")
+  }
+
+  @PackageScope
+  Element setHeight(Number height) {
+    element.addAttribute('height', "${height}")
   }
 
   Circle addCircle() {
     return new Circle(this)
   }
 
+  Ellipse addEllipse() {
+    return new Ellipse(this)
+  }
+
   Ellipse addEllipse(Number rx, Number ry) {
     return new Ellipse(this, rx, ry)
+  }
+
+  G addG() {
+    return new G(this)
+  }
+
+  Line addLine() {
+    return new Line(this)
   }
 
   Line addLine(Number x1, Number y1, Number x2, Number y2) {
@@ -61,6 +84,10 @@ class Svg extends SvgElement<Svg>{
     return new Rect(this, width, height)
   }
 
+  Rect addRect() {
+    return new Rect(this)
+  }
+
   Text addText() {
     new Text(this)
   }
@@ -73,5 +100,9 @@ class Svg extends SvgElement<Svg>{
     return element.getDocument()
   }
 
-
+  // This is the top element so we return itself as the parent
+  @Override
+  SvgElement getParent() {
+    return this
+  }
 }

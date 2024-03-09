@@ -1,7 +1,6 @@
 package test.alipsa.groovy.svg
 
 import se.alipsa.groovy.svg.Circle
-import se.alipsa.groovy.svg.XmlWriter
 
 import static org.junit.jupiter.api.Assertions.*
 

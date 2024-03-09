@@ -5,6 +5,7 @@ package se.alipsa.groovy.svg
  */
 class Text extends SvgElement<Text> {
 
+  static final String NAME='text'
   SvgElement parent
 
   Text(SvgElement parent){

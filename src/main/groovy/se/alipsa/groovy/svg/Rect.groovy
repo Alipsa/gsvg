@@ -1,16 +1,22 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.PackageScope
-import org.dom4j.Element;
 
 /**
  * <rect width="${width}" height="${height}" x="${x}" y="${y}" rx="${rx}" ry="${ry}" ${optionalAttr('fill', fill)} ${optionalAttr('style', style)}/>
  */
 class Rect extends SvgElement<Rect>  {
 
+  static final String NAME='rect'
+
+  @PackageScope
+  Rect(SvgElement parent) {
+    super(parent, NAME)
+  }
+
   @PackageScope
   Rect(SvgElement parent, Number width, Number height) {
-    super(parent.element.addElement('rect'))
+    this(parent)
     addAttribute('width', String.valueOf(width))
     addAttribute('height', String.valueOf(height))
     x(0)

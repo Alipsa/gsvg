@@ -3,7 +3,7 @@ package se.alipsa.groovy.svg
 import org.dom4j.io.OutputFormat
 import org.dom4j.io.XMLWriter
 
-class XmlWriter {
+class SvgWriter {
 
   static String toXml(Svg svg) {
     StringWriter writer = new StringWriter()

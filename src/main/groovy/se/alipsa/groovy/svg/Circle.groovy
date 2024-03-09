@@ -1,14 +1,14 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.PackageScope
-import org.dom4j.Element;
 
 class Circle extends SvgElement<Circle> {
 
+  static final String NAME='circle'
 
   @PackageScope
   Circle(SvgElement parent) {
-    super(parent.element.addElement('circle'))
+    super(parent,NAME)
   }
 
   Circle cx(Number cx) {

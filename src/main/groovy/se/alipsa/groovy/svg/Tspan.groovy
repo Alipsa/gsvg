@@ -9,8 +9,10 @@ class Tspan extends SvgElement<Tspan> {
 
   SvgElement parent
 
+  static final String NAME='tspan'
+
   Tspan(SvgElement parent) {
-    super(parent.element.addElement('tspan'))
+    super(parent.element.addElement(NAME))
     this.parent = parent
   }
 
@@ -57,7 +59,7 @@ class Tspan extends SvgElement<Tspan> {
   }
 
   Tspan addText(String text) {
-    element.setText(text)
+    element.setText(element.getText() + text)
     this
   }
 

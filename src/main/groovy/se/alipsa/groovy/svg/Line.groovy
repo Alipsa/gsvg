@@ -1,9 +1,15 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.PackageScope
-import org.dom4j.Element;
 
 class Line extends SvgElement {
+
+  static final String NAME='line'
+
+  @PackageScope
+  Line(SvgElement parent) {
+    super(parent, NAME)
+  }
 
   /**
    * <line x1="$x1" y1="$y1" x2="$x2" y2="$y2" style="$style" />
@@ -15,7 +21,7 @@ class Line extends SvgElement {
    */
   @PackageScope
   Line(SvgElement parent, Number x1, Number y1, Number x2, Number y2) {
-    super(parent.element.addElement('line'))
+    this(parent)
     addAttribute('x1', String.valueOf(x1))
     addAttribute('y1', String.valueOf(y1))
     addAttribute('x2', String.valueOf(x2))
