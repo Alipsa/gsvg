@@ -45,4 +45,25 @@ class SvgWriterTest {
                 '</text>' +
                 '</svg>', SvgWriter.toXml(svg))
     }
+
+    @Test
+    void testPrettyPrint() {
+        Svg svg = new Svg(100,100)
+        svg.addCircle().addAttributes(
+                cx: 50,
+                cy: 50,
+                r: 40,
+                stroke: 'green',
+                strokeWidth: 4,
+                fill: 'yellow'
+        )
+
+        assertEquals('''
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+          <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow"/>
+        </svg>
+        '''.stripIndent(),
+                SvgWriter.toXmlPretty(svg)
+        )
+    }
 }

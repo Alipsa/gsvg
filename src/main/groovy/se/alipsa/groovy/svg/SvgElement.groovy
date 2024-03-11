@@ -29,6 +29,17 @@ abstract class SvgElement<T extends SvgElement<T>> {
     this as T
   }
 
+  T addAttributes(Map<String, Object> attributes) {
+    attributes.each {
+      String key = it.key
+      if ('strokeWidth'.equals(key)) {
+        key = 'stroke-width'
+      }
+      addAttribute(key, it.value)
+    }
+    this as T
+  }
+
   SvgElement getParent() {
     parent
   }
