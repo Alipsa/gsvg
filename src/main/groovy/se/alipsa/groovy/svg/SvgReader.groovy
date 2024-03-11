@@ -58,7 +58,8 @@ class SvgReader extends DefaultHandler {
     SAXParserFactory factory = SAXParserFactory.newInstance();
     SAXParser saxParser = factory.newSAXParser();
     SvgReader reader = new SvgReader()
-    saxParser.parse(svgFile, reader);
+    saxParser.parse(svgFile, reader)
+    reader.svg
   }
 
   static Svg parse(InputSource svgFile) {

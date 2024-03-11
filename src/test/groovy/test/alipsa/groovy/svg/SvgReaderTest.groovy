@@ -15,7 +15,6 @@ class SvgReaderTest {
         '</svg>'
 
     Svg svg = SvgReader.parse(svgString)
-    println(svg.toXml())
     assertEquals(svgString, svg.toXml())
   }
 
@@ -27,7 +26,6 @@ class SvgReaderTest {
         '</text>' +
         '</svg>'
     Svg svg = SvgReader.parse(svgString)
-    println(svg.toXml())
     assertEquals(svgString, svg.toXml())
   }
 
@@ -41,7 +39,21 @@ class SvgReaderTest {
         '</text>' +
         '</svg>'
     Svg svg = SvgReader.parse(svgString)
-    println(svg.toXml())
+    assertEquals(svgString, svg.toXml())
+  }
+
+  @Test
+  void testFileParsing() {
+    String svgString = '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="130">' +
+            '<rect width="200" height="100" x="10" y="10" rx="20" ry="20" fill="blue"/>' +
+            '<circle r="45" cx="50" cy="50" fill="red"/>' +
+            '<text x="15" y="35" fill="white" font-size="15">I Love ' +
+            '<tspan fill="none" stroke="yellow">SVG</tspan>!' +
+            '</text>' +
+            '</svg>'
+    File file = File.createTempFile('testFileParsing', '.svg')
+    file.write(svgString)
+    Svg svg = SvgReader.parse(file)
     assertEquals(svgString, svg.toXml())
   }
 }
