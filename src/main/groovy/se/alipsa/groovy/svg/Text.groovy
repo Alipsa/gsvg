@@ -37,6 +37,11 @@ class Text extends SvgElement<Text> {
     this
   }
 
+  Text replaceContent(String content) {
+    element.setText(content)
+    this
+  }
+
   Tspan addTspan() {
     return new Tspan(this)
   }

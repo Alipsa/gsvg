@@ -40,6 +40,16 @@ abstract class SvgElement<T extends SvgElement<T>> {
     this as T
   }
 
+  T changeAttribute(String attribute, Object value) {
+    element.attribute(attribute)?.setValue("$value")
+    this as T
+  }
+
+  T removeAttribute(String attribute) {
+    element.remove(element.attribute(attribute))
+    this as T
+  }
+
   SvgElement getParent() {
     parent
   }
