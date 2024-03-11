@@ -32,7 +32,7 @@ abstract class SvgElement<T extends SvgElement<T>> {
   T addAttributes(Map<String, Object> attributes) {
     attributes.each {
       String key = it.key
-      if ('strokeWidth'.equals(key)) {
+      if ('strokeWidth' == key) {
         key = 'stroke-width'
       }
       addAttribute(key, it.value)
