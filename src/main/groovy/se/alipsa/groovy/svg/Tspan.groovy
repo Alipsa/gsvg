@@ -7,18 +7,15 @@ package se.alipsa.groovy.svg
  */
 class Tspan extends SvgElement<Tspan> {
 
-  SvgElement parent
-
   static final String NAME='tspan'
 
   Tspan(SvgElement parent) {
-    super(parent.element.addElement(NAME))
-    this.parent = parent
+    super(parent, NAME)
   }
 
   Tspan(SvgElement parent, String text) {
     this(parent)
-    addText(text)
+    addContent(text)
   }
 
   /**The x position of the start of the text. Default is 0 */
@@ -31,13 +28,13 @@ class Tspan extends SvgElement<Tspan> {
     addAttribute('y', "$y")
   }
   /** The horizontal shift position for text (from previous text position) */
-  Tspan dx(Number dx) {
-    addAttribute('dx', "$dx")
+  Tspan dx(Number... dx) {
+    addAttribute('dx', String.join(',', dx.collect {it as String}))
   }
 
   /** The vertical shift position for text (from previous text position)*/
-  Tspan dy(Number dy) {
-    addAttribute('dy', "$dy")
+  Tspan dy(Number... dy) {
+    addAttribute('dy', String.join(',', dy.collect {it as String}))
   }
 
   /** The rotation (in degrees) applied to each letter of text */
@@ -58,16 +55,8 @@ class Tspan extends SvgElement<Tspan> {
     addAttribute('stroke', stroke)
   }
 
-  Tspan addText(String text) {
+  Tspan addContent(String text) {
     element.setText(element.getText() + text)
     this
-  }
-
-  SvgElement getParent() {
-    return parent
-  }
-
-  <T> T getParent(Class<T> type) {
-    return type.cast(parent)
   }
 }

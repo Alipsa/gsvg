@@ -21,7 +21,7 @@ class SvgReader extends DefaultHandler {
 
   @Override
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-    print('begin element ' + qName)
+    //print('begin element ' + qName)
     switch (qName) {
       case Circle.NAME -> currentElement = currentElement.addCircle()
       case Ellipse.NAME -> currentElement = currentElement.addEllipse()
@@ -34,7 +34,7 @@ class SvgReader extends DefaultHandler {
       case Text.NAME -> currentElement = currentElement.addText()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
     }
-    println(', current element is now ' + currentElement.element.getName())
+    //println(', current element is now ' + currentElement.element.getName())
     for (int i = 0; i < attributes.getLength(); i++) {
       currentElement.addAttribute(attributes.getLocalName(i), attributes.getValue(i))
     }
@@ -42,16 +42,16 @@ class SvgReader extends DefaultHandler {
 
   @Override
   void endElement(String uri, String localName, String qName) throws SAXException {
-    print('end element ' + qName)
+    //print('end element ' + qName)
     currentElement = currentElement.getParent()
-    println(', current element is now ' + currentElement.element.getName())
+    //println(', current element is now ' + currentElement.element.getName())
   }
 
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)
-    println('found ' + text + ', current element is ' + currentElement.element.getName() )
-    currentElement = currentElement.addText(text)
+    //println('found ' + text + ', current element is ' + currentElement.element.getName() )
+    currentElement = currentElement.addContent(text)
   }
 
   static Svg parse(File svgFile) {

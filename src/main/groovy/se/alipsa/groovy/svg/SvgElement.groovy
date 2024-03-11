@@ -11,7 +11,7 @@ abstract class SvgElement<T extends SvgElement<T>> {
     element.asXML()
   }
 
-  SvgElement(SvgElement parent, String name) {
+  SvgElement(SvgElement<T> parent, String name) {
     this.parent = parent
     element = parent.element.addElement(name)
   }
@@ -31,6 +31,10 @@ abstract class SvgElement<T extends SvgElement<T>> {
 
   SvgElement getParent() {
     parent
+  }
+
+  <P> P getParent(Class<P> type) {
+    return type.cast(parent)
   }
 
 }

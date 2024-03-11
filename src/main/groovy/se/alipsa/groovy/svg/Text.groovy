@@ -6,11 +6,9 @@ package se.alipsa.groovy.svg
 class Text extends SvgElement<Text> {
 
   static final String NAME='text'
-  SvgElement parent
 
   Text(SvgElement parent){
-    super(parent.element.addElement('text'))
-    this.parent = parent
+    super(parent, NAME)
     x(0)
     y(0)
   }
@@ -34,7 +32,7 @@ class Text extends SvgElement<Text> {
     addAttribute('y', String.valueOf(y))
   }
 
-  Text addText(String content) {
+  Text addContent(String content) {
     element.addText(content)
     this
   }
@@ -78,9 +76,5 @@ class Text extends SvgElement<Text> {
 
   Text transform(String transform) {
     addAttribute('transform', "$transform")
-  }
-
-  SvgElement getParent() {
-    return parent
   }
 }

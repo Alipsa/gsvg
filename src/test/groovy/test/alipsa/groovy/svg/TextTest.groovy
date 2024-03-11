@@ -1,7 +1,6 @@
 package test.alipsa.groovy.svg
 
 import se.alipsa.groovy.svg.Svg
-import se.alipsa.groovy.svg.Tspan
 
 import static org.junit.jupiter.api.Assertions.*
 
@@ -31,7 +30,7 @@ class TextTest {
         .addTspan('World')
           .fill('none')
           .stroke('green')
-        .getParent(Text).addText('!')
+        .getParent(Text).addContent('!')
 
     assertEquals("""<text xmlns="http://www.w3.org/2000/svg" x="5" y="30" fill="red" font-size="35">Hello <tspan fill="none" stroke="green">World</tspan>!</text>""",
         text.toXml())
