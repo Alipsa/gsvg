@@ -27,9 +27,4 @@ class Line extends SvgElement {
     addAttribute('x2', String.valueOf(x2))
     addAttribute('y2', String.valueOf(y2))
   }
-
-  Line style(String style) {
-    addAttribute('style', style)
-  }
-
 }

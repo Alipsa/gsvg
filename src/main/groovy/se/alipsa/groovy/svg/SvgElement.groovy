@@ -50,7 +50,19 @@ abstract class SvgElement<T extends SvgElement<T>> {
     this as T
   }
 
-  // TODO: this does not return he type, or at least Intellij does not recognize it
+  T style(String style) {
+    addAttribute('style', style)
+  }
+
+  T styleClass(String styleClass) {
+    addAttribute('class', styleClass)
+  }
+
+  T id(String id) {
+    addAttribute('id', id)
+  }
+
+  // TODO: Intellij does not recognize the type
   <P extends SvgElement<P>> P getParent() {
     Class<P> clazz = parent.getClass() as Class<P>
     getParent(clazz)

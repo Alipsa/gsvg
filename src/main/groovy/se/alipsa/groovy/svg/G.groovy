@@ -1,7 +1,7 @@
 package se.alipsa.groovy.svg
 
 /** A container for grouping other SVG elements */
-class G extends SvgElement<G> {
+class G extends AbstractElementContainer<G> {
 
     static final String NAME='g'
     /*

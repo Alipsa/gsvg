@@ -41,10 +41,6 @@ class Rect extends SvgElement<Rect>  {
     addAttribute('ry', String.valueOf(ry))
   }
 
-  Rect style(String style) {
-    addAttribute('style', String.valueOf(style))
-  }
-
   Rect fill(String fill) {
     addAttribute('fill', String.valueOf(fill))
   }

@@ -15,15 +15,8 @@ class Path extends SvgElement<Path> {
     super(parent, NAME)
   }
 
-  Path id(String id) {
-    addAttribute('id', id)
-  }
-
   Path d(String d) {
     addAttribute('d', d)
   }
 
-  Path style(String style) {
-    addAttribute('style', style)
-  }
 }

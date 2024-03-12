@@ -28,8 +28,4 @@ class Ellipse extends SvgElement<Ellipse>  {
   Ellipse cy(Number cy) {
     addAttribute('cy', "${cy}")
   }
-
-  Ellipse style(String style) {
-    addAttribute('style', "${style}")
-  }
 }
