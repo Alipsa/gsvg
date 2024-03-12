@@ -33,7 +33,7 @@ class SvgWriterTest {
             .addTspan('SVG')
                 .fill('none')
                 .stroke('yellow')
-            .getParent(Text)
+            .getParent()
             .addContent('!')
         .getParent(Svg)
 

@@ -5,13 +5,13 @@ import org.dom4j.Element
 abstract class SvgElement<T extends SvgElement<T>> {
 
   protected Element element
-  SvgElement parent
+  SvgElement<? extends SvgElement> parent
 
   String toXml() {
     element.asXML()
   }
 
-  SvgElement(SvgElement<T> parent, String name) {
+  SvgElement(SvgElement<? extends SvgElement> parent, String name) {
     this.parent = parent
     element = parent.element.addElement(name)
   }
@@ -50,11 +50,12 @@ abstract class SvgElement<T extends SvgElement<T>> {
     this as T
   }
 
-  SvgElement getParent() {
-    parent
+  // TODO: this does not return he type, or at least Intellij does not recognize it
+  <P extends SvgElement<P>> P getParent() {
+    parent as P
   }
 
-  <P> P getParent(Class<P> type) {
+  <P extends SvgElement<P>> P getParent(Class<P> type) {
     return type.cast(parent)
   }
 
