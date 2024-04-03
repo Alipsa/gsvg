@@ -5,6 +5,8 @@ import org.dom4j.Element
 abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> extends SvgElement<T> {
 
 
+    List<SvgElement<? extends SvgElement>> children = []
+
     AbstractElementContainer(SvgElement<? extends SvgElement> parent, String name) {
         super(parent, name)
     }
@@ -14,7 +16,9 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     }
 
     Circle addCircle() {
-        return new Circle(this)
+        def c = new Circle(this)
+        children << c
+        c
     }
 
     Ellipse addEllipse() {
@@ -26,7 +30,9 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     }
 
     G addG() {
-        return new G(this)
+        def g = new G(this)
+        children << g
+        g
     }
 
     Line addLine() {

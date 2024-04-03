@@ -13,8 +13,28 @@ class G extends AbstractElementContainer<G> {
     List<SvgElement> items = []
     */
 
+    String getName() {
+        return NAME
+    }
+
     G(SvgElement parent) {
         super(parent, NAME)
+    }
+
+    G fill(String fill) {
+        addAttribute('fill', String.valueOf(fill))
+    }
+
+    G stroke(String stroke) {
+        addAttribute('stroke', "$stroke")
+    }
+
+    G strokeWidth(Number strokeWidth) {
+        addAttribute('stroke-width', "$strokeWidth")
+    }
+
+    G transform(String transformation) {
+        addAttribute('transform', transformation)
     }
 
 }

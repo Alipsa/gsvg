@@ -50,8 +50,10 @@ class SvgReader extends DefaultHandler {
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)
-    //println('found ' + text + ', current element is ' + currentElement.element.getName() )
-    currentElement = currentElement.addContent(text)
+    if (currentElement.element.getName() in ['text', 'tspan']) {
+      //println('found ' + text + ', current element is ' + currentElement.element.getName())
+      currentElement = currentElement.addContent(text)
+    }
   }
 
   static Svg parse(File svgFile) {

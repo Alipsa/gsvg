@@ -24,6 +24,10 @@ abstract class SvgElement<T extends SvgElement<T>> {
     this.element = element
   }
 
+  String getAttribute(String name) {
+    element.attributeValue(name)
+  }
+
   T addAttribute(String name, Object value) {
     element.addAttribute(name, "$value")
     this as T
