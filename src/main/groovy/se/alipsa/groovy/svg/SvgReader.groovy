@@ -23,6 +23,7 @@ class SvgReader extends DefaultHandler {
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     //print('begin element ' + qName)
     switch (qName) {
+      case A.NAME -> currentElement = currentElement.addA()
       case Circle.NAME -> currentElement = currentElement.addCircle()
       case Ellipse.NAME -> currentElement = currentElement.addEllipse()
       case G.NAME -> currentElement = currentElement.addG()

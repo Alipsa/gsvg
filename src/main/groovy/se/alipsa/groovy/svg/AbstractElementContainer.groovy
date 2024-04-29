@@ -15,67 +15,76 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
         super(element)
     }
 
+    SvgElement getAt(Integer index) {
+        children[index]
+    }
+
+    A addA() {
+        add(new A(this))
+    }
+
     Circle addCircle() {
-        def c = new Circle(this)
-        children << c
-        c
+        add(new Circle(this))
     }
 
     Ellipse addEllipse() {
-        return new Ellipse(this)
+        add(new Ellipse(this))
     }
 
     Ellipse addEllipse(Number rx, Number ry) {
-        return new Ellipse(this, rx, ry)
+        add(new Ellipse(this, rx, ry))
     }
 
     G addG() {
-        def g = new G(this)
-        children << g
-        g
+        add(new G(this))
     }
 
     Line addLine() {
-        return new Line(this)
+        add(new Line(this))
     }
 
     Line addLine(Number x1, Number y1, Number x2, Number y2) {
-        return new Line(this, x1, y1, x2, y2)
+        add(new Line(this, x1, y1, x2, y2))
     }
 
     Path addPath() {
-        return new Path(this)
+        add(new Path(this))
     }
 
     Polygon addPolygon(Coordinate ... points) {
-        return new Polygon(this, points)
+        add(new Polygon(this, points))
     }
 
     Polygon addPolygon(List<Number>... points) {
-        return new Polygon(this, points)
+        add(new Polygon(this, points))
     }
 
     Polyline addPolyline(Coordinate ... points) {
-        return new Polyline(this, points)
+        add(new Polyline(this, points))
     }
 
     Polyline addPolyline(List<Number>... points) {
-        return new Polyline(this, points)
+        add(new Polyline(this, points))
     }
 
     Rect addRect(Number width, Number height) {
-        return new Rect(this, width, height)
+        add(new Rect(this, width, height))
     }
 
     Rect addRect() {
-        return new Rect(this)
+        add(new Rect(this))
     }
 
     Text addText() {
-        new Text(this)
+        add(new Text(this))
     }
 
     Text addText(String content) {
-        new Text(this, content)
+        add(new Text(this, content))
+    }
+
+    <E extends SvgElement> E add(E element) {
+        children.add(element)
+        element
     }
 }
