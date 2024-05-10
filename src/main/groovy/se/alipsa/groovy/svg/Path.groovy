@@ -19,4 +19,16 @@ class Path extends SvgElement<Path> {
     addAttribute('d', d)
   }
 
+  String getD() {
+    getAttribute('d')
+  }
+
+  Path fill(String fill) {
+    addAttribute('fill', fill)
+  }
+
+  String getFill() {
+    getAttribute('fill')
+  }
+
 }

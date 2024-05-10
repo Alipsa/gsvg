@@ -11,12 +11,24 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
         super(parent, name)
     }
 
+    /**
+     * Special constructor for Svg asit does not have a parent
+     * Use this only to create Svg elements!
+     */
     AbstractElementContainer(Element element) {
         super(element)
     }
 
     SvgElement getAt(Integer index) {
         children[index]
+    }
+
+    List<SvgElement> getAt(String name) {
+        children.stream().filter (e -> e.name == name).findAll()
+    }
+
+    List<SvgElement> getAt(Class<? extends SvgElement> clazz) {
+        children.stream().filter (e -> e.class == clazz).findAll()
     }
 
     A addA() {
@@ -83,8 +95,8 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
         add(new Text(this, content))
     }
 
-    <E extends SvgElement> E add(E element) {
-        children.add(element)
-        element
+    <E extends SvgElement> E add(E svgElement) {
+        children.add(svgElement)
+        svgElement
     }
 }

@@ -25,16 +25,32 @@ class G extends AbstractElementContainer<G> {
         addAttribute('fill', String.valueOf(fill))
     }
 
+    String getFill() {
+        getAttribute('fill')
+    }
+
     G stroke(String stroke) {
         addAttribute('stroke', "$stroke")
+    }
+
+    String getStroke() {
+        getAttribute('stroke')
     }
 
     G strokeWidth(Number strokeWidth) {
         addAttribute('stroke-width', "$strokeWidth")
     }
 
+    String getStrokeWidth() {
+        getAttribute('stroke-width')
+    }
+
     G transform(String transformation) {
         addAttribute('transform', transformation)
+    }
+
+    String getTransform() {
+        getAttribute('transform')
     }
 
 }

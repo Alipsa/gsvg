@@ -15,25 +15,31 @@ class SvgReader extends DefaultHandler {
 
   @Override
   void startDocument() throws SAXException {
-    currentElement = new Svg()
-    svg = currentElement
+    svg = new Svg()
   }
 
   @Override
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     //print('begin element ' + qName)
+    // Note, we do no checking of weather the XML is properly constructed or not e.g.
+    // we do not check that a defs element only exists under a svg element, that a marker only exists in a defs etc.
     switch (qName) {
       case A.NAME -> currentElement = currentElement.addA()
+      case Animate.NAME -> currentElement = currentElement.addAnimate()
       case Circle.NAME -> currentElement = currentElement.addCircle()
+      case Defs.NAME -> currentElement = currentElement.addDefs()
       case Ellipse.NAME -> currentElement = currentElement.addEllipse()
       case G.NAME -> currentElement = currentElement.addG()
       case Line.NAME -> currentElement = currentElement.addLine()
+      case Marker.NAME -> currentElement = currentElement.addMarker()
       case Path.NAME -> currentElement = currentElement.addPath()
       case Polygon.NAME -> currentElement = currentElement.addPolygon()
       case Polyline.NAME -> currentElement = currentElement.addPolyline()
       case Rect.NAME -> currentElement = currentElement.addRect()
+      case Svg.NAME -> currentElement = svg
       case Text.NAME -> currentElement = currentElement.addText()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
+      default -> throw new SAXException("$qName is unknown to the SvgReader, dont know what to do")
     }
     //println(', current element is now ' + currentElement.element.getName())
     for (int i = 0; i < attributes.getLength(); i++) {

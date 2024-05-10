@@ -25,7 +25,15 @@ class Ellipse extends SvgElement<Ellipse>  {
     addAttribute('cx', "${cx}")
   }
 
+  String getCx() {
+    getAttribute('cx')
+  }
+
   Ellipse cy(Number cy) {
     addAttribute('cy', "${cy}")
+  }
+
+  String getCy() {
+    getAttribute('cy')
   }
 }

@@ -33,6 +33,10 @@ class AbstractPoly<T extends AbstractPoly<T>> extends SvgElement<T> {
     this as T
   }
 
+  String getPoints() {
+    getAttribute('points')
+  }
+
   private static String toAttributeValues(Coordinate... points) {
     return (points as List<Coordinate>).collect({ it.toString() }).join(' ')
   }

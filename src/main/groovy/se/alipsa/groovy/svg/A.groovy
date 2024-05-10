@@ -17,8 +17,16 @@ class A extends AbstractElementContainer<A> {
         addAttribute('href', href)
     }
 
+    String getHref() {
+        getAttribute('href')
+    }
+
     A target(String target) {
         addAttribute('target', target)
+    }
+
+    String getTarget() {
+        getAttribute('target')
     }
 
 }

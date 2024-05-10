@@ -66,6 +66,10 @@ abstract class SvgElement<T extends SvgElement<T>> {
     addAttribute('id', id)
   }
 
+  String getId() {
+    getAttribute('id')
+  }
+
   // TODO: Intellij does not recognize the type
   <P extends SvgElement<P>> P getParent() {
     Class<P> clazz = parent.getClass() as Class<P>
@@ -76,4 +80,7 @@ abstract class SvgElement<T extends SvgElement<T>> {
     return type.cast(parent)
   }
 
+  String getName() {
+    element.getName()
+  }
 }

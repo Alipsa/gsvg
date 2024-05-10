@@ -12,7 +12,8 @@ svgElements.each {
 }
 </svg>
  */
-class Svg extends AbstractElementContainer<Svg>{
+class Svg extends AbstractElementContainer<Svg> {
+  static final String NAME='svg'
   static final String xmlns="http://www.w3.org/2000/svg"
 
   @PackageScope
@@ -37,12 +38,16 @@ class Svg extends AbstractElementContainer<Svg>{
   }
 
   Document getDocument() {
-    return element.getDocument()
+    element.getDocument()
+  }
+
+  Defs addDefs() {
+    add(new Defs(this))
   }
 
   // This is the top element so we return itself as the parent
   @Override
   SvgElement getParent() {
-    return this
+    this
   }
 }

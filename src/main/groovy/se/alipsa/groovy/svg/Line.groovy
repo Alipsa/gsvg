@@ -27,4 +27,52 @@ class Line extends SvgElement {
     addAttribute('x2', String.valueOf(x2))
     addAttribute('y2', String.valueOf(y2))
   }
+
+  String getX1() {
+    getAttribute('x1')
+  }
+
+  String getY1() {
+    getAttribute('y1')
+  }
+
+  String getX2() {
+    getAttribute('x2')
+  }
+
+  String getY2() {
+    getAttribute('y2')
+  }
+
+  Line stroke(String color) {
+    addAttribute('stroke', color)
+  }
+
+  String getStroke() {
+    getAttribute('stroke')
+  }
+
+  Line strokeWidth(Number width) {
+    addAttribute('stroke-width', width)
+  }
+
+  String getStrokeWidth() {
+    getAttribute('stroke-width')
+  }
+
+  Line markerStart(String start) {
+    addAttribute('marker-start', start)
+  }
+
+  String getMarkerStart() {
+    getAttribute('marker-start')
+  }
+
+  Line markerEnd(String end) {
+    addAttribute('marker-end', end)
+  }
+
+  String getMarkerEnd() {
+    getAttribute('marker-end')
+  }
 }
