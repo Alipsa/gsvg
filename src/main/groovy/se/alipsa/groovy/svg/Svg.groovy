@@ -16,25 +16,30 @@ class Svg extends AbstractElementContainer<Svg> {
   static final String NAME='svg'
   static final String xmlns="http://www.w3.org/2000/svg"
 
-  @PackageScope
   Svg() {
     super(DocumentHelper.createDocument().addElement('svg', "${xmlns}"))
   }
 
   Svg(Number width, Number height) {
     this()
-    setWidth(width)
-    setHeight(height)
+    width(width)
+    height(height)
   }
 
-  @PackageScope
-  Element setWidth(Number width) {
+  Element width(Number width) {
     element.addAttribute('width', "$width")
   }
 
-  @PackageScope
-  Element setHeight(Number height) {
-    element.addAttribute('height', "${height}")
+  String getWidth() {
+    getAttribute('width')
+  }
+
+  Svg height(Number height) {
+    addAttribute('height', "${height}")
+  }
+
+  String getHeight() {
+    getAttribute('height')
   }
 
   Document getDocument() {
@@ -43,6 +48,15 @@ class Svg extends AbstractElementContainer<Svg> {
 
   Defs addDefs() {
     add(new Defs(this))
+  }
+
+  Svg viewBox(String params) {
+    addAttribute('viewBox', params)
+  }
+
+  Svg addXlink() {
+    element.addNamespace(xlinkNs.prefix, xlinkNs.getURI())
+    this
   }
 
   // This is the top element so we return itself as the parent

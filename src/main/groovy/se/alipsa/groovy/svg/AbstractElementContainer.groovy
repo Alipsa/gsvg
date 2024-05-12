@@ -95,6 +95,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
         add(new Text(this, content))
     }
 
+    ClipPath addClipPath() {
+        add(new ClipPath(this))
+    }
+
+    Use addUse() {
+        add(new Use(this))
+    }
+
     <E extends SvgElement> E add(E svgElement) {
         children.add(svgElement)
         svgElement

@@ -27,6 +27,7 @@ class SvgReader extends DefaultHandler {
       case A.NAME -> currentElement = currentElement.addA()
       case Animate.NAME -> currentElement = currentElement.addAnimate()
       case Circle.NAME -> currentElement = currentElement.addCircle()
+      case ClipPath.NAME -> currentElement = currentElement.addClipPath()
       case Defs.NAME -> currentElement = currentElement.addDefs()
       case Ellipse.NAME -> currentElement = currentElement.addEllipse()
       case G.NAME -> currentElement = currentElement.addG()
@@ -39,6 +40,7 @@ class SvgReader extends DefaultHandler {
       case Svg.NAME -> currentElement = svg
       case Text.NAME -> currentElement = currentElement.addText()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
+      case Use.NAME -> currentElement = currentElement.addUse()
       default -> throw new SAXException("$qName is unknown to the SvgReader, dont know what to do")
     }
     //println(', current element is now ' + currentElement.element.getName())

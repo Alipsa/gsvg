@@ -1,9 +1,12 @@
 package se.alipsa.groovy.svg
 
 import org.dom4j.Element
+import org.dom4j.Namespace
+import org.dom4j.QName
 
 abstract class SvgElement<T extends SvgElement<T>> {
 
+  Namespace xlinkNs = new Namespace('xlink', 'http://www.w3.org/1999/xlink')
   protected Element element
   SvgElement<? extends SvgElement> parent
 
@@ -82,5 +85,13 @@ abstract class SvgElement<T extends SvgElement<T>> {
 
   String getName() {
     element.getName()
+  }
+
+  Namespace getXlinkNs() {
+    xlinkNs
+  }
+
+  QName xlink(String prefix) {
+    new QName('href', xlinkNs)
   }
 }
