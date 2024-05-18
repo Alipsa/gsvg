@@ -32,11 +32,13 @@ class SvgReader extends DefaultHandler {
       case Ellipse.NAME -> currentElement = currentElement.addEllipse()
       case G.NAME -> currentElement = currentElement.addG()
       case Line.NAME -> currentElement = currentElement.addLine()
+      case LinearGradient.NAME -> currentElement = currentElement.addLinearGradient()
       case Marker.NAME -> currentElement = currentElement.addMarker()
       case Path.NAME -> currentElement = currentElement.addPath()
       case Polygon.NAME -> currentElement = currentElement.addPolygon()
       case Polyline.NAME -> currentElement = currentElement.addPolyline()
       case Rect.NAME -> currentElement = currentElement.addRect()
+      case Stop.NAME -> currentElement = currentElement.addStop()
       case Svg.NAME -> currentElement = svg
       case Text.NAME -> currentElement = currentElement.addText()
       case Tspan.NAME -> currentElement = currentElement.addTspan()

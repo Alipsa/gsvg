@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-class A extends AbstractElementContainer<A> {
+class A extends AbstractElementContainer<A> implements LinearGradientContainer {
 
     static final String NAME = 'a'
 

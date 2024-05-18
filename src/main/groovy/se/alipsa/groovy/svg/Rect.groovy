@@ -29,19 +29,39 @@ class Rect extends SvgElement<Rect>  {
     addAttribute('x', String.valueOf(x))
   }
 
+  String getX() {
+    getAttribute('x')
+  }
+
   Rect y(Number y) {
     addAttribute('y', String.valueOf(y))
+  }
+
+  String getY() {
+    getAttribute('y')
   }
 
   Rect rx(Number rx) {
     addAttribute('rx', String.valueOf(rx))
   }
 
+  String getRx() {
+    getAttribute('rx')
+  }
+
   Rect ry(Number ry) {
     addAttribute('ry', String.valueOf(ry))
   }
 
+  String getRy() {
+    getAttribute('ry')
+  }
+
   Rect fill(String fill) {
     addAttribute('fill', fill)
+  }
+
+  String getFill() {
+    getAttribute('fill')
   }
 }

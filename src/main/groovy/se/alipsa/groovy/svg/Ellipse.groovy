@@ -36,4 +36,20 @@ class Ellipse extends SvgElement<Ellipse>  {
   String getCy() {
     getAttribute('cy')
   }
+
+  Ellipse fill(String fill) {
+    addAttribute('fill', fill)
+  }
+
+  String getFill() {
+    getAttribute('fill')
+  }
+
+  String getRx() {
+    getAttribute('rx')
+  }
+
+  String getRy() {
+    getAttribute('ry')
+  }
 }

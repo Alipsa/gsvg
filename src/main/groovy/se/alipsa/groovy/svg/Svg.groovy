@@ -12,7 +12,7 @@ svgElements.each {
 }
 </svg>
  */
-class Svg extends AbstractElementContainer<Svg> {
+class Svg extends AbstractElementContainer<Svg> implements LinearGradientContainer {
   static final String NAME='svg'
   static final String xmlns="http://www.w3.org/2000/svg"
 
@@ -20,10 +20,10 @@ class Svg extends AbstractElementContainer<Svg> {
     super(DocumentHelper.createDocument().addElement('svg', "${xmlns}"))
   }
 
-  Svg(Number width, Number height) {
+  Svg(Number w, Number h) {
     this()
-    width(width)
-    height(height)
+    width(w)
+    height(h)
   }
 
   Element width(Number width) {
@@ -35,7 +35,7 @@ class Svg extends AbstractElementContainer<Svg> {
   }
 
   Svg height(Number height) {
-    addAttribute('height', "${height}")
+    addAttribute('height', "$height")
   }
 
   String getHeight() {
