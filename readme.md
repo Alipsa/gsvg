@@ -1,4 +1,4 @@
-# SVG Model
+# Groovy Scalar Vector Graphics (gsvg)
 
 This is an object model to create (or parse and manipulate) SVG documents for groovy.
 If you have groovy in your classpath, you can use it in any JVM language (Java, Scala, etc.).
