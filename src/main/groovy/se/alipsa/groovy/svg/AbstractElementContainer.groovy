@@ -2,33 +2,18 @@ package se.alipsa.groovy.svg
 
 import org.dom4j.Element
 
-abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> extends SvgElement<T> {
-
-
-    List<SvgElement<? extends SvgElement>> children = []
+abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> extends SvgElement<T> implements ElementContainer {
 
     AbstractElementContainer(SvgElement<? extends SvgElement> parent, String name) {
         super(parent, name)
     }
 
     /**
-     * Special constructor for Svg asit does not have a parent
+     * Special constructor for Svg as it does not have a parent
      * Use this only to create Svg elements!
      */
     AbstractElementContainer(Element element) {
         super(element)
-    }
-
-    SvgElement getAt(Integer index) {
-        children[index]
-    }
-
-    List<SvgElement> getAt(String name) {
-        children.stream().filter (e -> e.name == name).findAll()
-    }
-
-    List<SvgElement> getAt(Class<? extends SvgElement> clazz) {
-        children.stream().filter (e -> e.class == clazz).findAll()
     }
 
     A addA() {
@@ -101,10 +86,5 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
 
     Use addUse() {
         add(new Use(this))
-    }
-
-    <E extends SvgElement> E add(E svgElement) {
-        children.add(svgElement)
-        svgElement
     }
 }

@@ -3,20 +3,12 @@ package se.alipsa.groovy.svg;
 /**
  * Parents: a | defs | g | marker | mask | pattern | svg | symbol.
  */
-class LinearGradient extends SvgElement<LinearGradient>{
+class LinearGradient extends Gradient<LinearGradient> {
 
   static final String NAME = 'linearGradient'
 
-  List<Stop> stops = []
-
   LinearGradient(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
-  }
-
-  Stop addStop() {
-    Stop stop = new Stop(this)
-    stops << stop
-    stop
   }
 
   LinearGradient x1(String x1) {

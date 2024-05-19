@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-import groovy.transform.PackageScope
+
 import org.dom4j.Document
 import org.dom4j.Element
 import org.dom4j.DocumentHelper
@@ -12,7 +12,7 @@ svgElements.each {
 }
 </svg>
  */
-class Svg extends AbstractElementContainer<Svg> implements LinearGradientContainer {
+class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
   static final String NAME='svg'
   static final String xmlns="http://www.w3.org/2000/svg"
 
