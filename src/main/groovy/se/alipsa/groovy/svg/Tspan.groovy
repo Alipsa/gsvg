@@ -55,6 +55,10 @@ class Tspan extends SvgElement<Tspan> {
     addAttribute('stroke', stroke)
   }
 
+  String getStroke() {
+    getAttribute('stroke')
+  }
+
   Tspan addContent(String text) {
     element.setText(element.getText() + text)
     this

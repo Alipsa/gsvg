@@ -73,6 +73,10 @@ abstract class SvgElement<T extends SvgElement<T>> {
     getAttribute('id')
   }
 
+  T filter(String filter) {
+    addAttribute('filter', filter)
+  }
+
   // TODO: Intellij does not recognize the type
   <P extends SvgElement<P>> P getParent() {
     Class<P> clazz = parent.getClass() as Class<P>

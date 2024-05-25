@@ -9,11 +9,26 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer {
   }
 
   Marker addMarker() {
-    Marker marker = add(new Marker(this))
-    marker
+    add(new Marker(this))
   }
 
   Marker addMarker(String id) {
     addMarker().id(id)
+  }
+
+  Pattern addPattern() {
+    add(new Pattern(this))
+  }
+
+  Pattern addPattern(String id) {
+    add(new Pattern(this).id(id))
+  }
+
+  Filter addFilter() {
+    add(new Filter(this))
+  }
+
+  Filter addFilter(String id) {
+    add(new Filter(this).id(id))
   }
 }

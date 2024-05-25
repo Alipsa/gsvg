@@ -15,14 +15,16 @@ class Rect extends SvgElement<Rect>  {
   }
 
   @PackageScope
-  Rect(SvgElement parent, Number width, Number height) {
+  Rect(SvgElement parent, Number width, Number height, boolean... addDefaults) {
     this(parent)
     addAttribute('width', String.valueOf(width))
     addAttribute('height', String.valueOf(height))
-    x(0)
-    y(0)
-    rx(0)
-    ry(0)
+    if (addDefaults.length > 0 && addDefaults[0]) {
+      x(0)
+      y(0)
+      rx(0)
+      ry(0)
+    }
   }
 
   Rect x(Number x) {
@@ -63,5 +65,13 @@ class Rect extends SvgElement<Rect>  {
 
   String getFill() {
     getAttribute('fill')
+  }
+
+  Rect stroke(String stroke) {
+    addAttribute('stroke', "$stroke")
+  }
+
+  String getStroke() {
+    getAttribute('stroke')
   }
 }
