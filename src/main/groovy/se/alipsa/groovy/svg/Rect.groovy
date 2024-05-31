@@ -27,6 +27,22 @@ class Rect extends SvgElement<Rect>  {
     }
   }
 
+  Rect width(Number width) {
+    addAttribute('width', "$width")
+  }
+
+  String getWidth() {
+    getAttribute('width')
+  }
+
+  Rect height(Number height) {
+    addAttribute('height', "$height")
+  }
+
+  String getHeight() {
+    getAttribute('height')
+  }
+
   Rect x(Number x) {
     addAttribute('x', String.valueOf(x))
   }

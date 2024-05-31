@@ -6,9 +6,14 @@ import org.dom4j.QName
 
 abstract class SvgElement<T extends SvgElement<T>> {
 
+  private List<Animation> animations = []
+
   Namespace xlinkNs = new Namespace('xlink', 'http://www.w3.org/1999/xlink')
   protected Element element
   SvgElement<? extends SvgElement> parent
+
+  Desc desc
+  Title title
 
   String toXml() {
     element.asXML()
@@ -95,7 +100,62 @@ abstract class SvgElement<T extends SvgElement<T>> {
     xlinkNs
   }
 
+  Title addTitle() {
+    title = new Title(this)
+  }
+
+  Title addTitle(String content) {
+    title = new Title(this).addContent(content)
+  }
+
+  Title getTitle() {
+    title
+  }
+
+  Desc addDesc() {
+    desc = new Desc(this)
+  }
+
+  Desc addDesc(String content) {
+    desc = new Desc(this).addContent(content)
+  }
+
+  Desc getDesc() {
+    desc
+  }
+
   QName xlink(String prefix) {
     new QName('href', xlinkNs)
   }
+
+  Animate addAnimate() {
+    Animate animate = new Animate(this)
+    animations << animate
+    animate
+  }
+
+  AnimateMotion addAnimateMotion() {
+    AnimateMotion motion = new AnimateMotion(this)
+    animations << motion
+    motion
+  }
+
+  AnimateTransform addAnimateTransform() {
+    AnimateTransform transform = new AnimateTransform(this)
+    animations << transform
+    transform
+  }
+
+  List<Animation> getAnimations() {
+    animations
+  }
+
+  Animation getAnimation() {
+    if (animations.size() > 0) {
+      animations[0]
+    } else {
+      null
+    }
+  }
+
 }

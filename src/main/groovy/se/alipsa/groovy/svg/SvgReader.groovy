@@ -26,10 +26,21 @@ class SvgReader extends DefaultHandler {
     switch (qName) {
       case A.NAME -> currentElement = currentElement.addA()
       case Animate.NAME -> currentElement = currentElement.addAnimate()
+      case AnimateMotion.NAME -> currentElement = currentElement.addAnimateMotion()
+      case AnimateTransform.NAME -> currentElement = currentElement.addAnimateTransform()
       case Circle.NAME -> currentElement = currentElement.addCircle()
       case ClipPath.NAME -> currentElement = currentElement.addClipPath()
       case Defs.NAME -> currentElement = currentElement.addDefs()
+      case Desc.NAME -> currentElement = currentElement.addDesc()
       case Ellipse.NAME -> currentElement = currentElement.addEllipse()
+      case FeBlend.NAME -> currentElement = currentElement.addFeBlend()
+      case FeColorMatrix.NAME -> currentElement = currentElement.addFeColorMatrix()
+      case FeComponentTransfer.NAME -> currentElement = currentElement.addFeComponentTransfer()
+      case FeFlood.NAME -> currentElement = currentElement.addFeFlood()
+      case FeFuncA.NAME -> currentElement = currentElement.addFeFuncA()
+      case FeFuncB.NAME -> currentElement = currentElement.addFeFuncB()
+      case FeFuncG.NAME -> currentElement = currentElement.addFeFuncG()
+      case FeFuncR.NAME -> currentElement = currentElement.addFeFuncR()
       case FeGaussianBlur.NAME -> currentElement = currentElement.addFeGaussianBlur()
       case Filter.NAME -> currentElement = currentElement.addFilter()
       case G.NAME -> currentElement = currentElement.addG()
@@ -45,6 +56,7 @@ class SvgReader extends DefaultHandler {
       case Stop.NAME -> currentElement = currentElement.addStop()
       case Svg.NAME -> currentElement = svg
       case Text.NAME -> currentElement = currentElement.addText()
+      case Title.NAME -> currentElement = currentElement.addTitle()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
       case Use.NAME -> currentElement = currentElement.addUse()
       default -> throw new SAXException("$qName is unknown to the SvgReader, dont know what to do")
@@ -65,7 +77,7 @@ class SvgReader extends DefaultHandler {
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)
-    if (currentElement.element.getName() in ['text', 'tspan']) {
+    if (currentElement.element.getName() in ['text', 'tspan', 'title', 'desc']) {
       //println('found ' + text + ', current element is ' + currentElement.element.getName())
       currentElement = currentElement.addContent(text)
     }

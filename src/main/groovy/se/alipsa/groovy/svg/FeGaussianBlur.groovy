@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-class FeGaussianBlur extends SvgElement<FeGaussianBlur> {
+class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
 
   static final String NAME = 'feGaussianBlur'
 

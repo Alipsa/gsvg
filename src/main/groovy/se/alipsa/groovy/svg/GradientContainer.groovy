@@ -12,4 +12,6 @@ trait GradientContainer extends ElementContainer {
   RadialGradient addRadialGradient() {
     add(new RadialGradient(this as SvgElement<? extends SvgElement>))
   }
+
+
 }

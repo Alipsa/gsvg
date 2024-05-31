@@ -53,4 +53,27 @@ class G extends AbstractElementContainer<G> implements GradientContainer {
         getAttribute('transform')
     }
 
+    G fontSize(Number size) {
+        addAttribute('font-size', size)
+    }
+
+    String getFontSize() {
+        getAttribute('font-size')
+    }
+
+    G fontFamily(String family) {
+        addAttribute('font-family', family)
+    }
+
+    String getFontFamily() {
+        getAttribute('font-family')
+    }
+
+    G fontWeight(String weight) {
+        addAttribute('font-weight', weight)
+    }
+
+    String getFontWeight() {
+        getAttribute('font-weight')
+    }
 }

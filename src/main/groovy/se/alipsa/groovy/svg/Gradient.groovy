@@ -13,4 +13,8 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
     stops << stop
     stop
   }
+
+  T gradientUnits(String units) {
+    addAttribute('gradientUnits', units)
+  }
 }

@@ -12,6 +12,10 @@ class Stop extends SvgElement<Stop> {
     addAttribute("offset", offset)
   }
 
+  Stop offset(Number offset) {
+    addAttribute("offset", offset)
+  }
+
   String getOffset() {
     getAttribute("offset")
   }

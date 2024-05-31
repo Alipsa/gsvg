@@ -26,8 +26,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
     height(h)
   }
 
-  Element width(Number width) {
-    element.addAttribute('width', "$width")
+  Svg width(String width) {
+    addAttribute('width', width)
+  }
+
+  Svg width(Number width) {
+    addAttribute('width', width)
   }
 
   String getWidth() {
@@ -35,7 +39,11 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
   }
 
   Svg height(Number height) {
-    addAttribute('height', "$height")
+    addAttribute('height', height)
+  }
+
+  Svg height(String height) {
+    addAttribute('height', height)
   }
 
   String getHeight() {
@@ -63,5 +71,13 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
   @Override
   SvgElement getParent() {
     this
+  }
+
+  Svg version(String version) {
+    addAttribute('version', version)
+  }
+
+  String getVersion() {
+    getAttribute('version')
   }
 }
