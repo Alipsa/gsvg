@@ -150,9 +150,9 @@ class FilterTest {
       <rect width="100%" height="50%" fill="white" filter="url(#cm)"/>    
       <rect y="50%" width="100%" height="50%" fill="white" filter="url(#cmRGB)"/>
     </svg>
-    '''
+    '''.stripIndent().replaceAll("\\s+",' ').replace('> <', '><').trim()
     Svg svg = SvgReader.parse(svgContent)
-    println(svg.toXml())
+    assertEquals(svgContent, SvgWriter.toXml(svg))
   }
 
   @Test
