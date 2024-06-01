@@ -20,12 +20,12 @@ class Line extends SvgElement {
    * @param y2 The end of the line on the y-axis
    */
   @PackageScope
-  Line(SvgElement parent, Number x1, Number y1, Number x2, Number y2) {
+  Line(SvgElement parent, Number x1val, Number y1val, Number x2val, Number y2val) {
     this(parent)
-    x1(x1)
-    y1(y1)
-    x2(x2)
-    y2(y2)
+    x1(x1val)
+    y1(y1val)
+    x2(x2val)
+    y2(y2val)
   }
 
   Line x1(Number value) {
