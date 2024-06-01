@@ -22,22 +22,38 @@ class Line extends SvgElement {
   @PackageScope
   Line(SvgElement parent, Number x1, Number y1, Number x2, Number y2) {
     this(parent)
-    addAttribute('x1', String.valueOf(x1))
-    addAttribute('y1', String.valueOf(y1))
-    addAttribute('x2', String.valueOf(x2))
-    addAttribute('y2', String.valueOf(y2))
+    x1(x1)
+    y1(y1)
+    x2(x2)
+    y2(y2)
+  }
+
+  Line x1(Number value) {
+    addAttribute('x1', value)
   }
 
   String getX1() {
     getAttribute('x1')
   }
 
+  Line y1(Number value) {
+    addAttribute('y1', value)
+  }
+
   String getY1() {
     getAttribute('y1')
   }
 
+  Line x2(Number value) {
+    addAttribute('x2', value)
+  }
+
   String getX2() {
     getAttribute('x2')
+  }
+
+  Line y2(Number value) {
+    addAttribute('y2', value)
   }
 
   String getY2() {

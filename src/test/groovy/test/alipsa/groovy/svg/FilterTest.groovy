@@ -7,6 +7,7 @@ import se.alipsa.groovy.svg.FeFlood
 import se.alipsa.groovy.svg.FeGaussianBlur
 import se.alipsa.groovy.svg.Filter
 import se.alipsa.groovy.svg.FilterFunction
+import se.alipsa.groovy.svg.In
 import se.alipsa.groovy.svg.LinearGradient
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgReader
@@ -150,7 +151,7 @@ class FilterTest {
       <rect width="100%" height="50%" fill="white" filter="url(#cm)"/>    
       <rect y="50%" width="100%" height="50%" fill="white" filter="url(#cmRGB)"/>
     </svg>
-    '''.stripIndent().replaceAll("\\s+",' ').replace('> <', '><').trim()
+    '''.replaceAll("\\s+",' ').replace('> <', '><').trim()
     Svg svg = SvgReader.parse(svgContent)
     assertEquals(svgContent, SvgWriter.toXml(svg))
   }
@@ -282,6 +283,37 @@ class FilterTest {
     g.addText('TableLookup').x(100).y(190).filter('url(#Table)')
     g.addText('LinearFunc').x(100).y(290).filter('url(#Linear)')
     g.addText('GammaFunc').x(100).y(390).filter('url(#Gamma)')
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeCompositeFeImage() {
+    String svgContent = '''
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="600px">
+      <defs>
+        <filter id="overlap-shadow" filterUnits="userSpaceOnUse">
+          <feImage xlink:href="#ani-path" x="0" y="0" result="imported-ani"/>
+          <feComposite operator="in" in="SourceGraphic" in2="imported-ani" result="overlap"/>
+          <feGaussianBlur stdDeviation="4" in="overlap" result="blurred-overlap"/>
+          <feComposite operator="over" in="blurred-overlap" in2="SourceGraphic"/>
+        </filter>
+      </defs>
+      <line filter="url(#overlap-shadow)" x1="50" x2="400" y1="50" y2="50" stroke="red" stroke-width="5"/>
+      <path id="ani-path" d="M 0 0 L 100 50 h 100 L 300 150" stroke="black" stroke-width="5" fill="none"/>
+    </svg>
+    '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg().addXlink().width('800px').height('600px')
+    Filter f = svg.addDefs().addFilter('overlap-shadow').filterUnits('userSpaceOnUse')
+    f.addFeImage().xlinkHref('#ani-path').x(0).y(0).result('imported-ani')
+    f.addFeComposite().operator('in').in(In.SourceGraphic).in2('imported-ani').result('overlap')
+    f.addFeGaussianBlur().stdDeviation(4).in('overlap').result('blurred-overlap')
+    f.addFeComposite().operator('over').in('blurred-overlap').in2('SourceGraphic')
+    svg.addLine().filter('url(#overlap-shadow)').x1(50).x2(400).y1(50).y2(50).stroke('red').strokeWidth(5)
+    svg.addPath("ani-path").d("M 0 0 L 100 50 h 100 L 300 150").stroke('black').strokeWidth(5).fill('none')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
   }
 }

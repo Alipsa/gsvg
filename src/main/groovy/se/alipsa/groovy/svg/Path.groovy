@@ -31,4 +31,19 @@ class Path extends SvgElement<Path> {
     getAttribute('fill')
   }
 
+  Path stroke(String value) {
+    addAttribute('stroke', value)
+  }
+
+  String getStroke() {
+    getAttribute('stroke')
+  }
+
+  Path strokeWidth(Number width) {
+    addAttribute('stroke-width', width)
+  }
+
+  String getStrokeWidth() {
+    getAttribute('stroke-width')
+  }
 }

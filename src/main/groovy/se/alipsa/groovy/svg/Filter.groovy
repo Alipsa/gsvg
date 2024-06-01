@@ -83,4 +83,12 @@ class Filter extends AbstractElementContainer<Filter> {
   FeComponentTransfer addFeComponentTransfer() {
     add(new FeComponentTransfer(this))
   }
+
+  FeImage addFeImage() {
+    add(new FeImage(this))
+  }
+
+  FeComposite addFeComposite() {
+    add(new FeComposite(this))
+  }
 }

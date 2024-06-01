@@ -41,6 +41,11 @@ abstract class SvgElement<T extends SvgElement<T>> {
     this as T
   }
 
+  T addAttribute(QName qname, Object value) {
+    element.addAttribute(qname, "$value")
+    this as T
+  }
+
   T addAttributes(Map<String, Object> attributes) {
     attributes.each {
       String key = it.key
