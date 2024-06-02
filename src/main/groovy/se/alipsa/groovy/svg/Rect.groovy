@@ -17,8 +17,8 @@ class Rect extends SvgElement<Rect>  {
   @PackageScope
   Rect(SvgElement parent, Number width, Number height, boolean... addDefaults) {
     this(parent)
-    addAttribute('width', String.valueOf(width))
-    addAttribute('height', String.valueOf(height))
+    addAttribute('width', width)
+    addAttribute('height', height)
     if (addDefaults.length > 0 && addDefaults[0]) {
       x(0)
       y(0)
@@ -28,7 +28,11 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect width(Number width) {
-    addAttribute('width', "$width")
+    addAttribute('width', width)
+  }
+
+  Rect width(String width) {
+    addAttribute('width', width)
   }
 
   String getWidth() {
@@ -36,7 +40,11 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect height(Number height) {
-    addAttribute('height', "$height")
+    addAttribute('height', height)
+  }
+
+  Rect height(String height) {
+    addAttribute('height', height)
   }
 
   String getHeight() {
@@ -44,7 +52,7 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect x(Number x) {
-    addAttribute('x', String.valueOf(x))
+    addAttribute('x', x)
   }
 
   String getX() {
@@ -52,7 +60,11 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect y(Number y) {
-    addAttribute('y', String.valueOf(y))
+    addAttribute('y', y)
+  }
+
+  Rect y(String y) {
+    addAttribute('y', y)
   }
 
   String getY() {
@@ -60,7 +72,7 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect rx(Number rx) {
-    addAttribute('rx', String.valueOf(rx))
+    addAttribute('rx', rx)
   }
 
   String getRx() {
@@ -68,7 +80,7 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect ry(Number ry) {
-    addAttribute('ry', String.valueOf(ry))
+    addAttribute('ry', ry)
   }
 
   String getRy() {
@@ -84,7 +96,7 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect stroke(String stroke) {
-    addAttribute('stroke', "$stroke")
+    addAttribute('stroke', stroke)
   }
 
   String getStroke() {

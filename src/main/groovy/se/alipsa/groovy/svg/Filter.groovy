@@ -91,4 +91,8 @@ class Filter extends AbstractElementContainer<Filter> {
   FeComposite addFeComposite() {
     add(new FeComposite(this))
   }
+
+  FeConvolveMatrix addFeConvolveMatrix() {
+    add(new FeConvolveMatrix(this))
+  }
 }

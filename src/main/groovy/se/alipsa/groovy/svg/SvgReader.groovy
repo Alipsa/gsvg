@@ -37,6 +37,7 @@ class SvgReader extends DefaultHandler {
       case FeColorMatrix.NAME -> currentElement = currentElement.addFeColorMatrix()
       case FeComponentTransfer.NAME -> currentElement = currentElement.addFeComponentTransfer()
       case FeComposite.NAME -> currentElement = currentElement.addFeComposite()
+      case FeConvolveMatrix.NAME -> currentElement = currentElement.addFeConvolveMatrix()
       case FeFlood.NAME -> currentElement = currentElement.addFeFlood()
       case FeFuncA.NAME -> currentElement = currentElement.addFeFuncA()
       case FeFuncB.NAME -> currentElement = currentElement.addFeFuncB()

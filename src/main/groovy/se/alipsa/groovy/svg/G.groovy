@@ -57,6 +57,10 @@ class G extends AbstractElementContainer<G> implements GradientContainer {
         addAttribute('font-size', size)
     }
 
+    G fontSize(String size) {
+        addAttribute('font-size', size)
+    }
+
     String getFontSize() {
         getAttribute('font-size')
     }
