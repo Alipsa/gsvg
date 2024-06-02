@@ -3,10 +3,12 @@ package test.alipsa.groovy.svg
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.Defs
 import se.alipsa.groovy.svg.FeBlend
+import se.alipsa.groovy.svg.FeColorMatrix
 import se.alipsa.groovy.svg.FeFlood
 import se.alipsa.groovy.svg.FeGaussianBlur
 import se.alipsa.groovy.svg.Filter
 import se.alipsa.groovy.svg.FilterFunction
+import se.alipsa.groovy.svg.G
 import se.alipsa.groovy.svg.In
 import se.alipsa.groovy.svg.LinearGradient
 import se.alipsa.groovy.svg.Svg
@@ -138,14 +140,14 @@ class FilterTest {
             values="0.0157 0      0      0 0
                     0      0.3059 0      0 0 
                     0      0      0.7765 0 0 
-                    0      0      0      1 0  "/>
+                    0      0      0      1 0"/>
         </filter>
         <filter id="cmRGB">
           <feColorMatrix color-interpolation-filters="sRGB" in="SourceGraphic" type="matrix"
             values="0.0157 0      0      0 0
                     0      0.3059 0      0 0 
                     0      0      0.7765 0 0 
-                    0      0      0      1 0  "/>
+                    0      0      0      1 0"/>
         </filter>
       </defs>
       <rect width="100%" height="50%" fill="white" filter="url(#cm)"/>    
@@ -153,6 +155,21 @@ class FilterTest {
     </svg>
     '''.replaceAll("\\s+",' ').replace('> <', '><').trim()
     Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXml(svg))
+
+    svg = new Svg().addXlink().width('100%').viewBox('0 0 640 480').height('100%')
+    def defs = svg.addDefs()
+    defs.addFilter('cm').addFeColorMatrix()
+        .in('SourceGraphic')
+        .type('matrix')
+        .values('0.0157 0 0 0 0 0 0.3059 0 0 0 0 0 0.7765 0 0 0 0 0 1 0')
+    defs.addFilter("cmRGB").addFeColorMatrix()
+      .colorInterpolationFilters('sRGB')
+      .in(In.SourceGraphic)
+      .type(FeColorMatrix.Type.matrix)
+      .values('0.0157 0 0 0 0 0 0.3059 0 0 0 0 0 0.7765 0 0 0 0 0 1 0')
+    svg.addRect().width('100%').height('50%').fill("white").filter("url(#cm)")
+    svg.addRect().y('50%').width('100%').height('50%').fill('white').filter('url(#cmRGB)')
     assertEquals(svgContent, SvgWriter.toXml(svg))
   }
 
@@ -314,6 +331,33 @@ class FilterTest {
     f.addFeComposite().operator('over').in('blurred-overlap').in2('SourceGraphic')
     svg.addLine().filter('url(#overlap-shadow)').x1(50).x2(400).y1(50).y2(50).stroke('red').strokeWidth(5)
     svg.addPath("ani-path").d("M 0 0 L 100 50 h 100 L 300 150").stroke('black').strokeWidth(5).fill('none')
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeConvolveMatrix() {
+    String svgContent = '''
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="220" style="outline: 1px solid red">
+      <defs>
+        <filter id="convolve">
+          <feConvolveMatrix kernelMatrix="1 0 0 0 0 0 0 0 -1"/>
+        </filter>
+      </defs>
+      <g font-size="3em">
+        <text x="225" y="75">Convolve</text>
+        <text x="225" y="150" filter="url(#convolve)">Convolve</text>
+      </g>
+    </svg>
+    '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg().width('100%').height(220).style("outline: 1px solid red")
+    svg.addDefs().addFilter('convolve').addFeConvolveMatrix().kernelMatrix("1 0 0 0 0 0 0 0 -1")
+    G g = svg.addG().fontSize('3em')
+    g.addText().x(225).y(75).addContent('Convolve')
+    g.addText('Convolve').x(225).y(150).filter('url(#convolve)')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
   }
 }
