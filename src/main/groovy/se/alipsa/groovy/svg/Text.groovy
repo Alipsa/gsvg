@@ -9,8 +9,6 @@ class Text extends SvgElement<Text> {
 
   Text(SvgElement parent){
     super(parent, NAME)
-    x(0)
-    y(0)
   }
 
   Text(SvgElement parent, String text) {
@@ -69,17 +67,41 @@ class Text extends SvgElement<Text> {
     addAttribute('rotate', "$rotate")
   }
 
+  String getRotate() {
+    getAttribute('rotate')
+  }
+
+  Text textAnchor(String anchor) {
+    addAttribute('text-anchor', anchor)
+  }
+
+  String getTextAnchor() {
+    getAttribute('text-anchor')
+  }
+
   /** The width that the text must fit in */
   Text textLength(Number textLength) {
-    addAttribute('textLength', "$textLength")
+    addAttribute('textLength', textLength)
+  }
+
+  String getTextLength() {
+    getAttribute('textLength')
   }
 
   /** How the text should be compressed or stretched to fit the width defined by the textLength attribute */
   Text lengthAdjust(Number lengthAdjust) {
-    addAttribute('lengthAdjust', "$lengthAdjust")
+    addAttribute('lengthAdjust', lengthAdjust)
+  }
+
+  String getLengthAdjust() {
+    getAttribute('lengthAdjust')
   }
 
   Text transform(String transform) {
-    addAttribute('transform', "$transform")
+    addAttribute('transform', transform)
+  }
+
+  String getTransform() {
+    getAttribute('transform')
   }
 }

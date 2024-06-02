@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.Defs
 import se.alipsa.groovy.svg.FeBlend
 import se.alipsa.groovy.svg.FeColorMatrix
+import se.alipsa.groovy.svg.FeDiffuseLighting
 import se.alipsa.groovy.svg.FeFlood
 import se.alipsa.groovy.svg.FeGaussianBlur
 import se.alipsa.groovy.svg.Filter
@@ -358,6 +359,105 @@ class FilterTest {
     G g = svg.addG().fontSize('3em')
     g.addText().x(225).y(75).addContent('Convolve')
     g.addText('Convolve').x(225).y(150).filter('url(#convolve)')
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeDiffuseLighting() {
+    String svgContent = '''
+    <svg xmlns="http://www.w3.org/2000/svg" width="440" height="140">
+      <text text-anchor="middle" x="60" y="22">No Light</text>
+      <circle cx="60" cy="80" r="50" fill="green"/>
+      <text text-anchor="middle" x="170" y="22">fePointLight</text>
+      <filter id="lightMe1">
+        <feDiffuseLighting in="SourceGraphic" result="light" lighting-color="white">
+          <fePointLight x="150" y="60" z="20"/>
+        </feDiffuseLighting>
+        <feComposite in="SourceGraphic" in2="light" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
+      </filter>
+      <circle cx="170" cy="80" r="50" fill="green" filter="url(#lightMe1)"/>
+      <text text-anchor="middle" x="280" y="22">feDistantLight</text>
+      <filter id="lightMe2">
+        <feDiffuseLighting in="SourceGraphic" result="light" lighting-color="white">
+          <title>the light source is a feDistantLight element</title>
+          <feDistantLight azimuth="240" elevation="20"/>
+        </feDiffuseLighting>
+        <feComposite in="SourceGraphic" in2="light" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
+      </filter>
+      <circle cx="280" cy="80" r="50" fill="green" filter="url(#lightMe2)"/>
+      <text text-anchor="middle" x="390" y="22">feSpotLight</text>
+      <filter id="lightMe3">
+        <feDiffuseLighting in="SourceGraphic" result="light" lighting-color="white">
+          <desc>the light source is a feSpotLight source</desc>
+          <feSpotLight x="360" y="5" z="30" limitingConeAngle="20" pointsAtX="390" pointsAtY="80" pointsAtZ="0"/>
+        </feDiffuseLighting>
+        <feComposite in="SourceGraphic" in2="light" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
+      </filter>
+      <circle cx="390" cy="80" r="50" fill="green" filter="url(#lightMe3)"/>
+    </svg>
+    '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg(440, 140)
+    svg.addText('No Light').textAnchor('middle').x(60).y(22)
+    svg.addCircle().cx(60).cy(80).r(50).fill('green')
+    svg.addText('fePointLight').textAnchor('middle').x(170).y(22)
+    def lightMe1 = svg.addFilter('lightMe1')
+    lightMe1.addFeDiffuseLighting()
+      .in(In.SourceGraphic)
+      .result('light')
+      .lightingColor('white')
+    .addFePointLight().x(150).y(60).z(20)
+    lightMe1.addFeComposite()
+        .in("SourceGraphic")
+        .in2("light")
+        .operator('arithmetic')
+        .k1(1)
+        .k2(0)
+        .k3(0)
+        .k4(0)
+    svg.addCircle().cx(170).cy(80).r(50).fill('green').filter("url(#lightMe1)")
+
+    svg.addText('feDistantLight').textAnchor('middle').x(280).y(22)
+    def lightMe2 = svg.addFilter('lightMe2')
+    FeDiffuseLighting dl = lightMe2.addFeDiffuseLighting()
+        .in(In.SourceGraphic)
+        .result('light')
+        .lightingColor('white')
+    dl.addTitle('the light source is a feDistantLight element')
+    dl.addFeDistantLight().azimuth(240).elevation(20)
+    lightMe2.addFeComposite()
+        .in("SourceGraphic")
+        .in2("light")
+        .operator('arithmetic')
+        .k1(1)
+        .k2(0)
+        .k3(0)
+        .k4(0)
+    svg.addCircle().cx(280).cy(80).r(50).fill('green').filter("url(#lightMe2)")
+
+    svg.addText('feSpotLight').textAnchor('middle').x(390).y(22)
+    def lightMe3 = svg.addFilter('lightMe3')
+    FeDiffuseLighting dl3 = lightMe3.addFeDiffuseLighting()
+        .in(In.SourceGraphic)
+        .result('light')
+        .lightingColor('white')
+    dl3.addDesc('the light source is a feSpotLight source')
+    dl3.addFeSpotLight()
+        .x(360).y(5).z(30)
+        .limitingConeAngle(20)
+        .pointsAtX(390).pointsAtY(80).pointsAtZ(0)
+    lightMe3.addFeComposite()
+        .in("SourceGraphic")
+        .in2("light")
+        .operator('arithmetic')
+        .k1(1)
+        .k2(0)
+        .k3(0)
+        .k4(0)
+    svg.addCircle().cx(390).cy(80).r(50).fill('green').filter("url(#lightMe3)")
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
   }
 }

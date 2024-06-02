@@ -32,6 +32,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
         add(new Ellipse(this, rx, ry))
     }
 
+    Filter addFilter() {
+        add(new Filter(this))
+    }
+
+    Filter addFilter(String id) {
+        add(new Filter(this).id(id))
+    }
+
     G addG() {
         add(new G(this))
     }

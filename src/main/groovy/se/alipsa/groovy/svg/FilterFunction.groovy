@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement<T>{
+abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement<T> {
 
   enum FilterType {
     identity, table, discrete, linear, gamma

@@ -70,7 +70,7 @@ class FeComposite extends FilterElement<FeComposite> {
 
   /** value for the arithmetic operator */
   FeComposite k4(Number value) {
-    addAttribute('k1', value)
+    addAttribute('k4', value)
   }
 
   String getK4() {
