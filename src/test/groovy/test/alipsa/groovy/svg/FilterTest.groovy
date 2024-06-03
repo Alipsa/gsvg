@@ -552,4 +552,41 @@ class FilterTest {
     svg.addCircle().cx(100).cy(100).r(100).style('filter: url(#displacementFilter)')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
   }
+
+  @Test
+  void testDropShadow() {
+    String svgContent = '''
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 10">
+      <defs>
+        <filter id="shadow">
+          <feDropShadow dx="0.2" dy="0.4" stdDeviation="0.2"/>
+        </filter>
+        <filter id="shadow2">
+          <feDropShadow dx="0" dy="0" stdDeviation="0.5" flood-color="cyan"/>
+        </filter>
+        <filter id="shadow3">
+          <feDropShadow dx="-0.8" dy="-0.8" stdDeviation="0" flood-color="red" flood-opacity="0.35"/>
+        </filter>
+      </defs>
+      <circle cx="5" cy="50%" r="4" style="fill:pink; filter:url(#shadow);"/>
+      <circle cx="15" cy="50%" r="4" style="fill:pink; filter:url(#shadow2);"/>
+      <circle cx="25" cy="50%" r="4" style="fill:pink; filter:url(#shadow3);"/>
+    </svg>    
+    '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg().viewBox("0 0 30 10")
+    def defs = svg.addDefs()
+    defs.addFilter('shadow').addFeDropShadow().dx(0.2).dy(0.4).stdDeviation(0.2)
+    defs.addFilter('shadow2').addFeDropShadow()
+        .dx(0).dy(0).stdDeviation(0.5).floodColor('cyan')
+    defs.addFilter('shadow3').addFeDropShadow()
+        .dx(-0.8).dy(-0.8).stdDeviation(0).floodColor('red').floodOpacity(0.35)
+    svg.addCircle().cx(5).cy('50%').r(4).style("fill:pink; filter:url(#shadow);")
+    svg.addCircle().cx(15).cy('50%').r(4).style("fill:pink; filter:url(#shadow2);")
+    svg.addCircle().cx(25).cy('50%').r(4).style("fill:pink; filter:url(#shadow3);")
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
 }

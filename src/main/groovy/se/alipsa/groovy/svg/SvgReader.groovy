@@ -41,6 +41,7 @@ class SvgReader extends DefaultHandler {
       case FeDiffuseLighting.NAME -> currentElement = currentElement.addFeDiffuseLighting()
       case FeDisplacementMap.NAME -> currentElement = currentElement.addFeDisplacementMap()
       case FeDistantLight.NAME -> currentElement = currentElement.addFeDistantLight()
+      case FeDropShadow.NAME -> currentElement = currentElement.addFeDropShadow()
       case FeFlood.NAME -> currentElement = currentElement.addFeFlood()
       case FeFuncA.NAME -> currentElement = currentElement.addFeFuncA()
       case FeFuncB.NAME -> currentElement = currentElement.addFeFuncB()

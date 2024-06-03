@@ -12,7 +12,11 @@ class Circle extends SvgElement<Circle> {
   }
 
   Circle cx(Number cx) {
-    addAttribute('cx', "$cx")
+    addAttribute('cx', cx)
+  }
+
+  Circle cx(String cx) {
+    addAttribute('cx', cx)
   }
 
   String getCx() {
@@ -20,7 +24,11 @@ class Circle extends SvgElement<Circle> {
   }
 
   Circle cy(Number cy) {
-    addAttribute('cy', "$cy")
+    addAttribute('cy', cy)
+  }
+
+  Circle cy(String cy) {
+    addAttribute('cy', cy)
   }
 
   String getCy() {

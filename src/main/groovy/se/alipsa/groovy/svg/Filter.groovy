@@ -123,4 +123,8 @@ class Filter extends AbstractElementContainer<Filter> {
   FeTurbulence addFeTurbulence() {
     add(new FeTurbulence(this))
   }
+
+  FeDropShadow addFeDropShadow() {
+    add(new FeDropShadow(this))
+  }
 }
