@@ -58,11 +58,15 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
     add(new Defs(this))
   }
 
+  Defs addDefs(String id) {
+    addDefs().id(id)
+  }
+
   Svg viewBox(String params) {
     addAttribute('viewBox', params)
   }
 
-  Svg addXlink() {
+  Svg xlink() {
     element.addNamespace(xlinkNs.prefix, xlinkNs.getURI())
     this
   }

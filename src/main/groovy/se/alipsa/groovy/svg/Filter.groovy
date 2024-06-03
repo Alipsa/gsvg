@@ -99,4 +99,20 @@ class Filter extends AbstractElementContainer<Filter> {
   FeDiffuseLighting addFeDiffuseLighting() {
     add(new FeDiffuseLighting(this))
   }
+
+  FeMerge addFeMerge() {
+    add(new FeMerge(this))
+  }
+
+  FeMerge addFeMerge(String id) {
+    addFeMerge().id(id)
+  }
+
+  FeOffset addFeOffset() {
+    add(new FeOffset(this))
+  }
+
+  FeTile addFeTile() {
+    add(new FeTile(this))
+  }
 }

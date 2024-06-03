@@ -158,7 +158,7 @@ class FilterTest {
     Svg svg = SvgReader.parse(svgContent)
     assertEquals(svgContent, SvgWriter.toXml(svg))
 
-    svg = new Svg().addXlink().width('100%').viewBox('0 0 640 480').height('100%')
+    svg = new Svg().xlink().width('100%').viewBox('0 0 640 480').height('100%')
     def defs = svg.addDefs()
     defs.addFilter('cm').addFeColorMatrix()
         .in('SourceGraphic')
@@ -324,7 +324,7 @@ class FilterTest {
     Svg svg = SvgReader.parse(svgContent)
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
 
-    svg = new Svg().addXlink().width('800px').height('600px')
+    svg = new Svg().xlink().width('800px').height('600px')
     Filter f = svg.addDefs().addFilter('overlap-shadow').filterUnits('userSpaceOnUse')
     f.addFeImage().xlinkHref('#ani-path').x(0).y(0).result('imported-ani')
     f.addFeComposite().operator('in').in(In.SourceGraphic).in2('imported-ani').result('overlap')
@@ -458,6 +458,66 @@ class FilterTest {
         .k3(0)
         .k4(0)
     svg.addCircle().cx(390).cy(80).r(50).fill('green').filter("url(#lightMe3)")
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeTileFeOffsetFeMerge() {
+    String svgContent = '''
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="svg24" width="220" height="120">
+      <defs id="defs15">
+        <g transform="scale(0.25)" id="dotted-pattern">
+          <rect style="fill-opacity:0" id="pattern-box" width="16" height="16"/>
+          <circle style="fill:#000" id="pattern-circle1" cx="10" cy="10" r="2"/>
+          <circle style="fill:#000" id="pattern-circle2" cx="2" cy="2" r="2"/>
+        </g>
+        <filter id="dropShadow" height="1.154449" x="-0.0044999999" y="-0.0049999999" width="1.0582259">
+          <feImage width="4" height="4" result="pattern-image" xlink:href="#dotted-pattern"/>
+          <feTile in="pattern-image" result="texture" id="feTile4"/>   
+          <feOffset dx="11" dy="15" result="offsetblur" id="feOffset6"/>
+          <feMerge id="feMerge12">
+            <feMergeNode id="feMergeNode8"/> 
+            <feMergeNode in="SourceGraphic" id="feMergeNode10"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <rect fill="#ffffff" stroke="#000000" x="10" y="10" width="200" height="100" style="filter:url(#dropShadow)" id="node2"/>
+    </svg>
+    '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg().xlink().version('1.1').id('svg24').width(220).height(120)
+    def defs15 = svg.addDefs('defs15')
+    G g = defs15.addG().transform('scale(0.25)').id('dotted-pattern')
+    g.addRect().style('fill-opacity:0').id('pattern-box').width(16).height(16)
+    g.addCircle().style('fill:#000').id('pattern-circle1').cx(10).cy(10).r(2)
+    g.addCircle().style('fill:#000').id('pattern-circle2').cx(2).cy(2).r(2)
+    Filter dropShadow = defs15.addFilter('dropShadow')
+      .height(1.154449)
+      .x(-0.0044999999)
+      .y(-0.0049999999)
+      .width(1.0582259)
+    dropShadow.addFeImage()
+      .width(4)
+      .height(4)
+      .result('pattern-image')
+      .xlinkHref('#dotted-pattern')
+    dropShadow.addFeTile().in('pattern-image').result('texture').id('feTile4')
+    dropShadow.addFeOffset().dx(11).dy(15).result('offsetblur').id('feOffset6')
+    def feMerge12 = dropShadow.addFeMerge('feMerge12')
+    feMerge12.addFeMergeNode('feMergeNode8')
+    feMerge12.addFeMergeNode().in(In.SourceGraphic).id('feMergeNode10')
+    svg.addRect()
+        .fill("#ffffff")
+        .stroke("#000000")
+        .x(10)
+        .y(10)
+        .width(200)
+        .height(100)
+        .style("filter:url(#dropShadow)")
+        .id('node2')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
   }
 }

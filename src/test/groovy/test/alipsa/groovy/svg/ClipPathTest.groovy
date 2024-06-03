@@ -25,7 +25,7 @@ class ClipPathTest {
     '''.stripIndent()
     Svg svg = new Svg()
     svg
-        .addXlink()
+        .xlink()
         .viewBox("0 0 100 100")
     ClipPath cp = svg.addDefs().addClipPath().id('myClip')
     cp.addCircle()
