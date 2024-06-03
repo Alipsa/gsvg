@@ -115,4 +115,12 @@ class Filter extends AbstractElementContainer<Filter> {
   FeTile addFeTile() {
     add(new FeTile(this))
   }
+
+  FeDisplacementMap addFeDisplacementMap() {
+    add(new FeDisplacementMap(this))
+  }
+
+  FeTurbulence addFeTurbulence() {
+    add(new FeTurbulence(this))
+  }
 }

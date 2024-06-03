@@ -520,4 +520,36 @@ class FilterTest {
         .id('node2')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
   }
+
+  @Test
+  void testFeTurbulenceFeDisplacementMap() {
+    String svgContent = '''
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 220 220">
+      <filter id="displacementFilter">
+        <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turbulence"/>
+        <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="50" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <circle cx="100" cy="100" r="100" style="filter: url(#displacementFilter)"/>
+    </svg>
+    '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg(200, 200).viewBox('0 0 220 220')
+    def displacementFilter = svg.addFilter('displacementFilter')
+    displacementFilter.addFeTurbulence()
+        .type('turbulence')
+        .baseFrequency(0.05)
+        .numOctaves(2)
+        .result('turbulence')
+    displacementFilter.addFeDisplacementMap()
+        .in2('turbulence')
+        .in('SourceGraphic')
+        .scale(50)
+        .xChannelSelector('R')
+        .yChannelSelector('G')
+    svg.addCircle().cx(100).cy(100).r(100).style('filter: url(#displacementFilter)')
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
 }
