@@ -4,6 +4,10 @@ class FeComposite extends FilterElement<FeComposite> {
 
   static final String NAME = 'feComposite'
 
+  enum Operator {
+    over, in, out, atop, xor, lighter, arithmetic
+  }
+
   FeComposite(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
@@ -15,6 +19,10 @@ class FeComposite extends FilterElement<FeComposite> {
    */
   FeComposite operator(String value) {
     addAttribute('operator', value)
+  }
+
+  FeComposite operator(Operator value) {
+    addAttribute('operator', value.name())
   }
 
   String getOperator() {

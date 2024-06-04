@@ -60,6 +60,10 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
         addPath().id(id)
     }
 
+    Polygon addPolygon(String points) {
+        add(new Polygon(this).points(points))
+    }
+
     Polygon addPolygon(Coordinate ... points) {
         add(new Polygon(this, points))
     }

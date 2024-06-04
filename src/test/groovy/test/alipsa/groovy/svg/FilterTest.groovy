@@ -7,6 +7,7 @@ import se.alipsa.groovy.svg.FeColorMatrix
 import se.alipsa.groovy.svg.FeDiffuseLighting
 import se.alipsa.groovy.svg.FeFlood
 import se.alipsa.groovy.svg.FeGaussianBlur
+import se.alipsa.groovy.svg.FeMorphology
 import se.alipsa.groovy.svg.Filter
 import se.alipsa.groovy.svg.FilterFunction
 import se.alipsa.groovy.svg.G
@@ -588,5 +589,84 @@ class FilterTest {
     svg.addCircle().cx(15).cy('50%').r(4).style("fill:pink; filter:url(#shadow2);")
     svg.addCircle().cx(25).cy('50%').r(4).style("fill:pink; filter:url(#shadow3);")
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeMorphology() {
+    String svgContent = '''
+      <svg xmlns="http://www.w3.org/2000/svg" width="300" height="100">
+        <filter id="erode">
+          <feMorphology operator="erode" radius="0.5"/>
+        </filter>
+        <filter id="dilate">
+          <feMorphology operator="dilate" radius="1"/>
+        </filter>
+        <text x="10" y="20">Normal text</text>
+        <text x="10" y="55" style="filter: url(#erode);" fill="blue" font-size="30">Thinned text</text>
+        <text x="10" y="80" style="filter: url(#dilate);" font-size="20">Fattened text</text>
+      </svg>
+      '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg(300,100)
+    svg.addFilter('erode').addFeMorphology().operator(FeMorphology.Operator.erode).radius(0.5)
+    svg.addFilter('dilate').addFeMorphology().operator('dilate').radius("1")
+    svg.addText('Normal text').x(10).y(20)
+    svg.addText('Thinned text').x(10).y(55).style('filter: url(#erode);').fill('blue').fontSize(30)
+    svg.addText('Fattened text').x(10).y(80).style('filter: url(#dilate);').fontSize(20)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeSpecularLighting() {
+    String svgContent = '''
+      <svg xmlns="http://www.w3.org/2000/svg" height="200" width="200" viewBox="0 0 220 220">
+        <filter id="filter">
+          <feSpecularLighting result="specOut" specularExponent="20" lighting-color="#bbbbbb">
+            <fePointLight x="50" y="75" z="200"/>
+          </feSpecularLighting>
+          <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+        </filter>
+        <circle cx="110" cy="110" r="100" style="filter:url(#filter)"/>
+      </svg>
+      '''.stripIndent()
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+
+    svg = new Svg().height(200).width(200).viewBox('0 0 220 220')
+    def filter = svg.addFilter('filter')
+    filter.addFeSpecularLighting().result("specOut").specularExponent(20).lightingColor("#bbbbbb")
+      .addFePointLight().x(50).y(75).z(200)
+    filter.addFeComposite().in("SourceGraphic" ).in2('specOut').operator("arithmetic").k1(0).k2(1).k3(1).k4(0)
+    svg.addCircle().cx(110).cy(110).r(100).style("filter:url(#filter)")
+    assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testForeignObject() {
+    String svgContent =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">' +
+        '<style>div { color: white; font: 18px serif; height: 100%; overflow: auto; }</style>' +
+        '<polygon points="5,5 195,10 185,185 10,195"/>' +
+        '<foreignObject x="20" y="20" width="160" height="160">' +
+          '<div xmlns="http://www.w3.org/1999/xhtml">Lorem ipsum dolor sit amet,' +
+            '<b>consectetur adipiscing elit</b>. Sed mollis mollis mi ut ultricies.' +
+          '</div>' +
+        '</foreignObject>' +
+      '</svg>'
+
+    Svg svg = SvgReader.parse(svgContent)
+    assertEquals(svgContent, svg.toXml())
+    svg = new Svg().viewBox("0 0 200 200")
+    svg.addStyle().addContent('div { color: white; font: 18px serif; height: 100%; overflow: auto; }')
+    svg.addPolygon("5,5 195,10 185,185 10,195")
+    def fo = svg.addForeignObject().x(20).y(20).width(160).height(160)
+    def div = fo.addElement('div').addContent('Lorem ipsum dolor sit amet,')
+    div.addElement('b').addContent('consectetur adipiscing elit')
+    div.addContent('. Sed mollis mollis mi ut ultricies.')
+    assertEquals(svgContent, svg.toXml())
   }
 }

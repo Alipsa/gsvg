@@ -127,4 +127,12 @@ class Filter extends AbstractElementContainer<Filter> {
   FeDropShadow addFeDropShadow() {
     add(new FeDropShadow(this))
   }
+
+  FeMorphology addFeMorphology() {
+    add(new FeMorphology(this))
+  }
+
+  FeSpecularLighting addFeSpecularLighting() {
+    add(new FeSpecularLighting(this))
+  }
 }

@@ -51,12 +51,15 @@ class SvgReader extends DefaultHandler {
       case FeImage.NAME -> currentElement = currentElement.addFeImage()
       case FeMerge.NAME -> currentElement = currentElement.addFeMerge()
       case FeMergeNode.NAME -> currentElement = currentElement.addFeMergeNode()
+      case FeMorphology.NAME -> currentElement = currentElement.addFeMorphology()
       case FeOffset.NAME -> currentElement = currentElement.addFeOffset()
       case FePointLight.NAME -> currentElement = currentElement.addFePointLight()
+      case FeSpecularLighting.NAME -> currentElement = currentElement.addFeSpecularLighting()
       case FeSpotLight.NAME -> currentElement = currentElement.addFeSpotLight()
       case FeTile.NAME -> currentElement = currentElement.addFeTile()
       case FeTurbulence.NAME -> currentElement = currentElement.addFeTurbulence()
       case Filter.NAME -> currentElement = currentElement.addFilter()
+      case ForeignObject.NAME -> currentElement = currentElement.addForeignObject()
       case G.NAME -> currentElement = currentElement.addG()
       case Line.NAME -> currentElement = currentElement.addLine()
       case LinearGradient.NAME -> currentElement = currentElement.addLinearGradient()
@@ -68,12 +71,19 @@ class SvgReader extends DefaultHandler {
       case RadialGradient.NAME -> currentElement = currentElement.addRadialGradient()
       case Rect.NAME -> currentElement = currentElement.addRect()
       case Stop.NAME -> currentElement = currentElement.addStop()
+      case Style.NAME -> currentElement = currentElement.addStyle()
       case Svg.NAME -> currentElement = svg
       case Text.NAME -> currentElement = currentElement.addText()
       case Title.NAME -> currentElement = currentElement.addTitle()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
       case Use.NAME -> currentElement = currentElement.addUse()
-      default -> throw new SAXException("$qName is unknown to the SvgReader, dont know what to do")
+      default -> {
+        if (currentElement.class in [ForeignObject, ForeignElement]) {
+          currentElement = currentElement.addElement(qName)
+        } else {
+          throw new SAXException("$qName is unknown to the SvgReader, dont know what to do")
+        }
+      }
     }
     //println(', current element is now ' + currentElement.element.getName())
     for (int i = 0; i < attributes.getLength(); i++) {
@@ -91,26 +101,33 @@ class SvgReader extends DefaultHandler {
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)
-    if (currentElement.element.getName() in ['text', 'tspan', 'title', 'desc']) {
+    if (currentElement.class in [Text, Tspan, Title, Desc, Style, ForeignObject, ForeignElement]) {
       //println('found ' + text + ', current element is ' + currentElement.element.getName())
       currentElement = currentElement.addContent(text)
+    } else {
+      if (!text.isBlank()) {
+        println('found ' + text + ', current element is ' + currentElement.element.getName())
+        throw new SAXException("character data is not allowed in " + currentElement.element.getName())
+      }
     }
   }
 
   static Svg parse(File svgFile) {
-    SAXParserFactory factory = SAXParserFactory.newInstance();
-    SAXParser saxParser = factory.newSAXParser();
     SvgReader reader = new SvgReader()
-    saxParser.parse(svgFile, reader)
+    createSAXParser().parse(svgFile, reader)
     reader.svg
   }
 
   static Svg parse(InputSource svgFile) {
-    SAXParserFactory factory = SAXParserFactory.newInstance()
-    SAXParser saxParser = factory.newSAXParser()
     SvgReader reader = new SvgReader()
-    saxParser.parse(svgFile, reader)
+    createSAXParser().parse(svgFile, reader)
     reader.svg
+  }
+
+  static SAXParser createSAXParser() {
+    SAXParserFactory factory = SAXParserFactory.newInstance()
+    //factory.setNamespaceAware(true)
+    factory.newSAXParser()
   }
 
   static Svg parse(InputStream svgFile) {

@@ -24,8 +24,13 @@ abstract class SvgElement<T extends SvgElement<T>> {
     element = parent.element.addElement(name)
   }
 
+  SvgElement(SvgElement<? extends SvgElement> parent, String name, String defaultNameSpace) {
+    this.parent = parent
+    element = parent.element.addElement(name, defaultNameSpace)
+  }
+
   /**
-   * Special constructor for Svg asit does not have a parent
+   * Special constructor for Svg as it does not have a parent
    * Use this only to create Svg elements!
    */
   SvgElement(Element element) {

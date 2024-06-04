@@ -84,4 +84,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
   String getVersion() {
     getAttribute('version')
   }
+
+  ForeignObject addForeignObject() {
+    add(new ForeignObject(this))
+  }
+
+  Style addStyle() {
+    add(new Style(this))
+  }
 }

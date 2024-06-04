@@ -1,5 +1,8 @@
 package se.alipsa.groovy.svg
 
+/**
+ * Note: FeDropShadow is not supported in Batik
+ */
 class FeDropShadow extends FilterElement<FeDropShadow> {
 
   static final String NAME = 'feDropShadow'

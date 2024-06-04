@@ -33,7 +33,7 @@ java {
 }
 
 dependencies {
-    def groovyVersion = '4.0.18'
+    def groovyVersion = '4.0.21'
     def groovy = "org.apache.groovy:groovy:$groovyVersion"
     compileOnly groovy
     implementation 'org.dom4j:dom4j:2.1.4'

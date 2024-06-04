@@ -40,6 +40,10 @@ class Text extends SvgElement<Text> {
     this
   }
 
+  String getContent() {
+    element.getText()
+  }
+
   Tspan addTspan() {
     return new Tspan(this)
   }
