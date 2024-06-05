@@ -11,4 +11,17 @@ class FeImage extends FilterElement<FeImage> {
 
     addAttribute(xlink('href'), href)
   }
+
+  /**
+   *
+   * @param value one of "anonymous", "use-credentials", ""
+   * @return
+   */
+  FeImage crossorigin(String value) {
+    addAttribute('crossorigin', value)
+  }
+
+  String getCrossorigin() {
+    getAttribute('crossorigin')
+  }
 }

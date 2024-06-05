@@ -5,7 +5,7 @@ import groovy.transform.PackageScope
 /**
  * <ellipse rx="${rx}" ry="${ry}" ${optionalAttr('cx', cx)} ${optionalAttr('cy', cy)} ${optionalAttr('style', style)} />
  */
-class Ellipse extends SvgElement<Ellipse>  {
+class Ellipse extends AbstractShape<Ellipse>  {
 
   static final String NAME='ellipse'
 

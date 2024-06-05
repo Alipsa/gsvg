@@ -3,7 +3,7 @@ package se.alipsa.groovy.svg
 import org.dom4j.Attribute
 import org.dom4j.Element
 
-class AbstractPoly<T extends AbstractPoly<T>> extends SvgElement<T> {
+class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
 
   AbstractPoly(SvgElement element, String name) {
     super(element, name)
@@ -40,6 +40,14 @@ class AbstractPoly<T extends AbstractPoly<T>> extends SvgElement<T> {
 
   String getPoints() {
     getAttribute('points')
+  }
+
+  T fill(String value) {
+    addAttribute('fill', value)
+  }
+
+  String getFill() {
+    getAttribute('fill')
   }
 
   private static String toAttributeValues(Coordinate... points) {

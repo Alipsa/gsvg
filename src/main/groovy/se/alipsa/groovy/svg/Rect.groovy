@@ -5,7 +5,7 @@ import groovy.transform.PackageScope
 /**
  * <rect width="${width}" height="${height}" x="${x}" y="${y}" rx="${rx}" ry="${ry}" ${optionalAttr('fill', fill)} ${optionalAttr('style', style)}/>
  */
-class Rect extends SvgElement<Rect>  {
+class Rect extends AbstractShape<Rect>  {
 
   static final String NAME='rect'
 
@@ -52,6 +52,10 @@ class Rect extends SvgElement<Rect>  {
   }
 
   Rect x(Number x) {
+    addAttribute('x', x)
+  }
+
+  Rect x(String x) {
     addAttribute('x', x)
   }
 

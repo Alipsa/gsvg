@@ -4,103 +4,119 @@ import org.dom4j.Element
 
 abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> extends SvgElement<T> implements ElementContainer {
 
-    AbstractElementContainer(SvgElement<? extends SvgElement> parent, String name) {
-        super(parent, name)
-    }
+  AbstractElementContainer(SvgElement<? extends SvgElement> parent, String name) {
+    super(parent, name)
+  }
 
-    /**
-     * Special constructor for Svg as it does not have a parent
-     * Use this only to create Svg elements!
-     */
-    AbstractElementContainer(Element element) {
-        super(element)
-    }
+  /**
+   * Special constructor for Svg as it does not have a parent
+   * Use this only to create Svg elements!
+   */
+  AbstractElementContainer(Element element) {
+    super(element)
+  }
 
-    A addA() {
-        add(new A(this))
-    }
+  A addA() {
+    add(new A(this))
+  }
 
-    Circle addCircle() {
-        add(new Circle(this))
-    }
+  Circle addCircle() {
+    add(new Circle(this))
+  }
 
-    Ellipse addEllipse() {
-        add(new Ellipse(this))
-    }
+  Circle addCircle(String id) {
+    add(new Circle(this).id(id))
+  }
 
-    Ellipse addEllipse(Number rx, Number ry) {
-        add(new Ellipse(this, rx, ry))
-    }
+  ClipPath addClipPath() {
+    add(new ClipPath(this))
+  }
 
-    Filter addFilter() {
-        add(new Filter(this))
-    }
+  Ellipse addEllipse() {
+    add(new Ellipse(this))
+  }
 
-    Filter addFilter(String id) {
-        add(new Filter(this).id(id))
-    }
+  Ellipse addEllipse(Number rx, Number ry) {
+    add(new Ellipse(this, rx, ry))
+  }
 
-    G addG() {
-        add(new G(this))
-    }
+  Filter addFilter() {
+    add(new Filter(this))
+  }
 
-    Line addLine() {
-        add(new Line(this))
-    }
+  Filter addFilter(String id) {
+    add(new Filter(this).id(id))
+  }
 
-    Line addLine(Number x1, Number y1, Number x2, Number y2) {
-        add(new Line(this, x1, y1, x2, y2))
-    }
+  G addG() {
+    add(new G(this))
+  }
 
-    Path addPath() {
-        add(new Path(this))
-    }
+  Image addImage() {
+    add(new Image(this))
+  }
 
-    Path addPath(String id) {
-        addPath().id(id)
-    }
+  Line addLine() {
+    add(new Line(this))
+  }
 
-    Polygon addPolygon(String points) {
-        add(new Polygon(this).points(points))
-    }
+  Line addLine(Number x1, Number y1, Number x2, Number y2) {
+    add(new Line(this, x1, y1, x2, y2))
+  }
 
-    Polygon addPolygon(Coordinate ... points) {
-        add(new Polygon(this, points))
-    }
+  Mask addMask() {
+    add(new Mask(this))
+  }
 
-    Polygon addPolygon(List<Number>... points) {
-        add(new Polygon(this, points))
-    }
+  Mask addMask(String id) {
+    add(new Mask(this).id(id))
+  }
 
-    Polyline addPolyline(Coordinate ... points) {
-        add(new Polyline(this, points))
-    }
+  Path addPath() {
+    add(new Path(this))
+  }
 
-    Polyline addPolyline(List<Number>... points) {
-        add(new Polyline(this, points))
-    }
+  Path addPath(String id) {
+    addPath().id(id)
+  }
 
-    Rect addRect(Number width, Number height) {
-        add(new Rect(this, width, height))
-    }
+  Polygon addPolygon(String points) {
+    add(new Polygon(this).points(points))
+  }
 
-    Rect addRect() {
-        add(new Rect(this))
-    }
+  Polygon addPolygon(Coordinate ... points) {
+    add(new Polygon(this, points))
+  }
 
-    Text addText() {
-        add(new Text(this))
-    }
+  Polygon addPolygon(List<Number>... points) {
+    add(new Polygon(this, points))
+  }
 
-    Text addText(String content) {
-        add(new Text(this, content))
-    }
+  Polyline addPolyline(Coordinate ... points) {
+    add(new Polyline(this, points))
+  }
 
-    ClipPath addClipPath() {
-        add(new ClipPath(this))
-    }
+  Polyline addPolyline(List<Number>... points) {
+    add(new Polyline(this, points))
+  }
 
-    Use addUse() {
-        add(new Use(this))
-    }
+  Rect addRect(Number width, Number height) {
+    add(new Rect(this, width, height))
+  }
+
+  Rect addRect() {
+    add(new Rect(this))
+  }
+
+  Text addText() {
+    add(new Text(this))
+  }
+
+  Text addText(String content) {
+    add(new Text(this, content))
+  }
+
+  Use addUse() {
+    add(new Use(this))
+  }
 }

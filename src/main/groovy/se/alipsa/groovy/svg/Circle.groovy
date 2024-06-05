@@ -2,7 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.PackageScope
 
-class Circle extends SvgElement<Circle> {
+class Circle extends AbstractShape<Circle> {
 
   static final String NAME='circle'
 

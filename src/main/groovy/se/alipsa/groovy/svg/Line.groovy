@@ -2,7 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.PackageScope
 
-class Line extends SvgElement {
+class Line extends AbstractShape<Line> {
 
   static final String NAME='line'
 

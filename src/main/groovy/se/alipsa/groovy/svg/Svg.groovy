@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-
+import groovy.transform.PackageScope
 import org.dom4j.Document
 import org.dom4j.Element
 import org.dom4j.DocumentHelper
@@ -21,6 +21,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
   }
 
   Svg(Number w, Number h) {
+    this()
+    width(w)
+    height(h)
+  }
+
+  Svg(String w, String h) {
     this()
     width(w)
     height(h)

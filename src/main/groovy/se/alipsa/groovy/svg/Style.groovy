@@ -21,4 +21,12 @@ class Style extends SvgElement<Style> {
   String getContent() {
     element.getText()
   }
+
+  Style type(String value) {
+    addAttribute('type', value)
+  }
+
+  String getType() {
+    getAttribute('type')
+  }
 }
