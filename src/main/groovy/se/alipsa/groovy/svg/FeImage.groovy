@@ -8,8 +8,11 @@ class FeImage extends FilterElement<FeImage> {
   }
 
   FeImage xlinkHref(String href) {
-
     addAttribute(xlink('href'), href)
+  }
+
+  String getXlinkHref() {
+    getAttribute(xlink('href'))
   }
 
   /**

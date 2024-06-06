@@ -1,8 +1,6 @@
 package se.alipsa.groovy.svg
 
-import groovy.transform.PackageScope
 import org.dom4j.Document
-import org.dom4j.Element
 import org.dom4j.DocumentHelper
 
 /**
@@ -17,7 +15,11 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
   static final String xmlns="http://www.w3.org/2000/svg"
 
   Svg() {
-    super(DocumentHelper.createDocument().addElement('svg', "${xmlns}"))
+    super(DocumentHelper.createDocument().addElement(NAME, "${xmlns}"))
+  }
+
+  Svg(AbstractElementContainer parent) {
+    super(parent, NAME)
   }
 
   Svg(Number w, Number h) {
@@ -97,5 +99,13 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
 
   Style addStyle() {
     add(new Style(this))
+  }
+
+  Metadata addMetadata() {
+    add(new Metadata(this))
+  }
+
+  Script addScript() {
+    add(new Script(this))
   }
 }

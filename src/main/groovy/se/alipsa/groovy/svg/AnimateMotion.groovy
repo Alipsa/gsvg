@@ -8,6 +8,8 @@ class AnimateMotion extends Animation<AnimateMotion> {
     super(parent, NAME)
   }
 
+  List<Mpath> children = []
+
   AnimateMotion path(String path) {
     addAttribute('path', path)
   }
@@ -30,5 +32,19 @@ class AnimateMotion extends Animation<AnimateMotion> {
 
   String getBegin() {
     getAttribute('begin')
+  }
+
+  AnimateMotion rotate(String value) {
+    addAttribute('rotate', value)
+  }
+
+  String getRotate() {
+    getAttribute('rotate')
+  }
+
+  Mpath addMpath() {
+    Mpath mp = new Mpath(this)
+    children << mp
+    mp
   }
 }

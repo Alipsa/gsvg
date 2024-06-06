@@ -16,6 +16,10 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     super(element)
   }
 
+  Svg addSvg() {
+    add(new Svg(this))
+  }
+
   A addA() {
     add(new A(this))
   }

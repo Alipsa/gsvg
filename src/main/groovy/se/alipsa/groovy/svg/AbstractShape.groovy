@@ -13,4 +13,8 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> {
   String getMask() {
     getAttribute('mask')
   }
+
+  T onClick(String value) {
+    addAttribute('onclick', value)
+  }
 }

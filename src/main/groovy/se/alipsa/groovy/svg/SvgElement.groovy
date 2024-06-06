@@ -29,6 +29,11 @@ abstract class SvgElement<T extends SvgElement<T>> {
     element = parent.element.addElement(name, defaultNameSpace)
   }
 
+  SvgElement(SvgElement<? extends SvgElement> parent, QName qName) {
+    this.parent = parent
+    element = parent.element.addElement(qName)
+  }
+
   /**
    * Special constructor for Svg as it does not have a parent
    * Use this only to create Svg elements!
@@ -37,13 +42,38 @@ abstract class SvgElement<T extends SvgElement<T>> {
     this.element = element
   }
 
+  T addNamespace(String prefix, String uri) {
+    element.addNamespace(prefix, uri)
+    this as T
+  }
+
   String getAttribute(String name) {
+    if(name.contains(':')) {
+      getAttribute(getQName(name))
+    } else {
+      element.attributeValue(name)
+    }
+  }
+
+  String getAttribute(QName name) {
     element.attributeValue(name)
   }
 
+  String getAttribute(String nsPrefix, String localName) {
+    getAttribute(getQName(nsPrefix, localName))
+  }
+
   T addAttribute(String name, Object value) {
-    element.addAttribute(name, "$value")
+    if (name.contains(':')) {
+      addAttribute(getQName(name), value)
+    } else {
+      element.addAttribute(name, "$value")
+    }
     this as T
+  }
+
+  T addAttribute(String prefix, String localName, Object value) {
+    addAttribute(getQName(prefix, localName), value)
   }
 
   T addAttribute(QName qname, Object value) {
@@ -166,6 +196,17 @@ abstract class SvgElement<T extends SvgElement<T>> {
     } else {
       null
     }
+  }
+
+  QName getQName(String name) {
+    String prefix = name.substring(0, name.indexOf(':'))
+    String localName = name.substring(name.indexOf(':') + 1)
+    getQName(prefix, localName)
+  }
+
+  QName getQName(String prefix, String localName) {
+    Namespace ns = element.getNamespaceForPrefix(prefix)
+    new QName(localName, ns)
   }
 
 }

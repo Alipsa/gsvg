@@ -52,6 +52,14 @@ class Text extends SvgElement<Text> {
     return new Tspan(this, content)
   }
 
+  Text fontFamily(String family) {
+    addAttribute('font-family', family)
+  }
+
+  String getFontFamily() {
+    getAttribute('font-family')
+  }
+
   Text fontSize(Number size) {
     addAttribute('font-size', String.valueOf(size))
   }
