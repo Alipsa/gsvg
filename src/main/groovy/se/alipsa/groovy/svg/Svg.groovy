@@ -10,7 +10,7 @@ svgElements.each {
 }
 </svg>
  */
-class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
+class Svg extends AbstractElementContainer<Svg> implements GradientContainer, Animatable<Svg> {
   static final String NAME='svg'
   static final String xmlns="http://www.w3.org/2000/svg"
 
@@ -107,5 +107,9 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer {
 
   Script addScript() {
     add(new Script(this))
+  }
+
+  Switch addSwitch() {
+    add(new Switch(this))
   }
 }

@@ -80,6 +80,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case RadialGradient.NAME -> currentElement = currentElement.addRadialGradient()
       case Rect.NAME -> currentElement = currentElement.addRect()
       case Script.NAME -> currentElement = currentElement.addScript()
+      case Set.NAME -> currentElement = currentElement.addSet()
       case Stop.NAME -> currentElement = currentElement.addStop()
       case Style.NAME -> currentElement = currentElement.addStyle()
       case Svg.NAME -> {
@@ -90,6 +91,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
           currentElement.addSvg()
         }
       }
+      case Switch.NAME -> currentElement = currentElement.addSwitch()
       case Text.NAME -> currentElement = currentElement.addText()
       case Title.NAME -> currentElement = currentElement.addTitle()
       case Tspan.NAME -> currentElement = currentElement.addTspan()

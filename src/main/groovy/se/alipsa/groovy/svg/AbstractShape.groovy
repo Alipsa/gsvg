@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> {
+class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements Animatable<T>{
 
   AbstractShape(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)

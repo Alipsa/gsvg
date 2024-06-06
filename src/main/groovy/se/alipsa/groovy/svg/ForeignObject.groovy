@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-class ForeignObject extends SvgElement<ForeignObject> {
+class ForeignObject extends SvgElement<ForeignObject> implements Animatable<ForeignObject>{
 
   static final String NAME='foreignObject'
 

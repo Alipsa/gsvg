@@ -6,7 +6,7 @@ import org.dom4j.Element;
 /**
  * <path ${optionalAttr('id', id)} d="$d" ${optionalAttr('style', style)} />
  */
-class Path extends AbstractShape<Path> {
+class Path extends AbstractShape<Path> implements Animatable<Path> {
 
   static final String NAME='path'
 

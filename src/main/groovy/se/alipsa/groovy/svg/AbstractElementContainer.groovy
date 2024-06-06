@@ -112,6 +112,10 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Rect(this))
   }
 
+  Rect addRect(String id) {
+    add(new Rect(this).id(id))
+  }
+
   Text addText() {
     add(new Text(this))
   }

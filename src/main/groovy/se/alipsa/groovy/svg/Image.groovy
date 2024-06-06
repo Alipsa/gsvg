@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-class Image extends SvgElement<Image> {
+class Image extends SvgElement<Image> implements Animatable<Image> {
 
   static final String NAME='image'
 

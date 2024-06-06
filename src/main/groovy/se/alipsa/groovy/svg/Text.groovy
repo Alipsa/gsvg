@@ -3,7 +3,7 @@ package se.alipsa.groovy.svg
 /**
  * <text x="$x" y="$y" fill="$fill" font-size="$fontSize">$sb</text>
  */
-class Text extends SvgElement<Text> {
+class Text extends SvgElement<Text> implements Animatable<Text> {
 
   static final String NAME='text'
 

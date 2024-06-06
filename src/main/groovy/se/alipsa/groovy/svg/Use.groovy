@@ -1,7 +1,7 @@
 package se.alipsa.groovy.svg
 
 
-class Use extends SvgElement<Use> {
+class Use extends SvgElement<Use> implements Animatable<Use> {
   static final String NAME = 'use'
 
   Use(SvgElement<? extends SvgElement> parent) {

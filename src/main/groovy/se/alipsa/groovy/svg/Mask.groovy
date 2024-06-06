@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-class Mask extends AbstractElementContainer<Mask> {
+class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
 
   static final String NAME='mask'
 
