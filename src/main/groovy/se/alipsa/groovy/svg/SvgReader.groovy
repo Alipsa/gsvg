@@ -92,6 +92,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
         }
       }
       case Switch.NAME -> currentElement = currentElement.addSwitch()
+      case Symbol.NAME -> currentElement = currentElement.addSymbol()
       case Text.NAME -> currentElement = currentElement.addText()
       case Title.NAME -> currentElement = currentElement.addTitle()
       case Tspan.NAME -> currentElement = currentElement.addTspan()

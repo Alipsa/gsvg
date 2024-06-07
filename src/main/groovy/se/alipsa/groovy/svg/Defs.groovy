@@ -23,4 +23,8 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
   Pattern addPattern(String id) {
     add(new Pattern(this).id(id))
   }
+
+  Symbol addSymbol() {
+    add(new Symbol(this))
+  }
 }
