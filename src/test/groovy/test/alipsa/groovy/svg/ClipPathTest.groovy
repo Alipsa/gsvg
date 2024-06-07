@@ -39,7 +39,7 @@ class ClipPathTest {
 
     svg.addUse()
       .clipPath('url(#myClip)')
-      .href('#heart')
+      .xlinkHref('#heart')
       .fill('red')
 
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
