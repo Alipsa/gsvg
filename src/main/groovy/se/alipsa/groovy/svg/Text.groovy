@@ -52,6 +52,10 @@ class Text extends SvgElement<Text> implements Animatable<Text> {
     return new Tspan(this, content)
   }
 
+  TextPath addTextPath() {
+    return new TextPath(this)
+  }
+
   Text fontFamily(String family) {
     addAttribute('font-family', family)
   }

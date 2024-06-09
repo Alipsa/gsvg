@@ -94,6 +94,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case Switch.NAME -> currentElement = currentElement.addSwitch()
       case Symbol.NAME -> currentElement = currentElement.addSymbol()
       case Text.NAME -> currentElement = currentElement.addText()
+      case TextPath.NAME -> currentElement = currentElement.addTextPath()
       case Title.NAME -> currentElement = currentElement.addTitle()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
       case Use.NAME -> currentElement = currentElement.addUse()
@@ -142,7 +143,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)
-    if (currentElement.class in [Text, Tspan, Title, Desc, Style, ForeignObject, ForeignElement, Script]) {
+    if (currentElement.class in [Text, TextPath, Tspan, Title, Desc, Style, ForeignObject, ForeignElement, Script]) {
       //println('found ' + text + ', current element is ' + currentElement.element.getName())
       if(isCdataSection) {
         currentElement.element.addCDATA(text)

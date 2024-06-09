@@ -73,7 +73,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
    * align is one of none, xMinYMin, xMidYMin, xMaxYMin, xMinYMid, xMidYMid, xMaxYMid, xMinYMax, xMidYMax, xMaxYMax
    * scaleMethod is an optional argument that have the value "meet" or "slice"
    *
-   * @param value the alignment folloowed by an (optional) scaleMethod
+   * @param value the alignment followed by an (optional) scaleMethod
    * @return this image
    */
   Image preserveAspectRatio(String value) {
