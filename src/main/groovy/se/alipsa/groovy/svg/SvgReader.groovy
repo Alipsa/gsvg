@@ -98,6 +98,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case Title.NAME -> currentElement = currentElement.addTitle()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
       case Use.NAME -> currentElement = currentElement.addUse()
+      case View.NAME -> currentElement = currentElement.addView()
       default -> {
         if (currentElement.class in [ForeignObject, ForeignElement, Metadata, MetadataElement]) {
           if (qName.contains(':')) {

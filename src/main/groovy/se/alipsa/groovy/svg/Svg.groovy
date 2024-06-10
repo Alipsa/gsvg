@@ -125,4 +125,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addSymbol().id(id)
   }
 
+  View addView() {
+    add(new View(this))
+  }
+
+  View addView(String id) {
+    addView().id(id)
+  }
+
 }
