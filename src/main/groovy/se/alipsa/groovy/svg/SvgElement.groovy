@@ -4,10 +4,10 @@ import org.dom4j.Element
 import org.dom4j.Namespace
 import org.dom4j.QName
 
-abstract class SvgElement<T extends SvgElement<T>> {
+abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
 
   Namespace xlinkNs = new Namespace('xlink', 'http://www.w3.org/1999/xlink')
-  protected Element element
+  Element element
   SvgElement<? extends SvgElement> parent
 
   Desc desc

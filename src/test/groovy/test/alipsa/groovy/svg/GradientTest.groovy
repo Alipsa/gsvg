@@ -5,8 +5,8 @@ import se.alipsa.groovy.svg.Ellipse
 import se.alipsa.groovy.svg.LinearGradient
 import se.alipsa.groovy.svg.RadialGradient
 import se.alipsa.groovy.svg.Svg
-import se.alipsa.groovy.svg.SvgReader
-import se.alipsa.groovy.svg.SvgWriter
+import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.*
 

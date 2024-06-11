@@ -1,6 +1,6 @@
-package se.alipsa.groovy.svg
+package se.alipsa.groovy.svg.io
 
-import org.dom4j.CDATA
+
 import org.dom4j.Namespace
 import org.dom4j.QName
 import org.xml.sax.Attributes
@@ -8,6 +8,72 @@ import org.xml.sax.InputSource
 import org.xml.sax.SAXException
 import org.xml.sax.ext.LexicalHandler
 import org.xml.sax.helpers.DefaultHandler
+import se.alipsa.groovy.svg.A
+import se.alipsa.groovy.svg.Animate
+import se.alipsa.groovy.svg.AnimateMotion
+import se.alipsa.groovy.svg.AnimateTransform
+import se.alipsa.groovy.svg.Circle
+import se.alipsa.groovy.svg.ClipPath
+import se.alipsa.groovy.svg.Defs
+import se.alipsa.groovy.svg.Desc
+import se.alipsa.groovy.svg.Ellipse
+import se.alipsa.groovy.svg.ExternalElementContainer
+import se.alipsa.groovy.svg.FeBlend
+import se.alipsa.groovy.svg.FeColorMatrix
+import se.alipsa.groovy.svg.FeComponentTransfer
+import se.alipsa.groovy.svg.FeComposite
+import se.alipsa.groovy.svg.FeConvolveMatrix
+import se.alipsa.groovy.svg.FeDiffuseLighting
+import se.alipsa.groovy.svg.FeDisplacementMap
+import se.alipsa.groovy.svg.FeDistantLight
+import se.alipsa.groovy.svg.FeDropShadow
+import se.alipsa.groovy.svg.FeFlood
+import se.alipsa.groovy.svg.FeFuncA
+import se.alipsa.groovy.svg.FeFuncB
+import se.alipsa.groovy.svg.FeFuncG
+import se.alipsa.groovy.svg.FeFuncR
+import se.alipsa.groovy.svg.FeGaussianBlur
+import se.alipsa.groovy.svg.FeImage
+import se.alipsa.groovy.svg.FeMerge
+import se.alipsa.groovy.svg.FeMergeNode
+import se.alipsa.groovy.svg.FeMorphology
+import se.alipsa.groovy.svg.FeOffset
+import se.alipsa.groovy.svg.FePointLight
+import se.alipsa.groovy.svg.FeSpecularLighting
+import se.alipsa.groovy.svg.FeSpotLight
+import se.alipsa.groovy.svg.FeTile
+import se.alipsa.groovy.svg.FeTurbulence
+import se.alipsa.groovy.svg.Filter
+import se.alipsa.groovy.svg.ForeignObject
+import se.alipsa.groovy.svg.G
+import se.alipsa.groovy.svg.Image
+import se.alipsa.groovy.svg.Line
+import se.alipsa.groovy.svg.LinearGradient
+import se.alipsa.groovy.svg.Marker
+import se.alipsa.groovy.svg.Mask
+import se.alipsa.groovy.svg.Metadata
+import se.alipsa.groovy.svg.Mpath
+import se.alipsa.groovy.svg.Path
+import se.alipsa.groovy.svg.Pattern
+import se.alipsa.groovy.svg.Polygon
+import se.alipsa.groovy.svg.Polyline
+import se.alipsa.groovy.svg.RadialGradient
+import se.alipsa.groovy.svg.Rect
+import se.alipsa.groovy.svg.Script
+import se.alipsa.groovy.svg.Set
+import se.alipsa.groovy.svg.Stop
+import se.alipsa.groovy.svg.StringContentContainer
+import se.alipsa.groovy.svg.Style
+import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.SvgElement
+import se.alipsa.groovy.svg.Switch
+import se.alipsa.groovy.svg.Symbol
+import se.alipsa.groovy.svg.Text
+import se.alipsa.groovy.svg.TextPath
+import se.alipsa.groovy.svg.Title
+import se.alipsa.groovy.svg.Tspan
+import se.alipsa.groovy.svg.Use
+import se.alipsa.groovy.svg.View
 
 import javax.xml.parsers.SAXParser
 import javax.xml.parsers.SAXParserFactory
@@ -100,7 +166,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case Use.NAME -> currentElement = currentElement.addUse()
       case View.NAME -> currentElement = currentElement.addView()
       default -> {
-        if (currentElement.class in [ForeignObject, ForeignElement, Metadata, MetadataElement]) {
+        if (currentElement instanceof ExternalElementContainer) {
           if (qName.contains(':')) {
             // a foreignElement or metadata element with a namespace
             String prefix = qName.substring(0, qName.indexOf(':'))
@@ -144,7 +210,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)
-    if (currentElement.class in [Text, TextPath, Tspan, Title, Desc, Style, ForeignObject, ForeignElement, Script]) {
+    if (currentElement instanceof StringContentContainer) {
       //println('found ' + text + ', current element is ' + currentElement.element.getName())
       if(isCdataSection) {
         currentElement.element.addCDATA(text)

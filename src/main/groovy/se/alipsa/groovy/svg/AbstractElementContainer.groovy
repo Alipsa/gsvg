@@ -2,7 +2,7 @@ package se.alipsa.groovy.svg
 
 import org.dom4j.Element
 
-abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> extends SvgElement<T> implements ElementContainer {
+abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> extends SvgElement<T> {
 
   AbstractElementContainer(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -121,7 +121,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   }
 
   Text addText(String content) {
-    add(new Text(this, content))
+    add(new Text(this).addContent(content))
   }
 
   Use addUse() {

@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg
 
-class TextPath extends SvgElement<TextPath> {
+class TextPath extends StringContentContainer<TextPath> {
 
   static final String NAME='textPath'
 
@@ -77,39 +77,23 @@ class TextPath extends SvgElement<TextPath> {
   }
 
   Animate addAnimate() {
-    Animate animate = new Animate(this)
-    children << animate
-    animate
+    add(new Animate(this))
   }
 
   Set addSet() {
-    new Set(this)
+    add(new Set(this))
   }
 
   A addA() {
-    new A(this)
-  }
-
-  TextPath addContent(String content) {
-    element.addText(content)
-    this
-  }
-
-  TextPath replaceContent(String content) {
-    element.setText(content)
-    this
-  }
-
-  String getContent() {
-    element.getText()
+    add(new A(this))
   }
 
   Tspan addTspan() {
-    new Tspan(this)
+    add(new Tspan(this))
   }
 
   Tspan addTspan(String content) {
-    new Tspan(this, content)
+    add(new Tspan(this, content))
   }
 
 }

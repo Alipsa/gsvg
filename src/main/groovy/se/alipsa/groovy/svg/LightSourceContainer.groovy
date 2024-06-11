@@ -16,6 +16,10 @@ trait LightSourceContainer<T extends FilterElement<T>> {
     (lightSource = new FeSpotLight(this))
   }
 
+  T getLightSource() {
+    lightSource as T
+  }
+
   T in(String inStr) {
     addAttribute('in', inStr)
   }

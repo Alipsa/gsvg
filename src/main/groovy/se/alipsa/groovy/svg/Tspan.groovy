@@ -5,7 +5,7 @@ package se.alipsa.groovy.svg
  * It must be a child of a <text> element or another <tspan> element.
  * <tspan fill="$fill" stroke="$stroke">$content</tspan>
  */
-class Tspan extends SvgElement<Tspan> {
+class Tspan extends StringContentContainer<Tspan> {
 
   static final String NAME='tspan'
 
@@ -57,10 +57,5 @@ class Tspan extends SvgElement<Tspan> {
 
   String getStroke() {
     getAttribute('stroke')
-  }
-
-  Tspan addContent(String text) {
-    element.setText(element.getText() + text)
-    this
   }
 }

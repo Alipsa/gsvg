@@ -3,7 +3,7 @@ package se.alipsa.groovy.svg
 /**
  * <text x="$x" y="$y" fill="$fill" font-size="$fontSize">$sb</text>
  */
-class Text extends SvgElement<Text> implements Animatable<Text> {
+class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   static final String NAME='text'
 
@@ -30,30 +30,16 @@ class Text extends SvgElement<Text> implements Animatable<Text> {
     addAttribute('y', String.valueOf(y))
   }
 
-  Text addContent(String content) {
-    element.addText(content)
-    this
-  }
-
-  Text replaceContent(String content) {
-    element.setText(content)
-    this
-  }
-
-  String getContent() {
-    element.getText()
-  }
-
   Tspan addTspan() {
-    return new Tspan(this)
+    add(new Tspan(this))
   }
 
   Tspan addTspan(String content) {
-    return new Tspan(this, content)
+    add(new Tspan(this, content))
   }
 
   TextPath addTextPath() {
-    return new TextPath(this)
+    add(new TextPath(this))
   }
 
   Text fontFamily(String family) {

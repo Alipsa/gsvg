@@ -1,7 +1,8 @@
-package se.alipsa.groovy.svg
+package se.alipsa.groovy.svg.io
 
 import org.dom4j.io.OutputFormat
 import org.dom4j.io.XMLWriter
+import se.alipsa.groovy.svg.Svg
 
 class SvgWriter {
 

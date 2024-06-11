@@ -58,4 +58,5 @@ class LinearGradient extends Gradient<LinearGradient> {
   String getY2() {
     getAttribute('y2')
   }
+
 }

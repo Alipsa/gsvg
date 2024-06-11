@@ -3,20 +3,16 @@ package se.alipsa.groovy.svg
 import org.dom4j.Namespace
 import org.dom4j.QName
 
-class Metadata extends SvgElement<Metadata> {
+class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<Metadata> {
 
   static final String NAME='metadata'
-
-  List<MetadataElement> metadataElements = []
 
   Metadata(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
 
   MetadataElement addElement(String qName) {
-    MetadataElement e = new MetadataElement(this, qName)
-    metadataElements << e
-    e
+    add(new MetadataElement(this, qName))
   }
 
   MetadataElement addElement(String localName, String prefix, String uri) {
@@ -26,20 +22,10 @@ class Metadata extends SvgElement<Metadata> {
   }
 
   MetadataElement addElement(QName qName) {
-    MetadataElement e = new MetadataElement(this, qName)
-    metadataElements << e
-    e
+    add(new MetadataElement(this, qName))
   }
 
-  List<MetadataElement>getChildren() {
-    metadataElements
-  }
-
-  MetadataElement getAt(Integer index) {
-    metadataElements[index]
-  }
-
-  List<MetadataElement> getAt(String name) {
-    metadataElements.stream().filter (e -> e.element.name == name).findAll()
+  List<SvgElement> getChildren() {
+    children
   }
 }

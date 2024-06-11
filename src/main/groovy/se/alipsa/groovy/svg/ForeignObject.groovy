@@ -1,10 +1,8 @@
 package se.alipsa.groovy.svg
 
-class ForeignObject extends SvgElement<ForeignObject> implements Animatable<ForeignObject>{
+class ForeignObject extends StringContentContainer<ForeignObject> implements Animatable<ForeignObject>, ExternalElementContainer<ForeignObject>  {
 
   static final String NAME='foreignObject'
-
-  List<ForeignElement> foreignElements = []
 
   ForeignObject(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -54,14 +52,7 @@ class ForeignObject extends SvgElement<ForeignObject> implements Animatable<Fore
     getAttribute('y')
   }
 
-  ForeignObject addContent(String content) {
-    element.addText(content)
-    this
-  }
-
   ForeignElement addElement(String qName) {
-    ForeignElement e = new ForeignElement(this, qName, "http://www.w3.org/1999/xhtml")
-    foreignElements << e
-    e
+    add(new ForeignElement(this, qName, "http://www.w3.org/1999/xhtml"))
   }
 }

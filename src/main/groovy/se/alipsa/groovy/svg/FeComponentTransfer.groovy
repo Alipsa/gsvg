@@ -4,16 +4,12 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
 
   static final String NAME='feComponentTransfer'
 
-  List<FilterFunction> functions = []
-
   FeComponentTransfer(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
 
   FeFuncA addFeFuncA() {
-    def feFunc = new FeFuncA(this)
-    functions << feFunc
-    feFunc
+    add(new FeFuncA(this))
   }
 
   FeFuncA addFeFuncA(String type) {
@@ -21,9 +17,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   }
 
   FeFuncB addFeFuncB() {
-    def feFunc = new FeFuncB(this)
-    functions << feFunc
-    feFunc
+    add(new FeFuncB(this))
   }
 
   FeFuncB addFeFuncB(String type) {
@@ -31,9 +25,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   }
 
   FeFuncG addFeFuncG() {
-    def feFunc = new FeFuncG(this)
-    functions << feFunc
-    feFunc
+    add(new FeFuncG(this))
   }
 
   FeFuncG addFeFuncG(String type) {
@@ -41,9 +33,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   }
 
   FeFuncR addFeFuncR() {
-    def feFunc = new FeFuncR(this)
-    functions << feFunc
-    feFunc
+    add(new FeFuncR(this))
   }
 
   FeFuncR addFeFuncR(String type) {

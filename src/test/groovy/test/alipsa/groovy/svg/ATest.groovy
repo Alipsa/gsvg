@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.A
 import se.alipsa.groovy.svg.Circle
 import se.alipsa.groovy.svg.Svg
-import se.alipsa.groovy.svg.SvgReader
+import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.Text
 
 import static org.junit.jupiter.api.Assertions.*

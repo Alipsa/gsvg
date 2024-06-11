@@ -4,8 +4,6 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
 
   static final String NAME='feSpecularLighting'
 
-  LightSourceElement lightSource
-
   FeSpecularLighting(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }

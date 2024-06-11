@@ -1,6 +1,6 @@
 package test.alipsa.groovy.svg
 
-import se.alipsa.groovy.svg.SvgWriter
+import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.*
 

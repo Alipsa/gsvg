@@ -1,30 +1,11 @@
 package se.alipsa.groovy.svg
 
-class Script extends SvgElement<Script> {
+class Script extends StringContentContainer<Script> {
 
   static final String NAME='script'
 
   Script(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
-  }
-
-  Script addContent(String content) {
-    element.addText(content)
-    this
-  }
-
-  Script addCdataContent(String content) {
-    element.addCDATA(content)
-    this
-  }
-
-  Script replaceContent(String content) {
-    element.setText(content)
-    this
-  }
-
-  String getContent() {
-    element.getText()
   }
 
   Script type(String value) {
