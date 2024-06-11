@@ -1,5 +1,7 @@
 package test.alipsa.groovy.svg
 
+import se.alipsa.groovy.svg.Defs
+
 import static org.junit.jupiter.api.Assertions.*
 
 import org.junit.jupiter.api.Test
@@ -55,5 +57,16 @@ class SvgReaderTest {
     file.write(svgString)
     Svg svg = SvgReader.parse(file)
     assertEquals(svgString, svg.toXml())
+  }
+
+  @Test
+  void testComplexSvgFile() {
+    try (InputStream is = this.class.getResourceAsStream('/Trajans-Column-lower-animated.svg')) {
+      Svg svg = SvgReader.parse(is)
+      assertEquals(11, svg.children.size(), "Svg hould have 11 direct elements")
+      assertEquals(Defs.class, svg[0].class)
+      assertEquals('block6', svg[10].id)
+      assertEquals(11, svg[10].children.size(), "last direct child element should have 11 children")
+    }
   }
 }
