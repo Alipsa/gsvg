@@ -1,6 +1,10 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-
+buildscript {
+    dependencies {
+        classpath 'se.alipsa.groovy:nexus-release-plugin:1.0.0-SNAPSHOT'
+    }
+}
 plugins {
     id 'java-library'
     id 'maven-publish'
@@ -9,6 +13,15 @@ plugins {
     id "com.github.ben-manes.versions" version "0.51.0"
 }
 
+group = 'se.alipsa.groovy'
+version = '0.1.0'
+description = 'A Groovy object model for SVG (Scalar Vector Graphics)'
+
+ext.nexusUrl = version.contains("SNAPSHOT")
+    ? "https://oss.sonatype.org/content/repositories/snapshots/"
+    : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+
+
 repositories {
     mavenLocal()
     maven {
@@ -16,24 +29,14 @@ repositories {
     }
 }
 
-group = 'se.alipsa.groovy'
-version = '0.1.0-SNAPSHOT'
-description = 'A Groovy object model for SVG (Scalar Vector Graphics)'
-
-ext.nexusUrl = version.contains("SNAPSHOT")
-    ? "https://oss.sonatype.org/content/repositories/snapshots/"
-    : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
-    withSourcesJar()
-    withJavadocJar()
 }
 
 dependencies {
-    def groovyVersion = '4.0.24'
+    def groovyVersion = '4.0.25'
     def groovy = "org.apache.groovy:groovy:$groovyVersion"
     def junitVersion = '5.11.3'
     compileOnly groovy
@@ -83,19 +86,30 @@ test {
     }
 }
 
+task javadocJar(type: Jar, dependsOn: groovydoc) {
+    archiveClassifier.set 'javadoc'
+    from groovydoc.destinationDir
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier.set 'sources'
+    from sourceSets.main.allSource
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
             from(components.java)
-            artifacts = [jar, javadocJar, sourcesJar]
+            artifact(javadocJar)
+            artifact(sourcesJar)
             pom {
-                name = 'SVG Model'
+                name = 'Groovy SVG Model'
                 description = "${project.description}"
-                url = "https://github.com/Alipsa/svg-model"
+                url = "https://github.com/Alipsa/gsvg"
                 licenses {
                     license {
                         name = 'MIT License'
-                        url = 'https://raw.githubusercontent.com/Alipsa/svg-model/main/LICENSE'
+                        url = 'https://raw.githubusercontent.com/Alipsa/gsvg/main/LICENSE'
                     }
                 }
                 developers {
@@ -105,10 +119,21 @@ publishing {
                     }
                 }
                 scm {
-                    url = 'https://github.com/Alipsa/svg-model/tree/main/'
-                    connection = 'scm:git:https://github.com/Alipsa/svg-model.git'
-                    developerConnection = 'scm:git:https://github.com/Alipsa/svg-model.git'
+                    url = 'https://github.com/Alipsa/gsvg/tree/main/'
+                    connection = 'scm:git:https://github.com/Alipsa/gsvg.git'
+                    developerConnection = 'scm:git:https://github.com/Alipsa/gsvg.git'
                 }
+            }
+        }
+    }
+    if (project.ext.properties.sonatypeUsername) {
+        repositories {
+            maven {
+                credentials {
+                    username = sonatypeUsername
+                    password = sonatypePassword
+                }
+                url = nexusUrl
             }
         }
     }
@@ -122,6 +147,14 @@ signing {
     } else {
         project.logger.lifecycle("signing.keyId is not defined, skipping signing of artifacts...")
     }
+}
+
+if (project.ext.properties.sonatypeUsername) {
+    apply plugin: 'nexus-release-plugin'
+    //apply plugin: 'se.alipsa.groovy.NexusReleasePlugin'
+    nexusReleasePlugin.nexusUrl = nexusUrl
+    nexusReleasePlugin.userName = sonatypeUsername
+    nexusReleasePlugin.password = sonatypePassword
 }
 
 def isNonStable = { String version ->

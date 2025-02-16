@@ -5,6 +5,4 @@ If you have groovy in your classpath, you can use it in any JVM language (Java, 
 
 The jvm should be java 17 or later.
 
-__This is early work in progress, no release version exists yet!__
-
 See the test for various ways to create, parse and write SVG
