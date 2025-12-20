@@ -8,7 +8,7 @@
   <artifactId>gsvg</artifactId>
   <version>0.2.0-SNAPSHOT</version>
   <name>gsvg</name>
-  <description>A Groovy object model for SVG (Scalar Vector Graphics)</description>
+  <description>A Groovy object model for SVG (Scalable Vector Graphics)</description>
   <packaging>jar</packaging>
   <url>https://github.com/Alipsa/gsvg</url>
 
