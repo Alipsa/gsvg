@@ -75,6 +75,7 @@ import se.alipsa.groovy.svg.Tspan
 import se.alipsa.groovy.svg.Use
 import se.alipsa.groovy.svg.View
 
+import javax.xml.XMLConstants
 import javax.xml.parsers.SAXParser
 import javax.xml.parsers.SAXParserFactory
 
@@ -94,7 +95,8 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     //print('begin element ' + qName)
     // Note, we do no checking of weather the XML is properly constructed or not e.g.
     // we do not check that a defs element only exists under a svg element, that a marker only exists in a defs etc.
-    switch (qName) {
+    String elementName = (localName == null || localName.isBlank()) ? qName : localName
+    switch (elementName) {
       case A.NAME -> currentElement = currentElement.addA()
       case Animate.NAME -> currentElement = currentElement.addAnimate()
       case AnimateMotion.NAME -> currentElement = currentElement.addAnimateMotion()
@@ -154,7 +156,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
           currentElement = svg = new Svg()
           rootSvgAssigned = true
         } else {
-          currentElement.addSvg()
+          currentElement = currentElement.addSvg()
         }
       }
       case Switch.NAME -> currentElement = currentElement.addSwitch()
@@ -170,10 +172,17 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
           if (qName.contains(':')) {
             // a foreignElement or metadata element with a namespace
             String prefix = qName.substring(0, qName.indexOf(':'))
+            String local = (localName == null || localName.isBlank()) ? qName.substring(qName.indexOf(':') + 1) : localName
             Namespace ns = new Namespace(prefix, uri)
-            QName qn = new QName(localName, ns)
+            QName qn = new QName(local, ns)
             currentElement = currentElement.addElement(qn)
             //println("added qName '$qName', uri='$uri', localName='$localName' to ${currentElement.name}")
+          } else if (uri != null && !uri.isBlank()) {
+            // a "plain" element or a foreignElement with a default namespace
+            String local = (localName == null || localName.isBlank()) ? qName : localName
+            Namespace ns = new Namespace('', uri)
+            QName qn = new QName(local, ns)
+            currentElement = currentElement.addElement(qn)
           } else {
             // a "plain" element or a foreignElement with a default namespace
             currentElement = currentElement.addElement(qName)
@@ -184,18 +193,24 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       }
     }
     //println(', current element is now ' + currentElement.element.getName())
+    // First capture namespace declarations to ensure prefixes are bound before attribute parsing
     for (int i = 0; i < attributes.getLength(); i++) {
-
-      if (!attributes.getLocalName(i).isBlank()) {
-        //println("adding attribute ${attributes.getQName(i)} with value ${attributes.getValue(i)} to ${currentElement.name}")
-        currentElement.addAttribute(attributes.getQName(i), attributes.getValue(i))
-      } else {
+      String attrLocalName = attributes.getLocalName(i)
+      if (attrLocalName == null || attrLocalName.isBlank()) {
         String qn = attributes.getQName(i)
-        if (qn.contains(':')) {
-          String prefix = qn.substring(qn.indexOf(':') + 1)
-          //println("adding namespace declaration ${prefix} with value ${attributes.getValue(i)} to ${currentElement.name}")
+        if ('xmlns' == qn) {
+          currentElement.addNamespace('', attributes.getValue(i))
+        } else if (qn != null && qn.startsWith('xmlns:')) {
+          String prefix = qn.substring('xmlns:'.length())
           currentElement.addNamespace(prefix, attributes.getValue(i))
         }
+      }
+    }
+
+    for (int i = 0; i < attributes.getLength(); i++) {
+      String attrLocalName = attributes.getLocalName(i)
+      if (attrLocalName != null && !attrLocalName.isBlank()) {
+        currentElement.addAttribute(attributes.getQName(i), attributes.getValue(i))
       }
     }
   }
@@ -248,9 +263,15 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   static SAXParser createSAXParser(SvgReader reader) {
     SAXParserFactory factory = SAXParserFactory.newInstance()
     factory.setNamespaceAware(true)
+    factory.setXIncludeAware(false)
 
     // allow us to capture namespace declaration as attributes in startElement
     factory.setFeature('http://xml.org/sax/features/namespace-prefixes', true)
+    factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
+    factory.setFeature("http://xml.org/sax/features/external-general-entities", false)
+    factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false)
+    factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)
     SAXParser parser = factory.newSAXParser()
     parser.setProperty("http://xml.org/sax/properties/lexical-handler", reader)
     parser

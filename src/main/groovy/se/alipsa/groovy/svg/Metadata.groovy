@@ -21,6 +21,12 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
     addElement(qn)
   }
 
+  MetadataElement addElement(String localName, String namespaceUri) {
+    Namespace ns = new Namespace('', namespaceUri)
+    QName qn = new QName(localName, ns)
+    addElement(qn)
+  }
+
   MetadataElement addElement(QName qName) {
     add(new MetadataElement(this, qName))
   }
