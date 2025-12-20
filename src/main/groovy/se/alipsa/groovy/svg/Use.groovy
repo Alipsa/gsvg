@@ -23,7 +23,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   }
 
   String getHref() {
-    element.attributeValue('href') ?: getAttribute(xlink('href'))
+    getAttribute('href') ?: getAttribute(xlink('href'))
   }
 
   String getXlinkHref() {
