@@ -29,3 +29,33 @@ def fresh = new Svg().xlink()
 fresh.addUse().href('#target')
 println fresh.toXml()
 ```
+
+## Navigating the SVG tree
+
+Elements implement `ElementContainer`, so you can use:
+- Index access: `svg[0]` (first child), or filtered: `svg[Rect]` to get all rects.
+- Chaining with `getParent()`: many adders return the new element; call `.getParent(Svg)` (or `.parent` typed) to move back up.
+- Names and attributes: `element.name`, `element.getAttribute('fill')`, `element.element` for raw dom4j access.
+
+Examples:
+```groovy
+import se.alipsa.groovy.svg.Rect
+
+def rects = svg[Rect]
+rects.each { r ->
+  println "Rect id=${r.id} fill=${r.fill}"
+}
+
+// Walk children recursively
+def walk(element, depth = 0) {
+  println "${'  '*depth}${element.name}"
+  element.children.each { walk(it, depth + 1) }
+}
+walk(svg)
+```
+
+## Extracting data
+- Attributes: `shape.fill`, `shape.getAttribute('stroke-width')`
+- Text content: for text-like elements, `text.content` (from `StringContentContainer`)
+- Namespaces: `element.element.getNamespaceURI()` or `element.getAttribute('xmlns')`
+- Raw XML: `element.toXml()` for a fragment, `SvgWriter.toXml(svg)` for the whole document
