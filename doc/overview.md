@@ -25,6 +25,6 @@ Maven:
 ```
 
 ## What you can do
-- Build SVGs fluently with a Groovy DSL (shapes, gradients, filters, text, animation).
-- Parse existing SVG files/strings/streams and modify them.
-- Work with SVG 2 `href` and legacy `xlink:href`, foreign content, and many SVG 1.1/2 draft elements.
+- [Build SVGs fluently](creating.md) with a Groovy DSL (shapes, gradients, filters, text, animation).
+- [Parse existing SVG](parsing.md) files/strings/streams and modify them.
+- Work with SVG 2 `href` and legacy `xlink:href`, foreign content, and SVG 1.1/2 draft elements.
