@@ -64,6 +64,22 @@ class Filter extends AbstractElementContainer<Filter> {
     getAttribute('height')
   }
 
+  Filter colorInterpolationFilters(String value) {
+    addAttribute('color-interpolation-filters', value)
+  }
+
+  String getColorInterpolationFilters() {
+    getAttribute('color-interpolation-filters')
+  }
+
+  Filter filterRes(String res) {
+    addAttribute('filterRes', res)
+  }
+
+  String getFilterRes() {
+    getAttribute('filterRes')
+  }
+
   FeGaussianBlur addFeGaussianBlur() {
     add(new FeGaussianBlur(this))
   }

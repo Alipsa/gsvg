@@ -14,10 +14,18 @@ import se.alipsa.groovy.svg.AnimateMotion
 import se.alipsa.groovy.svg.AnimateTransform
 import se.alipsa.groovy.svg.Circle
 import se.alipsa.groovy.svg.ClipPath
+import se.alipsa.groovy.svg.ColorProfile
 import se.alipsa.groovy.svg.Defs
 import se.alipsa.groovy.svg.Desc
+import se.alipsa.groovy.svg.Discard
 import se.alipsa.groovy.svg.Ellipse
 import se.alipsa.groovy.svg.ExternalElementContainer
+import se.alipsa.groovy.svg.Font
+import se.alipsa.groovy.svg.FontFace
+import se.alipsa.groovy.svg.FontFaceFormat
+import se.alipsa.groovy.svg.FontFaceName
+import se.alipsa.groovy.svg.FontFaceSrc
+import se.alipsa.groovy.svg.FontFaceUri
 import se.alipsa.groovy.svg.FeBlend
 import se.alipsa.groovy.svg.FeColorMatrix
 import se.alipsa.groovy.svg.FeComponentTransfer
@@ -46,12 +54,19 @@ import se.alipsa.groovy.svg.FeTurbulence
 import se.alipsa.groovy.svg.Filter
 import se.alipsa.groovy.svg.ForeignObject
 import se.alipsa.groovy.svg.G
+import se.alipsa.groovy.svg.Glyph
+import se.alipsa.groovy.svg.GlyphRef
 import se.alipsa.groovy.svg.Image
 import se.alipsa.groovy.svg.Line
 import se.alipsa.groovy.svg.LinearGradient
 import se.alipsa.groovy.svg.Marker
 import se.alipsa.groovy.svg.Mask
 import se.alipsa.groovy.svg.Metadata
+import se.alipsa.groovy.svg.Mesh
+import se.alipsa.groovy.svg.MeshGradient
+import se.alipsa.groovy.svg.MeshPatch
+import se.alipsa.groovy.svg.MeshRow
+import se.alipsa.groovy.svg.MissingGlyph
 import se.alipsa.groovy.svg.Mpath
 import se.alipsa.groovy.svg.Path
 import se.alipsa.groovy.svg.Pattern
@@ -70,10 +85,22 @@ import se.alipsa.groovy.svg.Switch
 import se.alipsa.groovy.svg.Symbol
 import se.alipsa.groovy.svg.Text
 import se.alipsa.groovy.svg.TextPath
+import se.alipsa.groovy.svg.Tref
 import se.alipsa.groovy.svg.Title
 import se.alipsa.groovy.svg.Tspan
 import se.alipsa.groovy.svg.Use
+import se.alipsa.groovy.svg.Vkern
 import se.alipsa.groovy.svg.View
+import se.alipsa.groovy.svg.Audio
+import se.alipsa.groovy.svg.Video
+import se.alipsa.groovy.svg.Hatch
+import se.alipsa.groovy.svg.HatchPath
+import se.alipsa.groovy.svg.Hkern
+import se.alipsa.groovy.svg.Cursor
+import se.alipsa.groovy.svg.Solidcolor
+import se.alipsa.groovy.svg.AltGlyph
+import se.alipsa.groovy.svg.AltGlyphDef
+import se.alipsa.groovy.svg.AltGlyphItem
 
 import javax.xml.XMLConstants
 import javax.xml.parsers.SAXParser
@@ -101,10 +128,14 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case Animate.NAME -> currentElement = currentElement.addAnimate()
       case AnimateMotion.NAME -> currentElement = currentElement.addAnimateMotion()
       case AnimateTransform.NAME -> currentElement = currentElement.addAnimateTransform()
+      case Audio.NAME -> currentElement = currentElement.addAudio()
       case Circle.NAME -> currentElement = currentElement.addCircle()
       case ClipPath.NAME -> currentElement = currentElement.addClipPath()
+      case ColorProfile.NAME -> currentElement = currentElement.addColorProfile()
+      case Cursor.NAME -> currentElement = currentElement.addCursor()
       case Defs.NAME -> currentElement = currentElement.addDefs()
       case Desc.NAME -> currentElement = currentElement.addDesc()
+      case Discard.NAME -> currentElement = currentElement.addDiscard()
       case Ellipse.NAME -> currentElement = currentElement.addEllipse()
       case FeBlend.NAME -> currentElement = currentElement.addFeBlend()
       case FeColorMatrix.NAME -> currentElement = currentElement.addFeColorMatrix()
@@ -134,12 +165,28 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case Filter.NAME -> currentElement = currentElement.addFilter()
       case ForeignObject.NAME -> currentElement = currentElement.addForeignObject()
       case G.NAME -> currentElement = currentElement.addG()
+      case Glyph.NAME -> currentElement = currentElement.addGlyph()
+      case GlyphRef.NAME -> currentElement = currentElement.addGlyphRef()
+      case Hatch.NAME -> currentElement = currentElement.addHatch()
+      case HatchPath.NAME -> currentElement = currentElement.addHatchPath()
+      case Hkern.NAME -> currentElement = currentElement.addHkern()
       case Image.NAME -> currentElement = currentElement.addImage()
       case Line.NAME -> currentElement = currentElement.addLine()
       case LinearGradient.NAME -> currentElement = currentElement.addLinearGradient()
       case Marker.NAME -> currentElement = currentElement.addMarker()
       case Mask.NAME -> currentElement = currentElement.addMask()
       case Metadata.NAME -> currentElement = currentElement.addMetadata()
+      case Mesh.NAME -> currentElement = currentElement.addMesh()
+      case MeshGradient.NAME -> currentElement = currentElement.addMeshGradient()
+      case MeshPatch.NAME -> currentElement = currentElement.addMeshPatch()
+      case MeshRow.NAME -> currentElement = currentElement.addMeshRow()
+      case MissingGlyph.NAME -> currentElement = currentElement.addMissingGlyph()
+      case Font.NAME -> currentElement = currentElement.addFont()
+      case FontFace.NAME -> currentElement = currentElement.addFontFace()
+      case FontFaceSrc.NAME -> currentElement = currentElement.addFontFaceSrc()
+      case FontFaceUri.NAME -> currentElement = currentElement.addFontFaceUri()
+      case FontFaceName.NAME -> currentElement = currentElement.addFontFaceName()
+      case FontFaceFormat.NAME -> currentElement = currentElement.addFontFaceFormat()
       case Mpath.NAME -> currentElement = currentElement.addMpath()
       case Path.NAME -> currentElement = currentElement.addPath()
       case Pattern.NAME -> currentElement = currentElement.addPattern()
@@ -151,6 +198,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case Set.NAME -> currentElement = currentElement.addSet()
       case Stop.NAME -> currentElement = currentElement.addStop()
       case Style.NAME -> currentElement = currentElement.addStyle()
+      case Solidcolor.NAME -> currentElement = currentElement.addSolidcolor()
       case Svg.NAME -> {
         if (!rootSvgAssigned) {
           currentElement = svg = new Svg()
@@ -163,10 +211,16 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
       case Symbol.NAME -> currentElement = currentElement.addSymbol()
       case Text.NAME -> currentElement = currentElement.addText()
       case TextPath.NAME -> currentElement = currentElement.addTextPath()
+      case Tref.NAME -> currentElement = currentElement.addTref()
       case Title.NAME -> currentElement = currentElement.addTitle()
       case Tspan.NAME -> currentElement = currentElement.addTspan()
       case Use.NAME -> currentElement = currentElement.addUse()
+      case Vkern.NAME -> currentElement = currentElement.addVkern()
       case View.NAME -> currentElement = currentElement.addView()
+      case Video.NAME -> currentElement = currentElement.addVideo()
+      case AltGlyph.NAME -> currentElement = currentElement.addAltGlyph()
+      case AltGlyphDef.NAME -> currentElement = currentElement.addAltGlyphDef()
+      case AltGlyphItem.NAME -> currentElement = currentElement.addAltGlyphItem()
       default -> {
         if (currentElement instanceof ExternalElementContainer) {
           if (qName.contains(':')) {

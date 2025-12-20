@@ -40,6 +40,22 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     getAttribute('refY')
   }
 
+  Marker markerUnits(String units) {
+    addAttribute('markerUnits', units)
+  }
+
+  String getMarkerUnits() {
+    getAttribute('markerUnits')
+  }
+
+  Marker orient(String value) {
+    addAttribute('orient', value)
+  }
+
+  String getOrient() {
+    getAttribute('orient')
+  }
+
   @Override
   String toString() {
     return "Marker(id=${getAttribute('id')})"

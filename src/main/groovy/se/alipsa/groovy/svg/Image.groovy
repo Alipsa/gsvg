@@ -65,7 +65,20 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   }
 
   String getHref() {
-    getAttribute('href')
+    getAttribute('href') ?: getAttribute(xlink('href'))
+  }
+
+  @Override
+  Image addAttribute(String name, Object value) {
+    if ('href' == name) {
+      element.addAttribute('href', "$value")
+      return this
+    }
+    if ('xlink:href' == name) {
+      element.addAttribute(xlink('href'), "$value")
+      return this
+    }
+    super.addAttribute(name, value) as Image
   }
 
   /**

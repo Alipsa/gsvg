@@ -17,4 +17,28 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   T onClick(String value) {
     addAttribute('onclick', value)
   }
+
+  T fillRule(String value) {
+    addAttribute('fill-rule', value)
+  }
+
+  String getFillRule() {
+    getAttribute('fill-rule')
+  }
+
+  T strokeLinejoin(String value) {
+    addAttribute('stroke-linejoin', value)
+  }
+
+  String getStrokeLinejoin() {
+    getAttribute('stroke-linejoin')
+  }
+
+  T strokeLinecap(String value) {
+    addAttribute('stroke-linecap', value)
+  }
+
+  String getStrokeLinecap() {
+    getAttribute('stroke-linecap')
+  }
 }

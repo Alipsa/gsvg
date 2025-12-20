@@ -14,6 +14,14 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
     addAttribute('gradientUnits', units)
   }
 
+  T gradientTransform(String transform) {
+    addAttribute('gradientTransform', transform)
+  }
+
+  T spreadMethod(String method) {
+    addAttribute('spreadMethod', method)
+  }
+
   List<Stop> getStops() {
     children.findAll {it instanceof Stop} as List<Stop>
   }
