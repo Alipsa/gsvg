@@ -19,6 +19,7 @@
     <ignoreVersion type="regex">.*jre18</ignoreVersion>
     <ignoreVersion type="regex">.*jre19</ignoreVersion>
     <ignoreVersion type="regex">.*jre20</ignoreVersion>
+    <ignoreVersion type="regex">.*jre21</ignoreVersion>
     <ignoreVersion type="regex">.*jre22</ignoreVersion>
     <ignoreVersion type="regex">.*jre23</ignoreVersion>
     <ignoreVersion type="regex">.*jre24</ignoreVersion>
