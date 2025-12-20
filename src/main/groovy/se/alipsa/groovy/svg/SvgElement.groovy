@@ -96,7 +96,10 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   }
 
   T removeAttribute(String attribute) {
-    element.remove(element.attribute(attribute))
+    def attr = element.attribute(attribute)
+    if (attr != null) {
+      element.remove(attr)
+    }
     this as T
   }
 
@@ -162,18 +165,34 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     desc
   }
 
-  QName xlink(String prefix) {
-    new QName('href', xlinkNs)
+  QName xlink(String localName) {
+    if (localName == null || localName.isBlank()) {
+      throw new IllegalArgumentException("Local name must not be blank for xlink")
+    }
+    new QName(localName, xlinkNs)
   }
 
   QName getQName(String name) {
-    String prefix = name.substring(0, name.indexOf(':'))
-    String localName = name.substring(name.indexOf(':') + 1)
+    int idx = name.indexOf(':')
+    if (idx < 0) {
+      throw new IllegalArgumentException("Name '$name' must contain a namespace prefix")
+    }
+    String prefix = name.substring(0, idx)
+    String localName = name.substring(idx + 1)
+    if (localName.isBlank()) {
+      throw new IllegalArgumentException("Local name must not be blank in '$name'")
+    }
     getQName(prefix, localName)
   }
 
   QName getQName(String prefix, String localName) {
     Namespace ns = element.getNamespaceForPrefix(prefix)
+    if (ns == null) {
+      throw new IllegalArgumentException("No namespace bound for prefix '$prefix' on element '${element.getName()}'")
+    }
+    if (localName == null || localName.isBlank()) {
+      throw new IllegalArgumentException("Local name must not be blank for prefix '$prefix'")
+    }
     new QName(localName, ns)
   }
 

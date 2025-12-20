@@ -1,5 +1,8 @@
 package se.alipsa.groovy.svg
 
+import org.dom4j.Namespace
+import org.dom4j.QName
+
 class ForeignObject extends StringContentContainer<ForeignObject> implements Animatable<ForeignObject>, ExternalElementContainer<ForeignObject>  {
 
   static final String NAME='foreignObject'
@@ -54,5 +57,14 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
 
   ForeignElement addElement(String qName) {
     add(new ForeignElement(this, qName, "http://www.w3.org/1999/xhtml"))
+  }
+
+  ForeignElement addElement(QName qName) {
+    add(new ForeignElement(this, qName))
+  }
+
+  ForeignElement addElement(String localName, String namespaceUri) {
+    Namespace ns = new Namespace('', namespaceUri)
+    add(new ForeignElement(this, new QName(localName, ns)))
   }
 }
