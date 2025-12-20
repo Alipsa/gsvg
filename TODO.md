@@ -138,8 +138,8 @@ T removeAttribute(String attribute) {
 8. [ ] 2.1 - Readme dependency accuracy
 
 ### Phase 3: Feature Enhancement (As Needed)
-9. [ ] 3.4 - SVG 2 href support
-10. [ ] 3.5 - Attribute coverage expansion
-11. [ ] 3.2 - Missing SVG 1.1 elements (color-profile, cursor)
-12. [ ] 3.3 - SVG 2 draft elements
-13. [ ] 3.1 - Font module elements (low priority, deprecated)
+9. [x] 3.4 - SVG 2 href support
+10. [x] 3.5 - Attribute coverage expansion
+11. [x] 3.2 - Missing SVG 1.1 elements (color-profile, cursor)
+12. [x] 3.3 - SVG 2 draft elements
+13. [x] 3.1 - Font module elements (low priority, deprecated)

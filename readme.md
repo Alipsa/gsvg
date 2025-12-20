@@ -5,7 +5,7 @@ If you have groovy in your classpath, you can use it in any JVM language (Java, 
 
 The goal is to have a simple to use and lightweight library to create SVG documents programmatically or parse existing ones for modification. It supports the SVG 1.1 specification and the SVG 2 draft.
 
-The jvm should be java 17 or later.
+The jvm used should be java 17 or later.
 
 See the test for various ways to create, parse and write SVG
 

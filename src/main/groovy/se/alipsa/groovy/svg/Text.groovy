@@ -106,4 +106,49 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   String getTransform() {
     getAttribute('transform')
   }
+
+  Text baselineShift(String value) {
+    addAttribute('baseline-shift', value)
+    this
+  }
+
+  String getBaselineShift() {
+    getAttribute('baseline-shift')
+  }
+
+  Text dominantBaseline(String value) {
+    addAttribute('dominant-baseline', value)
+    this
+  }
+
+  String getDominantBaseline() {
+    getAttribute('dominant-baseline')
+  }
+
+  Text textDecoration(String value) {
+    addAttribute('text-decoration', value)
+    this
+  }
+
+  String getTextDecoration() {
+    getAttribute('text-decoration')
+  }
+
+  Text wordSpacing(String value) {
+    addAttribute('word-spacing', value)
+    this
+  }
+
+  String getWordSpacing() {
+    getAttribute('word-spacing')
+  }
+
+  Text letterSpacing(String value) {
+    addAttribute('letter-spacing', value)
+    this
+  }
+
+  String getLetterSpacing() {
+    getAttribute('letter-spacing')
+  }
 }

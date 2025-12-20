@@ -13,7 +13,7 @@ class TextPath extends StringContentContainer<TextPath> {
   }
 
   String getHref() {
-    getAttribute('href')
+    getAttribute('href') ?: getAttribute(xlink('href'))
   }
 
   TextPath lengthAdjust(Number lengthAdjust) {

@@ -17,13 +17,30 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
     this
   }
 
+  Use href(String ref) {
+    element.addAttribute('href', "$ref")
+    this
+  }
+
+  String getHref() {
+    getAttribute('href') ?: getAttribute(xlink('href'))
+  }
+
+  String getXlinkHref() {
+    getAttribute(xlink('href'))
+  }
+
   @Override
   Use addAttribute(String name, Object value) {
     if ('href' == name) {
-      xlinkHref("$value")
-    } else {
-      return super.addAttribute(name, value) as Use
+      element.addAttribute('href', "$value")
+      return this
     }
+    if ('xlink:href' == name) {
+      element.addAttribute(xlink('href'), "$value")
+      return this
+    }
+    return super.addAttribute(name, value) as Use
   }
 
   Use fill(String fill) {

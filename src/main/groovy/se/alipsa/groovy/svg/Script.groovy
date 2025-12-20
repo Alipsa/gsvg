@@ -21,7 +21,7 @@ class Script extends StringContentContainer<Script> {
   }
 
   String getHref() {
-    getAttribute('href')
+    getAttribute('href') ?: getAttribute(xlink('href'))
   }
 
   Script xlinkHref(String href) {

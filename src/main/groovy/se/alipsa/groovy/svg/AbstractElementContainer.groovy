@@ -127,4 +127,112 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   Use addUse() {
     add(new Use(this))
   }
+
+  ColorProfile addColorProfile() {
+    add(new ColorProfile(this))
+  }
+
+  Cursor addCursor() {
+    add(new Cursor(this))
+  }
+
+  Solidcolor addSolidcolor() {
+    add(new Solidcolor(this))
+  }
+
+  MeshGradient addMeshGradient() {
+    add(new MeshGradient(this))
+  }
+
+  Mesh addMesh() {
+    add(new Mesh(this))
+  }
+
+  MeshRow addMeshRow() {
+    add(new MeshRow(this))
+  }
+
+  MeshPatch addMeshPatch() {
+    add(new MeshPatch(this))
+  }
+
+  Hatch addHatch() {
+    add(new Hatch(this))
+  }
+
+  HatchPath addHatchPath() {
+    add(new HatchPath(this))
+  }
+
+  Audio addAudio() {
+    add(new Audio(this))
+  }
+
+  Video addVideo() {
+    add(new Video(this))
+  }
+
+  Discard addDiscard() {
+    add(new Discard(this))
+  }
+
+  Font addFont() {
+    add(new Font(this))
+  }
+
+  FontFace addFontFace() {
+    add(new FontFace(this))
+  }
+
+  FontFaceSrc addFontFaceSrc() {
+    add(new FontFaceSrc(this))
+  }
+
+  FontFaceUri addFontFaceUri() {
+    add(new FontFaceUri(this))
+  }
+
+  FontFaceName addFontFaceName() {
+    add(new FontFaceName(this))
+  }
+
+  FontFaceFormat addFontFaceFormat() {
+    add(new FontFaceFormat(this))
+  }
+
+  Glyph addGlyph() {
+    add(new Glyph(this))
+  }
+
+  MissingGlyph addMissingGlyph() {
+    add(new MissingGlyph(this))
+  }
+
+  Hkern addHkern() {
+    add(new Hkern(this))
+  }
+
+  Vkern addVkern() {
+    add(new Vkern(this))
+  }
+
+  GlyphRef addGlyphRef() {
+    add(new GlyphRef(this))
+  }
+
+  AltGlyph addAltGlyph() {
+    add(new AltGlyph(this))
+  }
+
+  AltGlyphDef addAltGlyphDef() {
+    add(new AltGlyphDef(this))
+  }
+
+  AltGlyphItem addAltGlyphItem() {
+    add(new AltGlyphItem(this))
+  }
+
+  Tref addTref() {
+    add(new Tref(this))
+  }
 }
