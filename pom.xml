@@ -125,7 +125,7 @@
             <configuration>
               <rules>
                 <enforceBytecodeVersion>
-                  <!-- Cap dependencies at JDK 21 -->
+                  <!-- Cap dependencies at JDK 17 -->
                   <maxJdkVersion>${java.version}</maxJdkVersion>
                   <!-- Optional: ignore test scope -->
                   <ignoredScopes>
