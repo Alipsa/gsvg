@@ -1,6 +1,6 @@
 ![Groovy](https://img.shields.io/badge/groovy-4298B8.svg?style=for-the-badge&logo=apachegroovy&logoColor=white)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/se.alipsa.groovy/gsvg/badge.svg)](https://maven-badges.herokuapp.com/maven-central/se.alipsa.groovy/gsvg)
-[![javadoc](https://javadoc.io/badge2/se.alipsa.groovy/gsvg/javadoc.svg)](https://javadoc.io/doc/se.alipsa.groovy/gsvg)
+[![Maven Central](https://img.shields.io/maven-central/v/se.alipsa.groovy/gsvg.svg?style=for-the-badge)](https://search.maven.org/artifact/se.alipsa.groovy/gsvg)
+[![Javadoc](https://javadoc.io/badge2/se.alipsa.groovy/gsvg/javadoc.svg?style=for-the-badge)](https://javadoc.io/doc/se.alipsa.groovy/gsvg)
 # Groovy Scalar Vector Graphics (gsvg)
 
 This is an object model to create, parse and manipulate SVG documents for groovy.
