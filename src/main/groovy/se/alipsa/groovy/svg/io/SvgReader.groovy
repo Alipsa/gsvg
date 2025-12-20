@@ -93,7 +93,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   @Override
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     //print('begin element ' + qName)
-    // Note, we do no checking of weather the XML is properly constructed or not e.g.
+    // Note, we do no checking of whether the XML is properly constructed or not e.g.
     // we do not check that a defs element only exists under a svg element, that a marker only exists in a defs etc.
     String elementName = (localName == null || localName.isBlank()) ? qName : localName
     switch (elementName) {
