@@ -20,6 +20,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
 
   T fillRule(String value) {
     addAttribute('fill-rule', value)
+    this as T
   }
 
   String getFillRule() {
@@ -28,6 +29,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
 
   T strokeLinejoin(String value) {
     addAttribute('stroke-linejoin', value)
+    this as T
   }
 
   String getStrokeLinejoin() {
@@ -36,6 +38,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
 
   T strokeLinecap(String value) {
     addAttribute('stroke-linecap', value)
+    this as T
   }
 
   String getStrokeLinecap() {

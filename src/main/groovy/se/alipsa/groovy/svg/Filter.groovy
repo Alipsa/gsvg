@@ -66,6 +66,7 @@ class Filter extends AbstractElementContainer<Filter> {
 
   Filter colorInterpolationFilters(String value) {
     addAttribute('color-interpolation-filters', value)
+    this
   }
 
   String getColorInterpolationFilters() {
@@ -74,6 +75,7 @@ class Filter extends AbstractElementContainer<Filter> {
 
   Filter filterRes(String res) {
     addAttribute('filterRes', res)
+    this
   }
 
   String getFilterRes() {

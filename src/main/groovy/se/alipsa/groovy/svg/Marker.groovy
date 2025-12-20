@@ -42,6 +42,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
 
   Marker markerUnits(String units) {
     addAttribute('markerUnits', units)
+    this
   }
 
   String getMarkerUnits() {
@@ -50,6 +51,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
 
   Marker orient(String value) {
     addAttribute('orient', value)
+    this
   }
 
   String getOrient() {

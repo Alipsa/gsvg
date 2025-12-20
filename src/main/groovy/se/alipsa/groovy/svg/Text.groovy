@@ -109,6 +109,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   Text baselineShift(String value) {
     addAttribute('baseline-shift', value)
+    this
   }
 
   String getBaselineShift() {
@@ -117,6 +118,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   Text dominantBaseline(String value) {
     addAttribute('dominant-baseline', value)
+    this
   }
 
   String getDominantBaseline() {
@@ -125,6 +127,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   Text textDecoration(String value) {
     addAttribute('text-decoration', value)
+    this
   }
 
   String getTextDecoration() {
@@ -133,6 +136,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   Text wordSpacing(String value) {
     addAttribute('word-spacing', value)
+    this
   }
 
   String getWordSpacing() {
@@ -141,6 +145,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   Text letterSpacing(String value) {
     addAttribute('letter-spacing', value)
+    this
   }
 
   String getLetterSpacing() {
