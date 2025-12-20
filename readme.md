@@ -11,14 +11,14 @@ See the test for various ways to create, parse and write SVG
 
 to use it add the following to your Gradle build script
 ```groovy
-implementation("se.apache.groovy:groovy:5.0.3")
+implementation("org.apache.groovy:groovy:5.0.3")
 implementation("se.alipsa.groovy:gsvg:0.2.0")
 ```
 or if you prefer maven:
 ```xml
 <dependencies>
   <dependency>
-      <groupId>se.apache.groovy</groupId>
+      <groupId>org.apache.groovy</groupId>
       <artifactId>groovy</artifactId>
       <version>5.0.3</version>
   </dependency>
