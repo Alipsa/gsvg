@@ -10,11 +10,11 @@ plugins {
     id 'maven-publish'
     id 'groovy'
     id 'signing'
-    id "com.github.ben-manes.versions" version "0.51.0"
+    id "com.github.ben-manes.versions" version "0.53.0"
 }
 
 group = 'se.alipsa.groovy'
-version = '0.1.0'
+version = '0.2.0-SNAPSHOT'
 description = 'A Groovy object model for SVG (Scalar Vector Graphics)'
 
 ext.nexusUrl = version.contains("SNAPSHOT")
@@ -36,16 +36,17 @@ java {
 }
 
 dependencies {
-    def groovyVersion = '4.0.25'
+    def groovyVersion = '5.0.3'
     def groovy = "org.apache.groovy:groovy:$groovyVersion"
-    def junitVersion = '5.11.3'
+    def junitVersion = '6.0.1'
     compileOnly groovy
-    implementation 'org.dom4j:dom4j:2.1.4'
+    implementation 'org.dom4j:dom4j:2.2.0'
     implementation 'jaxen:jaxen:2.0.0'
 
     testImplementation groovy
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testImplementation platform("org.junit:junit-bom:$junitVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {
@@ -86,12 +87,14 @@ test {
     }
 }
 
-task javadocJar(type: Jar, dependsOn: groovydoc) {
+tasks.register('javadocJar', Jar) {
+    dependsOn groovydoc
     archiveClassifier.set 'javadoc'
     from groovydoc.destinationDir
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
+tasks.register('sourcesJar', Jar) {
+    dependsOn classes
     archiveClassifier.set 'sources'
     from sourceSets.main.allSource
 }
