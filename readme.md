@@ -62,3 +62,7 @@ rects.each { it.stroke('red').strokeWidth(2) }
 
 new File('logo-out.svg').text = SvgWriter.toXmlPretty(svg)
 ```
+## Documentation
+- [doc](doc/overview.md) for a simple overview of the library structure and usage examples.
+- [javadoc](https://javadoc.io/doc/se.alipsa.groovy/gsvg) for full API documentation.
+
