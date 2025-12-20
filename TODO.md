@@ -62,7 +62,7 @@ T removeAttribute(String attribute) {
 ### 2.1. Readme Dependency Accuracy
 **File:** `readme.md:12-29`  
 **Issue:** Gradle/Maven snippets use `se.apache.groovy` instead of `org.apache.groovy`. Target library version 0.2.0 matches the readme.  
-**Action:** Correct the Groovy groupId in the snippets; keep the gsvg version at 0.2.0 for release.
+**Action (completed):** Corrected the Groovy groupId in the Gradle/Maven snippets from `se.apache.groovy` to `org.apache.groovy`; kept the gsvg version at 0.2.0 for release.
 
 ---
 
