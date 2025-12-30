@@ -66,11 +66,6 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
     add(new MetadataElement(this, qName))
   }
 
-  /**
-   * Returns the children value.
-   *
-   * @return the children value
-   */
   List<SvgElement> getChildren() {
     children
   }

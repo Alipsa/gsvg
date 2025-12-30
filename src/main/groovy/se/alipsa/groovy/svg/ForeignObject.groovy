@@ -39,11 +39,6 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
     addAttribute('width', width)
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -68,11 +63,6 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
     addAttribute('height', height)
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }
@@ -87,11 +77,6 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
     addAttribute('x', x)
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -116,11 +101,6 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
     addAttribute('y', y)
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }

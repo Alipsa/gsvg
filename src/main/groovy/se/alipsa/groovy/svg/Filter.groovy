@@ -36,11 +36,6 @@ class Filter extends AbstractElementContainer<Filter> {
     addAttribute('x', x)
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -65,11 +60,6 @@ class Filter extends AbstractElementContainer<Filter> {
     addAttribute('y', y)
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }
@@ -84,11 +74,6 @@ class Filter extends AbstractElementContainer<Filter> {
     addAttribute('filterUnits', units)
   }
 
-  /**
-   * Returns the filter units value.
-   *
-   * @return the filter units value
-   */
   String getFilterUnits() {
     getAttribute('filterUnits')
   }
@@ -113,11 +98,6 @@ class Filter extends AbstractElementContainer<Filter> {
     addAttribute('width', width)
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -142,11 +122,6 @@ class Filter extends AbstractElementContainer<Filter> {
     addAttribute('height', height)
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }
@@ -162,11 +137,6 @@ class Filter extends AbstractElementContainer<Filter> {
     this
   }
 
-  /**
-   * Returns the color interpolation filters value.
-   *
-   * @return the color interpolation filters value
-   */
   String getColorInterpolationFilters() {
     getAttribute('color-interpolation-filters')
   }
@@ -182,11 +152,6 @@ class Filter extends AbstractElementContainer<Filter> {
     this
   }
 
-  /**
-   * Returns the filter res value.
-   *
-   * @return the filter res value
-   */
   String getFilterRes() {
     getAttribute('filterRes')
   }

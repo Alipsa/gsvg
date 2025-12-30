@@ -36,11 +36,6 @@ class RadialGradient extends Gradient<RadialGradient> {
     addAttribute('cx', cx)
   }
 
-  /**
-   * Returns the cx value.
-   *
-   * @return the cx value
-   */
   String getCx() {
     getAttribute('cx')
   }
@@ -65,11 +60,6 @@ class RadialGradient extends Gradient<RadialGradient> {
     addAttribute('cy', cy)
   }
 
-  /**
-   * Returns the cy value.
-   *
-   * @return the cy value
-   */
   String getCy() {
     getAttribute('cy')
   }
@@ -94,11 +84,6 @@ class RadialGradient extends Gradient<RadialGradient> {
     addAttribute('r', r)
   }
 
-  /**
-   * Returns the r value.
-   *
-   * @return the r value
-   */
   String getR() {
     getAttribute('r')
   }
@@ -123,11 +108,6 @@ class RadialGradient extends Gradient<RadialGradient> {
     addAttribute('fx', "$fx")
   }
 
-  /**
-   * Returns the fx value.
-   *
-   * @return the fx value
-   */
   String getFx() {
     getAttribute('fx')
   }
@@ -152,11 +132,6 @@ class RadialGradient extends Gradient<RadialGradient> {
     addAttribute('fy', "$fy")
   }
 
-  /**
-   * Returns the fy value.
-   *
-   * @return the fy value
-   */
   String getFy() {
     getAttribute('fy')
   }

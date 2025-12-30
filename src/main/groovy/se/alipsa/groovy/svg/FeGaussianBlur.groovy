@@ -26,11 +26,6 @@ class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
     addAttribute('in', input)
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -45,11 +40,6 @@ class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
     addAttribute('stdDeviation', deviation)
   }
 
-  /**
-   * Returns the std deviation value.
-   *
-   * @return the std deviation value
-   */
   String getStdDeviation() {
     getAttribute('stdDeviation')
   }

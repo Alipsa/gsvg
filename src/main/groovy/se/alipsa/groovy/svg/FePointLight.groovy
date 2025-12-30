@@ -36,11 +36,6 @@ class FePointLight extends LightSourceElement<FePointLight> {
     addAttribute('z', z)
   }
 
-  /**
-   * Returns the z value.
-   *
-   * @return the z value
-   */
   String getZ() {
     getAttribute('z')
   }

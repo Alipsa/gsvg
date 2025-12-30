@@ -36,11 +36,6 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
     addAttribute('z', z)
   }
 
-  /**
-   * Returns the z value.
-   *
-   * @return the z value
-   */
   String getZ() {
     getAttribute('z')
   }
@@ -55,11 +50,6 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
     addAttribute('limitingConeAngle', angle)
   }
 
-  /**
-   * Returns the limiting cone angle value.
-   *
-   * @return the limiting cone angle value
-   */
   String getLimitingConeAngle() {
     getAttribute('limitingConeAngle')
   }
@@ -84,11 +74,6 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
     addAttribute('pointsAtY', value)
   }
 
-  /**
-   * Returns the points at y value.
-   *
-   * @return the points at y value
-   */
   String getPointsAtY() {
     getAttribute('pointsAtY')
   }
@@ -103,11 +88,6 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
     addAttribute('pointsAtZ', value)
   }
 
-  /**
-   * Returns the points at z value.
-   *
-   * @return the points at z value
-   */
   String getPointsAtZ() {
     getAttribute('pointsAtZ')
   }

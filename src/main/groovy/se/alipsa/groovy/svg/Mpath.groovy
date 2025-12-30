@@ -36,20 +36,10 @@ class Mpath extends SvgElement<Mpath> {
     addAttribute('href', href)
   }
 
-  /**
-   * Returns the href value.
-   *
-   * @return the href value
-   */
   String getHref() {
     getAttribute('href') ?: getAttribute(xlink('href'))
   }
 
-  /**
-   * Returns the xlink href value.
-   *
-   * @return the xlink href value
-   */
   String getXlinkHref() {
     getAttribute(xlink('href'))
   }

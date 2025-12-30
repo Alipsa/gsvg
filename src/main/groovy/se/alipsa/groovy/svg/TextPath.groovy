@@ -26,11 +26,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('href', href)
   }
 
-  /**
-   * Returns the href value.
-   *
-   * @return the href value
-   */
   String getHref() {
     getAttribute('href') ?: getAttribute(xlink('href'))
   }
@@ -45,11 +40,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('lengthAdjust', lengthAdjust)
   }
 
-  /**
-   * Returns the length adjust value.
-   *
-   * @return the length adjust value
-   */
   String getLengthAdjust() {
     getAttribute('lengthAdjust')
   }
@@ -64,11 +54,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('method', value)
   }
 
-  /**
-   * Returns the method value.
-   *
-   * @return the method value
-   */
   String getMethod() {
     getAttribute('method')
   }
@@ -83,11 +68,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('path', value)
   }
 
-  /**
-   * Returns the path value.
-   *
-   * @return the path value
-   */
   String getPath() {
     getAttribute('path')
   }
@@ -102,11 +82,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('side', value)
   }
 
-  /**
-   * Returns the side value.
-   *
-   * @return the side value
-   */
   String getSide() {
     getAttribute('side')
   }
@@ -121,11 +96,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('spacing', value)
   }
 
-  /**
-   * Returns the spacing value.
-   *
-   * @return the spacing value
-   */
   String getSpacing() {
     getAttribute('spacing')
   }
@@ -150,11 +120,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('startOffset', value)
   }
 
-  /**
-   * Returns the start offset value.
-   *
-   * @return the start offset value
-   */
   String getStartOffset() {
     getAttribute('startOffset')
   }
@@ -169,11 +134,6 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('textLength', textLength)
   }
 
-  /**
-   * Returns the text length value.
-   *
-   * @return the text length value
-   */
   String getTextLength() {
     getAttribute('textLength')
   }

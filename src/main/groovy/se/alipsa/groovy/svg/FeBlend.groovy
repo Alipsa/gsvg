@@ -44,11 +44,6 @@ class FeBlend extends FilterElement<FeBlend> {
     addAttribute('in', inEnum.name())
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -63,11 +58,6 @@ class FeBlend extends FilterElement<FeBlend> {
     addAttribute('in2', inStr)
   }
 
-  /**
-   * Returns the in 2 value.
-   *
-   * @return the in 2 value
-   */
   String getIn2() {
     getAttribute('in2')
   }
@@ -92,11 +82,6 @@ class FeBlend extends FilterElement<FeBlend> {
     addAttribute('mode', mode.name())
   }
 
-  /**
-   * Returns the mode value.
-   *
-   * @return the mode value
-   */
   String getMode() {
     getAttribute('mode')
   }

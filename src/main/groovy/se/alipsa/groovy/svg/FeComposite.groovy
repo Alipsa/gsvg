@@ -42,11 +42,6 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('operator', value.name())
   }
 
-  /**
-   * Returns the operator value.
-   *
-   * @return the operator value
-   */
   String getOperator() {
     getAttribute('operator')
   }
@@ -71,11 +66,6 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('in', inEnum.name())
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -90,11 +80,6 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('in2', inStr)
   }
 
-  /**
-   * Returns the in 2 value.
-   *
-   * @return the in 2 value
-   */
   String getIn2() {
     getAttribute('in2')
   }
@@ -104,11 +89,6 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k1', value)
   }
 
-  /**
-   * Returns the k 1 value.
-   *
-   * @return the k 1 value
-   */
   String getK1() {
     getAttribute('k1')
   }
@@ -118,11 +98,6 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k2', value)
   }
 
-  /**
-   * Returns the k 2 value.
-   *
-   * @return the k 2 value
-   */
   String getK2() {
     getAttribute('k2')
   }
@@ -132,11 +107,6 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k3', value)
   }
 
-  /**
-   * Returns the k 3 value.
-   *
-   * @return the k 3 value
-   */
   String getK3() {
     getAttribute('k3')
   }
@@ -146,11 +116,6 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k4', value)
   }
 
-  /**
-   * Returns the k 4 value.
-   *
-   * @return the k 4 value
-   */
   String getK4() {
     getAttribute('k4')
   }

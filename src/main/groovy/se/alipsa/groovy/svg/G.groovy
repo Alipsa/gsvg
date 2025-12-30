@@ -39,11 +39,6 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
         addAttribute('fill', String.valueOf(fill))
     }
 
-    /**
-     * Returns the fill value.
-     *
-     * @return the fill value
-     */
     String getFill() {
         getAttribute('fill')
     }
@@ -58,11 +53,6 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
         addAttribute('stroke', "$stroke")
     }
 
-    /**
-     * Returns the stroke value.
-     *
-     * @return the stroke value
-     */
     String getStroke() {
         getAttribute('stroke')
     }
@@ -77,11 +67,6 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
         addAttribute('stroke-width', "$strokeWidth")
     }
 
-    /**
-     * Returns the stroke width value.
-     *
-     * @return the stroke width value
-     */
     String getStrokeWidth() {
         getAttribute('stroke-width')
     }
@@ -96,11 +81,6 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
         addAttribute('transform', transformation)
     }
 
-    /**
-     * Returns the transform value.
-     *
-     * @return the transform value
-     */
     String getTransform() {
         getAttribute('transform')
     }
@@ -125,11 +105,6 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
         addAttribute('font-size', size)
     }
 
-    /**
-     * Returns the font size value.
-     *
-     * @return the font size value
-     */
     String getFontSize() {
         getAttribute('font-size')
     }
@@ -144,11 +119,6 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
         addAttribute('font-family', family)
     }
 
-    /**
-     * Returns the font family value.
-     *
-     * @return the font family value
-     */
     String getFontFamily() {
         getAttribute('font-family')
     }
@@ -163,11 +133,6 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
         addAttribute('font-weight', weight)
     }
 
-    /**
-     * Returns the font weight value.
-     *
-     * @return the font weight value
-     */
     String getFontWeight() {
         getAttribute('font-weight')
     }

@@ -36,11 +36,6 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
     addAttribute('in', inEnum.name())
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -55,11 +50,6 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
     addAttribute('in2', inStr)
   }
 
-  /**
-   * Returns the in 2 value.
-   *
-   * @return the in 2 value
-   */
   String getIn2() {
     getAttribute('in2')
   }
@@ -74,11 +64,6 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
     addAttribute('scale', value)
   }
 
-  /**
-   * Returns the scale value.
-   *
-   * @return the scale value
-   */
   String getScale() {
     getAttribute('scale')
   }
@@ -93,11 +78,6 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
     addAttribute('xChannelSelector', value)
   }
 
-  /**
-   * Returns the xchannel selector value.
-   *
-   * @return the xchannel selector value
-   */
   String getXchannelSelector() {
     getAttribute('xChannelSelector')
   }
@@ -112,11 +92,6 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
     addAttribute('yChannelSelector', value)
   }
 
-  /**
-   * Returns the ychannel selector value.
-   *
-   * @return the ychannel selector value
-   */
   String getYchannelSelector() {
     getAttribute('yChannelSelector')
   }

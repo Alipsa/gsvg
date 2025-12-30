@@ -7,11 +7,6 @@ trait ElementContainer {
 
   private List<SvgElement<? extends SvgElement>> children = []
 
-  /**
-   * Returns the children value.
-   *
-   * @return the children value
-   */
   List<SvgElement<? extends SvgElement>> getChildren() {
     children
   }

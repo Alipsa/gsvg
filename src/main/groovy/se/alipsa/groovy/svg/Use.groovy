@@ -48,20 +48,10 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
     this
   }
 
-  /**
-   * Returns the href value.
-   *
-   * @return the href value
-   */
   String getHref() {
     getAttribute('href') ?: getAttribute(xlink('href'))
   }
 
-  /**
-   * Returns the xlink href value.
-   *
-   * @return the xlink href value
-   */
   String getXlinkHref() {
     getAttribute(xlink('href'))
   }
@@ -116,11 +106,6 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
     addAttribute('x', x)
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -145,11 +130,6 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
     addAttribute('y', y)
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }

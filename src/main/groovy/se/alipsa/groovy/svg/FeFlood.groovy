@@ -25,11 +25,6 @@ class FeFlood extends  FilterElement<FeFlood> {
     addAttribute('flood-color', color)
   }
 
-  /**
-   * Returns the flood color value.
-   *
-   * @return the flood color value
-   */
   String getFloodColor() {
     getAttribute('flood-color')
   }
@@ -44,11 +39,6 @@ class FeFlood extends  FilterElement<FeFlood> {
     addAttribute('flood-opacity', opacity)
   }
 
-  /**
-   * Returns the flood opacity value.
-   *
-   * @return the flood opacity value
-   */
   String getFloodOpacity() {
     getAttribute('flood-opacity')
   }

@@ -25,11 +25,6 @@ class Switch extends AbstractElementContainer<Switch> {
     addAttribute('systemLanguage', value)
   }
 
-  /**
-   * Returns the system language value.
-   *
-   * @return the system language value
-   */
   String getSystemLanguage() {
     getAttribute('systemLanguage')
   }
@@ -44,11 +39,6 @@ class Switch extends AbstractElementContainer<Switch> {
     addAttribute('requiredFeatures', value)
   }
 
-  /**
-   * Returns the required features value.
-   *
-   * @return the required features value
-   */
   String getRequiredFeatures() {
     getAttribute('requiredFeatures')
   }
@@ -63,11 +53,6 @@ class Switch extends AbstractElementContainer<Switch> {
     addAttribute('requiredExtensions', value)
   }
 
-  /**
-   * Returns the required extensions value.
-   *
-   * @return the required extensions value
-   */
   String getRequiredExtensions() {
     getAttribute('requiredExtensions')
   }

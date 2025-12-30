@@ -26,11 +26,6 @@ class Script extends StringContentContainer<Script> {
     addAttribute('type', value)
   }
 
-  /**
-   * Returns the type value.
-   *
-   * @return the type value
-   */
   String getType() {
     getAttribute('type')
   }
@@ -45,11 +40,6 @@ class Script extends StringContentContainer<Script> {
     addAttribute('href', href)
   }
 
-  /**
-   * Returns the href value.
-   *
-   * @return the href value
-   */
   String getHref() {
     getAttribute('href') ?: getAttribute(xlink('href'))
   }
@@ -64,11 +54,6 @@ class Script extends StringContentContainer<Script> {
     addAttribute(xlink('href'), href)
   }
 
-  /**
-   * Returns the xlink href value.
-   *
-   * @return the xlink href value
-   */
   String getXlinkHref() {
     getAttribute(xlink('href'))
   }
@@ -82,11 +67,6 @@ class Script extends StringContentContainer<Script> {
     addAttribute('crossorigin', value)
   }
 
-  /**
-   * Returns the crossorigin value.
-   *
-   * @return the crossorigin value
-   */
   String getCrossorigin() {
     getAttribute('crossorigin')
   }

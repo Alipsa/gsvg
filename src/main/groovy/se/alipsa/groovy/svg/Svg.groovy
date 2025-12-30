@@ -70,11 +70,6 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addAttribute('width', width)
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -99,20 +94,10 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addAttribute('height', height)
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }
 
-  /**
-   * Returns the document value.
-   *
-   * @return the document value
-   */
   Document getDocument() {
     element.getDocument()
   }
@@ -146,11 +131,6 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addAttribute('viewBox', params)
   }
 
-  /**
-   * Returns the view box value.
-   *
-   * @return the view box value
-   */
   String getViewBox() {
     getAttribute('viewBox')
   }
@@ -166,11 +146,6 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   }
 
   // This is the top element so we return itself as the parent
-  /**
-   * Returns the parent value.
-   *
-   * @return the parent value
-   */
   @Override
   SvgElement getParent() {
     this
@@ -186,11 +161,6 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addAttribute('version', version)
   }
 
-  /**
-   * Returns the version value.
-   *
-   * @return the version value
-   */
   String getVersion() {
     getAttribute('version')
   }

@@ -36,11 +36,6 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
     addAttribute('width', width)
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -65,11 +60,6 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
     addAttribute('height', height)
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }
@@ -94,11 +84,6 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
     addAttribute('x', x)
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -123,11 +108,6 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
     addAttribute('y', y)
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }
@@ -142,11 +122,6 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
     addAttribute('maskContentUnits', value)
   }
 
-  /**
-   * Returns the mask content units value.
-   *
-   * @return the mask content units value
-   */
   String getMaskContentUnits() {
     getAttribute('maskContentUnits')
   }

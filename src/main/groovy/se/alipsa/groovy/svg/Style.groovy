@@ -26,11 +26,6 @@ class Style extends StringContentContainer<Style> {
     addAttribute('type', value)
   }
 
-  /**
-   * Returns the type value.
-   *
-   * @return the type value
-   */
   String getType() {
     getAttribute('type')
   }

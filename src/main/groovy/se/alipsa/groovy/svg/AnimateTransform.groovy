@@ -26,11 +26,6 @@ class AnimateTransform extends Animation<AnimateTransform> {
     addAttribute('attributeName', name)
   }
 
-  /**
-   * Returns the attribute name value.
-   *
-   * @return the attribute name value
-   */
   String getAttributeName() {
     getAttribute('attributeName')
   }
@@ -45,11 +40,6 @@ class AnimateTransform extends Animation<AnimateTransform> {
     addAttribute('dur', duration)
   }
 
-  /**
-   * Returns the dur value.
-   *
-   * @return the dur value
-   */
   String getDur(){
     getAttribute('dur')
   }
@@ -64,11 +54,6 @@ class AnimateTransform extends Animation<AnimateTransform> {
     addAttribute('begin', time)
   }
 
-  /**
-   * Returns the begin value.
-   *
-   * @return the begin value
-   */
   String getBegin() {
     getAttribute('begin')
   }
@@ -93,11 +78,6 @@ class AnimateTransform extends Animation<AnimateTransform> {
     addAttribute('from', from)
   }
 
-  /**
-   * Returns the from value.
-   *
-   * @return the from value
-   */
   String getFrom() {
     getAttribute('from')
   }
@@ -112,11 +92,6 @@ class AnimateTransform extends Animation<AnimateTransform> {
     addAttribute('to', to)
   }
 
-  /**
-   * Returns the to value.
-   *
-   * @return the to value
-   */
   String getTo() {
     getAttribute('to')
   }
@@ -131,11 +106,6 @@ class AnimateTransform extends Animation<AnimateTransform> {
     addAttribute('type', type)
   }
 
-  /**
-   * Returns the type value.
-   *
-   * @return the type value
-   */
   String getType() {
     getAttribute('type')
   }

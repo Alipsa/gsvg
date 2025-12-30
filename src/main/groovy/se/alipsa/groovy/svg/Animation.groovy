@@ -25,11 +25,6 @@ abstract class Animation<T extends SvgElement<T>> extends SvgElement<T> {
     addAttribute('repeatCount', repeats)
   }
 
-  /**
-   * Returns the repeat count value.
-   *
-   * @return the repeat count value
-   */
   String getRepeatCount() {
     getAttribute('repeatCount')
   }

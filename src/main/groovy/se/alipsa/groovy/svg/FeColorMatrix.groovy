@@ -42,11 +42,6 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
     addAttribute('in', inEnum.name())
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -71,11 +66,6 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
     addAttribute('type', value.name())
   }
 
-  /**
-   * Returns the type value.
-   *
-   * @return the type value
-   */
   String getType() {
     getAt('type')
   }
@@ -109,11 +99,6 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
     addAttribute('color-interpolation-filters', value)
   }
 
-  /**
-   * Returns the color interpolation filters value.
-   *
-   * @return the color interpolation filters value
-   */
   String getColorInterpolationFilters() {
     getAttribute('color-interpolation-filters')
   }

@@ -50,11 +50,6 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
     this
   }
 
-  /**
-   * Returns the content value.
-   *
-   * @return the content value
-   */
   String getContent() {
     element.getText()
   }

@@ -34,11 +34,6 @@ trait LightSourceContainer<T extends FilterElement<T>> {
     (lightSource = new FeSpotLight(this))
   }
 
-  /**
-   * Returns the light source value.
-   *
-   * @return the light source value
-   */
   T getLightSource() {
     lightSource as T
   }
@@ -63,11 +58,6 @@ trait LightSourceContainer<T extends FilterElement<T>> {
     addAttribute('in', inEnum.name()) as T
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -82,11 +72,6 @@ trait LightSourceContainer<T extends FilterElement<T>> {
     addAttribute('lighting-color', color) as T
   }
 
-  /**
-   * Returns the lighting color value.
-   *
-   * @return the lighting color value
-   */
   String getLightingColor() {
     getAttribute('lighting-color')
   }

@@ -26,11 +26,6 @@ class Set extends Animation<Set> {
     addAttribute('attributeName', value)
   }
 
-  /**
-   * Returns the attribute name value.
-   *
-   * @return the attribute name value
-   */
   String getAttributeName() {
     getAttribute('attributeName')
   }
@@ -45,11 +40,6 @@ class Set extends Animation<Set> {
     addAttribute('to', value)
   }
 
-  /**
-   * Returns the to value.
-   *
-   * @return the to value
-   */
   String getTo() {
     getAttribute('to')
   }
@@ -64,11 +54,6 @@ class Set extends Animation<Set> {
     addAttribute('begin', value)
   }
 
-  /**
-   * Returns the begin value.
-   *
-   * @return the begin value
-   */
   String getBegin() {
     getAttribute('begin')
   }
@@ -83,11 +68,6 @@ class Set extends Animation<Set> {
     addAttribute('dur', value)
   }
 
-  /**
-   * Returns the dur value.
-   *
-   * @return the dur value
-   */
   String getDur() {
     getAttribute('dur')
   }

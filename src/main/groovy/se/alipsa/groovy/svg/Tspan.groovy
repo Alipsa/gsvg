@@ -94,11 +94,6 @@ class Tspan extends StringContentContainer<Tspan> {
     addAttribute('stroke', stroke)
   }
 
-  /**
-   * Returns the stroke value.
-   *
-   * @return the stroke value
-   */
   String getStroke() {
     getAttribute('stroke')
   }

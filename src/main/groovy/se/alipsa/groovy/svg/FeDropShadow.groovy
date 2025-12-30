@@ -21,11 +21,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     addAttribute('dx', "$dx")
   }
 
-  /**
-   * Returns the dx value.
-   *
-   * @return the dx value
-   */
   String getDx() {
     getAttribute('dx')
   }
@@ -35,11 +30,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     addAttribute('dy', "$dy")
   }
 
-  /**
-   * Returns the dy value.
-   *
-   * @return the dy value
-   */
   String getDy() {
     getAttribute('dy')
   }
@@ -54,11 +44,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     addAttribute('stdDeviation', deviation)
   }
 
-  /**
-   * Returns the std deviation value.
-   *
-   * @return the std deviation value
-   */
   String getStdDeviation() {
     getAttribute('stdDeviation')
   }
@@ -73,11 +58,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     addAttribute('flood-color', color)
   }
 
-  /**
-   * Returns the flood color value.
-   *
-   * @return the flood color value
-   */
   String getFloodColor() {
     getAttribute('flood-color')
   }
@@ -92,11 +72,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     addAttribute('flood-opacity', opacity)
   }
 
-  /**
-   * Returns the flood opacity value.
-   *
-   * @return the flood opacity value
-   */
   String getFloodOpacity() {
     getAttribute('flood-opacity')
   }

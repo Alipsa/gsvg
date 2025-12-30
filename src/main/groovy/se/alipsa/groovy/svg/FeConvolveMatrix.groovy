@@ -43,11 +43,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('in', inEnum.name())
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -72,11 +67,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('order', order)
   }
 
-  /**
-   * Returns the order value.
-   *
-   * @return the order value
-   */
   String getOrder() {
     getAttribute('order')
   }
@@ -91,11 +81,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('kernelMatrix', values)
   }
 
-  /**
-   * Returns the kernel matrix value.
-   *
-   * @return the kernel matrix value
-   */
   String getKernelMatrix() {
     getAttribute('kernelMatrix')
   }
@@ -110,11 +95,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('divisor', value)
   }
 
-  /**
-   * Returns the divisor value.
-   *
-   * @return the divisor value
-   */
   String getDivisor() {
     getAttribute('divisor')
   }
@@ -129,11 +109,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('bias', value)
   }
 
-  /**
-   * Returns the bias value.
-   *
-   * @return the bias value
-   */
   String getBias() {
     getAttribute('bias')
   }
@@ -148,11 +123,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('targetX', value)
   }
 
-  /**
-   * Returns the target x value.
-   *
-   * @return the target x value
-   */
   String getTargetX() {
     getAttribute('targetX')
   }
@@ -167,11 +137,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('targetY', value)
   }
 
-  /**
-   * Returns the target y value.
-   *
-   * @return the target y value
-   */
   String getTargetY() {
     getAttribute('targetY')
   }
@@ -196,11 +161,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('edgeMode', mode)
   }
 
-  /**
-   * Returns the edge mode value.
-   *
-   * @return the edge mode value
-   */
   String getEdgeMode() {
     getAttribute('edgeMode')
   }
@@ -225,11 +185,6 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('preserveAlpha', value)
   }
 
-  /**
-   * Returns the preserve alpha value.
-   *
-   * @return the preserve alpha value
-   */
   String getPreserveAlpha() {
     getAttribute('preserveAlpha')
   }

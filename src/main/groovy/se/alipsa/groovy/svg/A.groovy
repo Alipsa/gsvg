@@ -37,11 +37,6 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
         addAttribute('href', href)
     }
 
-    /**
-     * Returns the href value.
-     *
-     * @return the href value
-     */
     String getHref() {
         getAttribute('href')
     }
@@ -56,11 +51,6 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
         addAttribute(xlink('href'), href)
     }
 
-    /**
-     * Returns the xlink href value.
-     *
-     * @return the xlink href value
-     */
     String getXlinkHref() {
         getAttribute(xlink('href'))
     }
@@ -75,11 +65,6 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
         addAttribute('target', target)
     }
 
-    /**
-     * Returns the target value.
-     *
-     * @return the target value
-     */
     String getTarget() {
         getAttribute('target')
     }

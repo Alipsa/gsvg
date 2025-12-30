@@ -36,11 +36,6 @@ class Stop extends SvgElement<Stop> {
     addAttribute("offset", offset)
   }
 
-  /**
-   * Returns the offset value.
-   *
-   * @return the offset value
-   */
   String getOffset() {
     getAttribute("offset")
   }
@@ -55,11 +50,6 @@ class Stop extends SvgElement<Stop> {
     addAttribute("stop-color", color)
   }
 
-  /**
-   * Returns the stop color value.
-   *
-   * @return the stop color value
-   */
   String getStopColor() {
     getAttribute("stop-color")
   }

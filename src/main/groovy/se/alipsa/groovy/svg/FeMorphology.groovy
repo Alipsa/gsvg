@@ -43,11 +43,6 @@ class FeMorphology extends FilterElement<FeMorphology> {
     addAttribute('operator', mode.name())
   }
 
-  /**
-   * Returns the operator value.
-   *
-   * @return the operator value
-   */
   String getOperator() {
     getAttribute('operator')
   }
@@ -72,11 +67,6 @@ class FeMorphology extends FilterElement<FeMorphology> {
     addAttribute('in', inEnum.name())
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -101,11 +91,6 @@ class FeMorphology extends FilterElement<FeMorphology> {
     addAttribute('radius', value)
   }
 
-  /**
-   * Returns the radius value.
-   *
-   * @return the radius value
-   */
   String getRadius() {
     getAttribute('radius')
   }

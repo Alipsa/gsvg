@@ -41,20 +41,10 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
     add(new Set(this as T))
   }
 
-  /**
-   * Returns the animations value.
-   *
-   * @return the animations value
-   */
   List<Animation> getAnimations() {
     children.findAll { it instanceof Animation} as List<Animation>
   }
 
-  /**
-   * Returns the animation value.
-   *
-   * @return the animation value
-   */
   Animation getAnimation() {
     List<Animation> animations = getAnimations()
     if (animations.size() > 0) {

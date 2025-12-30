@@ -21,11 +21,6 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dx', "$dx")
   }
 
-  /**
-   * Returns the dx value.
-   *
-   * @return the dx value
-   */
   String getDx() {
     getAttribute('dx')
   }
@@ -35,11 +30,6 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dy', "$dy")
   }
 
-  /**
-   * Returns the dy value.
-   *
-   * @return the dy value
-   */
   String getDy() {
     getAttribute('dy')
   }

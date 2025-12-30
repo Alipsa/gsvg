@@ -25,11 +25,6 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
     addAttribute('result', result)
   }
 
-  /**
-   * Returns the result value.
-   *
-   * @return the result value
-   */
   String getResult() {
     getAttribute('result')
   }
@@ -44,11 +39,6 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
     addAttribute('x', String.valueOf(x))
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -63,11 +53,6 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
     addAttribute('y', String.valueOf(y))
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }
@@ -92,11 +77,6 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
     addAttribute('width', width)
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -121,11 +101,6 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
     addAttribute('height', height)
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }

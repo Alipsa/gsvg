@@ -26,11 +26,6 @@ class Animate extends Animation<Animate> {
     addAttribute('attributeName', name)
   }
 
-  /**
-   * Returns the attribute name value.
-   *
-   * @return the attribute name value
-   */
   String getAttributeName() {
     getAttribute('attributeName')
   }
@@ -45,11 +40,6 @@ class Animate extends Animation<Animate> {
     addAttribute('values', vals)
   }
 
-  /**
-   * Returns the values value.
-   *
-   * @return the values value
-   */
   String getValues() {
     getAttribute('values')
   }
@@ -64,11 +54,6 @@ class Animate extends Animation<Animate> {
     addAttribute('dur', duration)
   }
 
-  /**
-   * Returns the dur value.
-   *
-   * @return the dur value
-   */
   String getDur(){
     getAttribute('dur')
   }
@@ -83,11 +68,6 @@ class Animate extends Animation<Animate> {
     addAttribute('begin', time)
   }
 
-  /**
-   * Returns the begin value.
-   *
-   * @return the begin value
-   */
   String getBegin() {
     getAttribute('begin')
   }
@@ -102,11 +82,6 @@ class Animate extends Animation<Animate> {
     addAttribute('from', "$fromNum")
   }
 
-  /**
-   * Returns the from value.
-   *
-   * @return the from value
-   */
   String getFrom() {
     getAttribute('from')
   }
@@ -121,11 +96,6 @@ class Animate extends Animation<Animate> {
     addAttribute('to', to)
   }
 
-  /**
-   * Returns the to value.
-   *
-   * @return the to value
-   */
   String getTo() {
     getAttribute('to')
   }
@@ -140,11 +110,6 @@ class Animate extends Animation<Animate> {
     addAttribute('fill', "$fill")
   }
 
-  /**
-   * Returns the fill value.
-   *
-   * @return the fill value
-   */
   String getFill() {
     getAttribute('fill')
   }

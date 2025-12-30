@@ -227,11 +227,6 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     addAttribute('id', id)
   }
 
-  /**
-   * Returns the id value.
-   *
-   * @return the id value
-   */
   String getId() {
     getAttribute('id')
   }
@@ -247,11 +242,6 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   }
 
   // TODO: Intellij does not recognize the type
-  /**
-   * Returns the parent value.
-   *
-   * @return the parent value
-   */
   <P extends SvgElement<P>> P getParent() {
     Class<P> clazz = parent.getClass() as Class<P>
     getParent(clazz)
@@ -267,20 +257,10 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     return type.cast(parent)
   }
 
-  /**
-   * Returns the name value.
-   *
-   * @return the name value
-   */
   String getName() {
     element.getName()
   }
 
-  /**
-   * Returns the xlink ns value.
-   *
-   * @return the xlink ns value
-   */
   Namespace getXlinkNs() {
     xlinkNs
   }
@@ -304,11 +284,6 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     title = new Title(this).addContent(content)
   }
 
-  /**
-   * Returns the title value.
-   *
-   * @return the title value
-   */
   Title getTitle() {
     title
   }
@@ -332,11 +307,6 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     desc = new Desc(this).addContent(content)
   }
 
-  /**
-   * Returns the desc value.
-   *
-   * @return the desc value
-   */
   Desc getDesc() {
     desc
   }

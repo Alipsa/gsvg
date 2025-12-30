@@ -36,11 +36,6 @@ class LinearGradient extends Gradient<LinearGradient> {
     addAttribute('x1', x1)
   }
 
-  /**
-   * Returns the x 1 value.
-   *
-   * @return the x 1 value
-   */
   String getX1() {
     getAttribute('x1')
   }
@@ -65,11 +60,6 @@ class LinearGradient extends Gradient<LinearGradient> {
     addAttribute('x2', x2)
   }
 
-  /**
-   * Returns the x 2 value.
-   *
-   * @return the x 2 value
-   */
   String getX2() {
     getAttribute('x2')
   }
@@ -94,11 +84,6 @@ class LinearGradient extends Gradient<LinearGradient> {
     addAttribute('y1', y1)
   }
 
-  /**
-   * Returns the y 1 value.
-   *
-   * @return the y 1 value
-   */
   String getY1() {
     getAttribute('y1')
   }
@@ -123,11 +108,6 @@ class LinearGradient extends Gradient<LinearGradient> {
     addAttribute('y2', y2)
   }
 
-  /**
-   * Returns the y 2 value.
-   *
-   * @return the y 2 value
-   */
   String getY2() {
     getAttribute('y2')
   }

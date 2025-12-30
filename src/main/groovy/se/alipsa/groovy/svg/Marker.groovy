@@ -26,11 +26,6 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     addAttribute('markerWidth', width)
   }
 
-  /**
-   * Returns the marker width value.
-   *
-   * @return the marker width value
-   */
   String getMarkerWidth() {
     getAttribute('markerWidth')
   }
@@ -45,11 +40,6 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     addAttribute('markerHeight', height)
   }
 
-  /**
-   * Returns the marker height value.
-   *
-   * @return the marker height value
-   */
   String getMarkerHeight() {
     getAttribute('markerHeight')
   }
@@ -64,11 +54,6 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     addAttribute('refX', refX)
   }
 
-  /**
-   * Returns the ref x value.
-   *
-   * @return the ref x value
-   */
   String getRefX() {
     getAttribute('refX')
   }
@@ -83,11 +68,6 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     addAttribute('refY', refY)
   }
 
-  /**
-   * Returns the ref y value.
-   *
-   * @return the ref y value
-   */
   String getRefY() {
     getAttribute('refY')
   }
@@ -103,11 +83,6 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     this
   }
 
-  /**
-   * Returns the marker units value.
-   *
-   * @return the marker units value
-   */
   String getMarkerUnits() {
     getAttribute('markerUnits')
   }
@@ -123,11 +98,6 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     this
   }
 
-  /**
-   * Returns the orient value.
-   *
-   * @return the orient value
-   */
   String getOrient() {
     getAttribute('orient')
   }

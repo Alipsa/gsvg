@@ -36,11 +36,6 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
     addAttribute('width', width)
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -65,11 +60,6 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
     addAttribute('height', height)
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }
@@ -94,11 +84,6 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
     addAttribute('x', x)
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -123,11 +108,6 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
     addAttribute('y', y)
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }
@@ -152,11 +132,6 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
     addAttribute('href', href)
   }
 
-  /**
-   * Returns the href value.
-   *
-   * @return the href value
-   */
   String getHref() {
     getAttribute('href') ?: getAttribute(xlink('href'))
   }
@@ -193,11 +168,6 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
     addAttribute('preserveAspectRatio', value)
   }
 
-  /**
-   * Returns the preserve aspect ratio value.
-   *
-   * @return the preserve aspect ratio value
-   */
   String getPreserveAspectRatio() {
     getAttribute('preserveAspectRatio')
   }
@@ -211,11 +181,6 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
     addAttribute('crossorigin', value)
   }
 
-  /**
-   * Returns the crossorigin value.
-   *
-   * @return the crossorigin value
-   */
   String getCrossorigin() {
     getAttribute('crossorigin')
   }

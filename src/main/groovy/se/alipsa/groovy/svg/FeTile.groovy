@@ -36,11 +36,6 @@ class FeTile extends FilterElement<FeTile> {
     addAttribute('in', inEnum.name())
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }

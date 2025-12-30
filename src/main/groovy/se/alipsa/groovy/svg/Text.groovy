@@ -85,11 +85,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('font-family', family)
   }
 
-  /**
-   * Returns the font family value.
-   *
-   * @return the font family value
-   */
   String getFontFamily() {
     getAttribute('font-family')
   }
@@ -137,11 +132,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('rotate', "$rotate")
   }
 
-  /**
-   * Returns the rotate value.
-   *
-   * @return the rotate value
-   */
   String getRotate() {
     getAttribute('rotate')
   }
@@ -156,11 +146,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('text-anchor', anchor)
   }
 
-  /**
-   * Returns the text anchor value.
-   *
-   * @return the text anchor value
-   */
   String getTextAnchor() {
     getAttribute('text-anchor')
   }
@@ -170,11 +155,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('textLength', textLength)
   }
 
-  /**
-   * Returns the text length value.
-   *
-   * @return the text length value
-   */
   String getTextLength() {
     getAttribute('textLength')
   }
@@ -184,11 +164,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('lengthAdjust', lengthAdjust)
   }
 
-  /**
-   * Returns the length adjust value.
-   *
-   * @return the length adjust value
-   */
   String getLengthAdjust() {
     getAttribute('lengthAdjust')
   }
@@ -203,11 +178,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('transform', transform)
   }
 
-  /**
-   * Returns the transform value.
-   *
-   * @return the transform value
-   */
   String getTransform() {
     getAttribute('transform')
   }
@@ -223,11 +193,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     this
   }
 
-  /**
-   * Returns the baseline shift value.
-   *
-   * @return the baseline shift value
-   */
   String getBaselineShift() {
     getAttribute('baseline-shift')
   }
@@ -243,11 +208,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     this
   }
 
-  /**
-   * Returns the dominant baseline value.
-   *
-   * @return the dominant baseline value
-   */
   String getDominantBaseline() {
     getAttribute('dominant-baseline')
   }
@@ -263,11 +223,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     this
   }
 
-  /**
-   * Returns the text decoration value.
-   *
-   * @return the text decoration value
-   */
   String getTextDecoration() {
     getAttribute('text-decoration')
   }
@@ -283,11 +238,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     this
   }
 
-  /**
-   * Returns the word spacing value.
-   *
-   * @return the word spacing value
-   */
   String getWordSpacing() {
     getAttribute('word-spacing')
   }
@@ -303,11 +253,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     this
   }
 
-  /**
-   * Returns the letter spacing value.
-   *
-   * @return the letter spacing value
-   */
   String getLetterSpacing() {
     getAttribute('letter-spacing')
   }

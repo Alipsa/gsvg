@@ -26,11 +26,6 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
     addAttribute('type', type)
   }
 
-  /**
-   * Returns the type value.
-   *
-   * @return the type value
-   */
   String getType() {
     getAttribute('type')
   }
@@ -45,11 +40,6 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
     addAttribute('baseFrequency', value)
   }
 
-  /**
-   * Returns the base frequency value.
-   *
-   * @return the base frequency value
-   */
   String getBaseFrequency() {
     getAttribute('baseFrequency')
   }

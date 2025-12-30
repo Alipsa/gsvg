@@ -57,11 +57,6 @@ class Coordinate {
         this
     }
 
-    /**
-     * Returns the x value.
-     *
-     * @return the x value
-     */
     Number getX() {
         return x
     }
@@ -75,11 +70,6 @@ class Coordinate {
         this.x = x
     }
 
-    /**
-     * Returns the y value.
-     *
-     * @return the y value
-     */
     Number getY() {
         return y
     }

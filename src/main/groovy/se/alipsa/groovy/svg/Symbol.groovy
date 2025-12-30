@@ -36,11 +36,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('width', width)
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -65,11 +60,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('height', height)
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }
@@ -94,11 +84,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('x', x)
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -123,11 +108,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('y', y)
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }
@@ -142,11 +122,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('preserveAspectRatio', value)
   }
 
-  /**
-   * Returns the preserve aspect ratio value.
-   *
-   * @return the preserve aspect ratio value
-   */
   String getPreserveAspectRatio() {
     getAttribute('preserveAspectRatio')
   }
@@ -161,11 +136,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('refX', refX)
   }
 
-  /**
-   * Returns the ref x value.
-   *
-   * @return the ref x value
-   */
   String getRefX() {
     getAttribute('refX')
   }
@@ -180,11 +150,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('refY', refY)
   }
 
-  /**
-   * Returns the ref y value.
-   *
-   * @return the ref y value
-   */
   String getRefY() {
     getAttribute('refY')
   }
@@ -199,11 +164,6 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('viewBox', params)
   }
 
-  /**
-   * Returns the view box value.
-   *
-   * @return the view box value
-   */
   String getViewBox() {
     getAttribute('viewBox')
   }

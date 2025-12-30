@@ -26,11 +26,6 @@ class View extends SvgElement<View> {
     addAttribute('viewBox', value)
   }
 
-  /**
-   * Returns the view box value.
-   *
-   * @return the view box value
-   */
   String getViewBox() {
     getAttribute('viewBox')
   }
@@ -45,11 +40,6 @@ class View extends SvgElement<View> {
     addAttribute('preserveAspectRatio', value)
   }
 
-  /**
-   * Returns the preserve aspect ratio value.
-   *
-   * @return the preserve aspect ratio value
-   */
   String getPreserveAspectRatio() {
     getAttribute('preserveAspectRatio')
   }

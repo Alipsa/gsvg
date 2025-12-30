@@ -26,11 +26,6 @@ class Pattern extends AbstractElementContainer<Pattern> {
     addAttribute('x', String.valueOf(x))
   }
 
-  /**
-   * Returns the x value.
-   *
-   * @return the x value
-   */
   String getX() {
     getAttribute('x')
   }
@@ -45,11 +40,6 @@ class Pattern extends AbstractElementContainer<Pattern> {
     addAttribute('y', String.valueOf(y))
   }
 
-  /**
-   * Returns the y value.
-   *
-   * @return the y value
-   */
   String getY() {
     getAttribute('y')
   }
@@ -64,11 +54,6 @@ class Pattern extends AbstractElementContainer<Pattern> {
     addAttribute('width', "$width")
   }
 
-  /**
-   * Returns the width value.
-   *
-   * @return the width value
-   */
   String getWidth() {
     getAttribute('width')
   }
@@ -83,11 +68,6 @@ class Pattern extends AbstractElementContainer<Pattern> {
     addAttribute('height', "$height")
   }
 
-  /**
-   * Returns the height value.
-   *
-   * @return the height value
-   */
   String getHeight() {
     getAttribute('height')
   }
@@ -102,11 +82,6 @@ class Pattern extends AbstractElementContainer<Pattern> {
     addAttribute('patternUnits', units)
   }
 
-  /**
-   * Returns the pattern units value.
-   *
-   * @return the pattern units value
-   */
   String getPatternUnits() {
     getAttribute('patternUnits')
   }

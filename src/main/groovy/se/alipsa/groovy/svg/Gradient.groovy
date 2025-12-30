@@ -57,11 +57,6 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
     this as T
   }
 
-  /**
-   * Returns the stops value.
-   *
-   * @return the stops value
-   */
   List<Stop> getStops() {
     children.findAll {it instanceof Stop} as List<Stop>
   }

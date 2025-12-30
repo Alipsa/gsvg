@@ -28,11 +28,6 @@ class AnimateMotion extends Animation<AnimateMotion> {
     addAttribute('path', path)
   }
 
-  /**
-   * Returns the path value.
-   *
-   * @return the path value
-   */
   String getPath() {
     getAttribute('path')
   }
@@ -47,11 +42,6 @@ class AnimateMotion extends Animation<AnimateMotion> {
     addAttribute('dur', duration)
   }
 
-  /**
-   * Returns the dur value.
-   *
-   * @return the dur value
-   */
   String getDur(){
     getAttribute('dur')
   }
@@ -66,11 +56,6 @@ class AnimateMotion extends Animation<AnimateMotion> {
     addAttribute('begin', time)
   }
 
-  /**
-   * Returns the begin value.
-   *
-   * @return the begin value
-   */
   String getBegin() {
     getAttribute('begin')
   }
@@ -85,11 +70,6 @@ class AnimateMotion extends Animation<AnimateMotion> {
     addAttribute('rotate', value)
   }
 
-  /**
-   * Returns the rotate value.
-   *
-   * @return the rotate value
-   */
   String getRotate() {
     getAttribute('rotate')
   }

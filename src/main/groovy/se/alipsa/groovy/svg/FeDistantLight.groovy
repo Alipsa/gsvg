@@ -26,11 +26,6 @@ class FeDistantLight extends LightSourceElement<FeDistantLight> {
     addAttribute('azimuth', value)
   }
 
-  /**
-   * Returns the azimuth value.
-   *
-   * @return the azimuth value
-   */
   String getAzimuth() {
     getAttribute('azimuth')
   }
@@ -45,11 +40,6 @@ class FeDistantLight extends LightSourceElement<FeDistantLight> {
     addAttribute('elevation', value)
   }
 
-  /**
-   * Returns the elevation value.
-   *
-   * @return the elevation value
-   */
   String getElevation() {
     getAttribute('elevation')
   }

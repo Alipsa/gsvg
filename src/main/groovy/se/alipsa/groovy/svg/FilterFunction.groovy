@@ -32,11 +32,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('in', value)
   }
 
-  /**
-   * Returns the in value.
-   *
-   * @return the in value
-   */
   String getIn() {
     getAttribute('in')
   }
@@ -61,11 +56,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('type', value.name())
   }
 
-  /**
-   * Returns the type value.
-   *
-   * @return the type value
-   */
   String getType() {
     getAt('type')
   }
@@ -79,11 +69,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('tableValues', values)
   }
 
-  /**
-   * Returns the table values value.
-   *
-   * @return the table values value
-   */
   String getTableValues() {
     getAttribute('tableValues')
   }
@@ -97,11 +82,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('slope', value)
   }
 
-  /**
-   * Returns the slope value.
-   *
-   * @return the slope value
-   */
   String getSlope() {
     getAttribute('slope')
   }
@@ -115,11 +95,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('intercept', value)
   }
 
-  /**
-   * Returns the intercept value.
-   *
-   * @return the intercept value
-   */
   String getIntercept() {
     getAttribute('intercept')
   }
@@ -133,11 +108,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('amplitude', value)
   }
 
-  /**
-   * Returns the amplitude value.
-   *
-   * @return the amplitude value
-   */
   String getAmplitude() {
     getAttribute('amplitude')
   }
@@ -151,11 +121,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('exponent', value)
   }
 
-  /**
-   * Returns the exponent value.
-   *
-   * @return the exponent value
-   */
   String getExponent() {
     getAttribute('exponent')
   }
@@ -169,11 +134,6 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('offset', value)
   }
 
-  /**
-   * Returns the offset value.
-   *
-   * @return the offset value
-   */
   String getOffset() {
     getAttribute('offset')
   }
