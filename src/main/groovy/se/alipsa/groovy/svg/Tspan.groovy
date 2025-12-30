@@ -60,7 +60,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The y position of the start of the text. Default is 0.
    *
-   * @param y the y-coordinate of the text
+   * @param y value
    * @return this element for chaining
    */
   Tspan y(String y) {
