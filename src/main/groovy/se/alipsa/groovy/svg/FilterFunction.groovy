@@ -130,7 +130,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   /**
    * Attribute when type is linear.
    *
-   * @param value
+   * @param value the intercept value
    * @return the filter function class that the attribute belongs to
    */
   T intercept(String value) {
