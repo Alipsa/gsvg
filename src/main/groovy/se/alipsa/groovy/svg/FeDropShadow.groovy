@@ -10,7 +10,7 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
   /**
    * Creates a FeDropShadow.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeDropShadow(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
