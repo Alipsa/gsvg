@@ -105,6 +105,19 @@ class FeComposite extends FilterElement<FeComposite> {
   }
 
   /**
+   * Returns the in 2 value.
+   *
+   * @return the in 2 value
+   */
+  String getIn2() {
+    getAttribute('in2')
+  }
+
+  /** value for the arithmetic operator */
+  FeComposite k1(String value) {
+    addAttribute('k1', value)
+  }
+  /**
    * Returns the k 1 value.
    *
    * @return the k 1 value
@@ -118,6 +131,19 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k2', value)
   }
 
+  /**
+   * Returns the k 1 value.
+   *
+   * @return the k 1 value
+   */
+  String getK1() {
+    getAttribute('k1')
+  }
+
+  /** value for the arithmetic operator */
+  FeComposite k2(String value) {
+    addAttribute('k2', value)
+  }
   /**
    * Returns the k 2 value.
    *
@@ -133,6 +159,19 @@ class FeComposite extends FilterElement<FeComposite> {
   }
 
   /**
+   * Returns the k 2 value.
+   *
+   * @return the k 2 value
+   */
+  String getK2() {
+    getAttribute('k2')
+  }
+
+  /** value for the arithmetic operator */
+  FeComposite k3(String value) {
+    addAttribute('k3', value)
+  }
+  /**
    * Returns the k 3 value.
    *
    * @return the k 3 value
@@ -146,6 +185,19 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k4', value)
   }
 
+  /**
+   * Returns the k 3 value.
+   *
+   * @return the k 3 value
+   */
+  String getK3() {
+    getAttribute('k3')
+  }
+
+  /** value for the arithmetic operator */
+  FeComposite k4(String value) {
+    addAttribute('k4', value)
+  }
   /**
    * Returns the k 4 value.
    *

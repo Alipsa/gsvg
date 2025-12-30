@@ -27,6 +27,15 @@ class Pattern extends AbstractElementContainer<Pattern> {
   }
 
   /**
+   * Sets the x attribute.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
+  Pattern x(String x) {
+    addAttribute('x', String.valueOf(x))
+  }
+  /**
    * Returns the x value.
    *
    * @return the x value
@@ -45,6 +54,15 @@ class Pattern extends AbstractElementContainer<Pattern> {
     addAttribute('y', String.valueOf(y))
   }
 
+  /**
+   * Sets the y attribute.
+   *
+   * @param y value
+   * @return this element for chaining
+   */
+  Pattern y(String y) {
+    addAttribute('y', String.valueOf(y))
+  }
   /**
    * Returns the y value.
    *
@@ -65,6 +83,15 @@ class Pattern extends AbstractElementContainer<Pattern> {
   }
 
   /**
+   * Sets the width attribute.
+   *
+   * @param width value
+   * @return this element for chaining
+   */
+  Pattern width(String width) {
+    addAttribute('width', "$width")
+  }
+  /**
    * Returns the width value.
    *
    * @return the width value
@@ -83,6 +110,15 @@ class Pattern extends AbstractElementContainer<Pattern> {
     addAttribute('height', "$height")
   }
 
+  /**
+   * Sets the height attribute.
+   *
+   * @param height value
+   * @return this element for chaining
+   */
+  Pattern height(String height) {
+    addAttribute('height', "$height")
+  }
   /**
    * Returns the height value.
    *

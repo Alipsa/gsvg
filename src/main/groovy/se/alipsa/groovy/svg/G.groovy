@@ -78,6 +78,15 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     }
 
     /**
+     * Sets the stroke width attribute.
+     *
+     * @param strokeWidth value
+     * @return this element for chaining
+     */
+    G strokeWidth(String strokeWidth) {
+        addAttribute('stroke-width', "$strokeWidth")
+    }
+    /**
      * Returns the stroke width value.
      *
      * @return the stroke width value

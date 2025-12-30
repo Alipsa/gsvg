@@ -111,6 +111,15 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   }
 
   /**
+   * Sets the divisor attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeConvolveMatrix divisor(String value) {
+    addAttribute('divisor', value)
+  }
+  /**
    * Returns the divisor value.
    *
    * @return the divisor value
@@ -129,6 +138,15 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
     addAttribute('bias', value)
   }
 
+  /**
+   * Sets the bias attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeConvolveMatrix bias(String value) {
+    addAttribute('bias', value)
+  }
   /**
    * Returns the bias value.
    *

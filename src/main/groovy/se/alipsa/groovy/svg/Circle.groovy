@@ -83,6 +83,15 @@ class Circle extends AbstractShape<Circle> {
   }
 
   /**
+   * Sets the circle radius (r) in the current user coordinate system.
+   *
+   * @param r value
+   * @return this element for chaining
+   */
+  Circle r(String r) {
+    addAttribute('r', "$r")
+  }
+  /**
    * Returns the circle radius (r).
    *
    * @return the r value
@@ -120,6 +129,15 @@ class Circle extends AbstractShape<Circle> {
     addAttribute('stroke-width', "$strokeWidth")
   }
 
+  /**
+   * Sets the stroke width used to draw the circle outline.
+   *
+   * @param strokeWidth value
+   * @return this element for chaining
+   */
+  Circle strokeWidth(String strokeWidth) {
+    addAttribute('stroke-width', "$strokeWidth")
+  }
   /**
    * Returns the stroke width used to draw the circle outline.
    *

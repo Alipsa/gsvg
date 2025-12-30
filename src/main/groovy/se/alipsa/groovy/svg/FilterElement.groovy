@@ -45,6 +45,15 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   }
 
   /**
+   * Sets the x attribute.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
+  T x(String x) {
+    addAttribute('x', String.valueOf(x))
+  }
+  /**
    * Returns the x value.
    *
    * @return the x value
@@ -63,6 +72,15 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
     addAttribute('y', String.valueOf(y))
   }
 
+  /**
+   * Sets the y attribute.
+   *
+   * @param y value
+   * @return this element for chaining
+   */
+  T y(String y) {
+    addAttribute('y', String.valueOf(y))
+  }
   /**
    * Returns the y value.
    *

@@ -22,6 +22,19 @@ class FeOffset extends FilterElement<FeOffset> {
   }
 
   /**
+   * Creates a FeOffset.
+   *
+   * @param parent value
+   */
+  FeOffset(SvgElement<? extends SvgElement> parent) {
+    super(parent, NAME)
+  }
+
+  /** The horizontal shift position for the offset */
+  FeOffset dx(String dx) {
+    addAttribute('dx', "$dx")
+  }
+  /**
    * Returns the dx value.
    *
    * @return the dx value
@@ -35,6 +48,19 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dy', "$dy")
   }
 
+  /**
+   * Returns the dx value.
+   *
+   * @return the dx value
+   */
+  String getDx() {
+    getAttribute('dx')
+  }
+
+  /** The vertical shift position for the offset*/
+  FeOffset dy(String dy) {
+    addAttribute('dy', "$dy")
+  }
   /**
    * Returns the dy value.
    *

@@ -103,6 +103,15 @@ class Animate extends Animation<Animate> {
   }
 
   /**
+   * Sets the from attribute.
+   *
+   * @param fromNum value
+   * @return this element for chaining
+   */
+  Animate from(String fromNum) {
+    addAttribute('from', "$fromNum")
+  }
+  /**
    * Returns the from value.
    *
    * @return the from value

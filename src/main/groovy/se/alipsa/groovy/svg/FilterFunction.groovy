@@ -98,6 +98,14 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
+   * Attribute when type is linear
+   * @param value
+   * @return the filter function class that the attribute belongs to
+   */
+  T slope(String value) {
+    addAttribute('slope', value)
+  }
+  /**
    * Returns the slope value.
    *
    * @return the slope value
@@ -115,6 +123,14 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('intercept', value)
   }
 
+  /**
+   * Attribute when type is linear
+   * @param value
+   * @return the filter function class that the attribute belongs to
+   */
+  T intercept(String value) {
+    addAttribute('intercept', value)
+  }
   /**
    * Returns the intercept value.
    *
@@ -134,6 +150,14 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
+   * Attribute when type is gamma
+   * @param value
+   * @return the filter function class that the attribute belongs to
+   */
+  T amplitude(String value) {
+    addAttribute('amplitude', value)
+  }
+  /**
    * Returns the amplitude value.
    *
    * @return the amplitude value
@@ -152,6 +176,14 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
+   * Attribute when type is gamma
+   * @param value
+   * @return the filter function class that the attribute belongs to
+   */
+  T exponent(String value) {
+    addAttribute('exponent', value)
+  }
+  /**
    * Returns the exponent value.
    *
    * @return the exponent value
@@ -169,6 +201,14 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('offset', value)
   }
 
+  /**
+   * Attribute when type is gamma
+   * @param value
+   * @return the filter function class that the attribute belongs to
+   */
+  T offset(String value) {
+    addAttribute('offset', value)
+  }
   /**
    * Returns the offset value.
    *

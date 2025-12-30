@@ -27,6 +27,15 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
   }
 
   /**
+   * Sets the surface scale attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpecularLighting surfaceScale(String value) {
+    addAttribute('surfaceScale', value)
+  }
+  /**
    * Returns the surface scale value.
    *
    * @return the surface scale value
@@ -46,6 +55,15 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
   }
 
   /**
+   * Sets the specular constant attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpecularLighting specularConstant(String value) {
+    addAttribute('specularConstant', value)
+  }
+  /**
    * Returns the specular constant value.
    *
    * @return the specular constant value
@@ -64,6 +82,15 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
     addAttribute('specularExponent', value)
   }
 
+  /**
+   * Sets the specular exponent attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpecularLighting specularExponent(String value) {
+    addAttribute('specularExponent', value)
+  }
   /**
    * Returns the specular exponent value.
    *

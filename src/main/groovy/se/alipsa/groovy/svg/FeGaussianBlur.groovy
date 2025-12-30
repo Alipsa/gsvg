@@ -46,6 +46,15 @@ class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
   }
 
   /**
+   * Sets the std deviation attribute.
+   *
+   * @param deviation value
+   * @return this element for chaining
+   */
+  FeGaussianBlur stdDeviation(String deviation) {
+    addAttribute('stdDeviation', deviation)
+  }
+  /**
    * Returns the std deviation value.
    *
    * @return the std deviation value

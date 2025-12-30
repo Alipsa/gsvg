@@ -46,6 +46,15 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
   }
 
   /**
+   * Sets the base frequency attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeTurbulence baseFrequency(String value) {
+    addAttribute('baseFrequency', value)
+  }
+  /**
    * Returns the base frequency value.
    *
    * @return the base frequency value
@@ -64,5 +73,14 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
     addAttribute('numOctaves', value)
   }
 
+  /**
+   * Sets the num octaves attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeTurbulence numOctaves(String value) {
+    addAttribute('numOctaves', value)
+  }
 
 }

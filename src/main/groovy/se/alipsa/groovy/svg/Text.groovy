@@ -37,13 +37,43 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('fill', fill)
   }
 
-  /**The x position of the start of the text. Default is 0 */
+  /**
+   * The x position of the start of the text. Default is 0.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
   Text x(Number x) {
     addAttribute('x', String.valueOf(x))
   }
 
-  /** The y position of the start of the text. Default is 0 */
+  /**
+   * The x position of the start of the text. Default is 0.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
+  Text x(String x) {
+    addAttribute('x', String.valueOf(x))
+  }
+
+  /**
+   * The y position of the start of the text. Default is 0.
+   *
+   * @param y value
+   * @return this element for chaining
+   */
   Text y(Number y) {
+    addAttribute('y', String.valueOf(y))
+  }
+
+  /**
+   * The y position of the start of the text. Default is 0.
+   *
+   * @param y value
+   * @return this element for chaining
+   */
+  Text y(String y) {
     addAttribute('y', String.valueOf(y))
   }
 
@@ -105,35 +135,72 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   }
 
   /**
-   * Text.
+   * Sets the font size attribute.
    *
-   * @param position value
-   * @return the result
+   * @param size value
+   * @return this element for chaining
    */
-  /** The horizontal shift position for text (from previous text position) */
+  Text fontSize(String size) {
+    addAttribute('font-size', String.valueOf(size))
+  }
+
+  /**
+   * The horizontal shift position for text (from previous text position).
+   *
+   * @param dx value
+   * @return this element for chaining
+   */
   Text dx(Number dx) {
     addAttribute('dx', "$dx")
   }
 
   /**
-   * Text.
+   * The horizontal shift position for text (from previous text position).
    *
-   * @param position value
-   * @return the result
+   * @param dx value
+   * @return this element for chaining
    */
-  /** The vertical shift position for text (from previous text position)*/
+  Text dx(String dx) {
+    addAttribute('dx', "$dx")
+  }
+
+  /**
+   * The vertical shift position for text (from previous text position).
+   *
+   * @param dy value
+   * @return this element for chaining
+   */
   Text dy(Number dy) {
     addAttribute('dy', "$dy")
   }
 
   /**
-   * Rotation.
+   * The vertical shift position for text (from previous text position).
    *
-   * @param degrees value
-   * @return the result
+   * @param dy value
+   * @return this element for chaining
    */
-  /** The rotation (in degrees) applied to each letter of text */
+  Text dy(String dy) {
+    addAttribute('dy', "$dy")
+  }
+
+  /**
+   * The rotation (in degrees) applied to each letter of text.
+   *
+   * @param rotate value
+   * @return this element for chaining
+   */
   Text rotate(Number rotate) {
+    addAttribute('rotate', "$rotate")
+  }
+
+  /**
+   * The rotation (in degrees) applied to each letter of text.
+   *
+   * @param rotate value
+   * @return this element for chaining
+   */
+  Text rotate(String rotate) {
     addAttribute('rotate', "$rotate")
   }
 
@@ -165,8 +232,23 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     getAttribute('text-anchor')
   }
 
-  /** The width that the text must fit in */
+  /**
+   * The width that the text must fit in.
+   *
+   * @param textLength value
+   * @return this element for chaining
+   */
   Text textLength(Number textLength) {
+    addAttribute('textLength', textLength)
+  }
+
+  /**
+   * The width that the text must fit in.
+   *
+   * @param textLength value
+   * @return this element for chaining
+   */
+  Text textLength(String textLength) {
     addAttribute('textLength', textLength)
   }
 
@@ -179,11 +261,29 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     getAttribute('textLength')
   }
 
-  /** How the text should be compressed or stretched to fit the width defined by the textLength attribute */
+  /**
+   * How the text should be compressed or stretched to fit the width defined by the textLength attribute.
+   *
+   * @param lengthAdjust value
+   * @return this element for chaining
+   */
   Text lengthAdjust(Number lengthAdjust) {
     addAttribute('lengthAdjust', lengthAdjust)
   }
 
+  /**
+   * Returns the text length value.
+   *
+   * @return the text length value
+   */
+  String getTextLength() {
+    getAttribute('textLength')
+  }
+
+  /** How the text should be compressed or stretched to fit the width defined by the textLength attribute */
+  Text lengthAdjust(String lengthAdjust) {
+    addAttribute('lengthAdjust', lengthAdjust)
+  }
   /**
    * Returns the length adjust value.
    *

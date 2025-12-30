@@ -27,50 +27,123 @@ class Tspan extends StringContentContainer<Tspan> {
     addContent(text)
   }
 
-  /**The x position of the start of the text. Default is 0 */
+  /**
+   * The x position of the start of the text. Default is 0.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
   Tspan x(Number x) {
     addAttribute('x', "$x")
   }
 
-  /** The y position of the start of the text. Default is 0 */
+  /**
+   * The x position of the start of the text. Default is 0.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
+  Tspan x(String x) {
+    addAttribute('x', "$x")
+  }
+
+  /**
+   * The y position of the start of the text. Default is 0.
+   *
+   * @param y value
+   * @return this element for chaining
+   */
   Tspan y(Number y) {
     addAttribute('y', "$y")
   }
+
   /**
-   * Text.
+   * The y position of the start of the text. Default is 0.
    *
-   * @param position value
-   * @return the result
+   * @param y value
+   * @return this element for chaining
    */
-  /** The horizontal shift position for text (from previous text position) */
+  Tspan y(String y) {
+    addAttribute('y', "$y")
+  }
+
+  /**
+   * The horizontal shift position for text (from previous text position).
+   *
+   * @param dx value
+   * @return this element for chaining
+   */
   Tspan dx(Number... dx) {
     addAttribute('dx', String.join(',', dx.collect {it as String}))
   }
 
   /**
-   * Text.
+   * The horizontal shift position for text (from previous text position).
    *
-   * @param position value
-   * @return the result
+   * @param dx value
+   * @return this element for chaining
    */
-  /** The vertical shift position for text (from previous text position)*/
+  Tspan dx(String... dx) {
+    addAttribute('dx', String.join(',', dx.collect {it as String}))
+  }
+
+  /**
+   * The vertical shift position for text (from previous text position).
+   *
+   * @param dy value
+   * @return this element for chaining
+   */
   Tspan dy(Number... dy) {
     addAttribute('dy', String.join(',', dy.collect {it as String}))
   }
 
   /**
-   * Rotation.
+   * The vertical shift position for text (from previous text position).
    *
-   * @param degrees value
-   * @return the result
+   * @param dy value
+   * @return this element for chaining
    */
-  /** The rotation (in degrees) applied to each letter of text */
+  Tspan dy(String... dy) {
+    addAttribute('dy', String.join(',', dy.collect {it as String}))
+  }
+
+  /**
+   * The rotation (in degrees) applied to each letter of text.
+   *
+   * @param rotate value
+   * @return this element for chaining
+   */
   Tspan rotate(Number rotate) {
     addAttribute('rotate', "$rotate")
   }
 
-  /** The width that the text must fit in */
+  /**
+   * The rotation (in degrees) applied to each letter of text.
+   *
+   * @param rotate value
+   * @return this element for chaining
+   */
+  Tspan rotate(String rotate) {
+    addAttribute('rotate', "$rotate")
+  }
+
+  /**
+   * The width that the text must fit in.
+   *
+   * @param textLength value
+   * @return this element for chaining
+   */
   Tspan textLength(Number textLength) {
+    addAttribute('textLength', "$textLength")
+  }
+
+  /**
+   * The width that the text must fit in.
+   *
+   * @param textLength value
+   * @return this element for chaining
+   */
+  Tspan textLength(String textLength) {
     addAttribute('textLength', "$textLength")
   }
 

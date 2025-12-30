@@ -46,6 +46,15 @@ class TextPath extends StringContentContainer<TextPath> {
   }
 
   /**
+   * Sets the length adjust attribute.
+   *
+   * @param lengthAdjust value
+   * @return this element for chaining
+   */
+  TextPath lengthAdjust(String lengthAdjust) {
+    addAttribute('lengthAdjust', lengthAdjust)
+  }
+  /**
    * Returns the length adjust value.
    *
    * @return the length adjust value
@@ -169,6 +178,15 @@ class TextPath extends StringContentContainer<TextPath> {
     addAttribute('textLength', textLength)
   }
 
+  /**
+   * Sets the text length attribute.
+   *
+   * @param textLength value
+   * @return this element for chaining
+   */
+  TextPath textLength(String textLength) {
+    addAttribute('textLength', textLength)
+  }
   /**
    * Returns the text length value.
    *

@@ -162,6 +162,15 @@ class Symbol extends AbstractElementContainer<Symbol> {
   }
 
   /**
+   * Sets the ref x attribute.
+   *
+   * @param refX value
+   * @return this element for chaining
+   */
+  Symbol refX(String refX) {
+    addAttribute('refX', refX)
+  }
+  /**
    * Returns the ref x value.
    *
    * @return the ref x value
@@ -180,6 +189,15 @@ class Symbol extends AbstractElementContainer<Symbol> {
     addAttribute('refY', refY)
   }
 
+  /**
+   * Sets the ref y attribute.
+   *
+   * @param refY value
+   * @return this element for chaining
+   */
+  Symbol refY(String refY) {
+    addAttribute('refY', refY)
+  }
   /**
    * Returns the ref y value.
    *

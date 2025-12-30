@@ -75,6 +75,15 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   }
 
   /**
+   * Sets the scale attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeDisplacementMap scale(String value) {
+    addAttribute('scale', value)
+  }
+  /**
    * Returns the scale value.
    *
    * @return the scale value
