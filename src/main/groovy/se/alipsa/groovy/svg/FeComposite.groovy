@@ -199,7 +199,12 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k4', value)
   }
 
-  /** value for the arithmetic operator */
+  /**
+   * Sets the k 4 value used by the arithmetic operator.
+   *
+   * @param value the k 4 value
+   * @return this filter element
+   */
   FeComposite k4(Number value) {
     addAttribute('k4', value)
   }
