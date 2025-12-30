@@ -1,5 +1,7 @@
 # gsvg release notes
 
+## Version 0.4.0 - in progress
+
 ## Version 0.3.0 - 2025-12-30
 - Documentation overhaul: new docs in doc/creating.md, doc/parsing.md, and doc/overview.md, plus expanded Groovydoc across the public API and readme tweaks.
 - API ergonomics: added many String overloads for numeric SVG attributes to allow unit/percent values across shapes, text, filters, patterns, markers, symbols, and foreignObject; plus new paint helpers
