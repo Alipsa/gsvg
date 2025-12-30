@@ -101,7 +101,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   /**
    * Attribute when type is linear.
    *
-   * @param the slope value
+   * @param value the slope value
    * @return the filter function class that the attribute belongs to
    */
   T slope(String value) {
