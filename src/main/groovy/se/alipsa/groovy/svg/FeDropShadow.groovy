@@ -16,7 +16,12 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     super(parent, NAME)
   }
 
-  /** The horizontal shift position for the offset */
+  /**
+   * Sets the horizontal shift position for the offset.
+   *
+   * @param dx the horizontal shift position for the offset
+   * @return this element for chaining
+   */
   FeDropShadow dx(Number dx) {
     addAttribute('dx', "$dx")
   }
@@ -31,7 +36,12 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     addAttribute('dx', "$dx")
   }
 
-  /** The vertical shift position for the offset*/
+  /**
+   * Sets the vertical shift position for the offset.
+   *
+   * @param dy the vertical shift position for the offset
+   * @return this element for chaining
+   */
   FeDropShadow dy(Number dy) {
     addAttribute('dy', "$dy")
   }
