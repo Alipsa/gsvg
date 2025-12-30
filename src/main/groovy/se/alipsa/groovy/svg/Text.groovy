@@ -104,34 +104,16 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('font-size', String.valueOf(size))
   }
 
-  /**
-   * Text.
-   *
-   * @param position value
-   * @return the result
-   */
   /** The horizontal shift position for text (from previous text position) */
   Text dx(Number dx) {
     addAttribute('dx', "$dx")
   }
 
-  /**
-   * Text.
-   *
-   * @param position value
-   * @return the result
-   */
   /** The vertical shift position for text (from previous text position)*/
   Text dy(Number dy) {
     addAttribute('dy', "$dy")
   }
 
-  /**
-   * Rotation.
-   *
-   * @param degrees value
-   * @return the result
-   */
   /** The rotation (in degrees) applied to each letter of text */
   Text rotate(Number rotate) {
     addAttribute('rotate', "$rotate")
