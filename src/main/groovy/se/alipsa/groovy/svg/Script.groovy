@@ -10,7 +10,7 @@ class Script extends StringContentContainer<Script> {
   /**
    * Creates a Script.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Script(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Script extends StringContentContainer<Script> {
   /**
    * Sets the type attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Script type(String value) {
@@ -38,7 +38,7 @@ class Script extends StringContentContainer<Script> {
   /**
    * Sets the href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   Script href(String href) {
@@ -57,7 +57,7 @@ class Script extends StringContentContainer<Script> {
   /**
    * Sets the xlink href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   Script xlinkHref(String href) {

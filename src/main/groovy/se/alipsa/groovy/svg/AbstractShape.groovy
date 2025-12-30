@@ -8,8 +8,8 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   /**
    * Creates a AbstractShape.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   AbstractShape(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -18,7 +18,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   /**
    * Sets the mask reference applied when rendering this shape (for example `url(#maskId)`).
    *
-   * @param ref value
+   * @param ref the reference
    * @return this element for chaining
    */
   T mask(String ref) {
@@ -37,7 +37,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   /**
    * Sets the onclick event handler for this shape.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   T onClick(String value) {
@@ -47,7 +47,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   /**
    * Sets the fill rule used to determine the interior of the shape (for example `nonzero` or `evenodd`).
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   T fillRule(String value) {
@@ -67,7 +67,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   /**
    * Sets the stroke line join style for corners (for example `miter`, `round`, or `bevel`).
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   T strokeLinejoin(String value) {
@@ -87,7 +87,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   /**
    * Sets the stroke line cap style for line ends (for example `butt`, `round`, or `square`).
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   T strokeLinecap(String value) {

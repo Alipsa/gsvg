@@ -10,7 +10,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   /**
    * Creates a FeDisplacementMap.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeDisplacementMap(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeDisplacementMap in(String inStr) {
@@ -29,7 +29,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   FeDisplacementMap in(In inEnum) {
@@ -48,7 +48,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   /**
    * Sets the in 2 attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeDisplacementMap in2(String inStr) {
@@ -67,7 +67,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   /**
    * Sets the scale attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeDisplacementMap scale(Number value) {
@@ -95,7 +95,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   /**
    * Sets the x channel selector attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeDisplacementMap xChannelSelector(String value) {
@@ -114,7 +114,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
   /**
    * Sets the y channel selector attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeDisplacementMap yChannelSelector(String value) {

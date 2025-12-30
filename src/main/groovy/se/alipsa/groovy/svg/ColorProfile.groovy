@@ -10,7 +10,7 @@ class ColorProfile extends SvgElement<ColorProfile> {
   /**
    * Creates a ColorProfile.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   ColorProfile(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

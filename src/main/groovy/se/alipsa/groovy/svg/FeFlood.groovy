@@ -9,7 +9,7 @@ class FeFlood extends  FilterElement<FeFlood> {
   /**
    * Creates a FeFlood.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeFlood(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -18,7 +18,7 @@ class FeFlood extends  FilterElement<FeFlood> {
   /**
    * Sets the flood color attribute.
    *
-   * @param color value
+   * @param color the color
    * @return this element for chaining
    */
   FeFlood floodColor(String color) {
@@ -37,7 +37,7 @@ class FeFlood extends  FilterElement<FeFlood> {
   /**
    * Sets the flood opacity attribute.
    *
-   * @param opacity value
+   * @param opacity the opacity value (0.0 to 1.0)
    * @return this element for chaining
    */
   FeFlood floodOpacity(Number opacity) {

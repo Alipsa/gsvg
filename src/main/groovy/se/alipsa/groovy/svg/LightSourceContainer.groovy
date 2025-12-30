@@ -46,7 +46,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   T in(String inStr) {
@@ -56,7 +56,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   T in(In inEnum) {
@@ -75,7 +75,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
   /**
    * Sets the lighting color attribute.
    *
-   * @param color value
+   * @param color the color
    * @return this element for chaining
    */
   T lightingColor(String color) {

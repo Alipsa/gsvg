@@ -13,7 +13,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Creates a ForeignObject.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   ForeignObject(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -22,7 +22,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   ForeignObject width(Number width) {
@@ -32,7 +32,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   ForeignObject width(String width) {
@@ -51,7 +51,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   ForeignObject height(Number height) {
@@ -61,7 +61,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   ForeignObject height(String height) {
@@ -80,7 +80,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   ForeignObject x(Number x) {
@@ -108,7 +108,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   ForeignObject y(Number y) {
@@ -118,7 +118,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   ForeignObject y(String y) {
@@ -137,7 +137,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Creates and adds a new ForeignElement child element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    * @return the created element
    */
   ForeignElement addElement(String qName) {
@@ -147,7 +147,7 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Creates and adds a new ForeignElement child element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    * @return the created element
    */
   ForeignElement addElement(QName qName) {
@@ -157,8 +157,8 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   /**
    * Creates and adds a new ForeignElement child element.
    *
-   * @param localName value
-   * @param namespaceUri value
+   * @param localName the local name of the element
+   * @param namespaceUri the namespace URI
    * @return the created element
    */
   ForeignElement addElement(String localName, String namespaceUri) {

@@ -10,7 +10,7 @@ class MissingGlyph extends SvgElement<MissingGlyph> {
   /**
    * Creates a MissingGlyph.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   MissingGlyph(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

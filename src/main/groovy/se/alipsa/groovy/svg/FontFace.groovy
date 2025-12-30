@@ -10,7 +10,7 @@ class FontFace extends AbstractElementContainer<FontFace> {
   /**
    * Creates a FontFace.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FontFace(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

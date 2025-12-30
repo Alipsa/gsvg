@@ -253,15 +253,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   }
 
   /**
-   * Returns the text length value.
-   *
-   * @return the text length value
-   */
-  String getTextLength() {
-    getAttribute('textLength')
-  }
-
-  /**
    * How the text should be compressed or stretched to fit the width defined by the textLength attribute.
    *
    * @param lengthAdjust value

@@ -10,7 +10,7 @@ class Glyph extends SvgElement<Glyph> {
   /**
    * Creates a Glyph.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Glyph(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

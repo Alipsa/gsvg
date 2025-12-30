@@ -10,7 +10,7 @@ class View extends SvgElement<View> {
   /**
    * Creates a View.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   View(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class View extends SvgElement<View> {
   /**
    * Sets the view box attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   View viewBox(String value) {
@@ -38,7 +38,7 @@ class View extends SvgElement<View> {
   /**
    * Sets the preserve aspect ratio attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   View preserveAspectRatio(String value) {

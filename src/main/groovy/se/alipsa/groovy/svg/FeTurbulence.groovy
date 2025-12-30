@@ -10,7 +10,7 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
   /**
    * Creates a FeTurbulence.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeTurbulence(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
   /**
    * Sets the type attribute.
    *
-   * @param type value
+   * @param type the type
    * @return this element for chaining
    */
   FeTurbulence type(String type) {
@@ -38,7 +38,7 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
   /**
    * Sets the base frequency attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeTurbulence baseFrequency(Number value) {
@@ -66,7 +66,7 @@ class FeTurbulence extends FilterElement<FeTurbulence> {
   /**
    * Sets the num octaves attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeTurbulence numOctaves(Number value) {

@@ -10,7 +10,7 @@ class MeshRow extends AbstractElementContainer<MeshRow> {
   /**
    * Creates a MeshRow.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   MeshRow(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

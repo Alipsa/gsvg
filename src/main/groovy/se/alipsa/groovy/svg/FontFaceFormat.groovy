@@ -10,7 +10,7 @@ class FontFaceFormat extends SvgElement<FontFaceFormat> {
   /**
    * Creates a FontFaceFormat.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FontFaceFormat(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

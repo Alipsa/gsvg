@@ -10,7 +10,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Creates a AnimateTransform.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   AnimateTransform(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Sets the attribute name attribute.
    *
-   * @param name value
+   * @param name the name of the element
    * @return this element for chaining
    */
   AnimateTransform attributeName(String name) {
@@ -38,7 +38,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Sets the dur attribute.
    *
-   * @param duration value
+   * @param duration the duration
    * @return this element for chaining
    */
   AnimateTransform dur(String duration) {
@@ -57,7 +57,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Sets the begin attribute.
    *
-   * @param time value
+   * @param time the time value
    * @return this element for chaining
    */
   AnimateTransform begin(String time) {
@@ -76,7 +76,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Sets the from attribute.
    *
-   * @param fromNum value
+   * @param fromNum the starting number
    * @return this element for chaining
    */
   AnimateTransform from(Number fromNum) {
@@ -86,7 +86,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Sets the from attribute.
    *
-   * @param from value
+   * @param from the starting value for the animation
    * @return this element for chaining
    */
   AnimateTransform from(String from) {
@@ -105,7 +105,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Sets the to attribute.
    *
-   * @param to value
+   * @param to the ending value for the animation
    * @return this element for chaining
    */
   AnimateTransform to(String to) {
@@ -124,7 +124,7 @@ class AnimateTransform extends Animation<AnimateTransform> {
   /**
    * Sets the type attribute.
    *
-   * @param type value
+   * @param type the type
    * @return this element for chaining
    */
   AnimateTransform type(String type) {

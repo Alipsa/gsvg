@@ -8,8 +8,8 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Creates a FilterElement.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   FilterElement(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -18,7 +18,7 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the result attribute.
    *
-   * @param result value
+   * @param result the result identifier for this filter
    * @return this element for chaining
    */
   T result(String result) {
@@ -37,7 +37,7 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   T x(Number x) {
@@ -65,7 +65,7 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   T y(Number y) {
@@ -93,7 +93,7 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   T width(Number width) {
@@ -103,7 +103,7 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   T width(String width) {
@@ -122,7 +122,7 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   T height(Number height) {
@@ -132,7 +132,7 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   T height(String height) {

@@ -9,7 +9,7 @@ class Switch extends AbstractElementContainer<Switch> {
   /**
    * Creates a Switch.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Switch(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -18,7 +18,7 @@ class Switch extends AbstractElementContainer<Switch> {
   /**
    * Sets the system language attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Switch systemLanguage(String value) {
@@ -37,7 +37,7 @@ class Switch extends AbstractElementContainer<Switch> {
   /**
    * Sets the required features attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Switch requiredFeatures(String value) {
@@ -56,7 +56,7 @@ class Switch extends AbstractElementContainer<Switch> {
   /**
    * Sets the required extensions attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Switch requiredExtensions(String value) {

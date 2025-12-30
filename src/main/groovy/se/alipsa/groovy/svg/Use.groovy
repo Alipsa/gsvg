@@ -10,7 +10,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Creates a Use.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Use(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the clip path attribute.
    *
-   * @param path value
+   * @param path the path
    * @return this element for chaining
    */
   Use clipPath(String path) {
@@ -29,7 +29,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the xlink href attribute.
    *
-   * @param ref value
+   * @param ref the reference
    * @return this element for chaining
    */
   Use xlinkHref(String ref) {
@@ -40,7 +40,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the href attribute.
    *
-   * @param ref value
+   * @param ref the reference
    * @return this element for chaining
    */
   Use href(String ref) {
@@ -69,8 +69,8 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Adds an attribute to this element.
    *
-   * @param name value
-   * @param value value
+   * @param name the name of the element
+   * @param value the value
    * @return the created element
    */
   @Override
@@ -89,7 +89,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the fill attribute.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Use fill(String fill) {
@@ -99,7 +99,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Use x(Number x) {
@@ -109,7 +109,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Use x(String x) {
@@ -128,7 +128,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Use y(Number y) {
@@ -138,7 +138,7 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Use y(String y) {

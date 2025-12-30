@@ -10,7 +10,7 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
   /**
    * Creates a FeSpecularLighting.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeSpecularLighting(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
   /**
    * Sets the surface scale attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeSpecularLighting surfaceScale(Number value) {
@@ -47,7 +47,7 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
   /**
    * Sets the specular constant attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeSpecularLighting specularConstant(Number value) {
@@ -75,7 +75,7 @@ class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements Li
   /**
    * Sets the specular exponent attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeSpecularLighting specularExponent(Number value) {

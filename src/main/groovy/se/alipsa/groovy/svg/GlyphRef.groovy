@@ -10,7 +10,7 @@ class GlyphRef extends SvgElement<GlyphRef> {
   /**
    * Creates a GlyphRef.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   GlyphRef(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

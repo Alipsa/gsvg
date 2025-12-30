@@ -16,7 +16,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
   /**
    * Creates a FeColorMatrix.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeColorMatrix(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -25,7 +25,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeColorMatrix in(String inStr) {
@@ -35,7 +35,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   FeColorMatrix in(In inEnum) {
@@ -54,7 +54,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
   /**
    * Sets the type attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeColorMatrix type(String value) {
@@ -83,7 +83,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
   /**
    * Sets the values attribute.
    *
-   * @param vals value
+   * @param vals the values
    * @return this element for chaining
    */
   FeColorMatrix values(String vals) {
@@ -102,7 +102,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
   /**
    * Sets the color interpolation filters attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeColorMatrix colorInterpolationFilters(String value) {

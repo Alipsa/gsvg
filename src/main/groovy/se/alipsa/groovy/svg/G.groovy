@@ -23,7 +23,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Creates a G.
      *
-     * @param parent value
+     * @param parent the parent SVG element
      */
     G(SvgElement parent) {
         super(parent, NAME)
@@ -32,7 +32,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the fill attribute.
      *
-     * @param fill value
+     * @param fill the fill color
      * @return this element for chaining
      */
     G fill(String fill) {
@@ -51,7 +51,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the stroke attribute.
      *
-     * @param stroke value
+     * @param stroke the stroke color
      * @return this element for chaining
      */
     G stroke(String stroke) {
@@ -70,7 +70,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the stroke width attribute.
      *
-     * @param strokeWidth value
+     * @param strokeWidth the stroke width
      * @return this element for chaining
      */
     G strokeWidth(Number strokeWidth) {
@@ -98,7 +98,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the transform attribute.
      *
-     * @param transformation value
+     * @param transformation the transformation
      * @return this element for chaining
      */
     G transform(String transformation) {
@@ -117,7 +117,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the font size attribute.
      *
-     * @param size value
+     * @param size the size
      * @return this element for chaining
      */
     G fontSize(Number size) {
@@ -127,7 +127,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the font size attribute.
      *
-     * @param size value
+     * @param size the size
      * @return this element for chaining
      */
     G fontSize(String size) {
@@ -146,7 +146,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the font family attribute.
      *
-     * @param family value
+     * @param family the font family
      * @return this element for chaining
      */
     G fontFamily(String family) {
@@ -165,7 +165,7 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
     /**
      * Sets the font weight attribute.
      *
-     * @param weight value
+     * @param weight the font weight
      * @return this element for chaining
      */
     G fontWeight(String weight) {

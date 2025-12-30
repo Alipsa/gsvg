@@ -17,7 +17,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
   /**
    * Creates a FeMorphology.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeMorphology(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -26,7 +26,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
   /**
    * Sets the operator attribute.
    *
-   * @param mode value
+   * @param mode the mode
    * @return this element for chaining
    */
   FeMorphology operator(String mode) {
@@ -36,7 +36,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
   /**
    * Sets the operator attribute.
    *
-   * @param mode value
+   * @param mode the mode
    * @return this element for chaining
    */
   FeMorphology operator(Operator mode) {
@@ -55,7 +55,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeMorphology in(String inStr) {
@@ -65,7 +65,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   FeMorphology in(In inEnum) {
@@ -84,7 +84,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
   /**
    * Sets the radius attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeMorphology radius(Number value) {
@@ -94,7 +94,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
   /**
    * Sets the radius attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeMorphology radius(String value) {

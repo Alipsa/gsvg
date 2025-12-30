@@ -20,7 +20,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Creates a Svg.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Svg(AbstractElementContainer parent) {
     super(parent, NAME)
@@ -29,8 +29,8 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Creates a Svg.
    *
-   * @param w value
-   * @param h value
+   * @param w the width
+   * @param h the height
    */
   Svg(Number w, Number h) {
     this()
@@ -41,8 +41,8 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Creates a Svg.
    *
-   * @param w value
-   * @param h value
+   * @param w the width
+   * @param h the height
    */
   Svg(String w, String h) {
     this()
@@ -53,7 +53,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Svg width(String width) {
@@ -63,7 +63,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Svg width(Number width) {
@@ -82,7 +82,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Svg height(Number height) {
@@ -92,7 +92,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Svg height(String height) {
@@ -129,7 +129,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Creates and adds a new Defs child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Defs addDefs(String id) {
@@ -139,7 +139,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Sets the view box attribute.
    *
-   * @param params value
+   * @param params the parameters
    * @return this element for chaining
    */
   Svg viewBox(String params) {
@@ -179,7 +179,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Sets the version attribute.
    *
-   * @param version value
+   * @param version the version
    * @return this element for chaining
    */
   Svg version(String version) {
@@ -252,7 +252,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Creates and adds a new Symbol child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Symbol addSymbol(String id) {
@@ -271,7 +271,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   /**
    * Creates and adds a new View child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   View addView(String id) {

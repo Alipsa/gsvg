@@ -7,14 +7,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
 
   static final String NAME = 'feDropShadow'
 
-  /**
-   * Creates a FeDropShadow.
-   *
-   * @param parent value
-   */
-  FeDropShadow(SvgElement<? extends SvgElement> parent) {
-    super(parent, NAME)
-  }
 
   /** The horizontal shift position for the offset */
   FeDropShadow dx(Number dx) {
@@ -33,14 +25,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
   /** The horizontal shift position for the offset */
   FeDropShadow dx(String dx) {
     addAttribute('dx', "$dx")
-  }
-  /**
-   * Returns the dx value.
-   *
-   * @return the dx value
-   */
-  String getDx() {
-    getAttribute('dx')
   }
 
   /** The vertical shift position for the offset*/
@@ -73,7 +57,7 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
   /**
    * Sets the std deviation attribute.
    *
-   * @param deviation value
+   * @param deviation the standard deviation for blur
    * @return this element for chaining
    */
   FeDropShadow stdDeviation(Number deviation) {
@@ -101,7 +85,7 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
   /**
    * Sets the flood color attribute.
    *
-   * @param color value
+   * @param color the color
    * @return this element for chaining
    */
   FeDropShadow floodColor(String color) {
@@ -120,7 +104,7 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
   /**
    * Sets the flood opacity attribute.
    *
-   * @param opacity value
+   * @param opacity the opacity value (0.0 to 1.0)
    * @return this element for chaining
    */
   FeDropShadow floodOpacity(Number opacity) {

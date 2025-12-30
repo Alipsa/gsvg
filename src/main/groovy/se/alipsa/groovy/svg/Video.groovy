@@ -10,7 +10,7 @@ class Video extends SvgElement<Video> {
   /**
    * Creates a Video.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Video(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

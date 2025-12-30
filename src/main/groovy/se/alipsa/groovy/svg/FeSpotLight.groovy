@@ -10,7 +10,7 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   /**
    * Creates a FeSpotLight.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeSpotLight(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   /**
    * Sets the z attribute.
    *
-   * @param z value
+   * @param z the z-coordinate
    * @return this element for chaining
    */
   FeSpotLight z(Number z) {
@@ -29,7 +29,7 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   /**
    * Sets the z attribute.
    *
-   * @param z value
+   * @param z the z-coordinate
    * @return this element for chaining
    */
   FeSpotLight z(String z) {
@@ -48,7 +48,7 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   /**
    * Sets the limiting cone angle attribute.
    *
-   * @param angle value
+   * @param angle the angle
    * @return this element for chaining
    */
   FeSpotLight limitingConeAngle(Number angle) {
@@ -76,7 +76,7 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   /**
    * Sets the points at x attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeSpotLight pointsAtX(Number value) {
@@ -95,7 +95,7 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   /**
    * Sets the points at y attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeSpotLight pointsAtY(Number value) {
@@ -123,7 +123,7 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   /**
    * Sets the points at z attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeSpotLight pointsAtZ(Number value) {

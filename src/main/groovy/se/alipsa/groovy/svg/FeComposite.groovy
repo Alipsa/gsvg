@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feComposite>} filter primitive that composites two input images.
  */
+@CompileStatic
 class FeComposite extends FilterElement<FeComposite> {
 
   static final String NAME = 'feComposite'
@@ -17,7 +20,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Creates a FeComposite.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeComposite(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -35,7 +38,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Sets the operator attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeComposite operator(Operator value) {
@@ -54,20 +57,20 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  FeComposite in(String inStr) {
+  FeComposite "in"(String inStr) {
     addAttribute('in', inStr)
   }
 
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  FeComposite in(In inEnum) {
+  FeComposite "in"(In inEnum) {
     addAttribute('in', inEnum.name())
   }
 
@@ -83,7 +86,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Sets the in 2 attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeComposite in2(String inStr) {
@@ -104,26 +107,9 @@ class FeComposite extends FilterElement<FeComposite> {
     addAttribute('k1', value)
   }
 
-  /**
-   * Returns the in 2 value.
-   *
-   * @return the in 2 value
-   */
-  String getIn2() {
-    getAttribute('in2')
-  }
-
   /** value for the arithmetic operator */
   FeComposite k1(String value) {
     addAttribute('k1', value)
-  }
-  /**
-   * Returns the k 1 value.
-   *
-   * @return the k 1 value
-   */
-  String getK1() {
-    getAttribute('k1')
   }
 
   /** value for the arithmetic operator */
@@ -144,14 +130,6 @@ class FeComposite extends FilterElement<FeComposite> {
   FeComposite k2(String value) {
     addAttribute('k2', value)
   }
-  /**
-   * Returns the k 2 value.
-   *
-   * @return the k 2 value
-   */
-  String getK2() {
-    getAttribute('k2')
-  }
 
   /** value for the arithmetic operator */
   FeComposite k3(Number value) {
@@ -170,14 +148,6 @@ class FeComposite extends FilterElement<FeComposite> {
   /** value for the arithmetic operator */
   FeComposite k3(String value) {
     addAttribute('k3', value)
-  }
-  /**
-   * Returns the k 3 value.
-   *
-   * @return the k 3 value
-   */
-  String getK3() {
-    getAttribute('k3')
   }
 
   /** value for the arithmetic operator */

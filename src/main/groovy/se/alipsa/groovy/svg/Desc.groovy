@@ -10,7 +10,7 @@ class Desc extends StringContentContainer<Desc> {
   /**
    * Creates a Desc.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Desc(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

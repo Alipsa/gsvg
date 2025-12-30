@@ -10,7 +10,7 @@ class Audio extends SvgElement<Audio> {
   /**
    * Creates a Audio.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Audio(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

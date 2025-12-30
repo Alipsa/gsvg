@@ -8,8 +8,8 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
   /**
    * Creates a Gradient.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   Gradient(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -27,7 +27,7 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
   /**
    * Sets the gradient units attribute.
    *
-   * @param units value
+   * @param units the coordinate system units
    * @return this element for chaining
    */
   T gradientUnits(String units) {
@@ -38,7 +38,7 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
   /**
    * Sets the gradient transform attribute.
    *
-   * @param transform value
+   * @param transform the transformation matrix
    * @return this element for chaining
    */
   T gradientTransform(String transform) {
@@ -49,7 +49,7 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
   /**
    * Sets the spread method attribute.
    *
-   * @param method value
+   * @param method the interpolation method
    * @return this element for chaining
    */
   T spreadMethod(String method) {

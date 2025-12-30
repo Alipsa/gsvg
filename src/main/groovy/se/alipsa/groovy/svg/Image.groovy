@@ -10,7 +10,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Creates a Image.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Image(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Image width(Number width) {
@@ -29,7 +29,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Image width(String width) {
@@ -48,7 +48,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Image height(Number height) {
@@ -58,7 +58,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Image height(String height) {
@@ -77,7 +77,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Image x(Number x) {
@@ -87,7 +87,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Image x(String x) {
@@ -106,7 +106,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Image y(Number y) {
@@ -116,7 +116,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Image y(String y) {
@@ -135,7 +135,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the xlink href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   Image xlinkHref(String href) {
@@ -145,7 +145,7 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Sets the href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   Image href(String href) {
@@ -164,8 +164,8 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
   /**
    * Adds an attribute to this element.
    *
-   * @param name value
-   * @param value value
+   * @param name the name of the element
+   * @param value the value
    * @return the created element
    */
   @Override

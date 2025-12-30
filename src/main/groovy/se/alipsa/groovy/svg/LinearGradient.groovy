@@ -10,7 +10,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Creates a LinearGradient.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   LinearGradient(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the x 1 attribute.
    *
-   * @param x1 value
+   * @param x1 the starting x-coordinate
    * @return this element for chaining
    */
   LinearGradient x1(String x1) {
@@ -29,7 +29,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the x 1 attribute.
    *
-   * @param x1 value
+   * @param x1 the starting x-coordinate
    * @return this element for chaining
    */
   LinearGradient x1(Number x1) {
@@ -48,7 +48,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the x 2 attribute.
    *
-   * @param x2 value
+   * @param x2 the ending x-coordinate
    * @return this element for chaining
    */
   LinearGradient x2(String x2) {
@@ -58,7 +58,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the x 2 attribute.
    *
-   * @param x2 value
+   * @param x2 the ending x-coordinate
    * @return this element for chaining
    */
   LinearGradient x2(Number x2) {
@@ -77,7 +77,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the y 1 attribute.
    *
-   * @param y1 value
+   * @param y1 the starting y-coordinate
    * @return this element for chaining
    */
   LinearGradient y1(String y1) {
@@ -87,7 +87,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the y 1 attribute.
    *
-   * @param y1 value
+   * @param y1 the starting y-coordinate
    * @return this element for chaining
    */
   LinearGradient y1(Number y1) {
@@ -106,7 +106,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the y 2 attribute.
    *
-   * @param y2 value
+   * @param y2 the ending y-coordinate
    * @return this element for chaining
    */
   LinearGradient y2(String y2) {
@@ -116,7 +116,7 @@ class LinearGradient extends Gradient<LinearGradient> {
   /**
    * Sets the y 2 attribute.
    *
-   * @param y2 value
+   * @param y2 the ending y-coordinate
    * @return this element for chaining
    */
   LinearGradient y2(Number y2) {

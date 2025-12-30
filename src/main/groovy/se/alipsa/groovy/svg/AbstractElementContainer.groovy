@@ -10,8 +10,8 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates a AbstractElementContainer.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   AbstractElementContainer(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -55,7 +55,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Circle child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Circle addCircle(String id) {
@@ -83,8 +83,8 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Ellipse child element.
    *
-   * @param rx value
-   * @param ry value
+   * @param rx the x-axis radius
+   * @param ry the y-axis radius
    * @return the created element
    */
   Ellipse addEllipse(Number rx, Number ry) {
@@ -103,7 +103,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Filter child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Filter addFilter(String id) {
@@ -140,10 +140,10 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Line child element.
    *
-   * @param x1 value
-   * @param y1 value
-   * @param x2 value
-   * @param y2 value
+   * @param x1 the starting x-coordinate
+   * @param y1 the starting y-coordinate
+   * @param x2 the ending x-coordinate
+   * @param y2 the ending y-coordinate
    * @return the created element
    */
   Line addLine(Number x1, Number y1, Number x2, Number y2) {
@@ -162,7 +162,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Mask child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Mask addMask(String id) {
@@ -181,7 +181,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Path child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Path addPath(String id) {
@@ -191,7 +191,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Polygon child element.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return the created element
    */
   Polygon addPolygon(String points) {
@@ -201,7 +201,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Polygon child element.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return the created element
    */
   Polygon addPolygon(Coordinate ... points) {
@@ -211,7 +211,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Polygon child element.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return the created element
    */
   Polygon addPolygon(List<Number>... points) {
@@ -221,7 +221,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Polyline child element.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return the created element
    */
   Polyline addPolyline(Coordinate ... points) {
@@ -231,7 +231,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Polyline child element.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return the created element
    */
   Polyline addPolyline(List<Number>... points) {
@@ -241,8 +241,8 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Rect child element.
    *
-   * @param width value
-   * @param height value
+   * @param width the width
+   * @param height the height
    * @return the created element
    */
   Rect addRect(Number width, Number height) {
@@ -261,7 +261,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Rect child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Rect addRect(String id) {
@@ -280,7 +280,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   /**
    * Creates and adds a new Text child element.
    *
-   * @param content value
+   * @param content the content
    * @return the created element
    */
   Text addText(String content) {

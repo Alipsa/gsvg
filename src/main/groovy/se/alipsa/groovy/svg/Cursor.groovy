@@ -10,7 +10,7 @@ class Cursor extends SvgElement<Cursor> {
   /**
    * Creates a Cursor.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Cursor(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

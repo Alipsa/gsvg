@@ -10,7 +10,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Creates a Mask.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Mask(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Mask width(Number width) {
@@ -29,7 +29,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Mask width(String width) {
@@ -48,7 +48,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Mask height(Number height) {
@@ -58,7 +58,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Mask height(String height) {
@@ -77,7 +77,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Mask x(Number x) {
@@ -87,7 +87,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Mask x(String x) {
@@ -106,7 +106,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Mask y(Number y) {
@@ -116,7 +116,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Mask y(String y) {
@@ -135,7 +135,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the mask content units attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Mask maskContentUnits(String value) {
@@ -154,7 +154,7 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
   /**
    * Sets the mask units attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Mask maskUnits(String value) {

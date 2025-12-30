@@ -24,7 +24,7 @@ class Ellipse extends AbstractShape<Ellipse>  {
   /**
    * Sets the x-coordinate of the ellipse center (cx) in the current user coordinate system.
    *
-   * @param cx value
+   * @param cx the center x-coordinate
    * @return this element for chaining
    */
   Ellipse cx(Number cx) {
@@ -52,7 +52,7 @@ class Ellipse extends AbstractShape<Ellipse>  {
   /**
    * Sets the y-coordinate of the ellipse center (cy) in the current user coordinate system.
    *
-   * @param cy value
+   * @param cy the center y-coordinate
    * @return this element for chaining
    */
   Ellipse cy(Number cy) {
@@ -80,7 +80,7 @@ class Ellipse extends AbstractShape<Ellipse>  {
   /**
    * Sets the fill paint used to draw the ellipse interior.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Ellipse fill(String fill) {

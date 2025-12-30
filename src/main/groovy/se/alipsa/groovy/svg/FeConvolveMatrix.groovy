@@ -17,7 +17,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Creates a FeConvolveMatrix.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeConvolveMatrix(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -26,7 +26,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeConvolveMatrix in(String inStr) {
@@ -36,7 +36,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   FeConvolveMatrix in(In inEnum) {
@@ -55,7 +55,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the order attribute.
    *
-   * @param order value
+   * @param order the order of the convolution matrix
    * @return this element for chaining
    */
   FeConvolveMatrix order(Integer order) {
@@ -65,7 +65,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the order attribute.
    *
-   * @param order value
+   * @param order the order of the convolution matrix
    * @return this element for chaining
    */
   FeConvolveMatrix order(String order) {
@@ -84,7 +84,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the kernel matrix attribute.
    *
-   * @param values value
+   * @param values the convolution kernel matrix values
    * @return this element for chaining
    */
   FeConvolveMatrix kernelMatrix(String values) {
@@ -103,7 +103,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the divisor attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeConvolveMatrix divisor(Number value) {
@@ -131,7 +131,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the bias attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeConvolveMatrix bias(Number value) {
@@ -159,7 +159,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the target x attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeConvolveMatrix targetX(Integer value) {
@@ -178,7 +178,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the target y attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeConvolveMatrix targetY(Integer value) {
@@ -197,7 +197,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the edge mode attribute.
    *
-   * @param mode value
+   * @param mode the mode
    * @return this element for chaining
    */
   FeConvolveMatrix edgeMode(EdgeMode mode) {
@@ -207,7 +207,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the edge mode attribute.
    *
-   * @param mode value
+   * @param mode the mode
    * @return this element for chaining
    */
   FeConvolveMatrix edgeMode(String mode) {
@@ -226,7 +226,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the preserve alpha attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeConvolveMatrix preserveAlpha(boolean value) {
@@ -236,7 +236,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the preserve alpha attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeConvolveMatrix preserveAlpha(String value) {
