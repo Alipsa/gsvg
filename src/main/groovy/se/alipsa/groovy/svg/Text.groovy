@@ -70,7 +70,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * The y position of the start of the text. Default is 0.
    *
-   * @param y value
+   * @param y the y position
    * @return this element for chaining
    */
   Text y(String y) {
