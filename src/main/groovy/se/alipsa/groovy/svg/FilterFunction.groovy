@@ -186,7 +186,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   /**
    * Attribute when type is gamma.
    *
-   * @param the exponent value
+   * @param value the exponent value
    * @return the filter function class that the attribute belongs to
    */
   T exponent(String value) {
