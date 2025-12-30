@@ -84,7 +84,7 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   /**
    * Sets the kernel matrix attribute.
    *
-   * @param values the list of values for the animation
+   * @param values the convolution kernel matrix values
    * @return this element for chaining
    */
   FeConvolveMatrix kernelMatrix(String values) {

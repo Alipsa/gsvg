@@ -174,7 +174,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the filter res attribute.
    *
-   * @param res the result
+   * @param res the filter resolution (sampling rate)
    * @return this element for chaining
    */
   Filter filterRes(String res) {
