@@ -40,7 +40,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * The x position of the start of the text. Default is 0.
    *
-   * @param x value
+   * @param x the x value
    * @return this element for chaining
    */
   Text x(Number x) {
@@ -50,7 +50,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * The x position of the start of the text. Default is 0.
    *
-   * @param x value
+   * @param x the x value
    * @return this element for chaining
    */
   Text x(String x) {
@@ -253,16 +253,6 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   }
 
   /**
-   * How the text should be compressed or stretched to fit the width defined by the textLength attribute.
-   *
-   * @param lengthAdjust value
-   * @return this element for chaining
-   */
-  Text lengthAdjust(Number lengthAdjust) {
-    addAttribute('lengthAdjust', lengthAdjust)
-  }
-
-  /**
    * Returns the text length value.
    *
    * @return the text length value
@@ -274,7 +264,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * How the text should be compressed or stretched to fit the width defined by the textLength attribute.
    *
-   * @param lengthAdjust value
+   * @param lengthAdjust value e.g. spacing, spacingAndGlyphs
    * @return this element for chaining
    */
   Text lengthAdjust(String lengthAdjust) {

@@ -40,7 +40,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The x position of the start of the text. Default is 0.
    *
-   * @param x value
+   * @param x the x value
    * @return this element for chaining
    */
   Tspan x(String x) {
@@ -50,7 +50,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The y position of the start of the text. Default is 0.
    *
-   * @param y value
+   * @param y the y value
    * @return this element for chaining
    */
   Tspan y(Number y) {
@@ -70,7 +70,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The horizontal shift position for text (from previous text position).
    *
-   * @param dx value
+   * @param dx the dx value(s)
    * @return this element for chaining
    */
   Tspan dx(Number... dx) {
@@ -80,7 +80,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The horizontal shift position for text (from previous text position).
    *
-   * @param dx value
+   * @param dx the dx value(s)
    * @return this element for chaining
    */
   Tspan dx(String... dx) {
@@ -90,7 +90,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The vertical shift position for text (from previous text position).
    *
-   * @param dy value
+   * @param dy the dy value(s)
    * @return this element for chaining
    */
   Tspan dy(Number... dy) {
@@ -100,7 +100,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The vertical shift position for text (from previous text position).
    *
-   * @param dy value
+   * @param dy the dy value(s)
    * @return this element for chaining
    */
   Tspan dy(String... dy) {
@@ -130,7 +130,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The width that the text must fit in.
    *
-   * @param textLength value
+   * @param textLength the text length (width) value
    * @return this element for chaining
    */
   Tspan textLength(Number textLength) {
@@ -140,7 +140,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The width that the text must fit in.
    *
-   * @param textLength value
+   * @param textLength the text length (width) value
    * @return this element for chaining
    */
   Tspan textLength(String textLength) {
@@ -150,7 +150,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Sets the fill attribute.
    *
-   * @param fill value
+   * @param fill the fill value
    * @return this element for chaining
    */
   Tspan fill(String fill) {
@@ -160,7 +160,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Sets the stroke attribute.
    *
-   * @param stroke value
+   * @param stroke the stroke value
    * @return this element for chaining
    */
   Tspan stroke(String stroke) {
