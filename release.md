@@ -1,5 +1,17 @@
 # gsvg release notes
 
+## Version 0.3.0 - 2025-12-30
+- Documentation overhaul: new docs in doc/creating.md, doc/parsing.md, and doc/overview.md, plus expanded Groovydoc across the public API and readme tweaks.
+- API ergonomics: added many String overloads for numeric SVG attributes to allow unit/percent values across shapes, text, filters, patterns, markers, symbols, and foreignObject; plus new paint helpers
+  (dash array/offset, opacity, miterlimit) on shapes.
+- Build fix: Maven sources JAR now includes Groovy sources (build-helper source roots + source plugin includes).
+- Test coverage: added tests for parsing docs examples and expanded filter/FeComposite coverage.
+
+**API additions/updates**
+- New convenience setters for SVG attributes across shapes and filters (String overloads for unit/percent values).
+- Additional stroke/fill presentation helpers on shapes (dasharray/dashoffset, opacity, miterlimit).
+- Animation and filter helper extensions (e.g., String overloads for from/k1‑k4, etc.).
+
 ## Version 0.2.0 - 2025-12-20
 - Security/Parsing
   - Hardened SAX parser against XXE/DTD and enabled secure processing in SvgReader (prevents external entity resolution).

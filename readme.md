@@ -15,7 +15,7 @@ See the test for various ways to create, parse and write SVG
 to use it add the following to your Gradle build script
 ```groovy
 implementation("org.apache.groovy:groovy:5.0.3")
-implementation("se.alipsa.groovy:gsvg:0.2.0")
+implementation("se.alipsa.groovy:gsvg:0.3.0")
 ```
 or if you prefer maven:
 ```xml
@@ -28,7 +28,7 @@ or if you prefer maven:
   <dependency>
       <groupId>se.alipsa.groovy</groupId>
       <artifactId>gsvg</artifactId>
-      <version>0.2.0</version>
+      <version>0.3.0</version>
   </dependency>
 </dependencies>
 ```
