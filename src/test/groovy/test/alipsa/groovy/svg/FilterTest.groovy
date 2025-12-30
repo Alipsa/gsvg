@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.Defs
 import se.alipsa.groovy.svg.FeBlend
 import se.alipsa.groovy.svg.FeColorMatrix
+import se.alipsa.groovy.svg.FeComposite
 import se.alipsa.groovy.svg.FeDiffuseLighting
 import se.alipsa.groovy.svg.FeFlood
 import se.alipsa.groovy.svg.FeGaussianBlur
@@ -361,6 +362,30 @@ class FilterTest {
     g.addText().x(225).y(75).addContent('Convolve')
     g.addText('Convolve').x(225).y(150).filter('url(#convolve)')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeCompositeAttributes() {
+    Svg svg = new Svg()
+    Filter filter = svg.addFilter('composite')
+    def composite = filter.addFeComposite()
+        .operator(FeComposite.Operator.arithmetic)
+        .in(In.SourceGraphic)
+        .in2('BackgroundImage')
+        .k1('0.1')
+        .k2('0.2')
+        .k3('0.3')
+        .k4('0.4')
+
+    assertAll(
+        { -> assertEquals('arithmetic', composite.getOperator()) },
+        { -> assertEquals('SourceGraphic', composite.getIn()) },
+        { -> assertEquals('BackgroundImage', composite.getIn2()) },
+        { -> assertEquals('0.1', composite.getK1()) },
+        { -> assertEquals('0.2', composite.getK2()) },
+        { -> assertEquals('0.3', composite.getK3()) },
+        { -> assertEquals('0.4', composite.getK4()) }
+    )
   }
 
   @Test
