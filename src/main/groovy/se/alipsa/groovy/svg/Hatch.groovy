@@ -10,7 +10,7 @@ class Hatch extends AbstractElementContainer<Hatch> {
   /**
    * Creates a Hatch.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Hatch(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

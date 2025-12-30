@@ -10,7 +10,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Creates a Text.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Text(SvgElement parent){
     super(parent, NAME)
@@ -19,8 +19,8 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Creates a Text.
    *
-   * @param parent value
-   * @param text value
+   * @param parent the parent SVG element
+   * @param text the text content
    */
   Text(SvgElement parent, String text) {
     this(parent)
@@ -30,7 +30,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the fill attribute.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Text fill(String fill) {
@@ -59,7 +59,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Creates and adds a new Tspan child element.
    *
-   * @param content value
+   * @param content the content
    * @return the created element
    */
   Tspan addTspan(String content) {
@@ -78,7 +78,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the font family attribute.
    *
-   * @param family value
+   * @param family the font family
    * @return this element for chaining
    */
   Text fontFamily(String family) {
@@ -97,7 +97,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the font size attribute.
    *
-   * @param size value
+   * @param size the size
    * @return this element for chaining
    */
   Text fontSize(Number size) {
@@ -107,7 +107,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Text.
    *
-   * @param position value
+   * @param position the position
    * @return the result
    */
   /** The horizontal shift position for text (from previous text position) */
@@ -118,7 +118,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Text.
    *
-   * @param position value
+   * @param position the position
    * @return the result
    */
   /** The vertical shift position for text (from previous text position)*/
@@ -129,7 +129,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Rotation.
    *
-   * @param degrees value
+   * @param degrees the angle in degrees
    * @return the result
    */
   /** The rotation (in degrees) applied to each letter of text */
@@ -149,7 +149,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the text anchor attribute.
    *
-   * @param anchor value
+   * @param anchor the text anchor
    * @return this element for chaining
    */
   Text textAnchor(String anchor) {
@@ -196,7 +196,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the transform attribute.
    *
-   * @param transform value
+   * @param transform the transformation matrix
    * @return this element for chaining
    */
   Text transform(String transform) {
@@ -215,7 +215,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the baseline shift attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Text baselineShift(String value) {
@@ -235,7 +235,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the dominant baseline attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Text dominantBaseline(String value) {
@@ -255,7 +255,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the text decoration attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Text textDecoration(String value) {
@@ -275,7 +275,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the word spacing attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Text wordSpacing(String value) {
@@ -295,7 +295,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the letter spacing attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Text letterSpacing(String value) {

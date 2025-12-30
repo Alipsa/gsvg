@@ -10,7 +10,7 @@ class MeshGradient extends AbstractElementContainer<MeshGradient> {
   /**
    * Creates a MeshGradient.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   MeshGradient(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

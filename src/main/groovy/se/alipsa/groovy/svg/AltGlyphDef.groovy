@@ -10,7 +10,7 @@ class AltGlyphDef extends AbstractElementContainer<AltGlyphDef> {
   /**
    * Creates a AltGlyphDef.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   AltGlyphDef(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

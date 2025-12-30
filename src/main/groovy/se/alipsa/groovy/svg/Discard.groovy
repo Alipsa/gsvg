@@ -10,7 +10,7 @@ class Discard extends SvgElement<Discard> {
   /**
    * Creates a Discard.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Discard(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

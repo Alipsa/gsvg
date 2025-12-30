@@ -10,7 +10,7 @@ class Animate extends Animation<Animate> {
   /**
    * Creates a Animate.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Animate(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Animate extends Animation<Animate> {
   /**
    * Sets the attribute name attribute.
    *
-   * @param name value
+   * @param name the name of the element
    * @return this element for chaining
    */
   Animate attributeName(String name) {
@@ -38,7 +38,7 @@ class Animate extends Animation<Animate> {
   /**
    * Sets the values attribute.
    *
-   * @param vals value
+   * @param vals the values
    * @return this element for chaining
    */
   Animate values(String vals) {
@@ -57,7 +57,7 @@ class Animate extends Animation<Animate> {
   /**
    * Sets the dur attribute.
    *
-   * @param duration value
+   * @param duration the duration
    * @return this element for chaining
    */
   Animate dur(String duration) {
@@ -76,7 +76,7 @@ class Animate extends Animation<Animate> {
   /**
    * Sets the begin attribute.
    *
-   * @param time value
+   * @param time the time value
    * @return this element for chaining
    */
   Animate begin(String time) {
@@ -95,7 +95,7 @@ class Animate extends Animation<Animate> {
   /**
    * Sets the from attribute.
    *
-   * @param fromNum value
+   * @param fromNum the starting number
    * @return this element for chaining
    */
   Animate from(Number fromNum) {
@@ -114,7 +114,7 @@ class Animate extends Animation<Animate> {
   /**
    * Sets the to attribute.
    *
-   * @param to value
+   * @param to the ending value for the animation
    * @return this element for chaining
    */
   Animate to(String to) {
@@ -133,7 +133,7 @@ class Animate extends Animation<Animate> {
   /**
    * Sets the fill attribute.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Animate fill(String fill) {

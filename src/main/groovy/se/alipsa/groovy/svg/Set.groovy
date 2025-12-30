@@ -10,7 +10,7 @@ class Set extends Animation<Set> {
   /**
    * Creates a Set.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Set(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Set extends Animation<Set> {
   /**
    * Sets the attribute name attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Set attributeName(String value) {
@@ -38,7 +38,7 @@ class Set extends Animation<Set> {
   /**
    * Sets the to attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Set to(String value) {
@@ -57,7 +57,7 @@ class Set extends Animation<Set> {
   /**
    * Sets the begin attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Set begin(String value) {
@@ -76,7 +76,7 @@ class Set extends Animation<Set> {
   /**
    * Sets the dur attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Set dur(String value) {

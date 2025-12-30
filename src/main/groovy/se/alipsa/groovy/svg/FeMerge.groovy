@@ -10,7 +10,7 @@ class FeMerge extends FilterElement<FeMerge> {
   /**
    * Creates a FeMerge.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeMerge(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -28,7 +28,7 @@ class FeMerge extends FilterElement<FeMerge> {
   /**
    * Creates and adds a new FeMergeNode child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   FeMergeNode addFeMergeNode(String id) {

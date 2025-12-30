@@ -10,7 +10,7 @@ class FontFaceUri extends SvgElement<FontFaceUri> {
   /**
    * Creates a FontFaceUri.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FontFaceUri(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

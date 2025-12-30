@@ -10,22 +10,22 @@ interface ExternalElementContainer<T> {
   /**
    * Adds element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    */
   addElement(String qName)
 
   /**
    * Adds element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    */
   addElement(QName qName)
 
   /**
    * Adds element.
    *
-   * @param localName value
-   * @param namespaceUri value
+   * @param localName the local name of the element
+   * @param namespaceUri the namespace URI
    */
   addElement(String localName, String namespaceUri)
 }

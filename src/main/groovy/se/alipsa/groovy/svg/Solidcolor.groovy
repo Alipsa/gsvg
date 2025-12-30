@@ -10,7 +10,7 @@ class Solidcolor extends SvgElement<Solidcolor> {
   /**
    * Creates a Solidcolor.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Solidcolor(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

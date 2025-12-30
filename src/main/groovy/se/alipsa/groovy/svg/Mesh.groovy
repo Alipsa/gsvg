@@ -10,7 +10,7 @@ class Mesh extends SvgElement<Mesh> {
   /**
    * Creates a Mesh.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Mesh(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

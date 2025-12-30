@@ -10,7 +10,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   /**
    * Creates a Marker.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Marker(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   /**
    * Sets the marker width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Marker markerWidth(Number width) {
@@ -38,7 +38,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   /**
    * Sets the marker height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Marker markerHeight(Number height) {
@@ -57,7 +57,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   /**
    * Sets the ref x attribute.
    *
-   * @param refX value
+   * @param refX the reference x-coordinate
    * @return this element for chaining
    */
   Marker refX(Number refX) {
@@ -76,7 +76,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   /**
    * Sets the ref y attribute.
    *
-   * @param refY value
+   * @param refY the reference y-coordinate
    * @return this element for chaining
    */
   Marker refY(Number refY) {
@@ -95,7 +95,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   /**
    * Sets the marker units attribute.
    *
-   * @param units value
+   * @param units the coordinate system units
    * @return this element for chaining
    */
   Marker markerUnits(String units) {
@@ -115,7 +115,7 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   /**
    * Sets the orient attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Marker orient(String value) {

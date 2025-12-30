@@ -10,7 +10,7 @@ class FeDistantLight extends LightSourceElement<FeDistantLight> {
   /**
    * Creates a FeDistantLight.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeDistantLight(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FeDistantLight extends LightSourceElement<FeDistantLight> {
   /**
    * Sets the azimuth attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeDistantLight azimuth(Number value) {
@@ -38,7 +38,7 @@ class FeDistantLight extends LightSourceElement<FeDistantLight> {
   /**
    * Sets the elevation attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeDistantLight elevation(Number value) {

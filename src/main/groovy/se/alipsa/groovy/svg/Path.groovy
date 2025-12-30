@@ -18,7 +18,7 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
   /**
    * Sets the path data string (commands and coordinates defining the path geometry).
    *
-   * @param d value
+   * @param d the path data
    * @return this element for chaining
    */
   Path d(String d) {
@@ -37,7 +37,7 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
   /**
    * Sets the fill paint used to draw the path interior.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Path fill(String fill) {
@@ -56,7 +56,7 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
   /**
    * Sets the stroke paint used to draw the path outline.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Path stroke(String value) {
@@ -75,7 +75,7 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
   /**
    * Sets the stroke width used to draw the path outline.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Path strokeWidth(Number width) {

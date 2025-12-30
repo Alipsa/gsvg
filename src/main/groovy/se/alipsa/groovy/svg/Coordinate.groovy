@@ -17,7 +17,7 @@ class Coordinate {
     /**
      * Creates a Coordinate.
      *
-     * @param points value
+     * @param points the points defining the shape
      */
     Coordinate(List<Number> points) {
         x = points[0]
@@ -27,8 +27,8 @@ class Coordinate {
     /**
      * Creates a Coordinate.
      *
-     * @param x value
-     * @param y value
+     * @param x the x-coordinate
+     * @param y the y-coordinate
      */
     Coordinate(Number x, Number y) {
         this.x = x
@@ -38,7 +38,7 @@ class Coordinate {
     /**
      * Sets the x attribute.
      *
-     * @param x value
+     * @param x the x-coordinate
      * @return this element for chaining
      */
     Coordinate x(Number x) {
@@ -49,7 +49,7 @@ class Coordinate {
     /**
      * Sets the y attribute.
      *
-     * @param y value
+     * @param y the y-coordinate
      * @return this element for chaining
      */
     Coordinate y(Number y) {
@@ -69,7 +69,7 @@ class Coordinate {
     /**
      * Sets the x value.
      *
-     * @param x value
+     * @param x the x-coordinate
      */
     void setX(Number x) {
         this.x = x
@@ -87,7 +87,7 @@ class Coordinate {
     /**
      * Sets the y value.
      *
-     * @param y value
+     * @param y the y-coordinate
      */
     void setY(Number y) {
         this.y = y

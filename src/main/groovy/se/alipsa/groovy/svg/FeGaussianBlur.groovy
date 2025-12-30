@@ -10,7 +10,7 @@ class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
   /**
    * Creates a FeGaussianBlur.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeGaussianBlur(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
   /**
    * Sets the in attribute.
    *
-   * @param input value
+   * @param input the input
    * @return this element for chaining
    */
   FeGaussianBlur in(String input) {
@@ -38,7 +38,7 @@ class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
   /**
    * Sets the std deviation attribute.
    *
-   * @param deviation value
+   * @param deviation the standard deviation for blur
    * @return this element for chaining
    */
   FeGaussianBlur stdDeviation(Number deviation) {

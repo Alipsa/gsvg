@@ -10,7 +10,7 @@ class FontFaceName extends SvgElement<FontFaceName> {
   /**
    * Creates a FontFaceName.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FontFaceName(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

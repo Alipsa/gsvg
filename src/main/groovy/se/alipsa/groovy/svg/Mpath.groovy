@@ -10,7 +10,7 @@ class Mpath extends SvgElement<Mpath> {
   /**
    * Creates a Mpath.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Mpath(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Mpath extends SvgElement<Mpath> {
   /**
    * Sets the xlink href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   Mpath xlinkHref(String href) {
@@ -29,7 +29,7 @@ class Mpath extends SvgElement<Mpath> {
   /**
    * Sets the href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   Mpath href(String href) {
@@ -57,8 +57,8 @@ class Mpath extends SvgElement<Mpath> {
   /**
    * Adds an attribute to this element.
    *
-   * @param name value
-   * @param value value
+   * @param name the name of the element
+   * @param value the value
    * @return the created element
    */
   @Override

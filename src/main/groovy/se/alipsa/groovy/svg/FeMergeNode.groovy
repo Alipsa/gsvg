@@ -10,7 +10,7 @@ class FeMergeNode extends FilterElement<FeMergeNode> {
   /**
    * Creates a FeMergeNode.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeMergeNode(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FeMergeNode extends FilterElement<FeMergeNode> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeMergeNode in(String inStr) {
@@ -29,7 +29,7 @@ class FeMergeNode extends FilterElement<FeMergeNode> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   FeMergeNode in(In inEnum) {

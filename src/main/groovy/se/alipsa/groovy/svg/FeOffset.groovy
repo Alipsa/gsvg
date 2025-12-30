@@ -10,7 +10,7 @@ class FeOffset extends FilterElement<FeOffset> {
   /**
    * Creates a FeOffset.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeOffset(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

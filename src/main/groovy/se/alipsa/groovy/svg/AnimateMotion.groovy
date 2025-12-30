@@ -10,7 +10,7 @@ class AnimateMotion extends Animation<AnimateMotion> {
   /**
    * Creates a AnimateMotion.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   AnimateMotion(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -21,7 +21,7 @@ class AnimateMotion extends Animation<AnimateMotion> {
   /**
    * Sets the path attribute.
    *
-   * @param path value
+   * @param path the path
    * @return this element for chaining
    */
   AnimateMotion path(String path) {
@@ -40,7 +40,7 @@ class AnimateMotion extends Animation<AnimateMotion> {
   /**
    * Sets the dur attribute.
    *
-   * @param duration value
+   * @param duration the duration
    * @return this element for chaining
    */
   AnimateMotion dur(String duration) {
@@ -59,7 +59,7 @@ class AnimateMotion extends Animation<AnimateMotion> {
   /**
    * Sets the begin attribute.
    *
-   * @param time value
+   * @param time the time value
    * @return this element for chaining
    */
   AnimateMotion begin(String time) {
@@ -78,7 +78,7 @@ class AnimateMotion extends Animation<AnimateMotion> {
   /**
    * Sets the rotate attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   AnimateMotion rotate(String value) {

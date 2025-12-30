@@ -10,7 +10,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Creates a Tspan.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Tspan(SvgElement parent) {
     super(parent, NAME)
@@ -19,8 +19,8 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Creates a Tspan.
    *
-   * @param parent value
-   * @param text value
+   * @param parent the parent SVG element
+   * @param text the text content
    */
   Tspan(SvgElement parent, String text) {
     this(parent)
@@ -39,7 +39,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Text.
    *
-   * @param position value
+   * @param position the position
    * @return the result
    */
   /** The horizontal shift position for text (from previous text position) */
@@ -50,7 +50,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Text.
    *
-   * @param position value
+   * @param position the position
    * @return the result
    */
   /** The vertical shift position for text (from previous text position)*/
@@ -61,7 +61,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Rotation.
    *
-   * @param degrees value
+   * @param degrees the angle in degrees
    * @return the result
    */
   /** The rotation (in degrees) applied to each letter of text */
@@ -77,7 +77,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Sets the fill attribute.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Tspan fill(String fill) {
@@ -87,7 +87,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Sets the stroke attribute.
    *
-   * @param stroke value
+   * @param stroke the stroke color
    * @return this element for chaining
    */
   Tspan stroke(String stroke) {

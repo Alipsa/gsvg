@@ -17,7 +17,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the x-coordinate of the circle center (cx) in the current user coordinate system.
    *
-   * @param cx value
+   * @param cx the center x-coordinate
    * @return this element for chaining
    */
   Circle cx(Number cx) {
@@ -27,7 +27,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the x-coordinate of the circle center (cx), including unit values such as percentages.
    *
-   * @param cx value
+   * @param cx the center x-coordinate
    * @return this element for chaining
    */
   Circle cx(String cx) {
@@ -46,7 +46,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the y-coordinate of the circle center (cy) in the current user coordinate system.
    *
-   * @param cy value
+   * @param cy the center y-coordinate
    * @return this element for chaining
    */
   Circle cy(Number cy) {
@@ -56,7 +56,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the y-coordinate of the circle center (cy), including unit values such as percentages.
    *
-   * @param cy value
+   * @param cy the center y-coordinate
    * @return this element for chaining
    */
   Circle cy(String cy) {
@@ -75,7 +75,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the circle radius (r) in the current user coordinate system.
    *
-   * @param r value
+   * @param r the radius
    * @return this element for chaining
    */
   Circle r(Number r) {
@@ -94,7 +94,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the stroke paint used to draw the circle outline.
    *
-   * @param stroke value
+   * @param stroke the stroke color
    * @return this element for chaining
    */
   Circle stroke(String stroke) {
@@ -113,7 +113,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the stroke width used to draw the circle outline.
    *
-   * @param strokeWidth value
+   * @param strokeWidth the stroke width
    * @return this element for chaining
    */
   Circle strokeWidth(Number strokeWidth) {
@@ -132,7 +132,7 @@ class Circle extends AbstractShape<Circle> {
   /**
    * Sets the fill paint used to draw the circle interior.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Circle fill(String fill) {

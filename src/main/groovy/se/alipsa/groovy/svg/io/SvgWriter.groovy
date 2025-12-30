@@ -12,7 +12,7 @@ class SvgWriter {
   /**
    * Serializes this element and its children as XML.
    *
-   * @param svg value
+   * @param svg the SVG element
    * @return the result
    */
   static String toXml(Svg svg) {
@@ -28,7 +28,7 @@ class SvgWriter {
   /**
    * To xml pretty.
    *
-   * @param svg value
+   * @param svg the SVG element
    * @return the result
    */
   static String toXmlPretty(Svg svg) {

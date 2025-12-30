@@ -10,7 +10,7 @@ class Title extends StringContentContainer<Title> {
   /**
    * Creates a Title.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Title(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

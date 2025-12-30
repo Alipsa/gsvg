@@ -10,7 +10,7 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
   /**
    * Creates a Defs.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Defs(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -28,7 +28,7 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
   /**
    * Creates and adds a new Marker child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Marker addMarker(String id) {
@@ -47,7 +47,7 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
   /**
    * Creates and adds a new Pattern child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   Pattern addPattern(String id) {
