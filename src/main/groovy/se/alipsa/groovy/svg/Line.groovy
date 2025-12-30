@@ -148,7 +148,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the marker reference to draw at the line start (for example `url(#markerId)`).
    *
-   * @param start the start value
+   * @param start the start marker reference
    * @return this element for chaining
    */
   Line markerStart(String start) {
@@ -167,7 +167,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the marker reference to draw at the line end (for example `url(#markerId)`).
    *
-   * @param end the end time of the animation
+   * @param end the end marker reference
    * @return this element for chaining
    */
   Line markerEnd(String end) {
