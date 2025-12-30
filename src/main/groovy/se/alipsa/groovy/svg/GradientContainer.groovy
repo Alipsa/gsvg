@@ -1,14 +1,24 @@
 package se.alipsa.groovy.svg
 
 /**
- * This trait should be implemented by the svg elements that can have a Gradient (Linear or Radial)
+ * Trait for elements that can contain gradient definitions.
  */
 trait GradientContainer extends ElementContainer {
 
+  /**
+   * Creates and adds a new LinearGradient child element.
+   *
+   * @return the created element
+   */
   LinearGradient addLinearGradient() {
     add(new LinearGradient(this as SvgElement<? extends SvgElement>))
   }
 
+  /**
+   * Creates and adds a new RadialGradient child element.
+   *
+   * @return the created element
+   */
   RadialGradient addRadialGradient() {
     add(new RadialGradient(this as SvgElement<? extends SvgElement>))
   }

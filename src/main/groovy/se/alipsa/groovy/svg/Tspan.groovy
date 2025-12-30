@@ -1,18 +1,27 @@
 package se.alipsa.groovy.svg
 
 /**
- * The Tspan element is used to mark up parts of a text (just like the HTML <span> element).
- * It must be a child of a <text> element or another <tspan> element.
- * <tspan fill="$fill" stroke="$stroke">$content</tspan>
+ * SVG {@code <tspan>} element that positions and styles a span of text.
  */
 class Tspan extends StringContentContainer<Tspan> {
 
   static final String NAME='tspan'
 
+  /**
+   * Creates a Tspan.
+   *
+   * @param parent the parent SVG element
+   */
   Tspan(SvgElement parent) {
     super(parent, NAME)
   }
 
+  /**
+   * Creates a Tspan.
+   *
+   * @param parent the parent SVG element
+   * @param text the text content
+   */
   Tspan(SvgElement parent, String text) {
     this(parent)
     addContent(text)
@@ -27,6 +36,7 @@ class Tspan extends StringContentContainer<Tspan> {
   Tspan y(Number y) {
     addAttribute('y', "$y")
   }
+
   /** The horizontal shift position for text (from previous text position) */
   Tspan dx(Number... dx) {
     addAttribute('dx', String.join(',', dx.collect {it as String}))
@@ -47,14 +57,31 @@ class Tspan extends StringContentContainer<Tspan> {
     addAttribute('textLength', "$textLength")
   }
 
+  /**
+   * Sets the fill attribute.
+   *
+   * @param fill the fill color
+   * @return this element for chaining
+   */
   Tspan fill(String fill) {
     addAttribute('fill', fill)
   }
 
+  /**
+   * Sets the stroke attribute.
+   *
+   * @param stroke the stroke color
+   * @return this element for chaining
+   */
   Tspan stroke(String stroke) {
     addAttribute('stroke', stroke)
   }
 
+  /**
+   * Returns the stroke value.
+   *
+   * @return the stroke value
+   */
   String getStroke() {
     getAttribute('stroke')
   }

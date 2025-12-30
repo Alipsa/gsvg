@@ -3,7 +3,7 @@ package se.alipsa.groovy.svg
 import groovy.transform.PackageScope
 
 /**
- * <polygon points="${points.collect({it.toString()}).join(' ')}" ${optionalAttr('style', style)} />
+ * SVG {@code <polygon>} element that draws a closed polygon from points.
  */
 class Polygon extends AbstractPoly<Polygon> {
 

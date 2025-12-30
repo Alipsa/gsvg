@@ -4,7 +4,7 @@ import groovy.transform.PackageScope
 import org.dom4j.Element;
 
 /**
- * <polyline points="${points.collect({it.toString()}).join(' ')}" ${optionalAttr('style', style)} />
+ * SVG {@code <polyline>} element that draws an open polyline from points.
  */
 class Polyline extends AbstractPoly<Polyline> {
 

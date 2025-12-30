@@ -1,21 +1,38 @@
 package se.alipsa.groovy.svg
 
 /**
- * <text x="$x" y="$y" fill="$fill" font-size="$fontSize">$sb</text>
+ * SVG {@code <text>} element that renders text content.
  */
 class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   static final String NAME='text'
 
+  /**
+   * Creates a Text.
+   *
+   * @param parent the parent SVG element
+   */
   Text(SvgElement parent){
     super(parent, NAME)
   }
 
+  /**
+   * Creates a Text.
+   *
+   * @param parent the parent SVG element
+   * @param text the text content
+   */
   Text(SvgElement parent, String text) {
     this(parent)
     element.addText(text)
   }
 
+  /**
+   * Sets the fill attribute.
+   *
+   * @param fill the fill color
+   * @return this element for chaining
+   */
   Text fill(String fill) {
     addAttribute('fill', fill)
   }
@@ -30,26 +47,59 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('y', String.valueOf(y))
   }
 
+  /**
+   * Creates and adds a new Tspan child element.
+   *
+   * @return the created element
+   */
   Tspan addTspan() {
     add(new Tspan(this))
   }
 
+  /**
+   * Creates and adds a new Tspan child element.
+   *
+   * @param content the content
+   * @return the created element
+   */
   Tspan addTspan(String content) {
     add(new Tspan(this, content))
   }
 
+  /**
+   * Creates and adds a new TextPath child element.
+   *
+   * @return the created element
+   */
   TextPath addTextPath() {
     add(new TextPath(this))
   }
 
+  /**
+   * Sets the font family attribute.
+   *
+   * @param family the font family
+   * @return this element for chaining
+   */
   Text fontFamily(String family) {
     addAttribute('font-family', family)
   }
 
+  /**
+   * Returns the font family value.
+   *
+   * @return the font family value
+   */
   String getFontFamily() {
     getAttribute('font-family')
   }
 
+  /**
+   * Sets the font size attribute.
+   *
+   * @param size the size
+   * @return this element for chaining
+   */
   Text fontSize(Number size) {
     addAttribute('font-size', String.valueOf(size))
   }
@@ -69,14 +119,30 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('rotate', "$rotate")
   }
 
+  /**
+   * Returns the rotate value.
+   *
+   * @return the rotate value
+   */
   String getRotate() {
     getAttribute('rotate')
   }
 
+  /**
+   * Sets the text anchor attribute.
+   *
+   * @param anchor the text anchor
+   * @return this element for chaining
+   */
   Text textAnchor(String anchor) {
     addAttribute('text-anchor', anchor)
   }
 
+  /**
+   * Returns the text anchor value.
+   *
+   * @return the text anchor value
+   */
   String getTextAnchor() {
     getAttribute('text-anchor')
   }
@@ -86,6 +152,11 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('textLength', textLength)
   }
 
+  /**
+   * Returns the text length value.
+   *
+   * @return the text length value
+   */
   String getTextLength() {
     getAttribute('textLength')
   }
@@ -95,59 +166,130 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     addAttribute('lengthAdjust', lengthAdjust)
   }
 
+  /**
+   * Returns the length adjust value.
+   *
+   * @return the length adjust value
+   */
   String getLengthAdjust() {
     getAttribute('lengthAdjust')
   }
 
+  /**
+   * Sets the transform attribute.
+   *
+   * @param transform the transformation matrix
+   * @return this element for chaining
+   */
   Text transform(String transform) {
     addAttribute('transform', transform)
   }
 
+  /**
+   * Returns the transform value.
+   *
+   * @return the transform value
+   */
   String getTransform() {
     getAttribute('transform')
   }
 
+  /**
+   * Sets the baseline shift attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
   Text baselineShift(String value) {
     addAttribute('baseline-shift', value)
     this
   }
 
+  /**
+   * Returns the baseline shift value.
+   *
+   * @return the baseline shift value
+   */
   String getBaselineShift() {
     getAttribute('baseline-shift')
   }
 
+  /**
+   * Sets the dominant baseline attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
   Text dominantBaseline(String value) {
     addAttribute('dominant-baseline', value)
     this
   }
 
+  /**
+   * Returns the dominant baseline value.
+   *
+   * @return the dominant baseline value
+   */
   String getDominantBaseline() {
     getAttribute('dominant-baseline')
   }
 
+  /**
+   * Sets the text decoration attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
   Text textDecoration(String value) {
     addAttribute('text-decoration', value)
     this
   }
 
+  /**
+   * Returns the text decoration value.
+   *
+   * @return the text decoration value
+   */
   String getTextDecoration() {
     getAttribute('text-decoration')
   }
 
+  /**
+   * Sets the word spacing attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
   Text wordSpacing(String value) {
     addAttribute('word-spacing', value)
     this
   }
 
+  /**
+   * Returns the word spacing value.
+   *
+   * @return the word spacing value
+   */
   String getWordSpacing() {
     getAttribute('word-spacing')
   }
 
+  /**
+   * Sets the letter spacing attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
   Text letterSpacing(String value) {
     addAttribute('letter-spacing', value)
     this
   }
 
+  /**
+   * Returns the letter spacing value.
+   *
+   * @return the letter spacing value
+   */
   String getLetterSpacing() {
     getAttribute('letter-spacing')
   }

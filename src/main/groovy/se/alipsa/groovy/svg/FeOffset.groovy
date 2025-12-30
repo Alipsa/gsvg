@@ -1,9 +1,17 @@
 package se.alipsa.groovy.svg
 
+/**
+ * SVG {@code <feOffset>} filter primitive that offsets the input image.
+ */
 class FeOffset extends FilterElement<FeOffset> {
 
   static final String NAME = 'feOffset'
 
+  /**
+   * Creates a FeOffset.
+   *
+   * @param parent the parent SVG element
+   */
   FeOffset(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
@@ -13,6 +21,11 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dx', "$dx")
   }
 
+  /**
+   * Returns the dx value.
+   *
+   * @return the dx value
+   */
   String getDx() {
     getAttribute('dx')
   }
@@ -22,6 +35,11 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dy', "$dy")
   }
 
+  /**
+   * Returns the dy value.
+   *
+   * @return the dy value
+   */
   String getDy() {
     getAttribute('dy')
   }
