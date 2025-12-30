@@ -28,7 +28,16 @@ class FeOffset extends FilterElement<FeOffset> {
    * @return this element for chaining
    */
   FeOffset dx(String dx) {
-    addAttribute('dx', "$dx")
+    addAttribute('dx', dx)
+  }
+
+  /**
+   * Returns the dx value.
+   *
+   * @return the dx value
+   */
+  String getDx() {
+    getAttribute('dx')
   }
 
   /**
@@ -49,15 +58,6 @@ class FeOffset extends FilterElement<FeOffset> {
    */
   FeOffset dy(String dy) {
     addAttribute('dy', dy)
-  }
-
-  /**
-   * Returns the dx value.
-   *
-   * @return the dx value
-   */
-  String getDx() {
-    getAttribute('dx')
   }
 
 
