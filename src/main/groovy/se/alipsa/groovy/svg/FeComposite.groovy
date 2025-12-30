@@ -195,7 +195,7 @@ class FeComposite extends FilterElement<FeComposite> {
    * @param value the k 4 value
    * @return this filter element
    */
-  FeComposite k4(String value) {
+  FeComposite k4(Number value) {
     addAttribute('k4', value)
   }
 
@@ -205,7 +205,7 @@ class FeComposite extends FilterElement<FeComposite> {
    * @param value the k 4 value
    * @return this filter element
    */
-  FeComposite k4(Number value) {
+  FeComposite k4(String value) {
     addAttribute('k4', value)
   }
 
