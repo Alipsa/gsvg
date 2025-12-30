@@ -60,7 +60,6 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dy', dy)
   }
 
-
   /**
    * Returns the dy value.
    *
