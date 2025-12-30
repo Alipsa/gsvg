@@ -3,27 +3,60 @@ package se.alipsa.groovy.svg
 import org.dom4j.Attribute
 import org.dom4j.Element
 
+/**
+ * Base class for polygon and polyline elements with points list handling.
+ */
 class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
 
+  /**
+   * Creates a AbstractPoly.
+   *
+   * @param element value
+   * @param name value
+   */
   AbstractPoly(SvgElement element, String name) {
     super(element, name)
   }
 
+  /**
+   * Sets the points attribute as a list of x,y coordinate pairs.
+   *
+   * @param points value
+   * @return this element for chaining
+   */
   T points(Coordinate... points) {
     element.addAttribute('points', toAttributeValues(points))
     this as T
   }
 
+  /**
+   * Sets the points attribute from numeric x,y pairs.
+   *
+   * @param points value
+   * @return this element for chaining
+   */
   T points(List<Number>... points) {
     element.addAttribute('points', toAttributeValues(points))
     this as T
   }
 
+  /**
+   * Sets the raw points attribute string (for example `"0,0 10,0 10,10"`).
+   *
+   * @param points value
+   * @return this element for chaining
+   */
   T points(String points) {
     element.addAttribute('points', points)
     this as T
   }
 
+  /**
+   * Appends additional points to the existing points list.
+   *
+   * @param points value
+   * @return this element for chaining
+   */
   T addPoints(Coordinate... points) {
     Attribute pa = element.attribute(points)
     String paVal = pa == null ? toAttributeValues(points) : pa.getValue() + ' ' + toAttributeValues(points)
@@ -31,6 +64,12 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
     this as T
   }
 
+  /**
+   * Appends a single point to the existing points list.
+   *
+   * @param point value
+   * @return this element for chaining
+   */
   T addPoint(Coordinate point) {
     Attribute pa = element.attribute(points)
     String paVal = pa == null ? toAttributeValues(points) : pa.getValue() + ' ' + point.toString()
@@ -38,14 +77,30 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
     this as T
   }
 
+  /**
+   * Returns the points attribute string.
+   *
+   * @return the points value
+   */
   String getPoints() {
     getAttribute('points')
   }
 
+  /**
+   * Sets the fill paint used to draw the polygon or polyline interior.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
   T fill(String value) {
     addAttribute('fill', value)
   }
 
+  /**
+   * Returns the fill paint used to draw the polygon or polyline interior.
+   *
+   * @return the fill value
+   */
   String getFill() {
     getAttribute('fill')
   }

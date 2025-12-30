@@ -1,5 +1,8 @@
 package se.alipsa.groovy.svg
 
+/**
+ * Enumerates filter input keywords for the 'in' attribute of filter primitives.
+ */
 enum In {
 
   /**

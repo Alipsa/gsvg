@@ -1,23 +1,52 @@
 package se.alipsa.groovy.svg
 
+/**
+ * Base class for component transfer functions used by feComponentTransfer.
+ */
 abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement<T> {
 
+  /**
+   * Enum for filter type.
+   */
   enum FilterType {
     identity, table, discrete, linear, gamma
   }
 
+  /**
+   * Creates a FilterFunction.
+   *
+   * @param parent value
+   * @param name value
+   */
   FilterFunction(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
   }
 
+  /**
+   * Sets the in attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
   T in(String value) {
     addAttribute('in', value)
   }
 
+  /**
+   * Returns the in value.
+   *
+   * @return the in value
+   */
   String getIn() {
     getAttribute('in')
   }
 
+  /**
+   * Sets the type attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
   T type(String value) {
     addAttribute('type', value)
   }
@@ -32,6 +61,11 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('type', value.name())
   }
 
+  /**
+   * Returns the type value.
+   *
+   * @return the type value
+   */
   String getType() {
     getAt('type')
   }
@@ -45,6 +79,11 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('tableValues', values)
   }
 
+  /**
+   * Returns the table values value.
+   *
+   * @return the table values value
+   */
   String getTableValues() {
     getAttribute('tableValues')
   }
@@ -58,6 +97,11 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('slope', value)
   }
 
+  /**
+   * Returns the slope value.
+   *
+   * @return the slope value
+   */
   String getSlope() {
     getAttribute('slope')
   }
@@ -71,6 +115,11 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('intercept', value)
   }
 
+  /**
+   * Returns the intercept value.
+   *
+   * @return the intercept value
+   */
   String getIntercept() {
     getAttribute('intercept')
   }
@@ -84,6 +133,11 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('amplitude', value)
   }
 
+  /**
+   * Returns the amplitude value.
+   *
+   * @return the amplitude value
+   */
   String getAmplitude() {
     getAttribute('amplitude')
   }
@@ -97,6 +151,11 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('exponent', value)
   }
 
+  /**
+   * Returns the exponent value.
+   *
+   * @return the exponent value
+   */
   String getExponent() {
     getAttribute('exponent')
   }
@@ -110,6 +169,11 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
     addAttribute('offset', value)
   }
 
+  /**
+   * Returns the offset value.
+   *
+   * @return the offset value
+   */
   String getOffset() {
     getAttribute('offset')
   }

@@ -106,6 +106,9 @@ import javax.xml.XMLConstants
 import javax.xml.parsers.SAXParser
 import javax.xml.parsers.SAXParserFactory
 
+/**
+ * Parses SVG XML into the gsvg object model.
+ */
 class SvgReader extends DefaultHandler implements LexicalHandler {
 
   Svg svg
@@ -113,10 +116,21 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   boolean rootSvgAssigned = false
   boolean isCdataSection = false
 
+  /**
+   * Start document.
+   */
   @Override
   void startDocument() throws SAXException {
   }
 
+  /**
+   * Start element.
+   *
+   * @param uri value
+   * @param localName value
+   * @param qName value
+   * @param attributes value
+   */
   @Override
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     //print('begin element ' + qName)
@@ -269,6 +283,13 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     }
   }
 
+  /**
+   * End element.
+   *
+   * @param uri value
+   * @param localName value
+   * @param qName value
+   */
   @Override
   void endElement(String uri, String localName, String qName) throws SAXException {
     //print('end element ' + qName)
@@ -276,6 +297,13 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     //println(', current element is now ' + currentElement.element.getName())
   }
 
+  /**
+   * Characters.
+   *
+   * @param ch value
+   * @param start value
+   * @param length value
+   */
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)
@@ -294,6 +322,12 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     }
   }
 
+  /**
+   * Start prefix mapping.
+   *
+   * @param prefix value
+   * @param uri value
+   */
   @Override
   void startPrefixMapping(String prefix, String uri) throws SAXException {
     // do nothing, we handle namespace declaration in startElement as this method is called before the element is created
@@ -302,18 +336,36 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     //}
   }
 
+  /**
+   * Parse.
+   *
+   * @param svgFile value
+   * @return the result
+   */
   static Svg parse(File svgFile) {
     SvgReader reader = new SvgReader()
     createSAXParser(reader).parse(svgFile, reader)
     reader.svg
   }
 
+  /**
+   * Parse.
+   *
+   * @param svgFile value
+   * @return the result
+   */
   static Svg parse(InputSource svgFile) {
     SvgReader reader = new SvgReader()
     createSAXParser(reader).parse(svgFile, reader)
     reader.svg
   }
 
+  /**
+   * Creates a secured SAX parser configured for SVG parsing.
+   *
+   * @param reader value
+   * @return the result
+   */
   static SAXParser createSAXParser(SvgReader reader) {
     SAXParserFactory factory = SAXParserFactory.newInstance()
     factory.setNamespaceAware(true)
@@ -331,50 +383,101 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     parser
   }
 
+  /**
+   * Parse.
+   *
+   * @param svgFile value
+   * @return the result
+   */
   static Svg parse(InputStream svgFile) {
     parse(new InputSource(svgFile))
   }
 
+  /**
+   * Parse.
+   *
+   * @param reader value
+   * @return the result
+   */
   static Svg parse(Reader reader) {
     parse(new InputSource(reader))
   }
 
+  /**
+   * Parse.
+   *
+   * @param content value
+   * @return the result
+   */
   static Svg parse(String content) {
     try (StringReader reader = new StringReader(content)) {
       return parse(reader)
     }
   }
 
+  /**
+   * Start dtd.
+   *
+   * @param name value
+   * @param publicId value
+   * @param systemId value
+   */
   @Override
   void startDTD(String name, String publicId, String systemId) throws SAXException {
 
   }
 
+  /**
+   * End dtd.
+   */
   @Override
   void endDTD() throws SAXException {
 
   }
 
+  /**
+   * Start entity.
+   *
+   * @param name value
+   */
   @Override
   void startEntity(String name) throws SAXException {
 
   }
 
+  /**
+   * End entity.
+   *
+   * @param name value
+   */
   @Override
   void endEntity(String name) throws SAXException {
 
   }
 
+  /**
+   * Start cdata.
+   */
   @Override
   void startCDATA() throws SAXException {
     isCdataSection = true
   }
 
+  /**
+   * End cdata.
+   */
   @Override
   void endCDATA() throws SAXException {
     isCdataSection = false
   }
 
+  /**
+   * Comment.
+   *
+   * @param ch value
+   * @param start value
+   * @param length value
+   */
   @Override
   void comment(char[] ch, int start, int length) throws SAXException {
 
