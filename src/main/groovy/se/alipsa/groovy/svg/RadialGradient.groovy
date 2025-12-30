@@ -10,7 +10,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Creates a RadialGradient.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   RadialGradient(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the cx attribute.
    *
-   * @param cx value
+   * @param cx the center x-coordinate
    * @return this element for chaining
    */
   RadialGradient cx(Number cx) {
@@ -29,7 +29,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the cx attribute.
    *
-   * @param cx value
+   * @param cx the center x-coordinate
    * @return this element for chaining
    */
   RadialGradient cx(String cx) {
@@ -48,7 +48,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the cy attribute.
    *
-   * @param cy value
+   * @param cy the center y-coordinate
    * @return this element for chaining
    */
   RadialGradient cy(Number cy) {
@@ -58,7 +58,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the cy attribute.
    *
-   * @param cy value
+   * @param cy the center y-coordinate
    * @return this element for chaining
    */
   RadialGradient cy(String cy) {
@@ -77,7 +77,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the r attribute.
    *
-   * @param r value
+   * @param r the radius
    * @return this element for chaining
    */
   RadialGradient r(Number r) {
@@ -87,7 +87,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the r attribute.
    *
-   * @param r value
+   * @param r the radius
    * @return this element for chaining
    */
   RadialGradient r(String r) {
@@ -106,7 +106,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the fx attribute.
    *
-   * @param fx value
+   * @param fx the focal point x-coordinate
    * @return this element for chaining
    */
   RadialGradient fx(String fx) {
@@ -116,7 +116,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the fx attribute.
    *
-   * @param fx value
+   * @param fx the focal point x-coordinate
    * @return this element for chaining
    */
   RadialGradient fx(Number fx) {
@@ -135,7 +135,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the fy attribute.
    *
-   * @param fy value
+   * @param fy the focal point y-coordinate
    * @return this element for chaining
    */
   RadialGradient fy(String fy) {
@@ -145,7 +145,7 @@ class RadialGradient extends Gradient<RadialGradient> {
   /**
    * Sets the fy attribute.
    *
-   * @param fy value
+   * @param fy the focal point y-coordinate
    * @return this element for chaining
    */
   RadialGradient fy(Number fy) {

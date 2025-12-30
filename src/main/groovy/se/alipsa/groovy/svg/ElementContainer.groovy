@@ -19,7 +19,7 @@ trait ElementContainer {
   /**
    * Adds a child element to this container.
    *
-   * @param svgElement value
+   * @param svgElement the SVG element
    * @return the added element
    */
   <E extends SvgElement> E add(E svgElement) {
@@ -30,7 +30,7 @@ trait ElementContainer {
   /**
    * Returns child element(s) for the provided selector.
    *
-   * @param index value
+   * @param index the index
    * @return the result
    */
   SvgElement getAt(Integer index) {
@@ -40,7 +40,7 @@ trait ElementContainer {
   /**
    * Returns child element(s) for the provided selector.
    *
-   * @param name value
+   * @param name the name of the element
    * @return the result
    */
   List<SvgElement> getAt(String name) {
@@ -50,7 +50,7 @@ trait ElementContainer {
   /**
    * Returns child element(s) for the provided selector.
    *
-   * @param clazz value
+   * @param clazz the CSS class
    * @return the result
    */
   List<SvgElement> getAt(Class<? extends SvgElement> clazz) {

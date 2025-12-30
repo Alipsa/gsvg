@@ -11,8 +11,8 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
   /**
    * Creates a StringContentContainer.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   StringContentContainer(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -21,8 +21,8 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
   /**
    * Creates a StringContentContainer.
    *
-   * @param parent value
-   * @param qName value
+   * @param parent the parent SVG element
+   * @param qName the qualified name of the element
    */
   StringContentContainer(SvgElement<? extends SvgElement> parent, QName qName) {
     super(parent, qName)
@@ -31,9 +31,9 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
   /**
    * Creates a StringContentContainer.
    *
-   * @param parent value
-   * @param qName value
-   * @param defaultNameSpace value
+   * @param parent the parent SVG element
+   * @param qName the qualified name of the element
+   * @param defaultNameSpace the default namespace
    */
   StringContentContainer(SvgElement parent, String qName, String defaultNameSpace) {
     super(parent, qName, defaultNameSpace)
@@ -42,7 +42,7 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
   /**
    * Adds text content to this element.
    *
-   * @param text value
+   * @param text the text content
    * @return this element for chaining
    */
   T addContent(String text) {
@@ -62,7 +62,7 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
   /**
    * Replaces the text content of this element.
    *
-   * @param content value
+   * @param content the content
    * @return this element for chaining
    */
   T replaceContent(String content) {
@@ -73,7 +73,7 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
   /**
    * Adds CDATA content to this element.
    *
-   * @param content value
+   * @param content the content
    * @return this element for chaining
    */
   T addCdataContent(String content) {

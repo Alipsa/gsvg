@@ -10,7 +10,7 @@ class AltGlyph extends StringContentContainer<AltGlyph> {
   /**
    * Creates a AltGlyph.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   AltGlyph(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

@@ -17,7 +17,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Creates a FeComposite.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeComposite(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -35,7 +35,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Sets the operator attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   FeComposite operator(Operator value) {
@@ -54,7 +54,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeComposite in(String inStr) {
@@ -64,7 +64,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   FeComposite in(In inEnum) {
@@ -83,7 +83,7 @@ class FeComposite extends FilterElement<FeComposite> {
   /**
    * Sets the in 2 attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeComposite in2(String inStr) {

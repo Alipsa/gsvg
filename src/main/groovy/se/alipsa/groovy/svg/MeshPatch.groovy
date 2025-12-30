@@ -10,7 +10,7 @@ class MeshPatch extends SvgElement<MeshPatch> {
   /**
    * Creates a MeshPatch.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   MeshPatch(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

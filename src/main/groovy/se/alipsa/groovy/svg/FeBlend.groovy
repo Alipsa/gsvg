@@ -18,7 +18,7 @@ class FeBlend extends FilterElement<FeBlend> {
   /**
    * Creates a FeBlend.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeBlend(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -27,7 +27,7 @@ class FeBlend extends FilterElement<FeBlend> {
   /**
    * Sets the in attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeBlend in(String inStr) {
@@ -37,7 +37,7 @@ class FeBlend extends FilterElement<FeBlend> {
   /**
    * Sets the in attribute.
    *
-   * @param inEnum value
+   * @param inEnum the input source enumeration
    * @return this element for chaining
    */
   FeBlend in(In inEnum) {
@@ -56,7 +56,7 @@ class FeBlend extends FilterElement<FeBlend> {
   /**
    * Sets the in 2 attribute.
    *
-   * @param inStr value
+   * @param inStr the input source string identifier
    * @return this element for chaining
    */
   FeBlend in2(String inStr) {
@@ -75,7 +75,7 @@ class FeBlend extends FilterElement<FeBlend> {
   /**
    * Sets the mode attribute.
    *
-   * @param mode value
+   * @param mode the mode
    * @return this element for chaining
    */
   FeBlend mode(String mode) {
@@ -85,7 +85,7 @@ class FeBlend extends FilterElement<FeBlend> {
   /**
    * Sets the mode attribute.
    *
-   * @param mode value
+   * @param mode the mode
    * @return this element for chaining
    */
   FeBlend mode(Mode mode) {

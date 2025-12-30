@@ -10,7 +10,7 @@ class FeDiffuseLighting extends FilterElement<FeDiffuseLighting> implements Ligh
   /**
    * Creates a FeDiffuseLighting.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeDiffuseLighting(SvgElement parent) {
     super(parent, NAME)

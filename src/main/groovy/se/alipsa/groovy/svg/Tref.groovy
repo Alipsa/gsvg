@@ -10,7 +10,7 @@ class Tref extends StringContentContainer<Tref> {
   /**
    * Creates a Tref.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Tref(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

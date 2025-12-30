@@ -10,7 +10,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   /**
    * Creates a FeComponentTransfer.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeComponentTransfer(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -28,7 +28,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   /**
    * Creates and adds a new FeFuncA child element.
    *
-   * @param type value
+   * @param type the type
    * @return the created element
    */
   FeFuncA addFeFuncA(String type) {
@@ -47,7 +47,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   /**
    * Creates and adds a new FeFuncB child element.
    *
-   * @param type value
+   * @param type the type
    * @return the created element
    */
   FeFuncB addFeFuncB(String type) {
@@ -66,7 +66,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   /**
    * Creates and adds a new FeFuncG child element.
    *
-   * @param type value
+   * @param type the type
    * @return the created element
    */
   FeFuncG addFeFuncG(String type) {
@@ -85,7 +85,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   /**
    * Creates and adds a new FeFuncR child element.
    *
-   * @param type value
+   * @param type the type
    * @return the created element
    */
   FeFuncR addFeFuncR(String type) {

@@ -10,7 +10,7 @@ class Pattern extends AbstractElementContainer<Pattern> {
   /**
    * Creates a Pattern.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Pattern(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Pattern extends AbstractElementContainer<Pattern> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Pattern x(Number x) {
@@ -38,7 +38,7 @@ class Pattern extends AbstractElementContainer<Pattern> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Pattern y(Number y) {
@@ -57,7 +57,7 @@ class Pattern extends AbstractElementContainer<Pattern> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Pattern width(Number width) {
@@ -76,7 +76,7 @@ class Pattern extends AbstractElementContainer<Pattern> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Pattern height(Number height) {
@@ -95,7 +95,7 @@ class Pattern extends AbstractElementContainer<Pattern> {
   /**
    * Sets the pattern units attribute.
    *
-   * @param units value
+   * @param units the coordinate system units
    * @return this element for chaining
    */
   Pattern patternUnits(String units) {

@@ -8,8 +8,8 @@ abstract class Animation<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Creates a Animation.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   Animation(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -18,7 +18,7 @@ abstract class Animation<T extends SvgElement<T>> extends SvgElement<T> {
   /**
    * Sets the repeat count attribute.
    *
-   * @param repeats value
+   * @param repeats the number of repeats
    * @return this element for chaining
    */
   T repeatCount(String repeats) {

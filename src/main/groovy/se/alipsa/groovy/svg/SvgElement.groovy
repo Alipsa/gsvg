@@ -28,8 +28,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Creates a SvgElement.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   SvgElement(SvgElement<? extends SvgElement> parent, String name) {
     this.parent = parent
@@ -39,9 +39,9 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Creates a SvgElement.
    *
-   * @param parent value
-   * @param name value
-   * @param defaultNameSpace value
+   * @param parent the parent SVG element
+   * @param name the name of the element
+   * @param defaultNameSpace the default namespace
    */
   SvgElement(SvgElement<? extends SvgElement> parent, String name, String defaultNameSpace) {
     this.parent = parent
@@ -51,8 +51,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Creates a SvgElement.
    *
-   * @param parent value
-   * @param qName value
+   * @param parent the parent SVG element
+   * @param qName the qualified name of the element
    */
   SvgElement(SvgElement<? extends SvgElement> parent, QName qName) {
     this.parent = parent
@@ -70,8 +70,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Adds a namespace declaration to this element.
    *
-   * @param prefix value
-   * @param uri value
+   * @param prefix the namespace prefix
+   * @param uri the URI
    * @return this element for chaining
    */
   T addNamespace(String prefix, String uri) {
@@ -82,7 +82,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Returns the value of the requested attribute.
    *
-   * @param name value
+   * @param name the name of the element
    * @return the result
    */
   String getAttribute(String name) {
@@ -96,7 +96,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Returns the value of the requested attribute.
    *
-   * @param name value
+   * @param name the name of the element
    * @return the result
    */
   String getAttribute(QName name) {
@@ -106,8 +106,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Returns the value of the requested attribute.
    *
-   * @param nsPrefix value
-   * @param localName value
+   * @param nsPrefix the namespace prefix
+   * @param localName the local name of the element
    * @return the result
    */
   String getAttribute(String nsPrefix, String localName) {
@@ -117,8 +117,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Adds an attribute to this element.
    *
-   * @param name value
-   * @param value value
+   * @param name the name of the element
+   * @param value the value
    * @return this element for chaining
    */
   T addAttribute(String name, Object value) {
@@ -133,9 +133,9 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Adds an attribute to this element.
    *
-   * @param prefix value
-   * @param localName value
-   * @param value value
+   * @param prefix the namespace prefix
+   * @param localName the local name of the element
+   * @param value the value
    * @return this element for chaining
    */
   T addAttribute(String prefix, String localName, Object value) {
@@ -145,8 +145,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Adds an attribute to this element.
    *
-   * @param qname value
-   * @param value value
+   * @param qname the qualified name
+   * @param value the value
    * @return this element for chaining
    */
   T addAttribute(QName qname, Object value) {
@@ -157,7 +157,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Adds multiple attributes to this element.
    *
-   * @param attributes value
+   * @param attributes the attributes
    * @return this element for chaining
    */
   T addAttributes(Map<String, Object> attributes) {
@@ -174,8 +174,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Updates an existing attribute on this element.
    *
-   * @param attribute value
-   * @param value value
+   * @param attribute the attribute
+   * @param value the value
    * @return this element for chaining
    */
   T changeAttribute(String attribute, Object value) {
@@ -186,7 +186,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Removes an attribute from this element.
    *
-   * @param attribute value
+   * @param attribute the attribute
    * @return this element for chaining
    */
   T removeAttribute(String attribute) {
@@ -200,7 +200,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Sets the style attribute.
    *
-   * @param style value
+   * @param style the style
    * @return this element for chaining
    */
   T style(String style) {
@@ -210,7 +210,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Sets the style class attribute.
    *
-   * @param styleClass value
+   * @param styleClass the CSS style class
    * @return this element for chaining
    */
   T styleClass(String styleClass) {
@@ -220,7 +220,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Sets the id attribute.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return this element for chaining
    */
   T id(String id) {
@@ -239,7 +239,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Sets the filter attribute.
    *
-   * @param filter value
+   * @param filter the filter
    * @return this element for chaining
    */
   T filter(String filter) {
@@ -260,7 +260,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Get parent.
    *
-   * @param type value
+   * @param type the type
    * @return the result
    */
   <P extends SvgElement<P>> P getParent(Class<P> type) {
@@ -297,7 +297,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Creates and adds a new Title child element.
    *
-   * @param content value
+   * @param content the content
    * @return the created element
    */
   Title addTitle(String content) {
@@ -325,7 +325,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Creates and adds a new Desc child element.
    *
-   * @param content value
+   * @param content the content
    * @return the created element
    */
   Desc addDesc(String content) {
@@ -344,7 +344,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Builds an xlink-qualified name for the provided local name.
    *
-   * @param localName value
+   * @param localName the local name of the element
    * @return the result
    */
   QName xlink(String localName) {
@@ -357,7 +357,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Resolves a QName for the provided name.
    *
-   * @param name value
+   * @param name the name of the element
    * @return the result
    */
   QName getQName(String name) {
@@ -376,8 +376,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   /**
    * Resolves a QName for the provided name.
    *
-   * @param prefix value
-   * @param localName value
+   * @param prefix the namespace prefix
+   * @param localName the local name of the element
    * @return the result
    */
   QName getQName(String prefix, String localName) {

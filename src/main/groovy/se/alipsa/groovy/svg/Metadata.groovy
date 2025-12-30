@@ -13,7 +13,7 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
   /**
    * Creates a Metadata.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Metadata(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -22,7 +22,7 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
   /**
    * Creates and adds a new MetadataElement child element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    * @return the created element
    */
   MetadataElement addElement(String qName) {
@@ -32,9 +32,9 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
   /**
    * Creates and adds a new MetadataElement child element.
    *
-   * @param localName value
-   * @param prefix value
-   * @param uri value
+   * @param localName the local name of the element
+   * @param prefix the namespace prefix
+   * @param uri the URI
    * @return the created element
    */
   MetadataElement addElement(String localName, String prefix, String uri) {
@@ -46,8 +46,8 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
   /**
    * Creates and adds a new MetadataElement child element.
    *
-   * @param localName value
-   * @param namespaceUri value
+   * @param localName the local name of the element
+   * @param namespaceUri the namespace URI
    * @return the created element
    */
   MetadataElement addElement(String localName, String namespaceUri) {
@@ -59,7 +59,7 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
   /**
    * Creates and adds a new MetadataElement child element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    * @return the created element
    */
   MetadataElement addElement(QName qName) {

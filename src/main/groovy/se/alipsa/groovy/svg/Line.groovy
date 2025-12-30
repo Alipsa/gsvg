@@ -34,7 +34,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the x-coordinate of the line start point (x1).
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Line x1(Number value) {
@@ -53,7 +53,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the y-coordinate of the line start point (y1).
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Line y1(Number value) {
@@ -72,7 +72,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the x-coordinate of the line end point (x2).
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Line x2(Number value) {
@@ -91,7 +91,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the y-coordinate of the line end point (y2).
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Line y2(Number value) {
@@ -110,7 +110,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the stroke paint used to draw the line.
    *
-   * @param color value
+   * @param color the color
    * @return this element for chaining
    */
   Line stroke(String color) {
@@ -129,7 +129,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the stroke width used to draw the line.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Line strokeWidth(Number width) {
@@ -148,7 +148,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the marker reference to draw at the line start (for example `url(#markerId)`).
    *
-   * @param start value
+   * @param start the start marker reference
    * @return this element for chaining
    */
   Line markerStart(String start) {
@@ -167,7 +167,7 @@ class Line extends AbstractShape<Line> {
   /**
    * Sets the marker reference to draw at the line end (for example `url(#markerId)`).
    *
-   * @param end value
+   * @param end the end marker reference
    * @return this element for chaining
    */
   Line markerEnd(String end) {

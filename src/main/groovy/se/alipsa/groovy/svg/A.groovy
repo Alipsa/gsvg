@@ -10,7 +10,7 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
     /**
      * Creates a A.
      *
-     * @param parent value
+     * @param parent the parent SVG element
      */
     A(SvgElement<? extends SvgElement> parent) {
         super(parent, NAME)
@@ -19,8 +19,8 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
     /**
      * Creates a A.
      *
-     * @param parent value
-     * @param href value
+     * @param parent the parent SVG element
+     * @param href the hyperlink URL
      */
     A(SvgElement<? extends SvgElement> parent, String href) {
         super(parent, NAME)
@@ -30,7 +30,7 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
     /**
      * Sets the href attribute.
      *
-     * @param href value
+     * @param href the hyperlink URL
      * @return this element for chaining
      */
     A href(String href) {
@@ -49,7 +49,7 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
     /**
      * Sets the xlink href attribute.
      *
-     * @param href value
+     * @param href the hyperlink URL
      * @return this element for chaining
      */
     A xlinkHref(String href) {
@@ -68,7 +68,7 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
     /**
      * Sets the target attribute.
      *
-     * @param target value
+     * @param target the target
      * @return this element for chaining
      */
     A target(String target) {

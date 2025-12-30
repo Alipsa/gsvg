@@ -8,8 +8,8 @@ abstract class LightSourceElement<T extends FilterElement<T>> extends FilterElem
   /**
    * Creates a LightSourceElement.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   LightSourceElement(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)

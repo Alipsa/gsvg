@@ -9,7 +9,7 @@ class FeImage extends FilterElement<FeImage> {
   /**
    * Creates a FeImage.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeImage(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -18,7 +18,7 @@ class FeImage extends FilterElement<FeImage> {
   /**
    * Sets the xlink href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   FeImage xlinkHref(String href) {
@@ -28,7 +28,7 @@ class FeImage extends FilterElement<FeImage> {
   /**
    * Sets the href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   FeImage href(String href) {
@@ -56,8 +56,8 @@ class FeImage extends FilterElement<FeImage> {
   /**
    * Adds an attribute to this element.
    *
-   * @param name value
-   * @param value value
+   * @param name the name of the element
+   * @param value the value
    * @return the created element
    */
   @Override

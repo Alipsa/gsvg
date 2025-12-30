@@ -10,7 +10,7 @@ class Stop extends SvgElement<Stop> {
   /**
    * Creates a Stop.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Stop(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Stop extends SvgElement<Stop> {
   /**
    * Sets the offset attribute.
    *
-   * @param offset value
+   * @param offset the offset
    * @return this element for chaining
    */
   Stop offset(String offset) {
@@ -29,7 +29,7 @@ class Stop extends SvgElement<Stop> {
   /**
    * Sets the offset attribute.
    *
-   * @param offset value
+   * @param offset the offset
    * @return this element for chaining
    */
   Stop offset(Number offset) {
@@ -48,7 +48,7 @@ class Stop extends SvgElement<Stop> {
   /**
    * Sets the stop color attribute.
    *
-   * @param color value
+   * @param color the color
    * @return this element for chaining
    */
   Stop stopColor(String color) {

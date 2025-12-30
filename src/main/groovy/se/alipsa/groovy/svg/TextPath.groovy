@@ -10,7 +10,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Creates a TextPath.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   TextPath(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the href attribute.
    *
-   * @param href value
+   * @param href the hyperlink URL
    * @return this element for chaining
    */
   TextPath href(String href) {
@@ -38,7 +38,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the length adjust attribute.
    *
-   * @param lengthAdjust value
+   * @param lengthAdjust the length adjustment method
    * @return this element for chaining
    */
   TextPath lengthAdjust(Number lengthAdjust) {
@@ -57,7 +57,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the method attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   TextPath method(String value) {
@@ -76,7 +76,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the path attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   TextPath path(String value) {
@@ -95,7 +95,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the side attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   TextPath side(String value) {
@@ -114,7 +114,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the spacing attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   TextPath spacing(String value) {
@@ -133,7 +133,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the start offset attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   TextPath startOffset(String value) {
@@ -143,7 +143,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the start offset attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   TextPath startOffset(Number value) {
@@ -162,7 +162,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Sets the text length attribute.
    *
-   * @param textLength value
+   * @param textLength the text length
    * @return this element for chaining
    */
   TextPath textLength(Number textLength) {
@@ -217,7 +217,7 @@ class TextPath extends StringContentContainer<TextPath> {
   /**
    * Creates and adds a new Tspan child element.
    *
-   * @param content value
+   * @param content the content
    * @return the created element
    */
   Tspan addTspan(String content) {

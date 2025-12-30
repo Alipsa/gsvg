@@ -10,7 +10,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Creates a Tspan.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Tspan(SvgElement parent) {
     super(parent, NAME)
@@ -19,8 +19,8 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Creates a Tspan.
    *
-   * @param parent value
-   * @param text value
+   * @param parent the parent SVG element
+   * @param text the text content
    */
   Tspan(SvgElement parent, String text) {
     this(parent)
@@ -60,7 +60,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Sets the fill attribute.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Tspan fill(String fill) {
@@ -70,7 +70,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Sets the stroke attribute.
    *
-   * @param stroke value
+   * @param stroke the stroke color
    * @return this element for chaining
    */
   Tspan stroke(String stroke) {

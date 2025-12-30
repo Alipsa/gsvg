@@ -10,7 +10,7 @@ class Hkern extends SvgElement<Hkern> {
   /**
    * Creates a Hkern.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Hkern(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

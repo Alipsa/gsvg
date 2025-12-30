@@ -10,7 +10,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Creates a Symbol.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Symbol(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Symbol width(Number width) {
@@ -29,7 +29,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Symbol width(String width) {
@@ -48,7 +48,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Symbol height(Number height) {
@@ -58,7 +58,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Symbol height(String height) {
@@ -77,7 +77,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Symbol x(Number x) {
@@ -87,7 +87,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Symbol x(String x) {
@@ -106,7 +106,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Symbol y(Number y) {
@@ -116,7 +116,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Symbol y(String y) {
@@ -135,7 +135,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the preserve aspect ratio attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Symbol preserveAspectRatio(String value) {
@@ -154,7 +154,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the ref x attribute.
    *
-   * @param refX value
+   * @param refX the reference x-coordinate
    * @return this element for chaining
    */
   Symbol refX(Number refX) {
@@ -173,7 +173,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the ref y attribute.
    *
-   * @param refY value
+   * @param refY the reference y-coordinate
    * @return this element for chaining
    */
   Symbol refY(Number refY) {
@@ -192,7 +192,7 @@ class Symbol extends AbstractElementContainer<Symbol> {
   /**
    * Sets the view box attribute.
    *
-   * @param params value
+   * @param params the parameters
    * @return this element for chaining
    */
   Symbol viewBox(String params) {

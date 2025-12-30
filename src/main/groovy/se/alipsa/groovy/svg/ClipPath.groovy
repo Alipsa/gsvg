@@ -10,7 +10,7 @@ class ClipPath extends AbstractElementContainer<ClipPath> implements Animatable<
   /**
    * Creates a ClipPath.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   ClipPath(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

@@ -126,10 +126,10 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Start element.
    *
-   * @param uri value
-   * @param localName value
-   * @param qName value
-   * @param attributes value
+   * @param uri the namespace URI
+   * @param localName the local name
+   * @param qName the qualified name
+   * @param attributes the attributes
    */
   @Override
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -286,9 +286,9 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * End element.
    *
-   * @param uri value
-   * @param localName value
-   * @param qName value
+   * @param uri the namespace URI
+   * @param localName the local name
+   * @param qName the qualified name
    */
   @Override
   void endElement(String uri, String localName, String qName) throws SAXException {
@@ -300,9 +300,9 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Characters.
    *
-   * @param ch value
-   * @param start value
-   * @param length value
+   * @param ch the character array
+   * @param start the start position
+   * @param length the length
    */
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
@@ -325,8 +325,8 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Start prefix mapping.
    *
-   * @param prefix value
-   * @param uri value
+   * @param prefix the namespace prefix
+   * @param uri the namespace URI
    */
   @Override
   void startPrefixMapping(String prefix, String uri) throws SAXException {
@@ -339,7 +339,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Parse.
    *
-   * @param svgFile value
+   * @param svgFile the SVG file
    * @return the result
    */
   static Svg parse(File svgFile) {
@@ -351,7 +351,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Parse.
    *
-   * @param svgFile value
+   * @param svgFile the SVG file
    * @return the result
    */
   static Svg parse(InputSource svgFile) {
@@ -363,7 +363,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Creates a secured SAX parser configured for SVG parsing.
    *
-   * @param reader value
+   * @param reader the reader
    * @return the result
    */
   static SAXParser createSAXParser(SvgReader reader) {
@@ -386,7 +386,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Parse.
    *
-   * @param svgFile value
+   * @param svgFile the SVG file
    * @return the result
    */
   static Svg parse(InputStream svgFile) {
@@ -396,7 +396,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Parse.
    *
-   * @param reader value
+   * @param reader the reader
    * @return the result
    */
   static Svg parse(Reader reader) {
@@ -406,7 +406,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Parse.
    *
-   * @param content value
+   * @param content the content
    * @return the result
    */
   static Svg parse(String content) {
@@ -418,9 +418,9 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Start dtd.
    *
-   * @param name value
-   * @param publicId value
-   * @param systemId value
+   * @param name the name
+   * @param publicId the public identifier
+   * @param systemId the system identifier
    */
   @Override
   void startDTD(String name, String publicId, String systemId) throws SAXException {
@@ -438,7 +438,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Start entity.
    *
-   * @param name value
+   * @param name the name
    */
   @Override
   void startEntity(String name) throws SAXException {
@@ -448,7 +448,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * End entity.
    *
-   * @param name value
+   * @param name the name
    */
   @Override
   void endEntity(String name) throws SAXException {
@@ -474,9 +474,9 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   /**
    * Comment.
    *
-   * @param ch value
-   * @param start value
-   * @param length value
+   * @param ch the character array
+   * @param start the start position
+   * @param length the length
    */
   @Override
   void comment(char[] ch, int start, int length) throws SAXException {

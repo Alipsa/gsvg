@@ -10,7 +10,7 @@ class FePointLight extends LightSourceElement<FePointLight> {
   /**
    * Creates a FePointLight.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FePointLight(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class FePointLight extends LightSourceElement<FePointLight> {
   /**
    * Sets the z attribute.
    *
-   * @param z value
+   * @param z the z-coordinate
    * @return this element for chaining
    */
   FePointLight z(Number z) {
@@ -29,7 +29,7 @@ class FePointLight extends LightSourceElement<FePointLight> {
   /**
    * Sets the z attribute.
    *
-   * @param z value
+   * @param z the z-coordinate
    * @return this element for chaining
    */
   FePointLight z(String z) {

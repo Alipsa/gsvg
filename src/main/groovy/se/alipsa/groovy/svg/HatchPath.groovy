@@ -10,7 +10,7 @@ class HatchPath extends SvgElement<HatchPath> {
   /**
    * Creates a HatchPath.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   HatchPath(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

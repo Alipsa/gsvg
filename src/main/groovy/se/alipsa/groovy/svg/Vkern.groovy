@@ -10,7 +10,7 @@ class Vkern extends SvgElement<Vkern> {
   /**
    * Creates a Vkern.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Vkern(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

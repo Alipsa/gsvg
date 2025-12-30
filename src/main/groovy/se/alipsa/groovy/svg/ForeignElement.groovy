@@ -11,8 +11,8 @@ class ForeignElement extends StringContentContainer<ForeignElement> implements E
   /**
    * Creates a ForeignElement.
    *
-   * @param parent value
-   * @param qName value
+   * @param parent the parent SVG element
+   * @param qName the qualified name of the element
    */
   ForeignElement(SvgElement parent, String qName) {
     super(parent, qName)
@@ -21,9 +21,9 @@ class ForeignElement extends StringContentContainer<ForeignElement> implements E
   /**
    * Creates a ForeignElement.
    *
-   * @param parent value
-   * @param qName value
-   * @param defaultNameSpace value
+   * @param parent the parent SVG element
+   * @param qName the qualified name of the element
+   * @param defaultNameSpace the default namespace
    */
   ForeignElement(SvgElement parent, String qName, String defaultNameSpace) {
     super(parent, qName, defaultNameSpace)
@@ -32,8 +32,8 @@ class ForeignElement extends StringContentContainer<ForeignElement> implements E
   /**
    * Creates a ForeignElement.
    *
-   * @param parent value
-   * @param qName value
+   * @param parent the parent SVG element
+   * @param qName the qualified name of the element
    */
   ForeignElement(SvgElement parent, QName qName) {
     super(parent, qName)
@@ -42,7 +42,7 @@ class ForeignElement extends StringContentContainer<ForeignElement> implements E
   /**
    * Creates and adds a new ForeignElement child element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    * @return the created element
    */
   ForeignElement addElement(String qName) {
@@ -52,7 +52,7 @@ class ForeignElement extends StringContentContainer<ForeignElement> implements E
   /**
    * Creates and adds a new ForeignElement child element.
    *
-   * @param qName value
+   * @param qName the qualified name of the element
    * @return the created element
    */
   ForeignElement addElement(QName qName) {
@@ -62,8 +62,8 @@ class ForeignElement extends StringContentContainer<ForeignElement> implements E
   /**
    * Creates and adds a new ForeignElement child element.
    *
-   * @param localName value
-   * @param namespaceUri value
+   * @param localName the local name of the element
+   * @param namespaceUri the namespace URI
    * @return the created element
    */
   ForeignElement addElement(String localName, String namespaceUri) {

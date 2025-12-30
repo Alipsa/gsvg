@@ -10,7 +10,7 @@ class FeFuncB extends FilterFunction<FeFuncB> {
   /**
    * Creates a FeFuncB.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   FeFuncB(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

@@ -15,8 +15,8 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   /**
    * Creates a FilterFunction.
    *
-   * @param parent value
-   * @param name value
+   * @param parent the parent SVG element
+   * @param name the name of the element
    */
   FilterFunction(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
@@ -25,7 +25,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   /**
    * Sets the in attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   T in(String value) {
@@ -44,7 +44,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   /**
    * Sets the type attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   T type(String value) {
@@ -90,7 +90,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
 
   /**
    * Attribute when type is linear
-   * @param value
+   * @param value the slope value
    * @return the filter function class that the attribute belongs to
    */
   T slope(Number value) {
@@ -108,7 +108,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
 
   /**
    * Attribute when type is linear
-   * @param value
+   * @param value the intercept value
    * @return the filter function class that the attribute belongs to
    */
   T intercept(Number value) {
@@ -126,7 +126,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
 
   /**
    * Attribute when type is gamma
-   * @param value
+   * @param value the amplitude value
    * @return the filter function class that the attribute belongs to
    */
   T amplitude(Number value) {
@@ -144,7 +144,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
 
   /**
    * Attribute when type is gamma
-   * @param value
+   * @param value the exponent value
    * @return the filter function class that the attribute belongs to
    */
   T exponent(Number value) {
@@ -162,7 +162,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
 
   /**
    * Attribute when type is gamma
-   * @param value
+   * @param value the offset value
    * @return the filter function class that the attribute belongs to
    */
   T offset(Number value) {

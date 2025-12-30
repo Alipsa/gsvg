@@ -30,7 +30,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the rectangle width in the current user coordinate system.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Rect width(Number width) {
@@ -40,7 +40,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the rectangle width, including unit values such as percentages.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Rect width(String width) {
@@ -59,7 +59,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the rectangle height in the current user coordinate system.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Rect height(Number height) {
@@ -69,7 +69,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the rectangle height, including unit values such as percentages.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Rect height(String height) {
@@ -88,7 +88,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the x-coordinate of the rectangle's left edge.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Rect x(Number x) {
@@ -98,7 +98,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the x-coordinate of the rectangle's left edge, including unit values such as percentages.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Rect x(String x) {
@@ -117,7 +117,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the y-coordinate of the rectangle's top edge.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Rect y(Number y) {
@@ -127,7 +127,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the y-coordinate of the rectangle's top edge, including unit values such as percentages.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Rect y(String y) {
@@ -146,7 +146,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the x-axis radius for rounded rectangle corners.
    *
-   * @param rx value
+   * @param rx the x-axis radius
    * @return this element for chaining
    */
   Rect rx(Number rx) {
@@ -165,7 +165,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the y-axis radius for rounded rectangle corners.
    *
-   * @param ry value
+   * @param ry the y-axis radius
    * @return this element for chaining
    */
   Rect ry(Number ry) {
@@ -184,7 +184,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the fill paint used to draw the rectangle interior.
    *
-   * @param fill value
+   * @param fill the fill color
    * @return this element for chaining
    */
   Rect fill(String fill) {
@@ -203,7 +203,7 @@ class Rect extends AbstractShape<Rect>  {
   /**
    * Sets the stroke paint used to draw the rectangle outline.
    *
-   * @param stroke value
+   * @param stroke the stroke color
    * @return this element for chaining
    */
   Rect stroke(String stroke) {

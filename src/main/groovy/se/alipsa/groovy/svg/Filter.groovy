@@ -10,7 +10,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Creates a Filter.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Filter(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Filter x(Number x) {
@@ -29,7 +29,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the x attribute.
    *
-   * @param x value
+   * @param x the x-coordinate
    * @return this element for chaining
    */
   Filter x(String x) {
@@ -48,7 +48,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Filter y(Number y) {
@@ -58,7 +58,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the y attribute.
    *
-   * @param y value
+   * @param y the y-coordinate
    * @return this element for chaining
    */
   Filter y(String y) {
@@ -77,7 +77,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the filter units attribute.
    *
-   * @param units value
+   * @param units the coordinate system units
    * @return this element for chaining
    */
   Filter filterUnits(String units) {
@@ -96,7 +96,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Filter width(Number width) {
@@ -106,7 +106,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the width attribute.
    *
-   * @param width value
+   * @param width the width
    * @return this element for chaining
    */
   Filter width(String width) {
@@ -125,7 +125,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Filter height(Number height) {
@@ -135,7 +135,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the height attribute.
    *
-   * @param height value
+   * @param height the height
    * @return this element for chaining
    */
   Filter height(String height) {
@@ -154,7 +154,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the color interpolation filters attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Filter colorInterpolationFilters(String value) {
@@ -174,7 +174,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Sets the filter res attribute.
    *
-   * @param res value
+   * @param res the filter resolution (sampling rate)
    * @return this element for chaining
    */
   Filter filterRes(String res) {
@@ -284,7 +284,7 @@ class Filter extends AbstractElementContainer<Filter> {
   /**
    * Creates and adds a new FeMerge child element.
    *
-   * @param id value
+   * @param id the unique identifier
    * @return the created element
    */
   FeMerge addFeMerge(String id) {

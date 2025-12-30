@@ -10,7 +10,7 @@ class AltGlyphItem extends SvgElement<AltGlyphItem> {
   /**
    * Creates a AltGlyphItem.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   AltGlyphItem(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)

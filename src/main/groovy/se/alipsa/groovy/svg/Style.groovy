@@ -10,7 +10,7 @@ class Style extends StringContentContainer<Style> {
   /**
    * Creates a Style.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Style(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
@@ -19,7 +19,7 @@ class Style extends StringContentContainer<Style> {
   /**
    * Sets the type attribute.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   Style type(String value) {

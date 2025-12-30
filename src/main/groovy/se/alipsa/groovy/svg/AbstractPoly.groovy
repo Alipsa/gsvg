@@ -11,8 +11,8 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
   /**
    * Creates a AbstractPoly.
    *
-   * @param element value
-   * @param name value
+   * @param element the element
+   * @param name the name of the element
    */
   AbstractPoly(SvgElement element, String name) {
     super(element, name)
@@ -21,7 +21,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
   /**
    * Sets the points attribute as a list of x,y coordinate pairs.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return this element for chaining
    */
   T points(Coordinate... points) {
@@ -32,7 +32,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
   /**
    * Sets the points attribute from numeric x,y pairs.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return this element for chaining
    */
   T points(List<Number>... points) {
@@ -43,7 +43,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
   /**
    * Sets the raw points attribute string (for example `"0,0 10,0 10,10"`).
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return this element for chaining
    */
   T points(String points) {
@@ -54,7 +54,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
   /**
    * Appends additional points to the existing points list.
    *
-   * @param points value
+   * @param points the points defining the shape
    * @return this element for chaining
    */
   T addPoints(Coordinate... points) {
@@ -67,7 +67,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
   /**
    * Appends a single point to the existing points list.
    *
-   * @param point value
+   * @param point the point
    * @return this element for chaining
    */
   T addPoint(Coordinate point) {
@@ -89,7 +89,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
   /**
    * Sets the fill paint used to draw the polygon or polyline interior.
    *
-   * @param value value
+   * @param value the value
    * @return this element for chaining
    */
   T fill(String value) {
