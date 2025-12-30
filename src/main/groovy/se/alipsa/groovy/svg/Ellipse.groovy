@@ -32,6 +32,15 @@ class Ellipse extends AbstractShape<Ellipse>  {
   }
 
   /**
+   * Sets the x-coordinate of the ellipse center (cx) in the current user coordinate system.
+   *
+   * @param cx value
+   * @return this element for chaining
+   */
+  Ellipse cx(String cx) {
+    addAttribute('cx', "${cx}")
+  }
+  /**
    * Returns the x-coordinate of the ellipse center (cx).
    *
    * @return the cx value
@@ -50,6 +59,15 @@ class Ellipse extends AbstractShape<Ellipse>  {
     addAttribute('cy', "${cy}")
   }
 
+  /**
+   * Sets the y-coordinate of the ellipse center (cy) in the current user coordinate system.
+   *
+   * @param cy value
+   * @return this element for chaining
+   */
+  Ellipse cy(String cy) {
+    addAttribute('cy', "${cy}")
+  }
   /**
    * Returns the y-coordinate of the ellipse center (cy).
    *

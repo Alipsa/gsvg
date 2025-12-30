@@ -88,6 +88,15 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   }
 
   /**
+   * Sets the x attribute.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
+  ForeignObject x(String x) {
+    addAttribute('x', x)
+  }
+  /**
    * Returns the x value.
    *
    * @return the x value

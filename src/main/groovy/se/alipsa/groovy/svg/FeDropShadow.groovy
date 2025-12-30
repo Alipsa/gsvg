@@ -16,9 +16,34 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     super(parent, NAME)
   }
 
-  /** The horizontal shift position for the offset */
+  /**
+   * Sets the horizontal shift position for the offset.
+   *
+   * @param dx the horizontal shift position for the offset
+   * @return this element for chaining
+   */
   FeDropShadow dx(Number dx) {
     addAttribute('dx', "$dx")
+  }
+
+  /**
+   * Sets the horizontal shift position for the offset.
+   *
+   * @param dx the horizontal shift position for the offset
+   * @return this element for chaining
+   */
+  FeDropShadow dx(String dx) {
+    addAttribute('dx', "$dx")
+  }
+
+  /**
+   * Sets the vertical shift position for the offset.
+   *
+   * @param dy the vertical shift position for the offset
+   * @return this element for chaining
+   */
+  FeDropShadow dy(Number dy) {
+    addAttribute('dy', "$dy")
   }
 
   /**
@@ -30,11 +55,15 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     getAttribute('dx')
   }
 
-  /** The vertical shift position for the offset*/
-  FeDropShadow dy(Number dy) {
+  /**
+   * Sets the vertical shift position for the offset.
+   *
+   * @param dy the vertical shift position for the offset
+   * @return this element for chaining
+   */
+  FeDropShadow dy(String dy) {
     addAttribute('dy', "$dy")
   }
-
   /**
    * Returns the dy value.
    *
@@ -54,6 +83,15 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     addAttribute('stdDeviation', deviation)
   }
 
+  /**
+   * Sets the std deviation attribute.
+   *
+   * @param deviation value
+   * @return this element for chaining
+   */
+  FeDropShadow stdDeviation(String deviation) {
+    addAttribute('stdDeviation', deviation)
+  }
   /**
    * Returns the std deviation value.
    *
@@ -89,6 +127,16 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
    * @return this element for chaining
    */
   FeDropShadow floodOpacity(Number opacity) {
+    addAttribute('flood-opacity', opacity)
+  }
+
+  /**
+   * Sets the flood opacity attribute.
+   *
+   * @param opacity value
+   * @return this element for chaining
+   */
+  FeDropShadow floodOpacity(String opacity) {
     addAttribute('flood-opacity', opacity)
   }
 

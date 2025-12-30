@@ -27,6 +27,15 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   }
 
   /**
+   * Sets the marker width attribute.
+   *
+   * @param width value
+   * @return this element for chaining
+   */
+  Marker markerWidth(String width) {
+    addAttribute('markerWidth', width)
+  }
+  /**
    * Returns the marker width value.
    *
    * @return the marker width value
@@ -45,6 +54,15 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     addAttribute('markerHeight', height)
   }
 
+  /**
+   * Sets the marker height attribute.
+   *
+   * @param height value
+   * @return this element for chaining
+   */
+  Marker markerHeight(String height) {
+    addAttribute('markerHeight', height)
+  }
   /**
    * Returns the marker height value.
    *
@@ -65,6 +83,15 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   }
 
   /**
+   * Sets the ref x attribute.
+   *
+   * @param refX value
+   * @return this element for chaining
+   */
+  Marker refX(String refX) {
+    addAttribute('refX', refX)
+  }
+  /**
    * Returns the ref x value.
    *
    * @return the ref x value
@@ -83,6 +110,15 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
     addAttribute('refY', refY)
   }
 
+  /**
+   * Sets the ref y attribute.
+   *
+   * @param refY value
+   * @return this element for chaining
+   */
+  Marker refY(String refY) {
+    addAttribute('refY', refY)
+  }
   /**
    * Returns the ref y value.
    *

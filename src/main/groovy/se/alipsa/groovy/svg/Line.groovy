@@ -42,6 +42,15 @@ class Line extends AbstractShape<Line> {
   }
 
   /**
+   * Sets the x-coordinate of the line start point (x1).
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Line x1(String value) {
+    addAttribute('x1', value)
+  }
+  /**
    * Returns the x-coordinate of the line start point (x1).
    *
    * @return the x 1 value
@@ -60,6 +69,15 @@ class Line extends AbstractShape<Line> {
     addAttribute('y1', value)
   }
 
+  /**
+   * Sets the y-coordinate of the line start point (y1).
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Line y1(String value) {
+    addAttribute('y1', value)
+  }
   /**
    * Returns the y-coordinate of the line start point (y1).
    *
@@ -80,6 +98,15 @@ class Line extends AbstractShape<Line> {
   }
 
   /**
+   * Sets the x-coordinate of the line end point (x2).
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Line x2(String value) {
+    addAttribute('x2', value)
+  }
+  /**
    * Returns the x-coordinate of the line end point (x2).
    *
    * @return the x 2 value
@@ -98,6 +125,15 @@ class Line extends AbstractShape<Line> {
     addAttribute('y2', value)
   }
 
+  /**
+   * Sets the y-coordinate of the line end point (y2).
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Line y2(String value) {
+    addAttribute('y2', value)
+  }
   /**
    * Returns the y-coordinate of the line end point (y2).
    *
@@ -136,6 +172,15 @@ class Line extends AbstractShape<Line> {
     addAttribute('stroke-width', width)
   }
 
+  /**
+   * Sets the stroke width used to draw the line.
+   *
+   * @param width value
+   * @return this element for chaining
+   */
+  Line strokeWidth(String width) {
+    addAttribute('stroke-width', width)
+  }
   /**
    * Returns the stroke width used to draw the line.
    *

@@ -83,6 +83,15 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
   }
 
   /**
+   * Sets the stroke width used to draw the path outline.
+   *
+   * @param width value
+   * @return this element for chaining
+   */
+  Path strokeWidth(String width) {
+    addAttribute('stroke-width', width)
+  }
+  /**
    * Returns the stroke width used to draw the path outline.
    *
    * @return the stroke width value

@@ -56,6 +56,15 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   }
 
   /**
+   * Sets the limiting cone angle attribute.
+   *
+   * @param angle value
+   * @return this element for chaining
+   */
+  FeSpotLight limitingConeAngle(String angle) {
+    addAttribute('limitingConeAngle', angle)
+  }
+  /**
    * Returns the limiting cone angle value.
    *
    * @return the limiting cone angle value
@@ -75,6 +84,15 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
   }
 
   /**
+   * Sets the points at x attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtX(String value) {
+    addAttribute('pointsAtX', value)
+  }
+  /**
    * Sets the points at y attribute.
    *
    * @param value the value
@@ -84,6 +102,15 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
     addAttribute('pointsAtY', value)
   }
 
+  /**
+   * Sets the points at y attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtY(String value) {
+    addAttribute('pointsAtY', value)
+  }
   /**
    * Returns the points at y value.
    *
@@ -103,6 +130,15 @@ class FeSpotLight extends LightSourceElement<FeSpotLight> {
     addAttribute('pointsAtZ', value)
   }
 
+  /**
+   * Sets the points at z attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtZ(String value) {
+    addAttribute('pointsAtZ', value)
+  }
   /**
    * Returns the points at z value.
    *

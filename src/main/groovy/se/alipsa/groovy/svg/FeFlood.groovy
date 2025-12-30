@@ -45,6 +45,15 @@ class FeFlood extends  FilterElement<FeFlood> {
   }
 
   /**
+   * Sets the flood opacity attribute.
+   *
+   * @param opacity value
+   * @return this element for chaining
+   */
+  FeFlood floodOpacity(String opacity) {
+    addAttribute('flood-opacity', opacity)
+  }
+  /**
    * Returns the flood opacity value.
    *
    * @return the flood opacity value

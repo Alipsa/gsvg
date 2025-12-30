@@ -154,6 +154,15 @@ class Rect extends AbstractShape<Rect>  {
   }
 
   /**
+   * Sets the x-axis radius for rounded rectangle corners.
+   *
+   * @param rx value
+   * @return this element for chaining
+   */
+  Rect rx(String rx) {
+    addAttribute('rx', rx)
+  }
+  /**
    * Returns the x-axis radius for rounded rectangle corners.
    *
    * @return the rx value
@@ -172,6 +181,15 @@ class Rect extends AbstractShape<Rect>  {
     addAttribute('ry', ry)
   }
 
+  /**
+   * Sets the y-axis radius for rounded rectangle corners.
+   *
+   * @param ry value
+   * @return this element for chaining
+   */
+  Rect ry(String ry) {
+    addAttribute('ry', ry)
+  }
   /**
    * Returns the y-axis radius for rounded rectangle corners.
    *
