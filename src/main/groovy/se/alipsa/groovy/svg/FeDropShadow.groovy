@@ -7,12 +7,6 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
 
   static final String NAME = 'feDropShadow'
 
-
-  /** The horizontal shift position for the offset */
-  FeDropShadow dx(Number dx) {
-    addAttribute('dx', "$dx")
-  }
-
   /**
    * Creates a FeDropShadow.
    *
@@ -23,6 +17,16 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
   }
 
   /** The horizontal shift position for the offset */
+  FeDropShadow dx(Number dx) {
+    addAttribute('dx', "$dx")
+  }
+
+  /**
+   * Sets the horizontal shift position for the offset.
+   *
+   * @param dx the horizontal shift position for the offset
+   * @return this element for chaining
+   */
   FeDropShadow dx(String dx) {
     addAttribute('dx', "$dx")
   }

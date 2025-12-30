@@ -126,12 +126,22 @@ class FeComposite extends FilterElement<FeComposite> {
     getAttribute('k1')
   }
 
-  /** value for the arithmetic operator */
+  /**
+   * Sets the k 2 value for the arithmetic operator.
+   *
+   * @param value the k 2 value
+   * @return the current {@link FeComposite} instance
+   */
   FeComposite k2(String value) {
     addAttribute('k2', value)
   }
 
-  /** value for the arithmetic operator */
+  /**
+   * Sets the k 3 value for the arithmetic operator.
+   *
+   * @param value the k 3 value
+   * @return the current {@link FeComposite} instance
+   */
   FeComposite k3(Number value) {
     addAttribute('k3', value)
   }
@@ -145,14 +155,14 @@ class FeComposite extends FilterElement<FeComposite> {
     getAttribute('k2')
   }
 
-  /** value for the arithmetic operator */
+  /**
+   * Sets the k 3 value used by the arithmetic operator.
+   *
+   * @param value the k 3 value
+   * @return this filter element
+   */
   FeComposite k3(String value) {
     addAttribute('k3', value)
-  }
-
-  /** value for the arithmetic operator */
-  FeComposite k4(Number value) {
-    addAttribute('k4', value)
   }
 
   /**
@@ -168,6 +178,12 @@ class FeComposite extends FilterElement<FeComposite> {
   FeComposite k4(String value) {
     addAttribute('k4', value)
   }
+
+  /** value for the arithmetic operator */
+  FeComposite k4(Number value) {
+    addAttribute('k4', value)
+  }
+
   /**
    * Returns the k 4 value.
    *

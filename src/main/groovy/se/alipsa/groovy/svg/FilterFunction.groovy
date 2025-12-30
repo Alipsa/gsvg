@@ -89,7 +89,8 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
-   * Attribute when type is linear
+   * Attribute when type is linear.
+   *
    * @param value the slope value
    * @return the filter function class that the attribute belongs to
    */
@@ -98,13 +99,15 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
-   * Attribute when type is linear
+   * Attribute when type is linear.
+   *
    * @param value
    * @return the filter function class that the attribute belongs to
    */
   T slope(String value) {
     addAttribute('slope', value)
   }
+
   /**
    * Returns the slope value.
    *
@@ -115,7 +118,8 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
-   * Attribute when type is linear
+   * Attribute when type is linear.
+   *
    * @param value the intercept value
    * @return the filter function class that the attribute belongs to
    */
@@ -124,7 +128,8 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
-   * Attribute when type is linear
+   * Attribute when type is linear.
+   *
    * @param value
    * @return the filter function class that the attribute belongs to
    */
@@ -141,7 +146,8 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
-   * Attribute when type is gamma
+   * Attribute when type is gamma.
+   *
    * @param value the amplitude value
    * @return the filter function class that the attribute belongs to
    */
@@ -150,7 +156,8 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
-   * Attribute when type is gamma
+   * Attribute when type is gamma.
+   *
    * @param value
    * @return the filter function class that the attribute belongs to
    */
@@ -167,7 +174,8 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
   }
 
   /**
-   * Attribute when type is gamma
+   * Attribute when type is gamma.
+   *
    * @param value the exponent value
    * @return the filter function class that the attribute belongs to
    */

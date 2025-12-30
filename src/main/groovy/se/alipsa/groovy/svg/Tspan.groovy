@@ -10,7 +10,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Creates a Tspan.
    *
-   * @param parent value
+   * @param parent the parent SVG element
    */
   Tspan(SvgElement parent) {
     super(parent, NAME)
@@ -19,8 +19,8 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * Creates a Tspan.
    *
-   * @param parent value
-   * @param text value
+   * @param parent the parent SVG element
+   * @param text the text value to add
    */
   Tspan(SvgElement parent, String text) {
     this(parent)
@@ -60,7 +60,7 @@ class Tspan extends StringContentContainer<Tspan> {
   /**
    * The y position of the start of the text. Default is 0.
    *
-   * @param y value
+   * @param y the y-coordinate of the text
    * @return this element for chaining
    */
   Tspan y(String y) {

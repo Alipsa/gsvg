@@ -10,7 +10,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Creates a Text.
    *
-   * @param parent value
+   * @param the parent SVG element
    */
   Text(SvgElement parent){
     super(parent, NAME)
@@ -19,8 +19,8 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Creates a Text.
    *
-   * @param parent value
-   * @param text value
+   * @param parent the parent SVG element
+   * @param text the text value to add
    */
   Text(SvgElement parent, String text) {
     this(parent)

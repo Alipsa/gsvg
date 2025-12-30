@@ -21,14 +21,29 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dx', "$dx")
   }
 
-  /** The horizontal shift position for the offset */
+  /**
+   * The horizontal shift position for the offset
+   *
+   * @param dx the horizontal shift position for the offset
+   * @return this element for chaining
+   */
   FeOffset dx(String dx) {
     addAttribute('dx', "$dx")
   }
 
-  /** The vertical shift position for the offset*/
+  /**
+   * The vertical shift position for the offset
+   *
+   * @param dy the vertical shift position for the offset
+   * @return this element for chaining
+   */
   FeOffset dy(Number dy) {
     addAttribute('dy', "$dy")
+  }
+
+  /** The vertical shift position for the offset*/
+  FeOffset dy(String dy) {
+    addAttribute('dy', dy)
   }
 
   /**
@@ -40,10 +55,7 @@ class FeOffset extends FilterElement<FeOffset> {
     getAttribute('dx')
   }
 
-  /** The vertical shift position for the offset*/
-  FeOffset dy(String dy) {
-    addAttribute('dy', "$dy")
-  }
+
   /**
    * Returns the dy value.
    *
