@@ -30,7 +30,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * Sets the fill attribute.
    *
-   * @param fill value
+   * @param fill the fill value
    * @return this element for chaining
    */
   Text fill(String fill) {
@@ -60,7 +60,7 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   /**
    * The y position of the start of the text. Default is 0.
    *
-   * @param y value
+   * @param y the y position
    * @return this element for chaining
    */
   Text y(Number y) {

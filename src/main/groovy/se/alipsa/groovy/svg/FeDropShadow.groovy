@@ -45,7 +45,12 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
     getAttribute('dx')
   }
 
-  /** The vertical shift position for the offset*/
+  /**
+   * Sets the vertical shift position for the offset.
+   *
+   * @param dy the vertical shift position for the offset
+   * @return this element for chaining
+   */
   FeDropShadow dy(String dy) {
     addAttribute('dy', "$dy")
   }
@@ -124,6 +129,7 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
   FeDropShadow floodOpacity(String opacity) {
     addAttribute('flood-opacity', opacity)
   }
+
   /**
    * Returns the flood opacity value.
    *

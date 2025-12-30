@@ -41,7 +41,12 @@ class FeOffset extends FilterElement<FeOffset> {
     addAttribute('dy', "$dy")
   }
 
-  /** The vertical shift position for the offset*/
+  /**
+   * The vertical shift position for the offset
+   *
+   * @param dy the vertical shift position for the offset
+   * @return this element for chaining
+   */
   FeOffset dy(String dy) {
     addAttribute('dy', dy)
   }
