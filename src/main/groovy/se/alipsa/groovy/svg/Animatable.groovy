@@ -17,6 +17,14 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
     add(new Animate(this as T))
   }
 
+  Animate addAnimate(Map attributes) {
+    Animate anim = addAnimate()
+    attributes.each {
+      key, value -> anim.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    anim
+  }
+
   /**
    * Creates and adds a new AnimateMotion child element.
    *
@@ -24,6 +32,14 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
    */
   AnimateMotion addAnimateMotion() {
     add(new AnimateMotion(this as T))
+  }
+
+  AnimateMotion addAnimateMotion(Map attributes) {
+    AnimateMotion anim = addAnimateMotion()
+    attributes.each {
+      key, value -> anim.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    anim
   }
 
   /**
@@ -35,6 +51,14 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
     add(new AnimateTransform(this as T))
   }
 
+  AnimateTransform addAnimateTransform(Map attributes) {
+    AnimateTransform anim = addAnimateTransform()
+    attributes.each {
+      key, value -> anim.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    anim
+  }
+
   /**
    * Creates and adds a new Set child element.
    *
@@ -42,6 +66,14 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
    */
   Set addSet() {
     add(new Set(this as T))
+  }
+
+  Set addSet(Map attributes) {
+    Set set = addSet()
+    attributes.each {
+      key, value -> set.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    set
   }
 
   /**

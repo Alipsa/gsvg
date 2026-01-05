@@ -36,4 +36,60 @@ class ATest {
         Text t = a2[0] as Text
         assertEquals("90", t.getAttribute('y'))
     }
+
+    @Test
+    void testAAttributes() {
+        Svg svg = new Svg()
+        def a = svg.addA()
+          .href('https://example.com')
+          .target('_blank')
+
+        assertEquals('https://example.com', a.href)
+        assertEquals('_blank', a.target)
+    }
+
+    @Test
+    void testAWithCircle() {
+        Svg svg = new Svg(100, 100)
+        def a = svg.addA().href('#section1')
+        a.addCircle().cx(50).cy(50).r(30).fill('red')
+
+        assertTrue(a.toXml().contains('href="#section1"'))
+        assertTrue(a.toXml().contains('<circle'))
+        assertTrue(a.toXml().contains('cx="50"'))
+    }
+
+    @Test
+    void testAWithText() {
+        Svg svg = new Svg()
+        def a = svg.addA().href('/page')
+        a.addText('Click me').x(10).y(20).fill('blue')
+
+        assertTrue(a.toXml().contains('href="/page"'))
+        assertTrue(a.toXml().contains('Click me'))
+    }
+
+    @Test
+    void testAWithMapAttributes() {
+        Svg svg = new Svg()
+        def a = svg.addA([href: 'http://test.com', target: '_self'])
+
+        assertEquals('http://test.com', a.href)
+        assertEquals('_self', a.target)
+    }
+
+    @Test
+    void testAWithMultipleShapes() {
+        Svg svg = new Svg()
+        def a = svg.addA().href('/gallery')
+
+        a.addRect().x(10).y(10).width(50).height(50)
+        a.addCircle().cx(100).cy(100).r(25)
+        a.addText('Gallery').x(10).y(75)
+
+        def xml = a.toXml()
+        assertTrue(xml.contains('<rect'))
+        assertTrue(xml.contains('<circle'))
+        assertTrue(xml.contains('<text'))
+    }
 }

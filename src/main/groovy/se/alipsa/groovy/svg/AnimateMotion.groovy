@@ -107,4 +107,12 @@ class AnimateMotion extends Animation<AnimateMotion> {
     children << mp
     mp
   }
+
+  Mpath addMpath(Map attributes) {
+    Mpath mp = addMpath()
+    attributes.each {
+      key, value -> mp.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    mp
+  }
 }

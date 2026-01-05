@@ -409,4 +409,76 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     new QName(localName, ns)
   }
 
+  /**
+   * Overrides Groovy's property access to provide automatic fallback to getAttribute().
+   * <p>
+   * This allows intuitive property-style access to SVG attributes. When accessing a property
+   * that doesn't have an explicit getter (e.g., {@code element.values}), this method will
+   * automatically try to retrieve it as an attribute using {@code getAttribute('values')}.
+   * <p>
+   * This maintains backward compatibility with existing explicit getters while providing
+   * a more natural API for accessing arbitrary SVG attributes.
+   *
+   * @param propertyName the name of the property to access
+   * @return the property value, or the attribute value if no property exists
+   */
+  @Override
+  Object getProperty(String propertyName) {
+    // Check if a real property/getter exists using MetaClass
+    def metaProperty = this.metaClass.hasProperty(this, propertyName)
+    if (metaProperty != null) {
+      return metaProperty.getProperty(this)
+    }
+
+    // If no property exists, try to get it as an attribute
+    return getAttribute(propertyName)
+  }
+
+  /**
+   * Overrides Groovy's property assignment to provide automatic fallback to addAttribute().
+   * <p>
+   * This allows intuitive property-style assignment to SVG attributes. When assigning to a property
+   * that doesn't have an explicit setter (e.g., {@code element.values = '0.5'}), this method will
+   * automatically set it as an attribute using {@code addAttribute('values', '0.5')}.
+   * <p>
+   * This maintains backward compatibility with existing explicit setters while providing
+   * a more natural API for setting arbitrary SVG attributes.
+   * <p>
+   * <b>Note:</b> Use with care - typos in property names will silently create incorrect attributes
+   * rather than failing at compile time. For critical code, consider using the explicit fluent API
+   * methods (e.g., {@code .gradientUnits('value')}) which provide better IDE autocomplete support.
+   *
+   * @param propertyName the name of the property to set
+   * @param newValue the value to assign
+   */
+  @Override
+  void setProperty(String propertyName, Object newValue) {
+    // Check if a method exists that matches the property name (fluent API style)
+    // This handles methods like x1(String) that return 'this' for chaining
+    def metaMethod = this.metaClass.getMetaMethod(propertyName, newValue)
+    if (metaMethod != null) {
+      // Call the fluent API method
+      metaMethod.invoke(this, newValue)
+      return
+    }
+
+    // Check if a real property/setter exists using MetaClass
+    def metaProperty = this.metaClass.hasProperty(this, propertyName)
+    if (metaProperty != null) {
+      try {
+        // Try to use the real property setter
+        metaProperty.setProperty(this, newValue)
+        return
+      } catch (GroovyRuntimeException e) {
+        // If it's read-only (fluent API), fall through to addAttribute
+        if (!e.message?.contains('read-only')) {
+          throw e
+        }
+      }
+    }
+
+    // If no setter exists or it's read-only, set it as an attribute
+    addAttribute(propertyName, newValue)
+  }
+
 }

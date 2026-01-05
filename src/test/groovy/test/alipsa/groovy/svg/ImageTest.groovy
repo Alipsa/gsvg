@@ -32,4 +32,63 @@ class ImageTest {
     svg.addImage().xlinkHref("#target").x('40%').y('40%').width('20%').height('20%')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
   }
+
+  @Test
+  void testImageAttributes() {
+    Svg svg = new Svg()
+    def image = svg.addImage()
+      .href('image.png')
+      .x(10).y(20)
+      .width(100).height(50)
+      .preserveAspectRatio('xMidYMid meet')
+      .crossorigin('anonymous')
+
+    assertEquals('image.png', image.href)
+    assertEquals('10', image.x)
+    assertEquals('20', image.y)
+    assertEquals('100', image.width)
+    assertEquals('50', image.height)
+    assertEquals('xMidYMid meet', image.preserveAspectRatio)
+    assertEquals('anonymous', image.crossorigin)
+  }
+
+  @Test
+  void testImageWithNumbers() {
+    Svg svg = new Svg()
+    def image = svg.addImage()
+      .xlinkHref('photo.jpg')
+      .x(25)
+      .y(50)
+      .width(200)
+      .height(150)
+
+    assertEquals('25', image.x)
+    assertEquals('50', image.y)
+    assertEquals('200', image.width)
+    assertEquals('150', image.height)
+  }
+
+  @Test
+  void testImageWithMapAttributes() {
+    Svg svg = new Svg()
+    def image = svg.addImage([href: 'logo.svg', x: '0', y: '0', width: '50', height: '50'])
+
+    assertEquals('logo.svg', image.href)
+    assertEquals('0', image.x)
+    assertEquals('0', image.y)
+    assertEquals('50', image.width)
+    assertEquals('50', image.height)
+  }
+
+  @Test
+  void testImageDataUri() {
+    Svg svg = new Svg()
+    def dataUri = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA'
+    def image = svg.addImage()
+      .href(dataUri)
+      .x(0).y(0)
+      .width(5).height(5)
+
+    assertEquals(dataUri, image.href)
+  }
 }

@@ -38,6 +38,14 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
     addFeFuncA().type(type)
   }
 
+  FeFuncA addFeFuncA(Map attributes) {
+    FeFuncA elem = addFeFuncA()
+    attributes.each {
+      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    elem
+  }
+
   /**
    * Creates and adds a new FeFuncB child element.
    *
@@ -55,6 +63,14 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
    */
   FeFuncB addFeFuncB(String type) {
     addFeFuncB().type(type)
+  }
+
+  FeFuncB addFeFuncB(Map attributes) {
+    FeFuncB elem = addFeFuncB()
+    attributes.each {
+      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    elem
   }
 
   /**
@@ -76,6 +92,14 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
     addFeFuncG().type(type)
   }
 
+  FeFuncG addFeFuncG(Map attributes) {
+    FeFuncG elem = addFeFuncG()
+    attributes.each {
+      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    elem
+  }
+
   /**
    * Creates and adds a new FeFuncR child element.
    *
@@ -93,5 +117,13 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
    */
   FeFuncR addFeFuncR(String type) {
     addFeFuncR().type(type)
+  }
+
+  FeFuncR addFeFuncR(Map attributes) {
+    FeFuncR elem = addFeFuncR()
+    attributes.each {
+      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    elem
   }
 }

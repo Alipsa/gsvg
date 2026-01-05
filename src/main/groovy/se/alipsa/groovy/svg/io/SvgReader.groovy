@@ -1,5 +1,6 @@
 package se.alipsa.groovy.svg.io
 
+import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
@@ -109,6 +110,7 @@ import javax.xml.parsers.SAXParserFactory
 /**
  * Parses SVG XML into the gsvg object model.
  */
+@CompileStatic
 class SvgReader extends DefaultHandler implements LexicalHandler {
 
   Svg svg
@@ -131,6 +133,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    * @param qName the qualified name
    * @param attributes the attributes
    */
+  @CompileDynamic
   @Override
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     //print('begin element ' + qName)
@@ -304,6 +307,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    * @param start the start position
    * @param length the length
    */
+  @CompileDynamic
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)

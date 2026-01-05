@@ -186,6 +186,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Image(this))
   }
 
+  Image addImage(Map attributes) {
+    Image img = addImage()
+    attributes.each {
+      key, value -> img.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    img
+  }
+
   /**
    * Creates and adds a new Line child element.
    *
@@ -474,6 +482,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new MeshGradient(this))
   }
 
+  MeshGradient addMeshGradient(Map attributes) {
+    MeshGradient mg = addMeshGradient()
+    attributes.each {
+      key, value -> mg.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    mg
+  }
+
   /**
    * Creates and adds a new Mesh child element.
    *
@@ -481,6 +497,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Mesh addMesh() {
     add(new Mesh(this))
+  }
+
+  Mesh addMesh(Map attributes) {
+    Mesh m = addMesh()
+    attributes.each {
+      key, value -> m.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    m
   }
 
   /**
@@ -492,6 +516,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new MeshRow(this))
   }
 
+  MeshRow addMeshRow(Map attributes) {
+    MeshRow mr = addMeshRow()
+    attributes.each {
+      key, value -> mr.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    mr
+  }
+
   /**
    * Creates and adds a new MeshPatch child element.
    *
@@ -499,6 +531,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   MeshPatch addMeshPatch() {
     add(new MeshPatch(this))
+  }
+
+  MeshPatch addMeshPatch(Map attributes) {
+    MeshPatch mp = addMeshPatch()
+    attributes.each {
+      key, value -> mp.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    mp
   }
 
   /**
@@ -510,6 +550,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Hatch(this))
   }
 
+  Hatch addHatch(Map attributes) {
+    Hatch h = addHatch()
+    attributes.each {
+      key, value -> h.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    h
+  }
+
   /**
    * Creates and adds a new HatchPath child element.
    *
@@ -517,6 +565,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   HatchPath addHatchPath() {
     add(new HatchPath(this))
+  }
+
+  HatchPath addHatchPath(Map attributes) {
+    HatchPath hp = addHatchPath()
+    attributes.each {
+      key, value -> hp.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    hp
   }
 
   /**
@@ -528,6 +584,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Audio(this))
   }
 
+  Audio addAudio(Map attributes) {
+    Audio a = addAudio()
+    attributes.each {
+      key, value -> a.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    a
+  }
+
   /**
    * Creates and adds a new Video child element.
    *
@@ -535,6 +599,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Video addVideo() {
     add(new Video(this))
+  }
+
+  Video addVideo(Map attributes) {
+    Video v = addVideo()
+    attributes.each {
+      key, value -> v.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    v
   }
 
   /**
@@ -546,6 +618,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Discard(this))
   }
 
+  Discard addDiscard(Map attributes) {
+    Discard d = addDiscard()
+    attributes.each {
+      key, value -> d.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    d
+  }
+
   /**
    * Creates and adds a new Font child element.
    *
@@ -553,6 +633,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Font addFont() {
     add(new Font(this))
+  }
+
+  Font addFont(Map attributes) {
+    Font f = addFont()
+    attributes.each {
+      key, value -> f.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    f
   }
 
   /**
@@ -564,6 +652,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFace(this))
   }
 
+  FontFace addFontFace(Map attributes) {
+    FontFace ff = addFontFace()
+    attributes.each {
+      key, value -> ff.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    ff
+  }
+
   /**
    * Creates and adds a new FontFaceSrc child element.
    *
@@ -571,6 +667,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   FontFaceSrc addFontFaceSrc() {
     add(new FontFaceSrc(this))
+  }
+
+  FontFaceSrc addFontFaceSrc(Map attributes) {
+    FontFaceSrc ffs = addFontFaceSrc()
+    attributes.each {
+      key, value -> ffs.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    ffs
   }
 
   /**
@@ -582,6 +686,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFaceUri(this))
   }
 
+  FontFaceUri addFontFaceUri(Map attributes) {
+    FontFaceUri ffu = addFontFaceUri()
+    attributes.each {
+      key, value -> ffu.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    ffu
+  }
+
   /**
    * Creates and adds a new FontFaceName child element.
    *
@@ -589,6 +701,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   FontFaceName addFontFaceName() {
     add(new FontFaceName(this))
+  }
+
+  FontFaceName addFontFaceName(Map attributes) {
+    FontFaceName ffn = addFontFaceName()
+    attributes.each {
+      key, value -> ffn.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    ffn
   }
 
   /**
@@ -600,6 +720,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFaceFormat(this))
   }
 
+  FontFaceFormat addFontFaceFormat(Map attributes) {
+    FontFaceFormat fff = addFontFaceFormat()
+    attributes.each {
+      key, value -> fff.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    fff
+  }
+
   /**
    * Creates and adds a new Glyph child element.
    *
@@ -607,6 +735,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Glyph addGlyph() {
     add(new Glyph(this))
+  }
+
+  Glyph addGlyph(Map attributes) {
+    Glyph g = addGlyph()
+    attributes.each {
+      key, value -> g.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    g
   }
 
   /**
@@ -618,6 +754,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new MissingGlyph(this))
   }
 
+  MissingGlyph addMissingGlyph(Map attributes) {
+    MissingGlyph mg = addMissingGlyph()
+    attributes.each {
+      key, value -> mg.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    mg
+  }
+
   /**
    * Creates and adds a new Hkern child element.
    *
@@ -625,6 +769,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Hkern addHkern() {
     add(new Hkern(this))
+  }
+
+  Hkern addHkern(Map attributes) {
+    Hkern h = addHkern()
+    attributes.each {
+      key, value -> h.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    h
   }
 
   /**
@@ -636,6 +788,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Vkern(this))
   }
 
+  Vkern addVkern(Map attributes) {
+    Vkern v = addVkern()
+    attributes.each {
+      key, value -> v.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    v
+  }
+
   /**
    * Creates and adds a new GlyphRef child element.
    *
@@ -643,6 +803,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   GlyphRef addGlyphRef() {
     add(new GlyphRef(this))
+  }
+
+  GlyphRef addGlyphRef(Map attributes) {
+    GlyphRef gr = addGlyphRef()
+    attributes.each {
+      key, value -> gr.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    gr
   }
 
   /**
@@ -654,6 +822,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new AltGlyph(this))
   }
 
+  AltGlyph addAltGlyph(Map attributes) {
+    AltGlyph ag = addAltGlyph()
+    attributes.each {
+      key, value -> ag.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    ag
+  }
+
   /**
    * Creates and adds a new AltGlyphDef child element.
    *
@@ -661,6 +837,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   AltGlyphDef addAltGlyphDef() {
     add(new AltGlyphDef(this))
+  }
+
+  AltGlyphDef addAltGlyphDef(Map attributes) {
+    AltGlyphDef agd = addAltGlyphDef()
+    attributes.each {
+      key, value -> agd.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    agd
   }
 
   /**
@@ -672,6 +856,14 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new AltGlyphItem(this))
   }
 
+  AltGlyphItem addAltGlyphItem(Map attributes) {
+    AltGlyphItem agi = addAltGlyphItem()
+    attributes.each {
+      key, value -> agi.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    agi
+  }
+
   /**
    * Creates and adds a new Tref child element.
    *
@@ -679,5 +871,13 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Tref addTref() {
     add(new Tref(this))
+  }
+
+  Tref addTref(Map attributes) {
+    Tref t = addTref()
+    attributes.each {
+      key, value -> t.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    t
   }
 }

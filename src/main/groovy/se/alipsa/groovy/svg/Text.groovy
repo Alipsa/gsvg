@@ -99,6 +99,14 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     add(new Tspan(this, content))
   }
 
+  Tspan addTspan(Map attributes) {
+    Tspan tspan = addTspan()
+    attributes.each {
+      key, value -> tspan.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    tspan
+  }
+
   /**
    * Creates and adds a new TextPath child element.
    *
@@ -106,6 +114,14 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
    */
   TextPath addTextPath() {
     add(new TextPath(this))
+  }
+
+  TextPath addTextPath(Map attributes) {
+    TextPath tp = addTextPath()
+    attributes.each {
+      key, value -> tp.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    tp
   }
 
   /**
