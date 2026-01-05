@@ -43,9 +43,15 @@ class ATest {
         def a = svg.addA()
           .href('https://example.com')
           .target('_blank')
+          .type('text/html')
+          .download('file.svg')
+          .rel('noopener')
 
         assertEquals('https://example.com', a.href)
         assertEquals('_blank', a.target)
+        assertEquals('text/html', a.type)
+        assertEquals('file.svg', a.download)
+        assertEquals('noopener', a.rel)
     }
 
     @Test
@@ -91,5 +97,31 @@ class ATest {
         assertTrue(xml.contains('<rect'))
         assertTrue(xml.contains('<circle'))
         assertTrue(xml.contains('<text'))
+    }
+
+    @Test
+    void testALinkAttributeGetters() {
+        Svg svg = new Svg()
+        def a = svg.addA()
+          .href('https://example.org/file.svg')
+          .download('my-file.svg')
+          .type('image/svg+xml')
+          .rel('noopener noreferrer')
+
+        // Test explicit getters
+        assertEquals('my-file.svg', a.getDownload())
+        assertEquals('image/svg+xml', a.getType())
+        assertEquals('noopener noreferrer', a.getRel())
+
+        // Test property access
+        assertEquals('my-file.svg', a.download)
+        assertEquals('image/svg+xml', a.type)
+        assertEquals('noopener noreferrer', a.rel)
+
+        // Verify in XML
+        def xml = a.toXml()
+        assertTrue(xml.contains('download="my-file.svg"'))
+        assertTrue(xml.contains('type="image/svg+xml"'))
+        assertTrue(xml.contains('rel="noopener noreferrer"'))
     }
 }
