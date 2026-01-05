@@ -1,6 +1,16 @@
 # gsvg release notes
 
-## Version 0.4.0 - in progress
+## Version 0.4.0 - 2026-01-05
+- API ergonomics: property-style attribute access on SvgElement, addAttributes(Map), and Map-based addX(Map) helpers across element containers (filters, gradients, defs, text, etc.).
+- Attribute coverage: expanded fluent setters/getters across shapes, text, gradients, filters, and animation elements (Phase 1-3 convenience methods).
+- Animation/text improvements: more complete Animate/AnimateMotion/AnimateTransform/Set attribute helpers plus additional Text/Tspan/TextPath conveniences.
+- Bug fixes: AbstractPoly.addPoint() and addPoints() now handle missing points attributes correctly.
+- Build & tests: @CompileStatic across core classes, JaCoCo coverage reporting, Gradle wrapper removal, and expanded unit tests (filters, gradients, text, shapes, script/switch, polygon/polyline).
+
+**API additions/updates**
+- Property-style attribute read/write fallback when no explicit getter/setter exists.
+- Map-based attributes in element factory methods (for example, addRect([x: 1, y: 2])) plus addAttributes(Map).
+- Additional attribute setters for gradients, stops (stop-opacity), filter primitives, and text positioning/typography.
 
 ## Version 0.3.0 - 2025-12-30
 - Documentation overhaul: new docs in doc/creating.md, doc/parsing.md, and doc/overview.md, plus expanded Groovydoc across the public API and readme tweaks.
@@ -36,4 +46,3 @@
 
 ## Version 0.1.0 - 2024-02-16
 - Initial release of the Groovy Scalar Vector Graphics (gsvg) library.
-
