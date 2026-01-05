@@ -41,7 +41,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   FeFuncA addFeFuncA(Map attributes) {
     FeFuncA elem = addFeFuncA()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -68,7 +68,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   FeFuncB addFeFuncB(Map attributes) {
     FeFuncB elem = addFeFuncB()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -95,7 +95,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   FeFuncG addFeFuncG(Map attributes) {
     FeFuncG elem = addFeFuncG()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -122,7 +122,7 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   FeFuncR addFeFuncR(Map attributes) {
     FeFuncR elem = addFeFuncR()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }

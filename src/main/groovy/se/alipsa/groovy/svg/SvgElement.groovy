@@ -309,7 +309,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   Title addTitle(Map attributes) {
     Title t = addTitle()
     attributes.each {
-      key, value -> t.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> t.addAttribute(String.valueOf(key), value)
     }
     t
   }
@@ -345,7 +345,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   Desc addDesc(Map attributes) {
     Desc d = addDesc()
     attributes.each {
-      key, value -> d.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> d.addAttribute(String.valueOf(key), value)
     }
     d
   }

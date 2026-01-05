@@ -41,7 +41,7 @@ class FeMerge extends FilterElement<FeMerge> {
   FeMergeNode addFeMergeNode(Map attributes) {
     FeMergeNode elem = addFeMergeNode()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }

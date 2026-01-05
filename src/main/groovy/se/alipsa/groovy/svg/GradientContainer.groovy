@@ -20,7 +20,7 @@ trait GradientContainer extends ElementContainer {
   LinearGradient addLinearGradient(Map attributes) {
     LinearGradient lg = addLinearGradient()
     attributes.each {
-      key, value -> lg.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> lg.addAttribute(String.valueOf(key), value)
     }
     lg
   }
@@ -37,7 +37,7 @@ trait GradientContainer extends ElementContainer {
   RadialGradient addRadialGradient(Map attributes) {
     RadialGradient rg = addRadialGradient()
     attributes.each {
-      key, value -> rg.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> rg.addAttribute(String.valueOf(key), value)
     }
     rg
   }

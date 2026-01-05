@@ -20,7 +20,7 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
   Animate addAnimate(Map attributes) {
     Animate anim = addAnimate()
     attributes.each {
-      key, value -> anim.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> anim.addAttribute(String.valueOf(key), value)
     }
     anim
   }
@@ -37,7 +37,7 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
   AnimateMotion addAnimateMotion(Map attributes) {
     AnimateMotion anim = addAnimateMotion()
     attributes.each {
-      key, value -> anim.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> anim.addAttribute(String.valueOf(key), value)
     }
     anim
   }
@@ -54,7 +54,7 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
   AnimateTransform addAnimateTransform(Map attributes) {
     AnimateTransform anim = addAnimateTransform()
     attributes.each {
-      key, value -> anim.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> anim.addAttribute(String.valueOf(key), value)
     }
     anim
   }
@@ -71,7 +71,7 @@ trait Animatable<T extends SvgElement<T>> implements ElementContainer {
   Set addSet(Map attributes) {
     Set set = addSet()
     attributes.each {
-      key, value -> set.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> set.addAttribute(String.valueOf(key), value)
     }
     set
   }

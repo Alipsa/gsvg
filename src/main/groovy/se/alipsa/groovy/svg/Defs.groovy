@@ -41,7 +41,7 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
   Marker addMarker(Map attributes) {
     Marker marker = addMarker()
     attributes.each {
-      key, value -> marker.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> marker.addAttribute(String.valueOf(key), value)
     }
     marker
   }
@@ -68,7 +68,7 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
   Pattern addPattern(Map attributes) {
     Pattern pattern = addPattern()
     attributes.each {
-      key, value -> pattern.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> pattern.addAttribute(String.valueOf(key), value)
     }
     pattern
   }
@@ -85,7 +85,7 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
   Symbol addSymbol(Map attributes) {
     Symbol symbol = addSymbol()
     attributes.each {
-      key, value -> symbol.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> symbol.addAttribute(String.valueOf(key), value)
     }
     symbol
   }

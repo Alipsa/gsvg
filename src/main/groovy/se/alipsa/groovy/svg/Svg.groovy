@@ -141,7 +141,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   Defs addDefs(Map attributes) {
     Defs defs = addDefs()
     attributes.each {
-      key, value -> defs.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> defs.addAttribute(String.valueOf(key), value)
     }
     defs
   }
@@ -217,7 +217,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   ForeignObject addForeignObject(Map attributes) {
     ForeignObject foreignObject = addForeignObject()
     attributes.each {
-      key, value -> foreignObject.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> foreignObject.addAttribute(String.valueOf(key), value)
     }
     foreignObject
   }
@@ -243,7 +243,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   Metadata addMetadata(Map attributes) {
     Metadata metadata = addMetadata()
     attributes.each { key, value ->
-      metadata.addAttribute(String.valueOf(key), String.valueOf(value))
+      metadata.addAttribute(String.valueOf(key), value)
     }
     metadata
   }
@@ -260,7 +260,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   Script addScript(Map attributes) {
     Script script = addScript()
     attributes.each { key, value ->
-      script.addAttribute(String.valueOf(key), String.valueOf(value))
+      script.addAttribute(String.valueOf(key), value)
     }
     script
   }
@@ -277,7 +277,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   Switch addSwitch(Map attributes) {
     Switch sw = addSwitch()
     attributes.each { key, value ->
-      sw.addAttribute(String.valueOf(key), String.valueOf(value))
+      sw.addAttribute(String.valueOf(key), value)
     }
     sw
   }
@@ -294,7 +294,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   Symbol addSymbol(Map attributes) {
     Symbol symbol = addSymbol()
     attributes.each { key, value ->
-      symbol.addAttribute(String.valueOf(key), String.valueOf(value))
+      symbol.addAttribute(String.valueOf(key), value)
     }
     symbol
   }
@@ -331,7 +331,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   View addView(Map attributes) {
     View view = addView()
     attributes.each { key, value ->
-      view.addAttribute(String.valueOf(key), String.valueOf(value))
+      view.addAttribute(String.valueOf(key), value)
     }
     view
   }

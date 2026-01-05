@@ -206,7 +206,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeGaussianBlur addFeGaussianBlur(Map attributes) {
     FeGaussianBlur elem = addFeGaussianBlur()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -223,7 +223,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeBlend addFeBlend(Map attributes) {
     FeBlend elem = addFeBlend()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -240,7 +240,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeFlood addFeFlood(Map attributes) {
     FeFlood elem = addFeFlood()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -257,7 +257,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeColorMatrix addFeColorMatrix(Map attributes) {
     FeColorMatrix elem = addFeColorMatrix()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -274,7 +274,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeComponentTransfer addFeComponentTransfer(Map attributes) {
     FeComponentTransfer elem = addFeComponentTransfer()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -291,7 +291,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeImage addFeImage(Map attributes) {
     FeImage elem = addFeImage()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -308,7 +308,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeComposite addFeComposite(Map attributes) {
     FeComposite elem = addFeComposite()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -325,7 +325,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeConvolveMatrix addFeConvolveMatrix(Map attributes) {
     FeConvolveMatrix elem = addFeConvolveMatrix()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -342,7 +342,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeDiffuseLighting addFeDiffuseLighting(Map attributes) {
     FeDiffuseLighting elem = addFeDiffuseLighting()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -369,7 +369,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeMerge addFeMerge(Map attributes) {
     FeMerge elem = addFeMerge()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -386,7 +386,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeOffset addFeOffset(Map attributes) {
     FeOffset elem = addFeOffset()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -403,7 +403,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeTile addFeTile(Map attributes) {
     FeTile elem = addFeTile()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -420,7 +420,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeDisplacementMap addFeDisplacementMap(Map attributes) {
     FeDisplacementMap elem = addFeDisplacementMap()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -437,7 +437,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeTurbulence addFeTurbulence(Map attributes) {
     FeTurbulence elem = addFeTurbulence()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -454,7 +454,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeDropShadow addFeDropShadow(Map attributes) {
     FeDropShadow elem = addFeDropShadow()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -471,7 +471,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeMorphology addFeMorphology(Map attributes) {
     FeMorphology elem = addFeMorphology()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }
@@ -488,7 +488,7 @@ class Filter extends AbstractElementContainer<Filter> {
   FeSpecularLighting addFeSpecularLighting(Map attributes) {
     FeSpecularLighting elem = addFeSpecularLighting()
     attributes.each {
-      key, value -> elem.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> elem.addAttribute(String.valueOf(key), value)
     }
     elem
   }

@@ -111,7 +111,7 @@ class AnimateMotion extends Animation<AnimateMotion> {
   Mpath addMpath(Map attributes) {
     Mpath mp = addMpath()
     attributes.each {
-      key, value -> mp.addAttribute(String.valueOf(key), String.valueOf(value))
+      key, value -> mp.addAttribute(String.valueOf(key), value)
     }
     mp
   }
