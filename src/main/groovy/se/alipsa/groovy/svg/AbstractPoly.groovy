@@ -73,7 +73,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
    * @return this element for chaining
    */
   T addPoint(Coordinate point) {
-    Attribute pa = element.attribute(points)
+    Attribute pa = element.attribute(points.toString())
     String paVal = (pa == null ? points : pa.getValue()) + ' ' + point.toString()
     pa.setValue(paVal)
     this as T
