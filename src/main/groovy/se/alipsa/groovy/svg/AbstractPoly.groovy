@@ -2,7 +2,6 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import org.dom4j.Attribute
-import org.dom4j.Element
 
 /**
  * Base class for polygon and polyline elements with points list handling.

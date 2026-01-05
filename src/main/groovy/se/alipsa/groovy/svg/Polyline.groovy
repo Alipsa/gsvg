@@ -2,7 +2,6 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
-import org.dom4j.Element;
 
 /**
  * SVG {@code <polyline>} element that draws an open polyline from points.
