@@ -1,10 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.QName
 
 /**
  * Interface for elements that can create child elements in foreign namespaces.
  */
+@CompileStatic
 interface ExternalElementContainer<T> {
 
   /**

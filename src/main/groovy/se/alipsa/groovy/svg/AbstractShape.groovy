@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Base class for basic SVG shape elements with shared presentation attributes.
  */
+@CompileStatic
 class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements Animatable<T>{
 
   /**

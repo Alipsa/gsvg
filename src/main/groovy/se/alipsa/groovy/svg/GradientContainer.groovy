@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Trait for elements that can contain gradient definitions.
  */
+@CompileStatic
 trait GradientContainer extends ElementContainer {
 
   /**

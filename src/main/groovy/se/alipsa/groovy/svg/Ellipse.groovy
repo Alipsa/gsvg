@@ -1,10 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
 /**
  * SVG {@code <ellipse>} element that draws an ellipse by center and radii.
  */
+@CompileStatic
 class Ellipse extends AbstractShape<Ellipse>  {
 
   static final String NAME='ellipse'

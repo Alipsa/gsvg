@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <set>} element that performs a discrete animation setting an attribute for a duration.
  */
+@CompileStatic
 class Set extends Animation<Set> {
 
   static final String NAME='set'

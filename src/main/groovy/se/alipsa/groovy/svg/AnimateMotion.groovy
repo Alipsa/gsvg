@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <animateMotion>} element that animates motion along a path.
  */
+@CompileStatic
 class AnimateMotion extends Animation<AnimateMotion> {
 
   static final String NAME='animateMotion'

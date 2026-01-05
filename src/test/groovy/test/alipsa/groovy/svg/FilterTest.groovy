@@ -435,7 +435,7 @@ class FilterTest {
       .in(In.SourceGraphic)
       .result('light')
       .lightingColor('white')
-    .addFePointLight().x(150).y(60).z(20)
+      .addFePointLight().x(150).y(60).z(20)
     lightMe1.addFeComposite()
         .in("SourceGraphic")
         .in2("light")

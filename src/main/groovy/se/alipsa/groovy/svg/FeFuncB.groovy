@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feFuncB>} element that defines the blue channel transfer function.
  */
+@CompileStatic
 class FeFuncB extends FilterFunction<FeFuncB> {
 
   static final String NAME = 'feFuncB'

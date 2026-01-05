@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feMorphology>} filter primitive that erodes or dilates the input image.
  */
+@CompileStatic
 class FeMorphology extends FilterElement<FeMorphology> {
 
   static final String NAME='feMorphology'
@@ -58,7 +61,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  FeMorphology in(String inStr) {
+  FeMorphology 'in'(String inStr) {
     addAttribute('in', inStr)
   }
 
@@ -68,7 +71,7 @@ class FeMorphology extends FilterElement<FeMorphology> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  FeMorphology in(In inEnum) {
+  FeMorphology 'in'(In inEnum) {
     addAttribute('in', inEnum.name())
   }
 

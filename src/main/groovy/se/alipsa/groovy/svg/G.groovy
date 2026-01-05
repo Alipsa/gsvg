@@ -1,9 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /** A container for grouping other SVG elements */
 /**
  * SVG {@code <g>} element that groups graphics for shared attributes or transforms.
  */
+@CompileStatic
 class G extends AbstractElementContainer<G> implements GradientContainer, Animatable<G> {
 
     static final String NAME='g'

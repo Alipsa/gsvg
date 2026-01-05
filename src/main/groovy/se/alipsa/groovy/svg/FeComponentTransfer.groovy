@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feComponentTransfer>} filter primitive that applies per-channel transfer functions.
  */
+@CompileStatic
 class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
 
   static final String NAME='feComponentTransfer'

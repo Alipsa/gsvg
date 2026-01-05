@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feTile>} filter primitive that tiles the input image.
  */
+@CompileStatic
 class FeTile extends FilterElement<FeTile> {
 
   static final String NAME = 'feTile'
@@ -22,7 +25,7 @@ class FeTile extends FilterElement<FeTile> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  FeTile in(String inStr) {
+  FeTile 'in'(String inStr) {
     addAttribute('in', inStr)
   }
 
@@ -32,7 +35,7 @@ class FeTile extends FilterElement<FeTile> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  FeTile in(In inEnum) {
+  FeTile 'in'(In inEnum) {
     addAttribute('in', inEnum.name())
   }
 

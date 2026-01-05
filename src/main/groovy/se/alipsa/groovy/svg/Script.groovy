@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <script>} element that holds scripting content for interactivity.
  */
+@CompileStatic
 class Script extends StringContentContainer<Script> {
 
   static final String NAME='script'

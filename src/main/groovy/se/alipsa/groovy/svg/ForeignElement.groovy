@@ -1,11 +1,13 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
 
 /**
  * Represents a foreign namespace element embedded within SVG content.
  */
+@CompileStatic
 class ForeignElement extends StringContentContainer<ForeignElement> implements ExternalElementContainer<ForeignElement> {
 
   /**

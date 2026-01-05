@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <stop>} element that defines a color stop in a gradient.
  */
+@CompileStatic
 class Stop extends SvgElement<Stop> {
 
   static final String NAME = 'stop'

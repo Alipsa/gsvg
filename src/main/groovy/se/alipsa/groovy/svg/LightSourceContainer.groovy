@@ -49,8 +49,8 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  T in(String inStr) {
-    addAttribute('in', inStr)
+  T 'in'(String inStr) {
+    addAttribute('in', inStr) as T
   }
 
   /**
@@ -59,7 +59,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  T in(In inEnum) {
+  T 'in'(In inEnum) {
     addAttribute('in', inEnum.name()) as T
   }
 

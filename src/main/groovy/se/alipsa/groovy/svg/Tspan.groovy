@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <tspan>} element that positions and styles a span of text.
  */
+@CompileStatic
 class Tspan extends StringContentContainer<Tspan> {
 
   static final String NAME='tspan'

@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <symbol>} element that defines a reusable graphic not rendered directly.
  */
+@CompileStatic
 class Symbol extends AbstractElementContainer<Symbol> {
 
   static final String NAME='symbol'

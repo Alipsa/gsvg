@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feColorMatrix>} filter primitive that applies a color matrix to RGBA values.
  */
+@CompileStatic
 class FeColorMatrix extends FilterElement<FeColorMatrix> {
   static final String NAME = 'feColorMatrix'
 
@@ -28,7 +31,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  FeColorMatrix in(String inStr) {
+  FeColorMatrix 'in'(String inStr) {
     addAttribute('in', inStr)
   }
 
@@ -38,7 +41,7 @@ class FeColorMatrix extends FilterElement<FeColorMatrix> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  FeColorMatrix in(In inEnum) {
+  FeColorMatrix 'in'(In inEnum) {
     addAttribute('in', inEnum.name())
   }
 

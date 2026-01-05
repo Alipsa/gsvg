@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <image>} element that embeds a raster image.
  */
+@CompileStatic
 class Image extends SvgElement<Image> implements Animatable<Image> {
 
   static final String NAME='image'

@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Base class for gradient elements that define color transitions.
  */
+@CompileStatic
 abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
 
   /**

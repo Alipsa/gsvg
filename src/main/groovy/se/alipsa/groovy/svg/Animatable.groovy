@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Trait that allows elements to host SVG animation elements.
  */
+@CompileStatic
 trait Animatable<T extends SvgElement<T>> implements ElementContainer {
 
   /**

@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <a>} element that makes its children into a hyperlink.
  */
+@CompileStatic
 class A extends AbstractElementContainer<A> implements GradientContainer, Animatable<A> {
 
     static final String NAME = 'a'
@@ -24,7 +27,7 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
      */
     A(SvgElement<? extends SvgElement> parent, String href) {
         super(parent, NAME)
-        href(href)
+        this.href(href)
     }
 
     /**

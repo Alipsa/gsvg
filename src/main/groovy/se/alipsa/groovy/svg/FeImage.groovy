@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feImage>} filter primitive that provides image input from a referenced resource.
  */
+@CompileStatic
 class FeImage extends FilterElement<FeImage> {
   static final String NAME = 'feImage'
 

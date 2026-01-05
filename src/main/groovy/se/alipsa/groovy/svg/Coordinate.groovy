@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Value object representing an x,y coordinate pair used in point lists.
  */
+@CompileStatic
 class Coordinate {
 
     Number x

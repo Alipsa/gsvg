@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <video>} element that embeds video playback content.
  */
+@CompileStatic
 class Video extends SvgElement<Video> {
 
   static final String NAME = 'video'

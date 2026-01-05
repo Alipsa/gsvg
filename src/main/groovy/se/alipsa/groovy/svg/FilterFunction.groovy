@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Base class for component transfer functions used by feComponentTransfer.
  */
+@CompileStatic
 abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement<T> {
 
   /**
@@ -28,7 +31,7 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
    * @param value the value
    * @return this element for chaining
    */
-  T in(String value) {
+  T 'in'(String value) {
     addAttribute('in', value)
   }
 

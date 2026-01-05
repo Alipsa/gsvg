@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <font-face-format>} element that specifies the format of an external font source.
  */
+@CompileStatic
 class FontFaceFormat extends SvgElement<FontFaceFormat> {
 
   static final String NAME = 'font-face-format'

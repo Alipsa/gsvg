@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feMergeNode>} element that references an input for feMerge.
  */
+@CompileStatic
 class FeMergeNode extends FilterElement<FeMergeNode> {
 
   static final String NAME = 'feMergeNode'
@@ -22,7 +25,7 @@ class FeMergeNode extends FilterElement<FeMergeNode> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  FeMergeNode in(String inStr) {
+  FeMergeNode 'in'(String inStr) {
     addAttribute('in', inStr)
   }
 
@@ -32,7 +35,7 @@ class FeMergeNode extends FilterElement<FeMergeNode> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  FeMergeNode in(In inEnum) {
+  FeMergeNode 'in'(In inEnum) {
     addAttribute('in', inEnum.name())
   }
 

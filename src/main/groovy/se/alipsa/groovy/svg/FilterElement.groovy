@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Base class for SVG filter primitives that process inputs and produce results.
  */
+@CompileStatic
 abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
 
   /**

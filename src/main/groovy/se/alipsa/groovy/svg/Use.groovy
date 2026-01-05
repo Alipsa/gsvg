@@ -1,9 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 
 /**
  * SVG {@code <use>} element that reuses and renders a referenced element.
  */
+@CompileStatic
 class Use extends SvgElement<Use> implements Animatable<Use> {
   static final String NAME = 'use'
 

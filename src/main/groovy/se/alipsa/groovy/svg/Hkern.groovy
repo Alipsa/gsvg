@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <hkern>} element that defines horizontal kerning adjustments.
  */
+@CompileStatic
 class Hkern extends SvgElement<Hkern> {
 
   static final String NAME = 'hkern'

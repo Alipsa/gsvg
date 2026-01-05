@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <view>} element that defines a named view with viewBox settings.
  */
+@CompileStatic
 class View extends SvgElement<View> {
 
   static final String NAME = 'view'

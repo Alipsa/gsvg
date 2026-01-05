@@ -1,11 +1,13 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
 
 /**
  * SVG {@code <foreignObject>} element that embeds foreign XML content such as HTML.
  */
+@CompileStatic
 class ForeignObject extends StringContentContainer<ForeignObject> implements Animatable<ForeignObject>, ExternalElementContainer<ForeignObject>  {
 
   static final String NAME='foreignObject'

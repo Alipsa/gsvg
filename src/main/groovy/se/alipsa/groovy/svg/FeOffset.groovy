@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feOffset>} filter primitive that offsets the input image.
  */
+@CompileStatic
 class FeOffset extends FilterElement<FeOffset> {
 
   static final String NAME = 'feOffset'

@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <textPath>} element that renders text along a path.
  */
+@CompileStatic
 class TextPath extends StringContentContainer<TextPath> {
 
   static final String NAME='textPath'

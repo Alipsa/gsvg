@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <mask>} element that defines a mask for transparency effects.
  */
+@CompileStatic
 class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
 
   static final String NAME='mask'

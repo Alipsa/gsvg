@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <audio>} element that embeds audio playback content.
  */
+@CompileStatic
 class Audio extends SvgElement<Audio> {
 
   static final String NAME = 'audio'

@@ -1,11 +1,13 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.Document
 import org.dom4j.DocumentHelper
 
 /**
  * Root SVG document element and entry point for building or parsing SVG content.
  */
+@CompileStatic
 class Svg extends AbstractElementContainer<Svg> implements GradientContainer, Animatable<Svg> {
   static final String NAME='svg'
   static final String xmlns="http://www.w3.org/2000/svg"
@@ -136,6 +138,14 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addDefs().id(id)
   }
 
+  Defs addDefs(Map attributes) {
+    Defs defs = addDefs()
+    attributes.each {
+      key, value -> defs.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    defs
+  }
+
   /**
    * Sets the view box attribute.
    *
@@ -204,6 +214,14 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new ForeignObject(this))
   }
 
+  ForeignObject addForeignObject(Map attributes) {
+    ForeignObject foreignObject = addForeignObject()
+    attributes.each {
+      key, value -> foreignObject.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    foreignObject
+  }
+
   /**
    * Creates and adds a new Style child element.
    *
@@ -222,6 +240,14 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new Metadata(this))
   }
 
+  Metadata addMetadata(Map attributes) {
+    Metadata metadata = addMetadata()
+    attributes.each { key, value ->
+      metadata.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    metadata
+  }
+
   /**
    * Creates and adds a new Script child element.
    *
@@ -229,6 +255,14 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    */
   Script addScript() {
     add(new Script(this))
+  }
+
+  Script addScript(Map attributes) {
+    Script script = addScript()
+    attributes.each { key, value ->
+      script.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    script
   }
 
   /**
@@ -240,6 +274,14 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new Switch(this))
   }
 
+  Switch addSwitch(Map attributes) {
+    Switch sw = addSwitch()
+    attributes.each { key, value ->
+      sw.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    sw
+  }
+
   /**
    * Creates and adds a new Symbol child element.
    *
@@ -247,6 +289,14 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    */
   Symbol addSymbol() {
     add(new Symbol(this))
+  }
+
+  Symbol addSymbol(Map attributes) {
+    Symbol symbol = addSymbol()
+    attributes.each { key, value ->
+      symbol.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    symbol
   }
 
   /**
@@ -276,6 +326,14 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    */
   View addView(String id) {
     addView().id(id)
+  }
+
+  View addView(Map attributes) {
+    View view = addView()
+    attributes.each { key, value ->
+      view.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    view
   }
 
 }

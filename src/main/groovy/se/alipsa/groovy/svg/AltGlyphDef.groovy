@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <altGlyphDef>} element that defines alternate glyph sets for text.
  */
+@CompileStatic
 class AltGlyphDef extends AbstractElementContainer<AltGlyphDef> {
 
   static final String NAME = 'altGlyphDef'

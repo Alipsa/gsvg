@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <defs>} element that holds reusable definitions not rendered directly.
  */
+@CompileStatic
 class Defs extends AbstractElementContainer<Defs> implements GradientContainer, Animatable<Defs> {
 
   static final String NAME = 'defs'

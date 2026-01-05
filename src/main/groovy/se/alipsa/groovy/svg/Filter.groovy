@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <filter>} element that defines a filter effects region and pipeline.
  */
+@CompileStatic
 class Filter extends AbstractElementContainer<Filter> {
 
   static final String NAME = 'filter'

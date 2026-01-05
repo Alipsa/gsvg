@@ -1,5 +1,6 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.Element
 import org.dom4j.Namespace
 import org.dom4j.QName
@@ -7,6 +8,7 @@ import org.dom4j.QName
 /**
  * Base class for all SVG elements backed by DOM4J elements.
  */
+@CompileStatic
 abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
 
   Namespace xlinkNs = new Namespace('xlink', 'http://www.w3.org/1999/xlink')
@@ -304,6 +306,14 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     title = new Title(this).addContent(content)
   }
 
+  Title addTitle(Map attributes) {
+    Title t = addTitle()
+    attributes.each {
+      key, value -> t.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    t
+  }
+
   /**
    * Returns the title value.
    *
@@ -330,6 +340,14 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
    */
   Desc addDesc(String content) {
     desc = new Desc(this).addContent(content)
+  }
+
+  Desc addDesc(Map attributes) {
+    Desc d = addDesc()
+    attributes.each {
+      key, value -> d.addAttribute(String.valueOf(key), String.valueOf(value))
+    }
+    d
   }
 
   /**

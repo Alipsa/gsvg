@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feTurbulence>} filter primitive that generates noise or turbulence.
  */
+@CompileStatic
 class FeTurbulence extends FilterElement<FeTurbulence> {
 
   static final String NAME = 'feTurbulence'

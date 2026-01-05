@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <animateTransform>} element that animates a transform over time.
  */
+@CompileStatic
 class AnimateTransform extends Animation<AnimateTransform> {
 
   static final String NAME='animateTransform'

@@ -1,11 +1,13 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
 
 /**
  * SVG {@code <metadata>} element that stores metadata for the document.
  */
+@CompileStatic
 class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<Metadata> {
 
   static final String NAME='metadata'

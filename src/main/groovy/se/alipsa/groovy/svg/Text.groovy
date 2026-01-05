@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <text>} element that renders text content.
  */
+@CompileStatic
 class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   static final String NAME='text'

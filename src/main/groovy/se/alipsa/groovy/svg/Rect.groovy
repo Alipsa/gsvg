@@ -1,10 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
 /**
  * SVG {@code <rect>} element that draws a rectangle, optionally with rounded corners.
  */
+@CompileStatic
 class Rect extends AbstractShape<Rect>  {
 
   static final String NAME='rect'

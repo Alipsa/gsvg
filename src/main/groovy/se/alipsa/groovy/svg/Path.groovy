@@ -1,11 +1,13 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 import org.dom4j.Element;
 
 /**
  * SVG {@code <path>} element that defines shapes using path data commands.
  */
+@CompileStatic
 class Path extends AbstractShape<Path> implements Animatable<Path> {
 
   static final String NAME='path'

@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <radialGradient>} element that defines a radial gradient paint.
  */
+@CompileStatic
 class RadialGradient extends Gradient<RadialGradient> {
 
   static final String NAME = 'radialGradient'

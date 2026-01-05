@@ -1,6 +1,6 @@
 package se.alipsa.groovy.svg.io
 
-
+import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
 import org.xml.sax.Attributes

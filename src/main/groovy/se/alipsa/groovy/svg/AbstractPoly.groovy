@@ -1,11 +1,13 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.Attribute
 import org.dom4j.Element
 
 /**
  * Base class for polygon and polyline elements with points list handling.
  */
+@CompileStatic
 class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
 
   /**
@@ -58,7 +60,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
    * @return this element for chaining
    */
   T addPoints(Coordinate... points) {
-    Attribute pa = element.attribute(points)
+    Attribute pa = element.attribute('points')
     String paVal = pa == null ? toAttributeValues(points) : pa.getValue() + ' ' + toAttributeValues(points)
     pa.setValue(paVal)
     this as T
@@ -72,7 +74,7 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
    */
   T addPoint(Coordinate point) {
     Attribute pa = element.attribute(points)
-    String paVal = pa == null ? toAttributeValues(points) : pa.getValue() + ' ' + point.toString()
+    String paVal = (pa == null ? points : pa.getValue()) + ' ' + point.toString()
     pa.setValue(paVal)
     this as T
   }
