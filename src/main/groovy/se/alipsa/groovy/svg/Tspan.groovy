@@ -71,6 +71,24 @@ class Tspan extends StringContentContainer<Tspan> {
   }
 
   /**
+   * Returns the x value.
+   *
+   * @return the x value
+   */
+  String getX() {
+    getAttribute('x')
+  }
+
+  /**
+   * Returns the y value.
+   *
+   * @return the y value
+   */
+  String getY() {
+    getAttribute('y')
+  }
+
+  /**
    * The horizontal shift position for text (from previous text position).
    *
    * @param dx the dx value(s)
@@ -108,6 +126,24 @@ class Tspan extends StringContentContainer<Tspan> {
    */
   Tspan dy(String... dy) {
     addAttribute('dy', String.join(',', dy.collect {it as String}))
+  }
+
+  /**
+   * Returns the dx value.
+   *
+   * @return the dx value
+   */
+  String getDx() {
+    getAttribute('dx')
+  }
+
+  /**
+   * Returns the dy value.
+   *
+   * @return the dy value
+   */
+  String getDy() {
+    getAttribute('dy')
   }
 
   /**
@@ -158,6 +194,15 @@ class Tspan extends StringContentContainer<Tspan> {
    */
   Tspan fill(String fill) {
     addAttribute('fill', fill)
+  }
+
+  /**
+   * Returns the fill value.
+   *
+   * @return the fill value
+   */
+  String getFill() {
+    getAttribute('fill')
   }
 
   /**

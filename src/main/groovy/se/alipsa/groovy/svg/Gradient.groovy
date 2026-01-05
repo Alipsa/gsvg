@@ -61,6 +61,33 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
   }
 
   /**
+   * Returns the gradient units value.
+   *
+   * @return the gradient units value
+   */
+  String getGradientUnits() {
+    getAttribute('gradientUnits')
+  }
+
+  /**
+   * Returns the gradient transform value.
+   *
+   * @return the gradient transform value
+   */
+  String getGradientTransform() {
+    getAttribute('gradientTransform')
+  }
+
+  /**
+   * Returns the spread method value.
+   *
+   * @return the spread method value
+   */
+  String getSpreadMethod() {
+    getAttribute('spreadMethod')
+  }
+
+  /**
    * Returns the stops value.
    *
    * @return the stops value

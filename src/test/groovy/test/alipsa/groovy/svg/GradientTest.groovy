@@ -226,4 +226,77 @@ class GradientTest {
     assertEquals('10', lg.x1)
     assertEquals('20', lg.y1)
   }
+
+  @Test
+  void testGradientGetters() {
+    Svg svg = new Svg()
+    def defs = svg.addDefs()
+    def lg = defs.addLinearGradient()
+      .id('testGetters')
+      .gradientUnits('userSpaceOnUse')
+      .spreadMethod('reflect')
+      .gradientTransform('rotate(45)')
+
+    // Test explicit getters work
+    assertEquals('userSpaceOnUse', lg.getGradientUnits())
+    assertEquals('reflect', lg.getSpreadMethod())
+    assertEquals('rotate(45)', lg.getGradientTransform())
+
+    // Test property access also works
+    assertEquals('userSpaceOnUse', lg.gradientUnits)
+    assertEquals('reflect', lg.spreadMethod)
+    assertEquals('rotate(45)', lg.gradientTransform)
+  }
+
+  @Test
+  void testRadialGradientFocalRadius() {
+    Svg svg = new Svg()
+    def defs = svg.addDefs()
+
+    // Test with String
+    def rg1 = defs.addRadialGradient()
+      .id('rg1')
+      .fr('10%')
+    assertEquals('10%', rg1.fr)
+    assertEquals('10%', rg1.getFr())
+
+    // Test with Number
+    def rg2 = defs.addRadialGradient()
+      .id('rg2')
+      .fr(25)
+    assertEquals('25', rg2.fr)
+    assertEquals('25', rg2.getFr())
+
+    // Verify in XML
+    assertTrue(rg1.toXml().contains('fr="10%"'))
+    assertTrue(rg2.toXml().contains('fr="25"'))
+  }
+
+  @Test
+  void testStopOpacity() {
+    Svg svg = new Svg()
+    def defs = svg.addDefs()
+    def lg = defs.addLinearGradient().id('stopOpacityTest')
+
+    // Test with String
+    def stop1 = lg.addStop()
+      .offset('0%')
+      .stopColor('red')
+      .stopOpacity('0.5')
+    assertEquals('0.5', stop1.stopOpacity)
+    assertEquals('0.5', stop1.getStopOpacity())
+
+    // Test with Number
+    def stop2 = lg.addStop()
+      .offset('100%')
+      .stopColor('blue')
+      .stopOpacity(0.8)
+    assertEquals('0.8', stop2.stopOpacity)
+    assertEquals('0.8', stop2.getStopOpacity())
+
+    // Verify in XML
+    String xml = lg.toXml()
+    assertTrue(xml.contains('stop-opacity="0.5"'))
+    assertTrue(xml.contains('stop-opacity="0.8"'))
+  }
 }

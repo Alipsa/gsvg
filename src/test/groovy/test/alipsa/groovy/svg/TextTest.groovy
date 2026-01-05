@@ -67,10 +67,10 @@ class TextTest {
       .wordSpacing('5')
       .letterSpacing('2')
 
-    assertEquals('10', text.getAttribute('x'))
-    assertEquals('20', text.getAttribute('y'))
-    assertEquals('5', text.getAttribute('dx'))
-    assertEquals('10', text.getAttribute('dy'))
+    assertEquals('10', text.x)
+    assertEquals('20', text.y)
+    assertEquals('5', text.dx)
+    assertEquals('10', text.dy)
     assertEquals('16', text.getAttribute('font-size'))
     assertEquals('Arial', text.fontFamily)
     assertEquals('middle', text.textAnchor)
@@ -106,9 +106,9 @@ class TextTest {
     Svg svg = new Svg()
     def text = svg.addText([x: '50', y: '100', fill: 'blue', 'font-size': '20'])
 
-    assertEquals('50', text.getAttribute('x'))
-    assertEquals('100', text.getAttribute('y'))
-    assertEquals('blue', text.getAttribute('fill'))
+    assertEquals('50', text.x)
+    assertEquals('100', text.y)
+    assertEquals('blue', text.fill)
     assertEquals('20', text.getAttribute('font-size'))
   }
 
@@ -121,11 +121,11 @@ class TextTest {
       .dx(5).dy(10)
       .fill('green')
 
-    assertEquals('30', tspan.getAttribute('x'))
-    assertEquals('40', tspan.getAttribute('y'))
-    assertEquals('5', tspan.getAttribute('dx'))
-    assertEquals('10', tspan.getAttribute('dy'))
-    assertEquals('green', tspan.getAttribute('fill'))
+    assertEquals('30', tspan.x)
+    assertEquals('40', tspan.y)
+    assertEquals('5', tspan.dx)
+    assertEquals('10', tspan.dy)
+    assertEquals('green', tspan.fill)
   }
 
   @Test
@@ -141,5 +141,52 @@ class TextTest {
     assertTrue(text.toXml().contains('<textPath'))
     assertTrue(text.toXml().contains('href="#myPath"'))
     assertTrue(text.toXml().contains('startOffset="25%"'))
+  }
+
+  @Test
+  void testTextGetters() {
+    Svg svg = new Svg()
+    def text = svg.addText('Test')
+      .x(10).y(20)
+      .dx(5).dy(10)
+      .fill('blue')
+
+    // Test explicit getters
+    assertEquals('10', text.getX())
+    assertEquals('20', text.getY())
+    assertEquals('5', text.getDx())
+    assertEquals('10', text.getDy())
+    assertEquals('blue', text.getFill())
+
+    // Test property access
+    assertEquals('10', text.x)
+    assertEquals('20', text.y)
+    assertEquals('5', text.dx)
+    assertEquals('10', text.dy)
+    assertEquals('blue', text.fill)
+  }
+
+  @Test
+  void testTspanGetters() {
+    Svg svg = new Svg()
+    def text = svg.addText('Base')
+    def tspan = text.addTspan('Span')
+      .x(30).y(40)
+      .dx(5).dy(10)
+      .fill('green')
+
+    // Test explicit getters
+    assertEquals('30', tspan.getX())
+    assertEquals('40', tspan.getY())
+    assertEquals('5', tspan.getDx())
+    assertEquals('10', tspan.getDy())
+    assertEquals('green', tspan.getFill())
+
+    // Test property access
+    assertEquals('30', tspan.x)
+    assertEquals('40', tspan.y)
+    assertEquals('5', tspan.dx)
+    assertEquals('10', tspan.dy)
+    assertEquals('green', tspan.fill)
   }
 }

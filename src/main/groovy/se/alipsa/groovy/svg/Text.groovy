@@ -41,6 +41,15 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   }
 
   /**
+   * Returns the fill value.
+   *
+   * @return the fill value
+   */
+  String getFill() {
+    getAttribute('fill')
+  }
+
+  /**
    * The x position of the start of the text. Default is 0.
    *
    * @param x the x value
@@ -78,6 +87,24 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
    */
   Text y(String y) {
     addAttribute('y', String.valueOf(y))
+  }
+
+  /**
+   * Returns the x value.
+   *
+   * @return the x value
+   */
+  String getX() {
+    getAttribute('x')
+  }
+
+  /**
+   * Returns the y value.
+   *
+   * @return the y value
+   */
+  String getY() {
+    getAttribute('y')
   }
 
   /**
@@ -201,6 +228,24 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
    */
   Text dy(String dy) {
     addAttribute('dy', "$dy")
+  }
+
+  /**
+   * Returns the dx value.
+   *
+   * @return the dx value
+   */
+  String getDx() {
+    getAttribute('dx')
+  }
+
+  /**
+   * Returns the dy value.
+   *
+   * @return the dy value
+   */
+  String getDy() {
+    getAttribute('dy')
   }
 
   /**

@@ -163,4 +163,33 @@ class RadialGradient extends Gradient<RadialGradient> {
   String getFy() {
     getAttribute('fy')
   }
+
+  /**
+   * Sets the fr attribute (focal point radius).
+   *
+   * @param fr the focal point radius
+   * @return this element for chaining
+   */
+  RadialGradient fr(String fr) {
+    addAttribute('fr', fr)
+  }
+
+  /**
+   * Sets the fr attribute (focal point radius).
+   *
+   * @param fr the focal point radius
+   * @return this element for chaining
+   */
+  RadialGradient fr(Number fr) {
+    addAttribute('fr', "$fr")
+  }
+
+  /**
+   * Returns the fr value.
+   *
+   * @return the fr value
+   */
+  String getFr() {
+    getAttribute('fr')
+  }
 }

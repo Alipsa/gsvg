@@ -66,4 +66,33 @@ class Stop extends SvgElement<Stop> {
   String getStopColor() {
     getAttribute("stop-color")
   }
+
+  /**
+   * Sets the stop opacity attribute.
+   *
+   * @param opacity the opacity value (0-1)
+   * @return this element for chaining
+   */
+  Stop stopOpacity(String opacity) {
+    addAttribute("stop-opacity", opacity)
+  }
+
+  /**
+   * Sets the stop opacity attribute.
+   *
+   * @param opacity the opacity value (0-1)
+   * @return this element for chaining
+   */
+  Stop stopOpacity(Number opacity) {
+    addAttribute("stop-opacity", opacity)
+  }
+
+  /**
+   * Returns the stop opacity value.
+   *
+   * @return the stop opacity value
+   */
+  String getStopOpacity() {
+    getAttribute("stop-opacity")
+  }
 }
