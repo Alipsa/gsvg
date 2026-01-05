@@ -61,8 +61,11 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
    */
   T addPoints(Coordinate... points) {
     Attribute pa = element.attribute('points')
-    String paVal = pa == null ? toAttributeValues(points) : pa.getValue() + ' ' + toAttributeValues(points)
-    pa.setValue(paVal)
+    if (pa == null) {
+      addAttribute('points', toAttributeValues(points))
+    } else {
+      pa.setValue(pa.getValue() + ' ' + toAttributeValues(points))
+    }
     this as T
   }
 
@@ -74,8 +77,11 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
    */
   T addPoint(Coordinate point) {
     Attribute pa = element.attribute('points')
-    String paVal = (pa == null ? getPoints() : pa.getValue()) + ' ' + point.toString()
-    pa.setValue(paVal)
+    if (pa == null) {
+      addAttribute('points', point.toString())
+    } else {
+      pa.setValue(pa.getValue() + ' ' + point.toString())
+    }
     this as T
   }
 
