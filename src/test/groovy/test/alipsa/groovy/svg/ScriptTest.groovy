@@ -1,11 +1,12 @@
 package test.alipsa.groovy.svg
 
 import org.junit.jupiter.api.Test
+import se.alipsa.groovy.svg.Script
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.io.SvgWriter
 
-import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.junit.jupiter.api.Assertions.*
 
 class ScriptTest {
 
@@ -108,5 +109,113 @@ class ScriptTest {
         .fontFamily('Verdana').fontSize(35).textAnchor('middle')
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
 
+  }
+
+  @Test
+  void testScriptTypeGetter() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .type('text/javascript')
+
+    assertEquals('text/javascript', script.type)
+    assertEquals('text/javascript', script.getType())
+    assertTrue(script.toXml().contains('type="text/javascript"'))
+  }
+
+  @Test
+  void testScriptHref() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .href('scripts/main.js')
+
+    assertEquals('scripts/main.js', script.href)
+    assertEquals('scripts/main.js', script.getHref())
+    assertTrue(script.toXml().contains('href="scripts/main.js"'))
+  }
+
+  @Test
+  void testScriptExternalReference() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .type('text/javascript')
+            .href('https://example.com/script.js')
+
+    assertEquals('https://example.com/script.js', script.href)
+    assertTrue(script.toXml().contains('href="https://example.com/script.js"'))
+  }
+
+  @Test
+  void testScriptXlinkHref() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .xlinkHref('legacy/script.js')
+
+    assertEquals('legacy/script.js', script.xlinkHref)
+    assertEquals('legacy/script.js', script.getXlinkHref())
+    assertTrue(script.toXml().contains('xlink:href="legacy/script.js"'))
+  }
+
+  @Test
+  void testScriptHrefFallbackToXlink() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .xlinkHref('fallback.js')
+
+    // getHref() should fall back to xlink:href if href is not set
+    assertEquals('fallback.js', script.getHref())
+  }
+
+  @Test
+  void testScriptCrossoriginAnonymous() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .href('https://cdn.example.com/lib.js')
+            .crossorigin('anonymous')
+
+    assertEquals('anonymous', script.crossorigin)
+    assertEquals('anonymous', script.getCrossorigin())
+    assertTrue(script.toXml().contains('crossorigin="anonymous"'))
+  }
+
+  @Test
+  void testScriptCrossoriginUseCredentials() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .href('https://cdn.example.com/lib.js')
+            .crossorigin('use-credentials')
+
+    assertEquals('use-credentials', script.crossorigin)
+    assertTrue(script.toXml().contains('crossorigin="use-credentials"'))
+  }
+
+  @Test
+  void testScriptCompleteAttributes() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+            .type('text/javascript')
+            .href('https://example.com/script.js')
+            .crossorigin('anonymous')
+
+    assertEquals('text/javascript', script.type)
+    assertEquals('https://example.com/script.js', script.href)
+    assertEquals('anonymous', script.crossorigin)
+
+    String xml = script.toXml()
+    assertTrue(xml.contains('type="text/javascript"'))
+    assertTrue(xml.contains('href="https://example.com/script.js"'))
+    assertTrue(xml.contains('crossorigin="anonymous"'))
+  }
+
+  @Test
+  void testScriptMethodChaining() {
+    Svg svg = new Svg()
+    Script script = svg.addScript()
+
+    Script result = script
+            .type('text/javascript')
+            .href('app.js')
+            .crossorigin('anonymous')
+
+    assertSame(script, result)
   }
 }
