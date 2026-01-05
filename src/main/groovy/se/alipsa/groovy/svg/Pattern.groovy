@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <pattern>} element that defines a tiled pattern paint.
  */
+@CompileStatic
 class Pattern extends AbstractElementContainer<Pattern> {
 
   static final String NAME='pattern'

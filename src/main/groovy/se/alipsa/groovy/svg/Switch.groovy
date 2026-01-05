@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <switch>} element that conditionally selects one child to render.
  */
+@CompileStatic
 class Switch extends AbstractElementContainer<Switch> {
   static final String NAME='switch'
 

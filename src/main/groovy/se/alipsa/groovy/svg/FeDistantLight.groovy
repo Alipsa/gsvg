@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feDistantLight>} element that defines a distant light source.
  */
+@CompileStatic
 class FeDistantLight extends LightSourceElement<FeDistantLight> {
 
   static final String NAME = 'feDistantLight'

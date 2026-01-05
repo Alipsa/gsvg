@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <mpath>} element that references a path for motion animation.
  */
+@CompileStatic
 class Mpath extends SvgElement<Mpath> {
 
   static final String NAME='mpath'

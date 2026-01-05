@@ -1,10 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
 /**
  * SVG {@code <polygon>} element that draws a closed polygon from points.
  */
+@CompileStatic
 class Polygon extends AbstractPoly<Polygon> {
 
   static final String NAME='polygon'

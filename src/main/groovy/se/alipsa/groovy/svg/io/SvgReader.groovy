@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg.io
 
-
+import groovy.transform.CompileDynamic
+import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
 import org.xml.sax.Attributes
@@ -8,99 +9,7 @@ import org.xml.sax.InputSource
 import org.xml.sax.SAXException
 import org.xml.sax.ext.LexicalHandler
 import org.xml.sax.helpers.DefaultHandler
-import se.alipsa.groovy.svg.A
-import se.alipsa.groovy.svg.Animate
-import se.alipsa.groovy.svg.AnimateMotion
-import se.alipsa.groovy.svg.AnimateTransform
-import se.alipsa.groovy.svg.Circle
-import se.alipsa.groovy.svg.ClipPath
-import se.alipsa.groovy.svg.ColorProfile
-import se.alipsa.groovy.svg.Defs
-import se.alipsa.groovy.svg.Desc
-import se.alipsa.groovy.svg.Discard
-import se.alipsa.groovy.svg.Ellipse
-import se.alipsa.groovy.svg.ExternalElementContainer
-import se.alipsa.groovy.svg.Font
-import se.alipsa.groovy.svg.FontFace
-import se.alipsa.groovy.svg.FontFaceFormat
-import se.alipsa.groovy.svg.FontFaceName
-import se.alipsa.groovy.svg.FontFaceSrc
-import se.alipsa.groovy.svg.FontFaceUri
-import se.alipsa.groovy.svg.FeBlend
-import se.alipsa.groovy.svg.FeColorMatrix
-import se.alipsa.groovy.svg.FeComponentTransfer
-import se.alipsa.groovy.svg.FeComposite
-import se.alipsa.groovy.svg.FeConvolveMatrix
-import se.alipsa.groovy.svg.FeDiffuseLighting
-import se.alipsa.groovy.svg.FeDisplacementMap
-import se.alipsa.groovy.svg.FeDistantLight
-import se.alipsa.groovy.svg.FeDropShadow
-import se.alipsa.groovy.svg.FeFlood
-import se.alipsa.groovy.svg.FeFuncA
-import se.alipsa.groovy.svg.FeFuncB
-import se.alipsa.groovy.svg.FeFuncG
-import se.alipsa.groovy.svg.FeFuncR
-import se.alipsa.groovy.svg.FeGaussianBlur
-import se.alipsa.groovy.svg.FeImage
-import se.alipsa.groovy.svg.FeMerge
-import se.alipsa.groovy.svg.FeMergeNode
-import se.alipsa.groovy.svg.FeMorphology
-import se.alipsa.groovy.svg.FeOffset
-import se.alipsa.groovy.svg.FePointLight
-import se.alipsa.groovy.svg.FeSpecularLighting
-import se.alipsa.groovy.svg.FeSpotLight
-import se.alipsa.groovy.svg.FeTile
-import se.alipsa.groovy.svg.FeTurbulence
-import se.alipsa.groovy.svg.Filter
-import se.alipsa.groovy.svg.ForeignObject
-import se.alipsa.groovy.svg.G
-import se.alipsa.groovy.svg.Glyph
-import se.alipsa.groovy.svg.GlyphRef
-import se.alipsa.groovy.svg.Image
-import se.alipsa.groovy.svg.Line
-import se.alipsa.groovy.svg.LinearGradient
-import se.alipsa.groovy.svg.Marker
-import se.alipsa.groovy.svg.Mask
-import se.alipsa.groovy.svg.Metadata
-import se.alipsa.groovy.svg.Mesh
-import se.alipsa.groovy.svg.MeshGradient
-import se.alipsa.groovy.svg.MeshPatch
-import se.alipsa.groovy.svg.MeshRow
-import se.alipsa.groovy.svg.MissingGlyph
-import se.alipsa.groovy.svg.Mpath
-import se.alipsa.groovy.svg.Path
-import se.alipsa.groovy.svg.Pattern
-import se.alipsa.groovy.svg.Polygon
-import se.alipsa.groovy.svg.Polyline
-import se.alipsa.groovy.svg.RadialGradient
-import se.alipsa.groovy.svg.Rect
-import se.alipsa.groovy.svg.Script
-import se.alipsa.groovy.svg.Set
-import se.alipsa.groovy.svg.Stop
-import se.alipsa.groovy.svg.StringContentContainer
-import se.alipsa.groovy.svg.Style
-import se.alipsa.groovy.svg.Svg
-import se.alipsa.groovy.svg.SvgElement
-import se.alipsa.groovy.svg.Switch
-import se.alipsa.groovy.svg.Symbol
-import se.alipsa.groovy.svg.Text
-import se.alipsa.groovy.svg.TextPath
-import se.alipsa.groovy.svg.Tref
-import se.alipsa.groovy.svg.Title
-import se.alipsa.groovy.svg.Tspan
-import se.alipsa.groovy.svg.Use
-import se.alipsa.groovy.svg.Vkern
-import se.alipsa.groovy.svg.View
-import se.alipsa.groovy.svg.Audio
-import se.alipsa.groovy.svg.Video
-import se.alipsa.groovy.svg.Hatch
-import se.alipsa.groovy.svg.HatchPath
-import se.alipsa.groovy.svg.Hkern
-import se.alipsa.groovy.svg.Cursor
-import se.alipsa.groovy.svg.Solidcolor
-import se.alipsa.groovy.svg.AltGlyph
-import se.alipsa.groovy.svg.AltGlyphDef
-import se.alipsa.groovy.svg.AltGlyphItem
+import se.alipsa.groovy.svg.*
 
 import javax.xml.XMLConstants
 import javax.xml.parsers.SAXParser
@@ -109,6 +18,7 @@ import javax.xml.parsers.SAXParserFactory
 /**
  * Parses SVG XML into the gsvg object model.
  */
+@CompileStatic
 class SvgReader extends DefaultHandler implements LexicalHandler {
 
   Svg svg
@@ -131,6 +41,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    * @param qName the qualified name
    * @param attributes the attributes
    */
+  @CompileDynamic
   @Override
   void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
     //print('begin element ' + qName)
@@ -304,6 +215,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    * @param start the start position
    * @param length the length
    */
+  @CompileDynamic
   @Override
   void characters(char[] ch, int start, int length) throws SAXException {
     String text = new String(ch, start, length)

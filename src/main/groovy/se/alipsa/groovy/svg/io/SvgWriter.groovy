@@ -1,5 +1,6 @@
 package se.alipsa.groovy.svg.io
 
+import groovy.transform.CompileStatic
 import org.dom4j.io.OutputFormat
 import org.dom4j.io.XMLWriter
 import se.alipsa.groovy.svg.Svg
@@ -7,6 +8,7 @@ import se.alipsa.groovy.svg.Svg
 /**
  * Serializes the gsvg object model to SVG XML.
  */
+@CompileStatic
 class SvgWriter {
 
   /**

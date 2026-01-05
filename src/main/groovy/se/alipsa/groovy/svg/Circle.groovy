@@ -1,10 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
 /**
  * SVG {@code <circle>} element that draws a circle by center and radius.
  */
+@CompileStatic
 class Circle extends AbstractShape<Circle> {
 
   static final String NAME='circle'

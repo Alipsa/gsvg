@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <meshpatch>} element that defines a single patch in a mesh gradient.
  */
+@CompileStatic
 class MeshPatch extends SvgElement<MeshPatch> {
 
   static final String NAME = 'meshpatch'

@@ -1,10 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.QName
 
 /**
  * Base class for SVG elements that contain text or CDATA content.
  */
+@CompileStatic
 abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElement<T> {
 
 
@@ -47,7 +49,7 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
    */
   T addContent(String text) {
     element.addText(text)
-    this
+    this as T
   }
 
   /**
@@ -67,7 +69,7 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
    */
   T replaceContent(String content) {
     element.setText(content)
-    this
+    this as T
   }
 
   /**
@@ -78,6 +80,6 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
    */
   T addCdataContent(String content) {
     element.addCDATA(content)
-    this
+    this as T
   }
 }

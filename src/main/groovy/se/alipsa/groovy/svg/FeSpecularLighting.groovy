@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feSpecularLighting>} filter primitive that computes specular lighting.
  */
+@CompileStatic
 class FeSpecularLighting extends FilterElement<FeSpecularLighting> implements LightSourceContainer<FeSpecularLighting> {
 
   static final String NAME='feSpecularLighting'

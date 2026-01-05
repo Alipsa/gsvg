@@ -1,8 +1,19 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+import groovy.transform.SelfType
+
 /**
  * Trait for filter primitives that can contain light source elements.
+ * <p>
+ * This trait uses the {@code @SelfType} annotation to declare that any class implementing
+ * this trait must extend {@link FilterElement}. This allows the trait to call methods from
+ * {@code FilterElement} (such as {@code addAttribute()}) while maintaining type safety under
+ * static compilation. Without {@code @SelfType}, the static compiler would not be able to
+ * verify these method calls.
  */
+@CompileStatic
+@SelfType(FilterElement)
 trait LightSourceContainer<T extends FilterElement<T>> {
 
   LightSourceElement lightSource
@@ -13,7 +24,9 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @return the created element
    */
   FeDistantLight addFeDistantLight() {
-    (lightSource = new FeDistantLight(this))
+    def light = new FeDistantLight(this)
+    lightSource = light
+    light
   }
 
   /**
@@ -22,7 +35,9 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @return the created element
    */
   FePointLight addFePointLight() {
-    (lightSource = new FePointLight(this))
+    def light = new FePointLight(this)
+    lightSource = light
+    light
   }
 
   /**
@@ -31,7 +46,9 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @return the created element
    */
   FeSpotLight addFeSpotLight() {
-    (lightSource = new FeSpotLight(this))
+    def light = new FeSpotLight(this)
+    lightSource = light
+    light
   }
 
   /**
@@ -49,8 +66,8 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  T in(String inStr) {
-    addAttribute('in', inStr)
+  T 'in'(String inStr) {
+    addAttribute('in', inStr) as T
   }
 
   /**
@@ -59,7 +76,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  T in(In inEnum) {
+  T 'in'(In inEnum) {
     addAttribute('in', inEnum.name()) as T
   }
 

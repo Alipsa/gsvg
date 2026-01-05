@@ -1,8 +1,11 @@
-package se.alipsa.groovy.svg;
+package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic;
 
 /**
  * SVG {@code <linearGradient>} element that defines a linear gradient paint.
  */
+@CompileStatic
 class LinearGradient extends Gradient<LinearGradient> {
 
   static final String NAME = 'linearGradient'

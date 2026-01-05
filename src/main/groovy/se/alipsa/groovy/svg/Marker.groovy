@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <marker>} element that defines marker graphics for line ends or vertices.
  */
+@CompileStatic
 class Marker extends AbstractElementContainer<Marker> implements GradientContainer {
 
   static final String NAME = 'marker'

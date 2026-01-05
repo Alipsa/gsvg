@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feConvolveMatrix>} filter primitive that applies a convolution kernel.
  */
+@CompileStatic
 class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
 
   static final String NAME='feConvolveMatrix'

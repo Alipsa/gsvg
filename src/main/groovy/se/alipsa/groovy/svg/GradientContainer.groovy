@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Trait for elements that can contain gradient definitions.
  */
+@CompileStatic
 trait GradientContainer extends ElementContainer {
 
   /**
@@ -14,6 +17,14 @@ trait GradientContainer extends ElementContainer {
     add(new LinearGradient(this as SvgElement<? extends SvgElement>))
   }
 
+  LinearGradient addLinearGradient(Map attributes) {
+    LinearGradient lg = addLinearGradient()
+    attributes.each {
+      key, value -> lg.addAttribute(String.valueOf(key), value)
+    }
+    lg
+  }
+
   /**
    * Creates and adds a new RadialGradient child element.
    *
@@ -21,6 +32,14 @@ trait GradientContainer extends ElementContainer {
    */
   RadialGradient addRadialGradient() {
     add(new RadialGradient(this as SvgElement<? extends SvgElement>))
+  }
+
+  RadialGradient addRadialGradient(Map attributes) {
+    RadialGradient rg = addRadialGradient()
+    attributes.each {
+      key, value -> rg.addAttribute(String.valueOf(key), value)
+    }
+    rg
   }
 
 

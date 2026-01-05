@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feGaussianBlur>} filter primitive that applies a Gaussian blur.
  */
+@CompileStatic
 class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
 
   static final String NAME = 'feGaussianBlur'
@@ -22,7 +25,7 @@ class FeGaussianBlur extends FilterElement<FeGaussianBlur> {
    * @param input the input
    * @return this element for chaining
    */
-  FeGaussianBlur in(String input) {
+  FeGaussianBlur 'in'(String input) {
     addAttribute('in', input)
   }
 

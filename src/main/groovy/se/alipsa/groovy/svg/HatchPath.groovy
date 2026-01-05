@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <hatchpath>} element that defines a hatch path used by hatch.
  */
+@CompileStatic
 class HatchPath extends SvgElement<HatchPath> {
 
   static final String NAME = 'hatchpath'

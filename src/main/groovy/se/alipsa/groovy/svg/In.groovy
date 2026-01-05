@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Enumerates filter input keywords for the 'in' attribute of filter primitives.
  */
+@CompileStatic
 enum In {
 
   /**

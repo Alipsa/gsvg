@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <a>} element that makes its children into a hyperlink.
  */
+@CompileStatic
 class A extends AbstractElementContainer<A> implements GradientContainer, Animatable<A> {
 
     static final String NAME = 'a'
@@ -24,7 +27,7 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
      */
     A(SvgElement<? extends SvgElement> parent, String href) {
         super(parent, NAME)
-        href(href)
+        this.href(href)
     }
 
     /**
@@ -82,6 +85,63 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
      */
     String getTarget() {
         getAttribute('target')
+    }
+
+    /**
+     * Sets the download attribute.
+     *
+     * @param filename the filename for download
+     * @return this element for chaining
+     */
+    A download(String filename) {
+        addAttribute('download', filename)
+    }
+
+    /**
+     * Returns the download value.
+     *
+     * @return the download value
+     */
+    String getDownload() {
+        getAttribute('download')
+    }
+
+    /**
+     * Sets the type attribute (MIME type).
+     *
+     * @param type the MIME type
+     * @return this element for chaining
+     */
+    A type(String type) {
+        addAttribute('type', type)
+    }
+
+    /**
+     * Returns the type value.
+     *
+     * @return the type value
+     */
+    String getType() {
+        getAttribute('type')
+    }
+
+    /**
+     * Sets the rel attribute.
+     *
+     * @param rel the relationship type
+     * @return this element for chaining
+     */
+    A rel(String rel) {
+        addAttribute('rel', rel)
+    }
+
+    /**
+     * Returns the rel value.
+     *
+     * @return the rel value
+     */
+    String getRel() {
+        getAttribute('rel')
     }
 
 }

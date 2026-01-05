@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <animateMotion>} element that animates motion along a path.
  */
+@CompileStatic
 class AnimateMotion extends Animation<AnimateMotion> {
 
   static final String NAME='animateMotion'
@@ -102,6 +105,14 @@ class AnimateMotion extends Animation<AnimateMotion> {
   Mpath addMpath() {
     Mpath mp = new Mpath(this)
     children << mp
+    mp
+  }
+
+  Mpath addMpath(Map attributes) {
+    Mpath mp = addMpath()
+    attributes.each {
+      key, value -> mp.addAttribute(String.valueOf(key), value)
+    }
     mp
   }
 }

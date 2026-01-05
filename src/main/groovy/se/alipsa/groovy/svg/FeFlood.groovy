@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feFlood>} filter primitive that fills the filter region with a solid color.
  */
+@CompileStatic
 class FeFlood extends  FilterElement<FeFlood> {
   static final String NAME = 'feFlood'
 

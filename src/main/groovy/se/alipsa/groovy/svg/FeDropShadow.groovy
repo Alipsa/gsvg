@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feDropShadow>} filter primitive that creates a drop shadow.
  */
+@CompileStatic
 class FeDropShadow extends FilterElement<FeDropShadow> {
 
   static final String NAME = 'feDropShadow'

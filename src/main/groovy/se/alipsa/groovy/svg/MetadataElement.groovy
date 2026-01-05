@@ -1,11 +1,13 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
 
 /**
  * Represents metadata elements in non-SVG namespaces within metadata.
  */
+@CompileStatic
 class MetadataElement extends StringContentContainer<MetadataElement> implements ExternalElementContainer<MetadataElement> {
 
   /**

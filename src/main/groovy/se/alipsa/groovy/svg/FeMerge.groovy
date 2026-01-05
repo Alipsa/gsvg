@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feMerge>} filter primitive that merges multiple inputs into one.
  */
+@CompileStatic
 class FeMerge extends FilterElement<FeMerge> {
 
   static final String NAME = 'feMerge'
@@ -33,5 +36,13 @@ class FeMerge extends FilterElement<FeMerge> {
    */
   FeMergeNode addFeMergeNode(String id) {
     addFeMergeNode().id(id)
+  }
+
+  FeMergeNode addFeMergeNode(Map attributes) {
+    FeMergeNode elem = addFeMergeNode()
+    attributes.each {
+      key, value -> elem.addAttribute(String.valueOf(key), value)
+    }
+    elem
   }
 }

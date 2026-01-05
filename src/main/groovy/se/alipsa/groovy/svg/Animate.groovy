@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <animate>} element that animates an attribute or property value over time.
  */
+@CompileStatic
 class Animate extends Animation<Animate> {
 
   static final String NAME='animate'
@@ -156,5 +159,138 @@ class Animate extends Animation<Animate> {
    */
   String getFill() {
     getAttribute('fill')
+  }
+
+  /**
+   * Sets the calcMode attribute (animation interpolation mode).
+   *
+   * @param mode the calculation mode (discrete, linear, paced, spline)
+   * @return this element for chaining
+   */
+  Animate calcMode(String mode) {
+    addAttribute('calcMode', mode)
+  }
+
+  /**
+   * Returns the calcMode value.
+   *
+   * @return the calcMode value
+   */
+  String getCalcMode() {
+    getAttribute('calcMode')
+  }
+
+  /**
+   * Sets the additive attribute.
+   *
+   * @param additive whether animation is additive (replace, sum)
+   * @return this element for chaining
+   */
+  Animate additive(String additive) {
+    addAttribute('additive', additive)
+  }
+
+  /**
+   * Returns the additive value.
+   *
+   * @return the additive value
+   */
+  String getAdditive() {
+    getAttribute('additive')
+  }
+
+  /**
+   * Sets the accumulate attribute.
+   *
+   * @param accumulate whether animation accumulates (none, sum)
+   * @return this element for chaining
+   */
+  Animate accumulate(String accumulate) {
+    addAttribute('accumulate', accumulate)
+  }
+
+  /**
+   * Returns the accumulate value.
+   *
+   * @return the accumulate value
+   */
+  String getAccumulate() {
+    getAttribute('accumulate')
+  }
+
+  /**
+   * Sets the end attribute.
+   *
+   * @param time the end time for the animation
+   * @return this element for chaining
+   */
+  Animate end(String time) {
+    addAttribute('end', time)
+  }
+
+  /**
+   * Returns the end value.
+   *
+   * @return the end value
+   */
+  String getEnd() {
+    getAttribute('end')
+  }
+
+  /**
+   * Sets the keyTimes attribute.
+   *
+   * @param times semicolon-separated time values
+   * @return this element for chaining
+   */
+  Animate keyTimes(String times) {
+    addAttribute('keyTimes', times)
+  }
+
+  /**
+   * Returns the keyTimes value.
+   *
+   * @return the keyTimes value
+   */
+  String getKeyTimes() {
+    getAttribute('keyTimes')
+  }
+
+  /**
+   * Sets the repeatDur attribute.
+   *
+   * @param duration total duration for repeating
+   * @return this element for chaining
+   */
+  Animate repeatDur(String duration) {
+    addAttribute('repeatDur', duration)
+  }
+
+  /**
+   * Returns the repeatDur value.
+   *
+   * @return the repeatDur value
+   */
+  String getRepeatDur() {
+    getAttribute('repeatDur')
+  }
+
+  /**
+   * Sets the repeatCount attribute.
+   *
+   * @param count number of times to repeat
+   * @return this element for chaining
+   */
+  Animate repeatCount(String count) {
+    addAttribute('repeatCount', count)
+  }
+
+  /**
+   * Returns the repeatCount value.
+   *
+   * @return the repeatCount value
+   */
+  String getRepeatCount() {
+    getAttribute('repeatCount')
   }
 }

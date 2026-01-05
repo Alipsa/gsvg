@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Trait that stores child elements and provides selection helpers.
  */
+@CompileStatic
 trait ElementContainer {
 
   private List<SvgElement<? extends SvgElement>> children = []

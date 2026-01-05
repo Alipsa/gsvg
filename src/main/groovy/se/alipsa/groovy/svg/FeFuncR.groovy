@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feFuncR>} element that defines the red channel transfer function.
  */
+@CompileStatic
 class FeFuncR extends FilterFunction<FeFuncR> {
 
   static final String NAME = 'feFuncR'

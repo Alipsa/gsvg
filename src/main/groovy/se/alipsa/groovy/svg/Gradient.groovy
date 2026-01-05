@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Base class for gradient elements that define color transitions.
  */
+@CompileStatic
 abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
 
   /**
@@ -55,6 +58,33 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
   T spreadMethod(String method) {
     addAttribute('spreadMethod', method)
     this as T
+  }
+
+  /**
+   * Returns the gradient units value.
+   *
+   * @return the gradient units value
+   */
+  String getGradientUnits() {
+    getAttribute('gradientUnits')
+  }
+
+  /**
+   * Returns the gradient transform value.
+   *
+   * @return the gradient transform value
+   */
+  String getGradientTransform() {
+    getAttribute('gradientTransform')
+  }
+
+  /**
+   * Returns the spread method value.
+   *
+   * @return the spread method value
+   */
+  String getSpreadMethod() {
+    getAttribute('spreadMethod')
   }
 
   /**

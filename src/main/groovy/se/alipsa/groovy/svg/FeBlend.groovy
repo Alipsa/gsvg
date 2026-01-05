@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feBlend>} filter primitive that blends two input images.
  */
+@CompileStatic
 class FeBlend extends FilterElement<FeBlend> {
 
   static final String NAME = 'feBlend'
@@ -30,7 +33,7 @@ class FeBlend extends FilterElement<FeBlend> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  FeBlend in(String inStr) {
+  FeBlend 'in'(String inStr) {
     addAttribute('in', inStr)
   }
 
@@ -40,7 +43,7 @@ class FeBlend extends FilterElement<FeBlend> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  FeBlend in(In inEnum) {
+  FeBlend 'in'(In inEnum) {
     addAttribute('in', inEnum.name())
   }
 

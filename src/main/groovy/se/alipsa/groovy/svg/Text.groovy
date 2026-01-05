@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <text>} element that renders text content.
  */
+@CompileStatic
 class Text extends StringContentContainer<Text> implements Animatable<Text> {
 
   static final String NAME='text'
@@ -35,6 +38,15 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
    */
   Text fill(String fill) {
     addAttribute('fill', fill)
+  }
+
+  /**
+   * Returns the fill value.
+   *
+   * @return the fill value
+   */
+  String getFill() {
+    getAttribute('fill')
   }
 
   /**
@@ -78,6 +90,24 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   }
 
   /**
+   * Returns the x value.
+   *
+   * @return the x value
+   */
+  String getX() {
+    getAttribute('x')
+  }
+
+  /**
+   * Returns the y value.
+   *
+   * @return the y value
+   */
+  String getY() {
+    getAttribute('y')
+  }
+
+  /**
    * Creates and adds a new Tspan child element.
    *
    * @return the created element
@@ -96,6 +126,14 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     add(new Tspan(this, content))
   }
 
+  Tspan addTspan(Map attributes) {
+    Tspan tspan = addTspan()
+    attributes.each {
+      key, value -> tspan.addAttribute(String.valueOf(key), value)
+    }
+    tspan
+  }
+
   /**
    * Creates and adds a new TextPath child element.
    *
@@ -103,6 +141,14 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
    */
   TextPath addTextPath() {
     add(new TextPath(this))
+  }
+
+  TextPath addTextPath(Map attributes) {
+    TextPath tp = addTextPath()
+    attributes.each {
+      key, value -> tp.addAttribute(String.valueOf(key), value)
+    }
+    tp
   }
 
   /**
@@ -182,6 +228,24 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
    */
   Text dy(String dy) {
     addAttribute('dy', "$dy")
+  }
+
+  /**
+   * Returns the dx value.
+   *
+   * @return the dx value
+   */
+  String getDx() {
+    getAttribute('dx')
+  }
+
+  /**
+   * Returns the dy value.
+   *
+   * @return the dy value
+   */
+  String getDy() {
+    getAttribute('dy')
   }
 
   /**

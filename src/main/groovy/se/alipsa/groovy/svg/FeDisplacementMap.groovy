@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feDisplacementMap>} filter primitive that displaces pixels using a map input.
  */
+@CompileStatic
 class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
 
   static final String NAME = 'feDisplacementMap'
@@ -22,7 +25,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
    * @param inStr the input source string identifier
    * @return this element for chaining
    */
-  FeDisplacementMap in(String inStr) {
+  FeDisplacementMap 'in'(String inStr) {
     addAttribute('in', inStr)
   }
 
@@ -32,7 +35,7 @@ class FeDisplacementMap extends FilterElement<FeDisplacementMap> {
    * @param inEnum the input source enumeration
    * @return this element for chaining
    */
-  FeDisplacementMap in(In inEnum) {
+  FeDisplacementMap 'in'(In inEnum) {
     addAttribute('in', inEnum.name())
   }
 

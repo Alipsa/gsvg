@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <meshGradient>} element that defines a mesh gradient paint.
  */
+@CompileStatic
 class MeshGradient extends AbstractElementContainer<MeshGradient> {
 
   static final String NAME = 'meshGradient'

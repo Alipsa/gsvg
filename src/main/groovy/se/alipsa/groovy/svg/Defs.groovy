@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <defs>} element that holds reusable definitions not rendered directly.
  */
+@CompileStatic
 class Defs extends AbstractElementContainer<Defs> implements GradientContainer, Animatable<Defs> {
 
   static final String NAME = 'defs'
@@ -35,6 +38,14 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
     addMarker().id(id)
   }
 
+  Marker addMarker(Map attributes) {
+    Marker marker = addMarker()
+    attributes.each {
+      key, value -> marker.addAttribute(String.valueOf(key), value)
+    }
+    marker
+  }
+
   /**
    * Creates and adds a new Pattern child element.
    *
@@ -54,6 +65,14 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
     add(new Pattern(this).id(id))
   }
 
+  Pattern addPattern(Map attributes) {
+    Pattern pattern = addPattern()
+    attributes.each {
+      key, value -> pattern.addAttribute(String.valueOf(key), value)
+    }
+    pattern
+  }
+
   /**
    * Creates and adds a new Symbol child element.
    *
@@ -61,5 +80,13 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
    */
   Symbol addSymbol() {
     add(new Symbol(this))
+  }
+
+  Symbol addSymbol(Map attributes) {
+    Symbol symbol = addSymbol()
+    attributes.each {
+      key, value -> symbol.addAttribute(String.valueOf(key), value)
+    }
+    symbol
   }
 }

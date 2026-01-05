@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <altGlyphItem>} element that groups alternate glyph choices.
  */
+@CompileStatic
 class AltGlyphItem extends SvgElement<AltGlyphItem> {
 
   static final String NAME = 'altGlyphItem'

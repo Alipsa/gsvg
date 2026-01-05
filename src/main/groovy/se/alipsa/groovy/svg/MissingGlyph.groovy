@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <missing-glyph>} element that defines a fallback glyph for missing characters.
  */
+@CompileStatic
 class MissingGlyph extends SvgElement<MissingGlyph> {
 
   static final String NAME = 'missing-glyph'

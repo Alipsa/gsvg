@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * Base class for SVG animation elements that target attributes over time.
  */
+@CompileStatic
 abstract class Animation<T extends SvgElement<T>> extends SvgElement<T> {
 
   /**

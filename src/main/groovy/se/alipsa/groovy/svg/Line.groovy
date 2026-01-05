@@ -1,10 +1,12 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 
 /**
  * SVG {@code <line>} element that draws a straight line between two points.
  */
+@CompileStatic
 class Line extends AbstractShape<Line> {
 
   static final String NAME='line'

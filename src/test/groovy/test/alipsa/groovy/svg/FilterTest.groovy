@@ -5,6 +5,7 @@ import se.alipsa.groovy.svg.Defs
 import se.alipsa.groovy.svg.FeBlend
 import se.alipsa.groovy.svg.FeColorMatrix
 import se.alipsa.groovy.svg.FeComposite
+import se.alipsa.groovy.svg.FeConvolveMatrix
 import se.alipsa.groovy.svg.FeDiffuseLighting
 import se.alipsa.groovy.svg.FeFlood
 import se.alipsa.groovy.svg.FeGaussianBlur
@@ -435,7 +436,7 @@ class FilterTest {
       .in(In.SourceGraphic)
       .result('light')
       .lightingColor('white')
-    .addFePointLight().x(150).y(60).z(20)
+      .addFePointLight().x(150).y(60).z(20)
     lightMe1.addFeComposite()
         .in("SourceGraphic")
         .in2("light")
@@ -668,6 +669,193 @@ class FilterTest {
     filter.addFeComposite().in("SourceGraphic" ).in2('specOut').operator("arithmetic").k1(0).k2(1).k3(1).k4(0)
     svg.addCircle().cx(110).cy(110).r(100).style("filter:url(#filter)")
     assertEquals(svgContent, SvgWriter.toXmlPretty(svg))
+  }
+
+  @Test
+  void testFeSpecularLightingAttributes() {
+    Svg svg = new Svg()
+    def filter = svg.addFilter('specTest')
+
+    // Test all FeSpecularLighting attributes and light source types
+    def spec1 = filter.addFeSpecularLighting()
+      .surfaceScale(5)
+      .specularConstant(1.5)
+      .specularExponent(20)
+      .lightingColor('white')
+      .result('spec1')
+      .in(In.SourceAlpha)
+
+    assertEquals('5', spec1.surfaceScale)
+    assertEquals('1.5', spec1.specularConstant)
+    assertEquals('20', spec1.specularExponent)
+    assertEquals('white', spec1.lightingColor)
+    assertEquals('spec1', spec1.result)
+    assertEquals('SourceAlpha', spec1.in)
+
+    // Test with feDistantLight
+    def spec2 = filter.addFeSpecularLighting()
+      .surfaceScale('3')
+      .specularConstant('2')
+      .specularExponent('15')
+    spec2.addFeDistantLight().azimuth(45).elevation(30)
+
+    assertEquals('3', spec2.surfaceScale)
+    assertEquals('2', spec2.specularConstant)
+    assertEquals('15', spec2.specularExponent)
+
+    // Test with feSpotLight
+    def spec3 = filter.addFeSpecularLighting().lightingColor('#ff0000')
+    spec3.addFeSpotLight()
+      .x(100).y(100).z(50)
+      .pointsAtX(200).pointsAtY(200).pointsAtZ(0)
+      .limitingConeAngle(30)
+
+    assertEquals('#ff0000', spec3.lightingColor)
+  }
+
+  @Test
+  void testMapBasedFilterFactoryMethods() {
+    Svg svg = new Svg(200, 200)
+    def filter = svg.addFilter([id: 'mapTest', x: '0', y: '0'])
+
+    // Test various filter element Map factories
+    def blur = filter.addFeGaussianBlur([stdDeviation: '5', result: 'blur1'])
+    assertEquals('5', blur.stdDeviation)
+    assertEquals('blur1', blur.result)
+
+    def blend = filter.addFeBlend([mode: 'multiply', in: 'blur1', in2: 'SourceGraphic'])
+    assertEquals('multiply', blend.mode)
+    assertEquals('blur1', blend.in)
+
+    def flood = filter.addFeFlood(['flood-color': 'red', 'flood-opacity': '0.5'])
+    assertEquals('red', flood.floodColor)
+    assertEquals('0.5', flood.floodOpacity)
+
+    def colorMatrix = filter.addFeColorMatrix([type: 'saturate', values: '0.5'])
+    // Note: 'type' conflicts with Object.getClass() generic types, so use getAttribute for this specific case
+    assertEquals('saturate', colorMatrix.getAttribute('type'))
+    assertEquals('0.5', colorMatrix.values)
+
+    def composite = filter.addFeComposite([operator: 'over', in: 'SourceGraphic'])
+    assertEquals('over', composite.operator)
+    assertEquals('SourceGraphic', composite.in)
+
+    def offset = filter.addFeOffset([dx: '10', dy: '20'])
+    assertEquals('10', offset.dx)
+    assertEquals('20', offset.dy)
+
+    def morphology = filter.addFeMorphology([operator: 'dilate', radius: '2'])
+    assertEquals('dilate', morphology.operator)
+    assertEquals('2', morphology.radius)
+
+    def dropShadow = filter.addFeDropShadow([dx: '5', dy: '5', stdDeviation: '3'])
+    assertEquals('5', dropShadow.dx)
+    assertEquals('5', dropShadow.dy)
+    assertEquals('3', dropShadow.stdDeviation)
+  }
+
+  @Test
+  void testMapBasedElementFactoryMethods() {
+    Svg svg = new Svg()
+
+    // Test Map-based circle
+    def circle = svg.addCircle([cx: '50', cy: '60', r: '25', fill: 'blue'])
+    assertEquals('50', circle.cx)
+    assertEquals('60', circle.cy)
+    assertEquals('25', circle.r)
+    assertEquals('blue', circle.fill)
+
+    // Test Map-based rect
+    def rect = svg.addRect([x: '10', y: '20', width: '100', height: '50', fill: 'green'])
+    assertEquals('10', rect.x)
+    assertEquals('20', rect.y)
+    assertEquals('100', rect.width)
+    assertEquals('50', rect.height)
+
+    // Test Map-based text
+    def text = svg.addText([x: '30', y: '40', fill: 'red'])
+    assertEquals('30', text.x)
+    assertEquals('40', text.y)
+    assertEquals('red', text.fill)
+
+    // Test Map-based line
+    def line = svg.addLine([x1: '0', y1: '0', x2: '100', y2: '100', stroke: 'black'])
+    assertEquals('0', line.x1)
+    assertEquals('0', line.y1)
+    assertEquals('100', line.x2)
+    assertEquals('100', line.y2)
+  }
+
+  @Test
+  void testMapBasedGradientMethods() {
+    Svg svg = new Svg()
+    def defs = svg.addDefs()
+
+    // Test Map-based LinearGradient
+    def lg = defs.addLinearGradient([id: 'lg1', x1: '0%', y1: '0%', x2: '100%', y2: '0%'])
+    assertEquals('lg1', lg.id)
+    assertEquals('0%', lg.x1)
+    assertEquals('100%', lg.x2)
+
+    // Test Map-based RadialGradient
+    def rg = defs.addRadialGradient([id: 'rg1', cx: '50%', cy: '50%', r: '50%'])
+    assertEquals('rg1', rg.id)
+    assertEquals('50%', rg.cx)
+    assertEquals('50%', rg.r)
+  }
+
+  @Test
+  void testFeBlendModeEnum() {
+    Svg svg = new Svg()
+    def filter = svg.addFilter('blendTest')
+
+    // Test all FeBlend.Mode enum values (5 values)
+    def blend1 = filter.addFeBlend().mode(FeBlend.Mode.normal)
+    assertEquals('normal', blend1.mode)
+
+    def blend2 = filter.addFeBlend().mode(FeBlend.Mode.multiply)
+    assertEquals('multiply', blend2.mode)
+
+    def blend3 = filter.addFeBlend().mode(FeBlend.Mode.screen)
+    assertEquals('screen', blend3.mode)
+
+    def blend4 = filter.addFeBlend().mode(FeBlend.Mode.darken)
+    assertEquals('darken', blend4.mode)
+
+    def blend5 = filter.addFeBlend().mode(FeBlend.Mode.lighten)
+    assertEquals('lighten', blend5.mode)
+
+    // Verify all enum values are accessible
+    assertNotNull(FeBlend.Mode.normal)
+    assertNotNull(FeBlend.Mode.multiply)
+    assertNotNull(FeBlend.Mode.screen)
+    assertNotNull(FeBlend.Mode.darken)
+    assertNotNull(FeBlend.Mode.lighten)
+
+    // Test using string mode as well
+    def blend6 = filter.addFeBlend().mode('multiply')
+    assertEquals('multiply', blend6.mode)
+  }
+
+  @Test
+  void testFeConvolveMatrixEdgeModeEnum() {
+    Svg svg = new Svg()
+    def filter = svg.addFilter('convolveTest')
+
+    // Test FeConvolveMatrix.EdgeMode enum values
+    def convolve1 = filter.addFeConvolveMatrix().edgeMode(FeConvolveMatrix.EdgeMode.duplicate)
+    assertEquals('duplicate', convolve1.edgeMode)
+
+    def convolve2 = filter.addFeConvolveMatrix().edgeMode(FeConvolveMatrix.EdgeMode.wrap)
+    assertEquals('wrap', convolve2.edgeMode)
+
+    def convolve3 = filter.addFeConvolveMatrix().edgeMode(FeConvolveMatrix.EdgeMode.none)
+    assertEquals('none', convolve3.edgeMode)
+
+    // Verify all enum values are accessible
+    assertNotNull(FeConvolveMatrix.EdgeMode.duplicate)
+    assertNotNull(FeConvolveMatrix.EdgeMode.wrap)
+    assertNotNull(FeConvolveMatrix.EdgeMode.none)
   }
 
 }

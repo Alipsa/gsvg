@@ -1,8 +1,11 @@
 package se.alipsa.groovy.svg
 
+import groovy.transform.CompileStatic
+
 /**
  * SVG {@code <feSpotLight>} element that defines a spotlight source.
  */
+@CompileStatic
 class FeSpotLight extends LightSourceElement<FeSpotLight> {
 
   static final String NAME='feSpotLight'
