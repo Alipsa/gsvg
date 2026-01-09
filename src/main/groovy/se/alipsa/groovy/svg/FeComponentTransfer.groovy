@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,6 +22,12 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
   FeComponentTransfer(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  FeComponentTransfer(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Creates and adds a new FeFuncA child element.

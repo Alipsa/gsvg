@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -25,6 +29,12 @@ class FeConvolveMatrix extends FilterElement<FeConvolveMatrix> {
   FeConvolveMatrix(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  FeConvolveMatrix(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the in attribute.

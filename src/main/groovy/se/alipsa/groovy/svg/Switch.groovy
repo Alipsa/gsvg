@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -17,6 +21,12 @@ class Switch extends AbstractElementContainer<Switch> {
   Switch(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  Switch(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the system language attribute.

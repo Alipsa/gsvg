@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,4 +22,10 @@ class ColorProfile extends SvgElement<ColorProfile> {
   ColorProfile(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  ColorProfile(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 }

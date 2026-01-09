@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,4 +22,10 @@ class MeshPatch extends SvgElement<MeshPatch> {
   MeshPatch(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  MeshPatch(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 }

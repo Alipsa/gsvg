@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
@@ -20,6 +24,12 @@ class ForeignObject extends StringContentContainer<ForeignObject> implements Ani
   ForeignObject(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  ForeignObject(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the width attribute.

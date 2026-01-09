@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -26,6 +30,12 @@ class FeBlend extends FilterElement<FeBlend> {
   FeBlend(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  FeBlend(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the in attribute.

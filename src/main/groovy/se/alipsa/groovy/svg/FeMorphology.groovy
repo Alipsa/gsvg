@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -25,6 +29,12 @@ class FeMorphology extends FilterElement<FeMorphology> {
   FeMorphology(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  FeMorphology(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the operator attribute.

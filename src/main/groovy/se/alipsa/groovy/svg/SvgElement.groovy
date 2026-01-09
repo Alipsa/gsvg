@@ -7,6 +7,25 @@ import org.dom4j.QName
 
 /**
  * Base class for all SVG elements backed by DOM4J elements.
+ *
+ * <h2>Constructor Pattern</h2>
+ * Each concrete SvgElement subclass provides two types of constructors:
+ *
+ * <ol>
+ * <li><b>Creating constructors</b> - Create new DOM elements and add them to the parent:
+ *     <pre>ClassName(SvgElement parent)</pre>
+ *     These constructors call {@code super(parent, NAME)} to create a new DOM element.
+ * </li>
+ * <li><b>Adopting constructors</b> - Adopt existing DOM elements for cloning/copying:
+ *     <pre>ClassName(SvgElement parent, Element element)</pre>
+ *     These constructors call {@code super(parent, element)} to wrap an existing DOM element.
+ *     Used by {@link SvgElementFactory} for pure object-oriented element copying without
+ *     XML serialization.
+ * </li>
+ * </ol>
+ *
+ * The adopting constructor pattern enables efficient deep copying of SVG element trees
+ * while maintaining both the DOM4J structure and the SvgElement object hierarchy.
  */
 @CompileStatic
 abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {

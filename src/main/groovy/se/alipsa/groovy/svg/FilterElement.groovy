@@ -1,6 +1,8 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * Base class for SVG filter primitives that process inputs and produce results.
@@ -16,6 +18,18 @@ abstract class FilterElement<T extends SvgElement<T>> extends SvgElement<T> {
    */
   FilterElement(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
+  }
+
+  /**
+   * Creates a FilterElement by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  @PackageScope
+  FilterElement(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

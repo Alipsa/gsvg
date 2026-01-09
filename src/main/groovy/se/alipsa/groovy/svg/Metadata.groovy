@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
@@ -20,6 +24,12 @@ class Metadata extends SvgElement<Metadata> implements ExternalElementContainer<
   Metadata(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  Metadata(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Creates and adds a new MetadataElement child element.

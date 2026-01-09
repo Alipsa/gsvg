@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,6 +22,12 @@ class FeOffset extends FilterElement<FeOffset> {
   FeOffset(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  FeOffset(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /** The horizontal shift position for the offset */
   FeOffset dx(Number dx) {
