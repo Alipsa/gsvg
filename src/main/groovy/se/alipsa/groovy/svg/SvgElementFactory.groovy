@@ -7,7 +7,17 @@ import org.dom4j.Element
  * Factory for creating SvgElement instances from DOM4J Elements.
  * Enables pure object-oriented copying and cloning without XML serialization.
  *
- * Sprint 2 complete: Supports all 83 concrete SVG element types.
+ * <h2>Implementation Status</h2>
+ * <ul>
+ * <li>Sprint 2 complete: All 83 concrete SVG element types supported</li>
+ * <li>Sprint 3 complete: Pure OO approach - zero XML serialization in merge operations</li>
+ * </ul>
+ *
+ * <h2>Performance</h2>
+ * The pure OO approach eliminates XML serialization overhead from merge operations.
+ * Both DOM structure and children lists are populated in a single pass during copying.
+ *
+ * @see se.alipsa.groovy.svg.utils.SvgMerger SvgMerger for usage examples
  */
 @CompileStatic
 class SvgElementFactory {

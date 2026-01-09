@@ -1,12 +1,28 @@
 package se.alipsa.groovy.svg.utils
 
 import groovy.transform.CompileStatic
-import org.xml.sax.InputSource
 import se.alipsa.groovy.svg.G
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElementFactory
-import se.alipsa.groovy.svg.io.SvgReader
 
+/**
+ * Utility for merging multiple SVG documents using a pure object-oriented approach.
+ *
+ * <h2>Pure OO Implementation (Sprint 3)</h2>
+ * This merger uses {@link SvgElementFactory} for efficient element copying without XML serialization.
+ * The factory populates both DOM4J structures and SvgElement children lists in a single pass,
+ * eliminating the need for XML parsing after merge operations.
+ *
+ * <h2>Performance</h2>
+ * The pure OO approach provides:
+ * <ul>
+ * <li>Zero XML serialization overhead during merge operations</li>
+ * <li>Direct object manipulation for better performance</li>
+ * <li>Single-pass construction maintains both DOM and object model consistency</li>
+ * </ul>
+ *
+ * @see SvgElementFactory for the underlying copy mechanism
+ */
 @CompileStatic
 class SvgMerger {
 
@@ -58,18 +74,17 @@ class SvgMerger {
         group.transform("translate(${currentX}, 0)")
       }
 
-      // Copy all child elements using factory (efficient DOM cloning)
+      // Copy all child elements using factory
+      // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
 
       // Update offset for next SVG
       currentX += dim.width
     }
 
-    // Parse the result to populate children lists properly
-    // This is a hybrid approach: we build using object model (efficient),
-    // then parse to ensure children lists are populated (necessary for API consistency)
-    SvgReader reader = new SvgReader()
-    return reader.parse(new InputSource(new StringReader(result.toXml())))
+    // Pure OO: No XML serialization needed!
+    // Children lists are already populated by the factory.
+    return result
   }
 
   /**
@@ -120,16 +135,17 @@ class SvgMerger {
         group.transform("translate(0, ${currentY})")
       }
 
-      // Copy all child elements using factory (efficient DOM cloning)
+      // Copy all child elements using factory
+      // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
 
       // Update offset for next SVG
       currentY += dim.height
     }
 
-    // Parse the result to populate children lists properly
-    SvgReader reader = new SvgReader()
-    return reader.parse(new InputSource(new StringReader(result.toXml())))
+    // Pure OO: No XML serialization needed!
+    // Children lists are already populated by the factory.
+    return result
   }
 
   /**
@@ -170,13 +186,14 @@ class SvgMerger {
       // Create a group for each SVG's content
       G group = result.addG()
 
-      // Copy all child elements using factory (efficient DOM cloning)
+      // Copy all child elements using factory
+      // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
     }
 
-    // Parse the result to populate children lists properly
-    SvgReader reader = new SvgReader()
-    return reader.parse(new InputSource(new StringReader(result.toXml())))
+    // Pure OO: No XML serialization needed!
+    // Children lists are already populated by the factory.
+    return result
   }
 
   /**
