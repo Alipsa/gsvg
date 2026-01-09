@@ -1,5 +1,18 @@
 # gsvg release notes
 
+## Version 0.5.0 - 2026-01-09
+- Merging: new `SvgMerger` utility to merge SVGs horizontally, vertically, or layered on top using pure object-oriented copying (no XML serialization).
+- Cloning support: added `SvgElementFactory` and adopting constructors across all SVG element types to enable deep copies that preserve DOM and children lists.
+- API ergonomics: `SvgElement.clone(AbstractElementContainer)` for deep cloning of element trees.
+- Documentation: new `doc/merging.md`, updated `doc/overview.md`, and comprehensive sprint summaries.
+- Tests: added `SvgMergerTest` and `SvgElementFactoryTest` for merge/copy behavior and coverage.
+- Build cleanup: upgraded JUnit, JaCoCo, and central-publishing plugins; removed legacy Gradle artifacts.
+
+**API additions/updates**
+- `SvgMerger.mergeHorizontally`, `SvgMerger.mergeVertically`, `SvgMerger.mergeOnTop`.
+- `SvgElementFactory.fromElement`, `SvgElementFactory.deepCopy`, `SvgElementFactory.copyChildren`.
+- `SvgElement.clone(AbstractElementContainer)` deep clone helper.
+
 ## Version 0.4.0 - 2026-01-05
 - API ergonomics: property-style attribute access on SvgElement, addAttributes(Map), and Map-based addX(Map) helpers across element containers (filters, gradients, defs, text, etc.).
 - Attribute coverage: expanded fluent setters/getters across shapes, text, gradients, filters, and animation elements (Phase 1-3 convenience methods).
