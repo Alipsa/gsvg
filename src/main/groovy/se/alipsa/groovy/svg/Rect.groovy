@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * SVG {@code <rect>} element that draws a rectangle, optionally with rounded corners.
@@ -27,6 +28,11 @@ class Rect extends AbstractShape<Rect>  {
       rx(0)
       ry(0)
     }
+  }
+
+  @PackageScope
+  Rect(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

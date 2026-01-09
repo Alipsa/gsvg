@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * SVG {@code <path>} element that defines shapes using path data commands.
@@ -14,6 +15,11 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
   @PackageScope
   Path(SvgElement parent) {
     super(parent, NAME)
+  }
+
+  @PackageScope
+  Path(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

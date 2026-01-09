@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 import org.dom4j.Namespace
 import org.dom4j.QName
@@ -40,6 +44,12 @@ class ForeignElement extends StringContentContainer<ForeignElement> implements E
   ForeignElement(SvgElement parent, QName qName) {
     super(parent, qName)
   }
+
+  @PackageScope
+  ForeignElement(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Creates and adds a new ForeignElement child element.

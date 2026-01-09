@@ -1,4 +1,4 @@
-/build/
 /.idea/
-/.gradle/
 /target/
+/.claude/
+/gsvg.iml

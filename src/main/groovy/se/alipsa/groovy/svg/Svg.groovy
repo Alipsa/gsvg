@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 import org.dom4j.Document
 import org.dom4j.DocumentHelper
@@ -51,6 +55,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     width(w)
     height(h)
   }
+
+  @PackageScope
+  Svg(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the width attribute.

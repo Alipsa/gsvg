@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * SVG {@code <line>} element that draws a straight line between two points.
@@ -31,6 +32,11 @@ class Line extends AbstractShape<Line> {
     y1(y1val)
     x2(x2val)
     y2(y2val)
+  }
+
+  @PackageScope
+  Line(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

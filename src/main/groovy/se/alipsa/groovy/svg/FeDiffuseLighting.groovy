@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,5 +22,11 @@ class FeDiffuseLighting extends FilterElement<FeDiffuseLighting> implements Ligh
   FeDiffuseLighting(SvgElement parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  FeDiffuseLighting(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
 }

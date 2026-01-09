@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,6 +22,12 @@ class Animate extends Animation<Animate> {
   Animate(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  Animate(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the attribute name attribute.

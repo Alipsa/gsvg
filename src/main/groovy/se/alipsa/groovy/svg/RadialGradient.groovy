@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <radialGradient>} element that defines a radial gradient paint.
@@ -17,6 +18,17 @@ class RadialGradient extends Gradient<RadialGradient> {
    */
   RadialGradient(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a RadialGradient by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  RadialGradient(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

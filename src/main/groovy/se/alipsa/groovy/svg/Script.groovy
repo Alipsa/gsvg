@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,6 +22,12 @@ class Script extends StringContentContainer<Script> {
   Script(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  Script(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the type attribute.

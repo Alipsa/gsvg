@@ -28,6 +28,17 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   }
 
   /**
+   * Creates an AbstractElementContainer by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  AbstractElementContainer(SvgElement<? extends SvgElement> parent, Element element) {
+    super(parent, element)
+  }
+
+  /**
    * Creates and adds a new Svg child element.
    *
    * @return the created element

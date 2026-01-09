@@ -1,6 +1,8 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * Base class for component transfer functions used by feComponentTransfer.
@@ -23,6 +25,18 @@ abstract class FilterFunction <T extends FilterElement<T>> extends FilterElement
    */
   FilterFunction(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
+  }
+
+  /**
+   * Creates a FilterFunction by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  @PackageScope
+  FilterFunction(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

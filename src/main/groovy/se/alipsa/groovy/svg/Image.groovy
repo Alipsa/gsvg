@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <image>} element that embeds a raster image.
@@ -17,6 +18,17 @@ class Image extends SvgElement<Image> implements Animatable<Image> {
    */
   Image(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a Image by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Image(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

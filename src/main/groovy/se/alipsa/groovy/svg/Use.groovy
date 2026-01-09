@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 
 /**
@@ -17,6 +18,17 @@ class Use extends SvgElement<Use> implements Animatable<Use> {
    */
   Use(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a Use by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Use(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * Base class for gradient elements that define color transitions.
@@ -16,6 +17,17 @@ abstract class Gradient<T extends Gradient<T>> extends SvgElement<T> {
    */
   Gradient(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
+  }
+
+  /**
+   * Creates a Gradient by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Gradient(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

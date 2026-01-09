@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <symbol>} element that defines a reusable graphic not rendered directly.
@@ -17,6 +18,17 @@ class Symbol extends AbstractElementContainer<Symbol> {
    */
   Symbol(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a Symbol by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Symbol(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

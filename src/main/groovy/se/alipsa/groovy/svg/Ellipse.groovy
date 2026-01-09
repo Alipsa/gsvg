@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * SVG {@code <ellipse>} element that draws an ellipse by center and radii.
@@ -21,6 +22,11 @@ class Ellipse extends AbstractShape<Ellipse>  {
     this(parent)
     addAttribute('rx', "${rx}")
     addAttribute('ry', "${ry}")
+  }
+
+  @PackageScope
+  Ellipse(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

@@ -1,5 +1,9 @@
 package se.alipsa.groovy.svg
 
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
 import groovy.transform.CompileStatic
 
 /**
@@ -18,6 +22,12 @@ class FeTile extends FilterElement<FeTile> {
   FeTile(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
   }
+
+  @PackageScope
+  FeTile(SvgElement parent, Element element) {
+    super(parent, element)
+  }
+
 
   /**
    * Sets the in attribute.

@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * Base class for basic SVG shape elements with shared presentation attributes.
@@ -16,6 +17,17 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
    */
   AbstractShape(SvgElement<? extends SvgElement> parent, String name) {
     super(parent, name)
+  }
+
+  /**
+   * Creates an AbstractShape by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  AbstractShape(SvgElement<? extends SvgElement> parent, Element element) {
+    super(parent, element)
   }
 
   /**

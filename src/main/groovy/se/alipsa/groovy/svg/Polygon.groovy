@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * SVG {@code <polygon>} element that draws a closed polygon from points.
@@ -26,6 +27,11 @@ class Polygon extends AbstractPoly<Polygon> {
   Polygon(SvgElement parent, List<Number>... coordinates) {
     this(parent)
     if (coordinates.length > 0)  points(coordinates)
+  }
+
+  @PackageScope
+  Polygon(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
 }

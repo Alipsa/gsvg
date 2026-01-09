@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <a>} element that makes its children into a hyperlink.
@@ -28,6 +29,17 @@ class A extends AbstractElementContainer<A> implements GradientContainer, Animat
     A(SvgElement<? extends SvgElement> parent, String href) {
         super(parent, NAME)
         this.href(href)
+    }
+
+    /**
+     * Creates a A by adopting an existing DOM4J Element.
+     * Used for cloning/copying operations.
+     *
+     * @param parent the parent SVG element
+     * @param element the DOM4J element to adopt
+     */
+    A(SvgElement parent, Element element) {
+        super(parent, element)
     }
 
     /**
