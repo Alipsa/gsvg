@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <stop>} element that defines a color stop in a gradient.
@@ -17,6 +18,17 @@ class Stop extends SvgElement<Stop> {
    */
   Stop(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a Stop by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Stop(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <mask>} element that defines a mask for transparency effects.
@@ -17,6 +18,17 @@ class Mask extends AbstractElementContainer<Mask> implements Animatable<Mask> {
    */
   Mask(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a Mask by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Mask(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * SVG {@code <polyline>} element that draws an open polyline from points.
@@ -26,6 +27,11 @@ class Polyline extends AbstractPoly<Polyline> {
   Polyline(SvgElement parent, List<Number>... coordinates) {
     this(parent)
     if (coordinates.length > 0) points(coordinates)
+  }
+
+  @PackageScope
+  Polyline(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
 }

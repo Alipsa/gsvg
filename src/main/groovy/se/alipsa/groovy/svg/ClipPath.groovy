@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <clipPath>} element that defines a clipping path for other elements.
@@ -17,5 +18,16 @@ class ClipPath extends AbstractElementContainer<ClipPath> implements Animatable<
    */
   ClipPath(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a ClipPath by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  ClipPath(SvgElement parent, Element element) {
+    super(parent, element)
   }
 }

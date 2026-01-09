@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic;
+import org.dom4j.Element
 
 /**
  * SVG {@code <linearGradient>} element that defines a linear gradient paint.
@@ -17,6 +18,17 @@ class LinearGradient extends Gradient<LinearGradient> {
    */
   LinearGradient(SvgElement<? extends SvgElement> parent) {
     super(parent, NAME)
+  }
+
+  /**
+   * Creates a LinearGradient by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  LinearGradient(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

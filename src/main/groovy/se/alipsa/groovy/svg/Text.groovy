@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <text>} element that renders text content.
@@ -28,6 +29,17 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
   Text(SvgElement parent, String text) {
     this(parent)
     element.addText(text)
+  }
+
+  /**
+   * Creates a Text by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Text(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

@@ -70,6 +70,21 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
   }
 
   /**
+   * Creates a SvgElement by adopting an existing DOM4J Element.
+   * This constructor is used for cloning/copying elements.
+   * The element is detached from its old parent and added to the new parent.
+   *
+   * @param parent the parent SVG element
+   * @param existingElement the DOM4J element to adopt
+   */
+  protected SvgElement(SvgElement<? extends SvgElement> parent, Element existingElement) {
+    this.parent = parent
+    Element cloned = existingElement.createCopy()
+    this.element = cloned
+    parent.element.add(cloned)
+  }
+
+  /**
    * Adds a namespace declaration to this element.
    *
    * @param prefix the namespace prefix

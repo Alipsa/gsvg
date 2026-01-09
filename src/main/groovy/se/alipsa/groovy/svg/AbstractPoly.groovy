@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import org.dom4j.Attribute
+import org.dom4j.Element
 
 /**
  * Base class for polygon and polyline elements with points list handling.
@@ -17,6 +18,17 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
    */
   AbstractPoly(SvgElement element, String name) {
     super(element, name)
+  }
+
+  /**
+   * Creates a AbstractPoly by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  AbstractPoly(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

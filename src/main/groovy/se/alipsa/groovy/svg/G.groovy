@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /** A container for grouping other SVG elements */
 /**
@@ -30,6 +31,17 @@ class G extends AbstractElementContainer<G> implements GradientContainer, Animat
      */
     G(SvgElement parent) {
         super(parent, NAME)
+    }
+
+    /**
+     * Creates a G by adopting an existing DOM4J Element.
+     * Used for cloning/copying operations.
+     *
+     * @param parent the parent SVG element
+     * @param element the DOM4J element to adopt
+     */
+    G(SvgElement parent, Element element) {
+        super(parent, element)
     }
 
     /**

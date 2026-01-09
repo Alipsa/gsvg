@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
+import org.dom4j.Element
 
 /**
  * SVG {@code <circle>} element that draws a circle by center and radius.
@@ -14,6 +15,11 @@ class Circle extends AbstractShape<Circle> {
   @PackageScope
   Circle(SvgElement parent) {
     super(parent,NAME)
+  }
+
+  @PackageScope
+  Circle(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**

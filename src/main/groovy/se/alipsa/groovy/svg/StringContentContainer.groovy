@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 import org.dom4j.QName
 
 /**
@@ -39,6 +40,17 @@ abstract class StringContentContainer<T extends SvgElement<T>> extends SvgElemen
    */
   StringContentContainer(SvgElement parent, String qName, String defaultNameSpace) {
     super(parent, qName, defaultNameSpace)
+  }
+
+  /**
+   * Creates a StringContentContainer by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  StringContentContainer(SvgElement<? extends SvgElement> parent, Element element) {
+    super(parent, element)
   }
 
   /**

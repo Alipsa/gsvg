@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 
 /**
  * SVG {@code <tspan>} element that positions and styles a span of text.
@@ -28,6 +29,17 @@ class Tspan extends StringContentContainer<Tspan> {
   Tspan(SvgElement parent, String text) {
     this(parent)
     addContent(text)
+  }
+
+  /**
+   * Creates a Tspan by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Tspan(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**
