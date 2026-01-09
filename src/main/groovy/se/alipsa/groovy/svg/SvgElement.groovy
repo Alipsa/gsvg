@@ -24,11 +24,24 @@ import org.dom4j.QName
  * </li>
  * </ol>
  *
+ * <h2>Cloning</h2>
+ * All SvgElement instances can be cloned using the {@link #clone(AbstractElementContainer)} method,
+ * which creates a deep copy including all child elements and attributes. The cloning uses the
+ * pure object-oriented approach without XML serialization for optimal performance.
+ *
+ * <h3>Example:</h3>
+ * <pre>
+ * Circle original = svg.addCircle().cx(50).cy(50).r(25)
+ * Circle copy = original.clone(targetSvg)
+ * </pre>
+ *
  * The adopting constructor pattern enables efficient deep copying of SVG element trees
  * while maintaining both the DOM4J structure and the SvgElement object hierarchy.
+ *
+ * @see SvgElementFactory#deepCopy(SvgElement, AbstractElementContainer)
  */
 @CompileStatic
-abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
+abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, Cloneable {
 
   Namespace xlinkNs = new Namespace('xlink', 'http://www.w3.org/1999/xlink')
   Element element
@@ -101,6 +114,38 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer {
     Element cloned = existingElement.createCopy()
     this.element = cloned
     parent.element.add(cloned)
+  }
+
+  /**
+   * Creates a deep clone of this element with all its children and attributes.
+   * This is the recommended way to clone SVG elements as it uses the pure object-oriented
+   * approach without XML serialization for optimal performance.
+   *
+   * <p>The clone will be attached to the specified parent container and will include:
+   * <ul>
+   * <li>All attributes from the original element</li>
+   * <li>All child elements (recursively cloned)</li>
+   * <li>Proper parent-child relationships in both DOM and object model</li>
+   * </ul>
+   *
+   * <h3>Example:</h3>
+   * <pre>
+   * // Create an original element with children
+   * G originalGroup = svg.addG().id("original")
+   * originalGroup.addCircle().cx(10).cy(10).r(5)
+   * originalGroup.addRect().x(20).y(20).width(10).height(10)
+   *
+   * // Clone it to another SVG
+   * G clonedGroup = originalGroup.clone(anotherSvg)
+   * // clonedGroup now has the same structure and children as originalGroup
+   * </pre>
+   *
+   * @param newParent the parent container for the cloned element
+   * @return a deep clone of this element with type safety preserved
+   * @see SvgElementFactory#deepCopy(SvgElement, AbstractElementContainer)
+   */
+  T clone(AbstractElementContainer newParent) {
+    return SvgElementFactory.deepCopy(this, newParent) as T
   }
 
   /**

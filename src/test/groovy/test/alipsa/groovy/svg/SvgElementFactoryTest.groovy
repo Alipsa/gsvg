@@ -466,4 +466,70 @@ class SvgElementFactoryTest {
         Circle circle = inner.children[0] as Circle
         assertEquals('50', circle.cx)
     }
+
+    @Test
+    void testCloneMethod() {
+        // Test the new clone() method on SvgElement
+        Svg svg1 = new Svg()
+        Circle original = svg1.addCircle().cx(100).cy(100).r(50).fill('red').id('original-circle')
+
+        Svg svg2 = new Svg()
+        Circle cloned = original.clone(svg2)
+
+        assertNotNull(cloned)
+        assertEquals('100', cloned.cx)
+        assertEquals('100', cloned.cy)
+        assertEquals('50', cloned.r)
+        assertEquals('red', cloned.fill)
+        assertEquals('original-circle', cloned.id)
+        assertEquals(1, svg2.children.size())
+        assertSame(cloned, svg2.children[0])
+    }
+
+    @Test
+    void testCloneMethodWithNestedElements() {
+        // Test cloning a group with nested elements
+        Svg svg1 = new Svg()
+        G originalGroup = svg1.addG().id('group1').fill('blue')
+        originalGroup.addCircle().cx(10).cy(10).r(5)
+        originalGroup.addCircle().cx(20).cy(20).r(5)
+        G innerGroup = originalGroup.addG().id('inner')
+        innerGroup.addRect().x(30).y(30).width(10).height(10)
+
+        Svg svg2 = new Svg()
+        G clonedGroup = originalGroup.clone(svg2)
+
+        assertNotNull(clonedGroup)
+        assertEquals('group1', clonedGroup.id)
+        assertEquals('blue', clonedGroup.fill)
+        assertEquals(3, clonedGroup.children.size())
+
+        Circle c1 = clonedGroup.children[0] as Circle
+        assertEquals('10', c1.cx)
+
+        Circle c2 = clonedGroup.children[1] as Circle
+        assertEquals('20', c2.cx)
+
+        G clonedInner = clonedGroup.children[2] as G
+        assertEquals('inner', clonedInner.id)
+        assertEquals(1, clonedInner.children.size())
+
+        Rect rect = clonedInner.children[0] as Rect
+        assertEquals('30', rect.x)
+    }
+
+    @Test
+    void testCloneMethodTypeSafety() {
+        // Verify type safety is preserved
+        Svg svg = new Svg()
+        Rect originalRect = svg.addRect().x(5).y(10).width(20).height(30)
+
+        Svg targetSvg = new Svg()
+        Rect clonedRect = originalRect.clone(targetSvg)
+
+        // Type should be preserved
+        assertTrue(clonedRect instanceof Rect)
+        assertEquals('5', clonedRect.x)
+        assertEquals('10', clonedRect.y)
+    }
 }

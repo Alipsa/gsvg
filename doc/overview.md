@@ -27,4 +27,5 @@ Maven:
 ## What you can do
 - [Build SVGs fluently](creating.md) with a Groovy DSL (shapes, gradients, filters, text, animation).
 - [Parse existing SVG](parsing.md) files/strings/streams and modify them.
+- [Merge multiple SVG documents](merging.md) horizontally, vertically, or layered on top of each other.
 - Work with SVG 2 `href` and legacy `xlink:href`, foreign content, and SVG 1.1/2 draft elements.
