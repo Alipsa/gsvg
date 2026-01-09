@@ -8,7 +8,7 @@ import se.alipsa.groovy.svg.SvgElementFactory
 /**
  * Utility for merging multiple SVG documents using a pure object-oriented approach.
  *
- * <h2>Pure OO Implementation (Sprint 3)</h2>
+ * <h2>Pure OO Implementation</h2>
  * This merger uses {@link SvgElementFactory} for efficient element copying without XML serialization.
  * The factory populates both DOM4J structures and SvgElement children lists in a single pass,
  * eliminating the need for XML parsing after merge operations.
