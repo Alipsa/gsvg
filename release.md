@@ -1,7 +1,7 @@
 # gsvg release notes
 
 ## Version 0.6.0 - In progress
-
+- Add toString() implementation for debugging SVG elements
 
 ## Version 0.5.0 - 2026-01-09
 - Merging: new `SvgMerger` utility to merge SVGs horizontally, vertically, or layered on top using pure object-oriented copying (no XML serialization).
