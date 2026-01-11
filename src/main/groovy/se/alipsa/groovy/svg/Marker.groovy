@@ -180,14 +180,4 @@ class Marker extends AbstractElementContainer<Marker> implements GradientContain
   String getOrient() {
     getAttribute('orient')
   }
-
-  /**
-   * To string.
-   *
-   * @return the result
-   */
-  @Override
-  String toString() {
-    return "Marker(id=${getAttribute('id')})"
-  }
 }

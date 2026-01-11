@@ -60,6 +60,62 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
+   * Returns a brief string representation suitable for debugging.
+   * Shows the element name, all attributes, and parent information.
+   * For full XML serialization, use {@link #toXml()} instead.
+   *
+   * @return a concise string representation for debugging
+   */
+  @Override
+  String toString() {
+    StringBuilder sb = new StringBuilder()
+    sb.append(getName())
+    sb.append('(')
+
+    boolean hasContent = false
+
+    // Add id first if present
+    String id = getId()
+    if (id != null) {
+      sb.append("id=").append(id)
+      hasContent = true
+    }
+
+    // Add all other attributes (except id which we already showed)
+    List attributes = element.attributes()
+    for (Object attrObj : attributes) {
+      org.dom4j.Attribute attr = (org.dom4j.Attribute) attrObj
+      String attrName = attr.getName()
+
+      // Skip id since we already showed it
+      if ('id' == attrName) {
+        continue
+      }
+
+      if (hasContent) {
+        sb.append(', ')
+      }
+      sb.append(attrName).append('=').append(attr.getValue())
+      hasContent = true
+    }
+
+    // Add parent information
+    if (parent != null && parent != this) {
+      if (hasContent) {
+        sb.append(', ')
+      }
+      sb.append('parent=').append(parent.getName())
+      String parentId = parent.getId()
+      if (parentId != null) {
+        sb.append('(id=').append(parentId).append(')')
+      }
+    }
+
+    sb.append(')')
+    return sb.toString()
+  }
+
+  /**
    * Creates a SvgElement.
    *
    * @param parent the parent SVG element
