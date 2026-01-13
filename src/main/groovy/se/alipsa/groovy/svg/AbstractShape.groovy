@@ -262,4 +262,142 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   String getFillOpacity() {
     getAttribute('fill-opacity')
   }
+
+  /**
+   * Sets the transform attribute directly as a string.
+   *
+   * @param value the transform value
+   * @return this element for chaining
+   */
+  T transform(String value) {
+    addAttribute('transform', value)
+    this as T
+  }
+
+  /**
+   * Returns the transform attribute value.
+   *
+   * @return the transform value
+   */
+  String getTransform() {
+    getAttribute('transform')
+  }
+
+  /**
+   * Appends a rotate transform to the existing transform attribute.
+   * If no transform exists, creates a new one.
+   *
+   * @param angle the rotation angle in degrees
+   * @return this element for chaining
+   */
+  T rotate(Number angle) {
+    appendTransform("rotate($angle)")
+  }
+
+  /**
+   * Appends a rotate transform around a specific center point.
+   *
+   * @param angle the rotation angle in degrees
+   * @param cx the x-coordinate of the rotation center
+   * @param cy the y-coordinate of the rotation center
+   * @return this element for chaining
+   */
+  T rotate(Number angle, Number cx, Number cy) {
+    appendTransform("rotate($angle $cx $cy)")
+  }
+
+  /**
+   * Appends a translate transform to the existing transform attribute.
+   *
+   * @param tx the x-axis translation
+   * @param ty the y-axis translation
+   * @return this element for chaining
+   */
+  T translate(Number tx, Number ty) {
+    appendTransform("translate($tx $ty)")
+  }
+
+  /**
+   * Appends a translate transform along the x-axis only.
+   *
+   * @param tx the x-axis translation
+   * @return this element for chaining
+   */
+  T translate(Number tx) {
+    appendTransform("translate($tx)")
+  }
+
+  /**
+   * Appends a scale transform to the existing transform attribute.
+   *
+   * @param sx the x-axis scale factor
+   * @param sy the y-axis scale factor
+   * @return this element for chaining
+   */
+  T scale(Number sx, Number sy) {
+    appendTransform("scale($sx $sy)")
+  }
+
+  /**
+   * Appends a uniform scale transform (same factor for both axes).
+   *
+   * @param s the scale factor
+   * @return this element for chaining
+   */
+  T scale(Number s) {
+    appendTransform("scale($s)")
+  }
+
+  /**
+   * Appends a skewX transform (skew along the x-axis).
+   *
+   * @param angle the skew angle in degrees
+   * @return this element for chaining
+   */
+  T skewX(Number angle) {
+    appendTransform("skewX($angle)")
+  }
+
+  /**
+   * Appends a skewY transform (skew along the y-axis).
+   *
+   * @param angle the skew angle in degrees
+   * @return this element for chaining
+   */
+  T skewY(Number angle) {
+    appendTransform("skewY($angle)")
+  }
+
+  /**
+   * Appends a matrix transform.
+   *
+   * @param a the a component of the matrix
+   * @param b the b component of the matrix
+   * @param c the c component of the matrix
+   * @param d the d component of the matrix
+   * @param e the e component of the matrix
+   * @param f the f component of the matrix
+   * @return this element for chaining
+   */
+  T matrix(Number a, Number b, Number c, Number d, Number e, Number f) {
+    appendTransform("matrix($a $b $c $d $e $f)")
+  }
+
+  /**
+   * Helper method to append a transform to the existing transform attribute.
+   * If the transform attribute doesn't exist, it creates it.
+   * If it exists, it appends the new transform with a space separator.
+   *
+   * @param transformValue the transform to append
+   * @return this element for chaining
+   */
+  private T appendTransform(String transformValue) {
+    String existing = getAttribute('transform')
+    if (existing == null || existing.isEmpty()) {
+      addAttribute('transform', transformValue)
+    } else {
+      addAttribute('transform', "$existing $transformValue")
+    }
+    this as T
+  }
 }

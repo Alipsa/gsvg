@@ -1,7 +1,68 @@
 # gsvg release notes
 
-## Version 0.6.0 - In progress
-- Add toString() implementation for debugging SVG elements
+## Version 0.6.0 - 2026-01-13
+**Phase 1: Ease of Use Enhancements**
+
+This release focuses on improving API ergonomics and developer experience with new utilities for common SVG operations.
+
+### Transform Utilities
+- **Fluent transform API**: Added transform methods to `AbstractShape` for all SVG transformations
+  - `rotate(angle)` and `rotate(angle, cx, cy)` - rotation with optional center point
+  - `translate(tx, ty)` and `translate(tx)` - translation (dual-axis or x-axis only)
+  - `scale(sx, sy)` and `scale(s)` - scaling (non-uniform or uniform)
+  - `skewX(angle)` and `skewY(angle)` - skewing transformations
+  - `matrix(a, b, c, d, e, f)` - direct matrix transform
+  - `transform(string)` - backward-compatible string setter
+- **Chaining support**: All transform methods return `this` for method chaining
+- **Append behavior**: Transforms append to existing transform attribute (e.g., `rect.rotate(45).translate(10, 20)`)
+- **Backward compatible**: String-based transform API still works (`rect.transform('rotate(45)')`)
+
+### Color Utilities
+- **New `Color` class** (`se.alipsa.groovy.svg.utils.Color`) for color creation and manipulation
+- **Multiple creation methods**:
+  - `Color.rgb(r, g, b)` - RGB values (0-255)
+  - `Color.rgba(r, g, b, a)` - RGBA with alpha (0.0-1.0)
+  - `Color.hex(string)` - Hex colors (#RGB, #RRGGBB, #RRGGBBAA)
+  - `Color.hsl(h, s, l)` and `Color.hsla(h, s, l, a)` - HSL/HSLA values
+  - `Color.named(name)` - Named colors (147 SVG color names supported)
+  - `Color.parse(string)` - Auto-detect and parse any color format
+- **Color manipulation**:
+  - `withAlpha(a)` - Create new color with different alpha
+  - `darken(amount)` - Darken by percentage (0.0-1.0)
+  - `lighten(amount)` - Lighten by percentage
+  - `interpolate(other, t)` - Mix two colors (t=0.0 to 1.0)
+- **Multiple output formats**:
+  - `toHex(includeAlpha)` - Hex string representation
+  - `toRgb()` - RGB/RGBA string
+  - `toHsl()` - HSL/HSLA string
+  - `toString()` - SVG-compatible format (hex for opaque, rgba for transparent)
+- **147 named SVG colors**: All standard SVG color names (red, blue, crimson, etc.)
+- **Type safety**: Proper value clamping, equals/hashCode support
+
+### Quick Wins
+- **`hasAttribute(name)`**: Check if an SVG attribute exists on an element
+- **`attrs(map)`**: Convenient alias for `addAttributes(map)` for batch attribute setting
+
+### Debugging
+- **`toString()` implementation**: Added toString() for all SVG elements showing element name, attributes, and parent information for easier debugging
+
+### Tests
+- Added 45 new tests (12 transform tests, 30 color tests, 3 utility tests)
+- Total test count: 303 tests (all passing)
+- Comprehensive coverage of new utilities
+
+### Documentation
+- Updated `svgTodo.md` with implementation roadmap and completed features
+- Improved code documentation with usage examples
+
+**API additions/updates**
+- `AbstractShape`: `rotate()`, `translate()`, `scale()`, `skewX()`, `skewY()`, `matrix()`, `transform()`
+- `SvgElement`: `hasAttribute(name)`, `attrs(map)`
+- `se.alipsa.groovy.svg.utils.Color`: Full color utility class with creation, manipulation, and conversion methods
+- All `SvgElement` subclasses: `toString()` for debugging
+
+**Breaking changes**
+- None - all additions are backward compatible
 
 ## Version 0.5.0 - 2026-01-09
 - Merging: new `SvgMerger` utility to merge SVGs horizontally, vertically, or layered on top using pure object-oriented copying (no XML serialization).
