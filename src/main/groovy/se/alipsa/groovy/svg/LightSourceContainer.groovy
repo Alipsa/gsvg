@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import groovy.transform.SelfType
+import se.alipsa.groovy.svg.utils.Color
 
 /**
  * Trait for filter primitives that can contain light source elements.
@@ -97,6 +98,16 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    */
   T lightingColor(String color) {
     addAttribute('lighting-color', color) as T
+  }
+
+  /**
+   * Sets the lighting color using a Color object.
+   *
+   * @param color the color
+   * @return this element for chaining
+   */
+  T lightingColor(Color color) {
+    addAttribute('lighting-color', color.toString()) as T
   }
 
   /**

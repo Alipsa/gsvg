@@ -152,53 +152,6 @@ class Line extends AbstractShape<Line> {
   }
 
   /**
-   * Sets the stroke paint used to draw the line.
-   *
-   * @param color the color
-   * @return this element for chaining
-   */
-  Line stroke(String color) {
-    addAttribute('stroke', color)
-  }
-
-  /**
-   * Returns the stroke paint used to draw the line.
-   *
-   * @return the stroke value
-   */
-  String getStroke() {
-    getAttribute('stroke')
-  }
-
-  /**
-   * Sets the stroke width used to draw the line.
-   *
-   * @param width the width
-   * @return this element for chaining
-   */
-  Line strokeWidth(Number width) {
-    addAttribute('stroke-width', width)
-  }
-
-  /**
-   * Sets the stroke width used to draw the line.
-   *
-   * @param width value
-   * @return this element for chaining
-   */
-  Line strokeWidth(String width) {
-    addAttribute('stroke-width', width)
-  }
-  /**
-   * Returns the stroke width used to draw the line.
-   *
-   * @return the stroke width value
-   */
-  String getStrokeWidth() {
-    getAttribute('stroke-width')
-  }
-
-  /**
    * Sets the marker reference to draw at the line start (for example `url(#markerId)`).
    *
    * @param start the start marker reference

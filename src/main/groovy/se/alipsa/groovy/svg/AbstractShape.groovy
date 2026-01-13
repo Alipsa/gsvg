@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import org.dom4j.Element
+import se.alipsa.groovy.svg.utils.Color
 
 /**
  * Base class for basic SVG shape elements with shared presentation attributes.
@@ -120,6 +121,68 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   }
 
   /**
+   * Sets the stroke paint used to draw the shape outline.
+   *
+   * @param stroke the stroke color
+   * @return this element for chaining
+   */
+  T stroke(String stroke) {
+    addAttribute('stroke', stroke)
+    this as T
+  }
+
+  /**
+   * Sets the stroke paint using a Color object.
+   *
+   * @param color the stroke color
+   * @return this element for chaining
+   */
+  T stroke(Color color) {
+    addAttribute('stroke', color.toString())
+    this as T
+  }
+
+  /**
+   * Returns the stroke paint used to draw the shape outline.
+   *
+   * @return the stroke value
+   */
+  String getStroke() {
+    getAttribute('stroke')
+  }
+
+  /**
+   * Sets the stroke width used to draw the shape outline.
+   *
+   * @param strokeWidth the stroke width
+   * @return this element for chaining
+   */
+  T strokeWidth(Number strokeWidth) {
+    addAttribute('stroke-width', strokeWidth)
+    this as T
+  }
+
+  /**
+   * Sets the stroke width using a string value (for example `"2"` or `"1.5px"`).
+   *
+   * @param strokeWidth the stroke width
+   * @return this element for chaining
+   */
+  T strokeWidth(String strokeWidth) {
+    addAttribute('stroke-width', strokeWidth)
+    this as T
+  }
+
+  /**
+   * Returns the stroke width used to draw the shape outline.
+   *
+   * @return the stroke width value
+   */
+  String getStrokeWidth() {
+    getAttribute('stroke-width')
+  }
+
+  /**
    * Sets the stroke dash pattern used to draw the outline (for example `"4 2"`).
    *
    * @param dashArray value
@@ -230,6 +293,37 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
    */
   String getStrokeDashoffset() {
     getAttribute('stroke-dashoffset')
+  }
+
+  /**
+   * Sets the fill paint used to draw the shape interior.
+   *
+   * @param fill the fill color
+   * @return this element for chaining
+   */
+  T fill(String fill) {
+    addAttribute('fill', fill)
+    this as T
+  }
+
+  /**
+   * Sets the fill paint using a Color object.
+   *
+   * @param color the fill color
+   * @return this element for chaining
+   */
+  T fill(Color color) {
+    addAttribute('fill', color.toString())
+    this as T
+  }
+
+  /**
+   * Returns the fill paint used to draw the shape interior.
+   *
+   * @return the fill value
+   */
+  String getFill() {
+    getAttribute('fill')
   }
 
   /**

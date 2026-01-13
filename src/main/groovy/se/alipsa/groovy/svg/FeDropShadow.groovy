@@ -1,10 +1,9 @@
 package se.alipsa.groovy.svg
 
-
-
 import groovy.transform.PackageScope
 import org.dom4j.Element
 import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.utils.Color
 
 /**
  * SVG {@code <feDropShadow>} filter primitive that creates a drop shadow.
@@ -122,6 +121,16 @@ class FeDropShadow extends FilterElement<FeDropShadow> {
    */
   FeDropShadow floodColor(String color) {
     addAttribute('flood-color', color)
+  }
+
+  /**
+   * Sets the flood color using a Color object.
+   *
+   * @param color the color
+   * @return this element for chaining
+   */
+  FeDropShadow floodColor(Color color) {
+    addAttribute('flood-color', color.toString())
   }
 
   /**

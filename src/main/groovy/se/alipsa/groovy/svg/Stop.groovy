@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import org.dom4j.Element
+import se.alipsa.groovy.svg.utils.Color
 
 /**
  * SVG {@code <stop>} element that defines a color stop in a gradient.
@@ -68,6 +69,16 @@ class Stop extends SvgElement<Stop> {
    */
   Stop stopColor(String color) {
     addAttribute("stop-color", color)
+  }
+
+  /**
+   * Sets the stop color using a Color object.
+   *
+   * @param color the color
+   * @return this element for chaining
+   */
+  Stop stopColor(Color color) {
+    addAttribute("stop-color", color.toString())
   }
 
   /**
