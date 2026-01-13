@@ -161,7 +161,50 @@ trait ElementContainer {
   }
 
   /**
+   * Transform XPath queries to be namespace-aware for SVG elements.
+   * Converts simple element queries like //circle to //*[local-name()='circle']
+   * to work with namespaced SVG elements.
+   *
+   * @param xpathQuery the original XPath query
+   * @return the transformed, namespace-aware query
+   */
+  private String transformXPathForNamespace(String xpathQuery) {
+    // Don't transform if already using local-name() or namespace prefixes
+    if (xpathQuery.contains('local-name()') || xpathQuery.contains(':')) {
+      return xpathQuery
+    }
+
+    // Transform //elementName to //*[local-name()='elementName']
+    String result = xpathQuery.replaceAll(
+      /\/\/([\w-]+)(?=[\/@\[]|$)/,
+      "//*[local-name()='\$1']"
+    )
+
+    // Transform /elementName to /*[local-name()='elementName']
+    // This needs to run in a loop to handle paths like /svg/circle/g
+    while (result =~ /(^|[\])])\/(?!\/)([\w-]+)(?=[\/@\[]|$)/) {
+      result = result.replaceAll(
+        /(^|[\]])\/(?!\/)([\w-]+)(?=[\/@\[]|$)/,
+        '\$1/*[local-name()=\'\$2\']'
+      )
+    }
+
+    return result
+  }
+
+  /**
    * Execute XPath query on the SVG DOM and return matching elements.
+   * <p>
+   * <strong>Namespace Handling:</strong> This method automatically handles SVG namespaces
+   * for simple element queries. Queries like {@code //circle} or {@code //g/rect} are
+   * transparently transformed to work with namespaced SVG elements.
+   * </p>
+   * <p><strong>Supported Patterns:</strong></p>
+   * <ul>
+   *   <li>Element queries: {@code //circle}, {@code /svg/rect}, {@code //g/path}</li>
+   *   <li>Attribute queries: {@code //rect[@fill="red"]}, {@code //*[@id="logo"]}</li>
+   *   <li>Mixed queries: {@code //g[@id="group1"]/circle}</li>
+   * </ul>
    * <p>
    * <strong>Performance Note:</strong> This method performs an O(n*m) search where n is the number
    * of XPath results and m is the total number of descendants. For large SVG documents with many
@@ -169,13 +212,14 @@ trait ElementContainer {
    * </p>
    * <p>
    * <strong>Limitations:</strong> XPath numeric comparisons on attributes may not work as expected.
-   * Use filter() with predicates for complex attribute-based queries.
+   * For complex queries, use filter() with predicates instead.
    * </p>
    * <p>Example:</p>
    * <pre>
    * def redRects = svg.xpath('//rect[@fill="red"]')
    * def allPaths = svg.xpath('//path')
    * def specificElement = svg.xpath('//*[@id="logo"]')
+   * def nested = svg.xpath('//g/circle')  // Finds circles inside groups
    * </pre>
    *
    * @param xpathQuery the XPath query string
@@ -190,8 +234,9 @@ trait ElementContainer {
       throw new UnsupportedOperationException("XPath queries require the container to be an SvgElement")
     }
 
-    // Execute XPath query
-    List<org.dom4j.Node> nodes = domElement.selectNodes(xpathQuery)
+    // Transform query to be namespace-aware and execute
+    String transformedQuery = transformXPathForNamespace(xpathQuery)
+    List<org.dom4j.Node> nodes = domElement.selectNodes(transformedQuery)
 
     // Convert dom4j elements back to SvgElement wrappers
     // Note: This is O(n*m) - for better performance with large documents, use filter() or descendants()

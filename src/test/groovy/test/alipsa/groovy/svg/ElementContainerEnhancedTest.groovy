@@ -20,7 +20,7 @@ class ElementContainerEnhancedTest {
     svg.addRect().id('rect2').x(70).y(70).width(100).height(80).fill('green')
 
     // Add a group with nested elements
-    G g = svg.addG().id('group1')
+    G g = svg.addG().id('group1').fill('none')
     g.addCircle().id('circle3').cx(150).cy(150).r(20).fill('yellow')
     g.addRect().id('rect3').x(120).y(120).width(40).height(40).fill('red')
   }
@@ -421,8 +421,27 @@ class ElementContainerEnhancedTest {
 
     // Test that basic XPath queries work
     List<SvgElement> allRects = svg.xpath('//rect')
-    // Note: Due to XPath element mapping limitations, this may return 0 results
-    // For reliable queries, prefer using descendants() or filter() methods
+    // Note: With namespace transformation, this should now work
     assertNotNull(allRects)
+  }
+
+  @Test
+  void testXPathTransformation() {
+    // Verify that simple queries are transformed and work correctly
+    // Note: //circle finds ALL circles recursively (including those in groups)
+    List<SvgElement> allCircles = svg.xpath('//circle')
+    assertEquals(3, allCircles.size(), "Should find all 3 circles (2 direct + 1 in group)")
+
+    // Verify nested queries work
+    List<SvgElement> allGs = svg.descendants(G)
+    int nestedCircleCount = 0
+    for (SvgElement g : allGs) {
+      nestedCircleCount += (g as G).xpath('.//circle').size()
+    }
+    assertTrue(nestedCircleCount > 0, "Should find circles inside groups")
+
+    // Verify attribute queries still work
+    List<SvgElement> redElements = svg.xpath('//*[@fill="red"]')
+    assertTrue(redElements.size() >= 1, "Should find at least one red element")
   }
 }

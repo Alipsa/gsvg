@@ -61,10 +61,11 @@ This release implements Phase 2 features focusing on advanced path manipulation,
   - `collect(transform)` - Transform and collect values from elements
 
 ### Tests
-- Added 110+ new tests (29 PathBuilder tests, 52 ViewBox tests, 29+ enhanced selection tests)
-- Total test count: 444 tests (438 passing, 6 XPath tests with known mapping limitations)
-- 98.6% pass rate
+- Added 111 new tests (29 PathBuilder tests, 52 ViewBox tests, 30 enhanced selection tests)
+- Total test count: 445 tests (all passing)
+- 100% pass rate
 - Comprehensive coverage of new Phase 2 utilities
+- XPath namespace handling fully functional with transparent query transformation
 
 ### Documentation
 - Updated `kanban/in-progress/svgTodo.md` marking Phase 2 complete
