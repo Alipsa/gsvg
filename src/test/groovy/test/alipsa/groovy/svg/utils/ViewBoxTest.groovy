@@ -435,6 +435,36 @@ class ViewBoxTest {
   }
 
   @Test
+  void testFitToContainWithoutPreservingAspectRatio() {
+    ViewBox outer = ViewBox.of(0, 0, 200, 300)
+    ViewBox inner = ViewBox.of(0, 0, 100, 100)
+
+    // When preserveAspectRatio=false, inner is scaled non-uniformly to fill outer
+    ViewBox fitted = outer.fitToContain(inner, false)
+
+    // Result should match outer's dimensions (inner stretched to fill)
+    assertEquals(outer.minX, fitted.minX, 0.001)
+    assertEquals(outer.minY, fitted.minY, 0.001)
+    assertEquals(outer.width, fitted.width, 0.001)
+    assertEquals(outer.height, fitted.height, 0.001)
+  }
+
+  @Test
+  void testFitToContainWithDifferentOrigins() {
+    ViewBox outer = ViewBox.of(50, 50, 200, 300)
+    ViewBox inner = ViewBox.of(10, 20, 80, 120)
+
+    // When preserveAspectRatio=false, inner is scaled to fill outer
+    // The result has outer's position and dimensions
+    ViewBox fitted = outer.fitToContain(inner, false)
+
+    assertEquals(50.0, fitted.minX, 0.001)
+    assertEquals(50.0, fitted.minY, 0.001)
+    assertEquals(200.0, fitted.width, 0.001)
+    assertEquals(300.0, fitted.height, 0.001)
+  }
+
+  @Test
   void testComplexTransformations() {
     ViewBox vb = ViewBox.of(0, 0, 100, 100)
         .scale(2)              // 0 0 200 200

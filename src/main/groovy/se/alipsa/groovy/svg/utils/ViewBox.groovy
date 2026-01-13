@@ -217,9 +217,16 @@ class ViewBox {
   }
 
   /**
-   * Scale and center another viewBox to fit inside this viewBox while preserving aspect ratio.
-   * Returns a new ViewBox representing the scaled and centered version of 'other' that fits
-   * within this viewBox's bounds.
+   * Scale and center another viewBox to fit inside this viewBox.
+   * <p>
+   * When {@code preserveAspectRatio} is true (default), 'other' is uniformly scaled to fit
+   * inside this viewBox while maintaining its aspect ratio, then centered.
+   * </p>
+   * <p>
+   * When {@code preserveAspectRatio} is false, 'other' is scaled non-uniformly to exactly
+   * fill this viewBox. The returned ViewBox has this viewBox's position and dimensions,
+   * representing where 'other' would appear after being stretched/squashed to fill.
+   * </p>
    *
    * @param other the viewBox to scale and fit inside this one
    * @param preserveAspectRatio whether to preserve aspect ratio (if false, scales to fill)
@@ -228,6 +235,7 @@ class ViewBox {
   ViewBox fitToContain(ViewBox other, boolean preserveAspectRatio = true) {
     if (!preserveAspectRatio) {
       // Scale to fill without preserving aspect ratio
+      // Result represents 'other' stretched to exactly match this viewBox's dimensions
       return new ViewBox(minX, minY, width, height)
     }
 

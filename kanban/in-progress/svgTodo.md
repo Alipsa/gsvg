@@ -342,7 +342,7 @@ graphic.role('img')
 ### 12. Export Utilities (Optional - Separate Module)
 
 **Architecture**: Multi-module Maven project
-- Restructure current code as `gsvg-core` submodule
+- Restructure current code as `gsvg-core` submodule but the artifact should still be named `gsvg`
 - Create `gsvg-export` as separate submodule with its own dependencies
 - Parent POM coordinates both modules
 

@@ -206,9 +206,9 @@ trait ElementContainer {
    *   <li>Mixed queries: {@code //g[@id="group1"]/circle}</li>
    * </ul>
    * <p>
-   * <strong>Performance Note:</strong> This method performs an O(n*m) search where n is the number
-   * of XPath results and m is the total number of descendants. For large SVG documents with many
-   * elements, consider using the filter() or descendants() methods instead for better performance.
+   * <strong>Performance Note:</strong> This method builds a map of all descendants for O(1) element
+   * lookups, making it O(n+m) where n is the number of XPath results and m is the total number of
+   * descendants. For most use cases, this provides good performance.
    * </p>
    * <p>
    * <strong>Limitations:</strong> XPath numeric comparisons on attributes may not work as expected.
@@ -238,32 +238,23 @@ trait ElementContainer {
     String transformedQuery = transformXPathForNamespace(xpathQuery)
     List<org.dom4j.Node> nodes = domElement.selectNodes(transformedQuery)
 
-    // Convert dom4j elements back to SvgElement wrappers
-    // Note: This is O(n*m) - for better performance with large documents, use filter() or descendants()
+    // Build a map of dom4j elements to SvgElement wrappers for O(1) lookups
+    // This avoids O(n*m) complexity by doing a single O(m) traversal upfront
+    Map<org.dom4j.Element, SvgElement> elementMap = descendants().collectEntries {
+      [(it.element): it]
+    } as Map<org.dom4j.Element, SvgElement>
+
+    // Convert dom4j elements back to SvgElement wrappers using the map
     List<SvgElement> results = []
     for (org.dom4j.Node node : nodes) {
       if (node instanceof org.dom4j.Element) {
-        SvgElement svgElement = findSvgElementForDom((org.dom4j.Element) node)
+        SvgElement svgElement = elementMap.get((org.dom4j.Element) node)
         if (svgElement != null) {
           results.add(svgElement)
         }
       }
     }
     results
-  }
-
-  /**
-   * Helper method to find the SvgElement wrapper for a dom4j Element.
-   * This searches through the descendant tree to find the matching element.
-   */
-  private SvgElement findSvgElementForDom(org.dom4j.Element domElement) {
-    // Search through all descendants
-    for (SvgElement element : descendants()) {
-      if (element.element == domElement) {
-        return element
-      }
-    }
-    null
   }
 
   /**
