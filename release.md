@@ -1,7 +1,8 @@
 # gsvg release notes
 
 ## Version 0.7.0 - 2026-01-13
-**Core Features Enhancement - Phase 2**
+
+**Core Features Enhancement**
 
 This release implements Phase 2 features focusing on advanced path manipulation, coordinate system utilities, and powerful element selection methods.
 
@@ -60,8 +61,9 @@ This release implements Phase 2 features focusing on advanced path manipulation,
   - `collect(transform)` - Transform and collect values from elements
 
 ### Tests
-- Added 110 new tests (29 PathBuilder tests, 52 ViewBox tests, 29 enhanced selection tests)
-- Total test count: 413+ tests
+- Added 110+ new tests (29 PathBuilder tests, 52 ViewBox tests, 29+ enhanced selection tests)
+- Total test count: 444 tests (438 passing, 6 XPath tests with known mapping limitations)
+- 98.6% pass rate
 - Comprehensive coverage of new Phase 2 utilities
 
 ### Documentation

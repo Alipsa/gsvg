@@ -66,8 +66,8 @@ trait ElementContainer {
    * Filter child elements using a predicate closure.
    * <p>Example:</p>
    * <pre>
-   * def largeRects = svg.filter { it instanceof Rect && it.width() as int > 100 }
-   * def redElements = svg.filter { it.fill() == 'red' }
+   * def largeRects = svg.filter { it instanceof Rect && it.getWidth() as int > 100 }
+   * def redElements = svg.filter { it.getFill() == 'red' }
    * </pre>
    *
    * @param predicate a closure that returns true for elements to include
@@ -82,7 +82,7 @@ trait ElementContainer {
    * <p>Example:</p>
    * <pre>
    * def allCircles = svg.findAll(Circle)
-   * def largeCircles = svg.findAll(Circle) { it.r() as int > 50 }
+   * def largeCircles = svg.findAll(Circle) { it.getR() as int > 50 }
    * </pre>
    *
    * @param clazz the element type to find
@@ -98,8 +98,8 @@ trait ElementContainer {
    * Find the first child element matching a predicate.
    * <p>Example:</p>
    * <pre>
-   * def firstRed = svg.findFirst { it.fill() == 'red' }
-   * def logoElement = svg.findFirst { it.id() == 'logo' }
+   * def firstRed = svg.findFirst { it.getFill() == 'red' }
+   * def logoElement = svg.findFirst { it.getId() == 'logo' }
    * </pre>
    *
    * @param predicate a closure that returns true for the element to find
@@ -162,6 +162,15 @@ trait ElementContainer {
 
   /**
    * Execute XPath query on the SVG DOM and return matching elements.
+   * <p>
+   * <strong>Performance Note:</strong> This method performs an O(n*m) search where n is the number
+   * of XPath results and m is the total number of descendants. For large SVG documents with many
+   * elements, consider using the filter() or descendants() methods instead for better performance.
+   * </p>
+   * <p>
+   * <strong>Limitations:</strong> XPath numeric comparisons on attributes may not work as expected.
+   * Use filter() with predicates for complex attribute-based queries.
+   * </p>
    * <p>Example:</p>
    * <pre>
    * def redRects = svg.xpath('//rect[@fill="red"]')
@@ -185,6 +194,7 @@ trait ElementContainer {
     List<org.dom4j.Node> nodes = domElement.selectNodes(xpathQuery)
 
     // Convert dom4j elements back to SvgElement wrappers
+    // Note: This is O(n*m) - for better performance with large documents, use filter() or descendants()
     List<SvgElement> results = []
     for (org.dom4j.Node node : nodes) {
       if (node instanceof org.dom4j.Element) {
@@ -215,7 +225,7 @@ trait ElementContainer {
    * Count the number of child elements matching a predicate.
    * <p>Example:</p>
    * <pre>
-   * def redCount = svg.count { it.fill() == 'red' }
+   * def redCount = svg.count { it.getFill() == 'red' }
    * </pre>
    *
    * @param predicate a closure that returns true for elements to count
@@ -245,7 +255,7 @@ trait ElementContainer {
    * Check if all child elements match a predicate.
    * <p>Example:</p>
    * <pre>
-   * if (svg.all { it.fill() != null }) {
+   * if (svg.all { it.getFill() != null }) {
    *   println "All elements have a fill color"
    * }
    * </pre>
@@ -261,8 +271,8 @@ trait ElementContainer {
    * Collect values from child elements using a transformation closure.
    * <p>Example:</p>
    * <pre>
-   * def allFillColors = svg.collect { it.fill() }
-   * def allIds = svg.collect { it.id() }
+   * def allFillColors = svg.collect { it.getFill() }
+   * def allIds = svg.collect { it.getId() }
    * </pre>
    *
    * @param transform a closure that transforms each element to a value

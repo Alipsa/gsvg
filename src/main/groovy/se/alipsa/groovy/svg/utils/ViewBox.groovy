@@ -217,28 +217,33 @@ class ViewBox {
   }
 
   /**
-   * Fit this viewBox to contain another viewBox while preserving aspect ratio.
-   * @param other the viewBox to fit inside this one
-   * @param preserveAspectRatio whether to preserve the aspect ratio
-   * @return a new ViewBox that contains the other viewBox
+   * Scale and center another viewBox to fit inside this viewBox while preserving aspect ratio.
+   * Returns a new ViewBox representing the scaled and centered version of 'other' that fits
+   * within this viewBox's bounds.
+   *
+   * @param other the viewBox to scale and fit inside this one
+   * @param preserveAspectRatio whether to preserve aspect ratio (if false, scales to fill)
+   * @return a new ViewBox representing the fitted result
    */
   ViewBox fitToContain(ViewBox other, boolean preserveAspectRatio = true) {
     if (!preserveAspectRatio) {
-      return this
+      // Scale to fill without preserving aspect ratio
+      return new ViewBox(minX, minY, width, height)
     }
 
-    double scaleX = width / other.width
-    double scaleY = height / other.height
-    double scale = Math.min(scaleX, scaleY)
+    // Calculate scale factor that fits 'other' inside 'this' while preserving aspect ratio
+    Number scaleX = width / other.width
+    Number scaleY = height / other.height
+    Number scale = Math.min(scaleX.doubleValue(), scaleY.doubleValue())
 
-    double newWidth = other.width * scale
-    double newHeight = other.height * scale
+    Number newWidth = other.width * scale.doubleValue()
+    Number newHeight = other.height * scale.doubleValue()
 
-    // Center the fitted viewBox
-    double newMinX = minX + (width - newWidth) / 2.0
-    double newMinY = minY + (height - newHeight) / 2.0
+    // Center the fitted viewBox within this viewBox's bounds
+    Number newMinX = minX + (width - newWidth.doubleValue()) / 2.0
+    Number newMinY = minY + (height - newHeight.doubleValue()) / 2.0
 
-    new ViewBox(newMinX, newMinY, newWidth, newHeight)
+    new ViewBox(newMinX.doubleValue(), newMinY.doubleValue(), newWidth.doubleValue(), newHeight.doubleValue())
   }
 
   // ==================== QUERY METHODS ====================
@@ -284,10 +289,11 @@ class ViewBox {
   }
 
   /**
-   * Check if a point is contained within this viewBox
+   * Check if a point is contained within this viewBox.
+   * Uses inclusive bounds on all edges for consistency with SVG rendering behavior.
    * @param x the x coordinate
    * @param y the y coordinate
-   * @return true if the point is inside the viewBox
+   * @return true if the point is inside or on the boundary of the viewBox
    */
   boolean contains(Number x, Number y) {
     double px = x.doubleValue()

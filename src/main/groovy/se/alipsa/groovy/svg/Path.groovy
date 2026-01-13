@@ -60,8 +60,8 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
   }
 
   /**
-   * Creates a new PathBuilder and sets it as this path's data.
-   * This is a convenience method for starting a fluent path building chain.
+   * Sets the path data from a PathBuilder.
+   * This is a convenience alias for the d(PathBuilder) method.
    * <p>Example:</p>
    * <pre>
    * path.builder(PathBuilder.moveTo(10, 10)

@@ -82,7 +82,14 @@ class PathBuilder {
   }
 
   /**
-   * Parse an existing SVG path data string and return a builder that can extend it
+   * Parse an existing SVG path data string and return a builder that can extend it.
+   * <p>
+   * <strong>Note:</strong> The current implementation stores the path data as-is without
+   * parsing it into individual commands. The parsed string will be treated as a single
+   * command entry. When extending with new commands, they will be appended with proper spacing.
+   * This is sufficient for extending existing paths but means getCommands() will return the
+   * original string as one element.
+   * </p>
    * @param pathData the existing path data string (e.g., "M 10 10 L 20 20")
    * @return a PathBuilder containing the parsed path
    */
