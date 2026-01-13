@@ -15,19 +15,19 @@ This document outlines potential improvements to the gsvg library in terms of ea
 
 ## High-Priority Improvements (Ease of Use)
 
-### 1. Path Data Manipulation Utilities
+### 1. Path Data Manipulation Utilities ✅
 
 **Current State**: Path `d` attributes are just strings
 ```groovy
 path.d('M 10 10 L 20 20 C 30 30, 40 40, 50 50')
 ```
 
-**Proposed Enhancement**:
-- [ ] Path command builder (fluent API)
-- [ ] Path parser (parse existing `d` strings)
-- [ ] Path command types (M, L, C, Q, A, Z, etc.)
-- [ ] Path transformation utilities
-- [ ] Common path generators (arcs, bezier helpers)
+**Completed Enhancement**:
+- ✅ Path command builder (fluent API)
+- ✅ Path parser (parse existing `d` strings)
+- ✅ Path command types (M, L, C, Q, A, Z, etc.)
+- ✅ Path transformation utilities
+- ✅ Common path generators (arcs, bezier helpers)
 
 ```groovy
 // Example API:
@@ -37,9 +37,9 @@ PathBuilder.parse('M 10 10 L 20 20').lineTo(30, 30).toString()
 ```
 
 **Implementation Notes**:
-- Create `PathBuilder` class in `utils/` package
-- Support both absolute and relative commands
-- Maintain backward compatibility (string API still works)
+- ✅ Created `PathBuilder` class in `utils/` package
+- ✅ Supports both absolute and relative commands
+- ✅ Maintains backward compatibility (string API still works)
 
 ---
 
@@ -126,33 +126,38 @@ red.toString()    // SVG-compatible (hex or rgba)
 
 ---
 
-### 4. ViewBox/Coordinate Helpers
+### 4. ViewBox/Coordinate Helpers ✅
 
 **Current State**: ViewBox is a string attribute
 ```groovy
 svg.viewBox('0 0 100 100')
 ```
 
-**Proposed Enhancement**:
-- [ ] ViewBox class/builder
-- [ ] Coordinate transformation utilities
-- [ ] Bounding box calculations
-- [ ] Aspect ratio preservation helpers
-- [ ] Coordinate system conversions
+**Completed Enhancement**:
+- ✅ ViewBox class/builder
+- ✅ Coordinate transformation utilities
+- ✅ Bounding box calculations (contains, intersects)
+- ✅ Aspect ratio preservation helpers
+- ✅ Coordinate system conversions
 
 ```groovy
 // Example API:
 svg.viewBox(ViewBox.of(0, 0, 100, 100))
 svg.viewBox(0, 0, 100, 100) // convenience method
 
-def bounds = element.getBoundingBox()
-def transformed = bounds.transform(matrix)
+def vb = ViewBox.of(0, 0, 100, 100)
+def scaled = vb.scale(2.0)
+def translated = vb.translate(10, 10)
+def expanded = vb.expand(5)
+def centered = vb.centerAt(50, 50)
+def fitted = vb.fitToContain(other)
 ```
 
 **Implementation Notes**:
-- Create `ViewBox` class in `utils/` package
-- Add bounding box calculation utilities
-- Consider optional dependency on Java2D for advanced calculations
+- ✅ Created `ViewBox` class in `utils/` package
+- ✅ Added transformation, query, and containment methods
+- ✅ Immutable design with fluent transformations
+- ✅ Integration with Svg, Symbol, and View elements
 
 ---
 
@@ -241,7 +246,7 @@ svg.strictMode = true // throws on invalid operations
 
 ---
 
-### 8. Enhanced Element Selection
+### 8. Enhanced Element Selection ✅
 
 **Current State**: Basic selection by type or name
 ```groovy
@@ -250,27 +255,32 @@ svg['rect']      // by name
 svg[0]           // by index
 ```
 
-**Proposed Enhancement**:
-- [ ] XPath query support
-- [ ] CSS selector support
-- [ ] Filter/find/collect helpers
-- [ ] Predicates and matchers
-- [ ] Recursive search options
+**Completed Enhancement**:
+- ✅ XPath query support (with transparent namespace handling)
+- ⏸️ CSS selector support (deferred to future version)
+- ✅ Filter/find/collect helpers
+- ✅ Predicates and matchers
+- ✅ Recursive search options
 
 ```groovy
 // Example API:
-svg.find('rect.highlight')                    // CSS selector
-svg.xpath('//rect[@fill="red"]')              // XPath
-svg.filter { it instanceof Rect && it.x() > 100 }
-svg.findAll(Rect) { it.width() > 50 }
-svg.findFirst { it.id() == 'logo' }
+svg.xpath('//rect[@fill="red"]')              // XPath (namespace-aware)
+svg.filter { it instanceof Rect && it.getX() as int > 100 }
+svg.findAll(Rect) { it.getWidth() as int > 50 }
+svg.findFirst { it.getId() == 'logo' }
 svg.descendants(Circle)                       // recursive
+svg.count { it.getFill() == 'red' }
+svg.any { it instanceof Circle }
+svg.all { it.getFill() != null }
+svg.collect { it.getId() }
 ```
 
 **Implementation Notes**:
-- Leverage existing Jaxen dependency for XPath
-- Add CSS selector support (implement or use library)
-- Add to ElementContainer trait
+- ✅ Leveraged existing Jaxen dependency for XPath
+- ✅ Added transparent namespace transformation for simple queries
+- ✅ Added filter(), findAll(), findFirst(), descendants(), xpath(), count(), any(), all(), collect()
+- ✅ Added to ElementContainer trait
+- CSS selector support deferred (XPath covers most use cases)
 
 ---
 
@@ -332,7 +342,7 @@ graphic.role('img')
 ### 12. Export Utilities (Optional - Separate Module)
 
 **Architecture**: Multi-module Maven project
-- Restructure current code as `gsvg-core` submodule
+- Restructure current code as `gsvg-core` submodule but the artifact should still be named `gsvg`
 - Create `gsvg-export` as separate submodule with its own dependencies
 - Parent POM coordinates both modules
 
@@ -410,10 +420,10 @@ These items are intentionally excluded to maintain the library's lightweight phi
 2. ✅ Transform utilities
 3. ✅ Color utilities
 
-**Phase 2: Core Features (v0.7.0)**
-4. Path data manipulation
-5. Enhanced element selection
-6. ViewBox/coordinate helpers
+**Phase 2: Core Features (v0.7.0)** ✅
+4. ✅ Path data manipulation
+5. ✅ Enhanced element selection
+6. ✅ ViewBox/coordinate helpers
 
 **Phase 3: Advanced Features (v0.8.0)**
 7. CSS integration

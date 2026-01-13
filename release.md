@@ -1,7 +1,89 @@
 # gsvg release notes
 
+## Version 0.7.0 - 2026-01-13
+
+**Core Features Enhancement**
+
+This release implements Phase 2 features focusing on advanced path manipulation, coordinate system utilities, and powerful element selection methods.
+
+### Path Data Manipulation
+- **New `PathBuilder` class** (`se.alipsa.groovy.svg.utils.PathBuilder`) for fluent path construction
+- **All SVG path commands supported**:
+  - MoveTo: `moveTo(x, y)`, `moveToRel(dx, dy)`, `M()`, `m()`
+  - LineTo: `lineTo(x, y)`, `lineToRel(dx, dy)`, `L()`, `l()`
+  - Horizontal/Vertical: `horizontalTo(x)`, `verticalTo(y)`, `H()`, `V()`, `h()`, `v()`
+  - Cubic bezier: `curveTo()`, `curveToRel()`, `smoothCurveTo()`, `C()`, `S()`, `c()`, `s()`
+  - Quadratic bezier: `quadTo()`, `quadToRel()`, `smoothQuadTo()`, `Q()`, `T()`, `q()`, `t()`
+  - Arcs: `arc()`, `arcRel()`, `A()`, `a()`
+  - Close path: `closePath()`, `Z()`, `z()`
+- **Fluent API**: Full method chaining support for building complex paths
+- **Path parsing**: `PathBuilder.parse(pathString)` to parse and extend existing paths
+- **Path integration**: `Path.d(PathBuilder)` accepts PathBuilder objects directly
+- **Utility methods**: `copy()`, `getCommands()`, `isEmpty()`, `toString()`
+
+### ViewBox / Coordinate Helpers
+- **New `ViewBox` class** (`se.alipsa.groovy.svg.utils.ViewBox`) for viewport management
+- **Creation methods**:
+  - `ViewBox.of(minX, minY, width, height)` - Create viewBox
+  - `ViewBox.parse(string)` - Parse viewBox strings
+- **Transformations** (all immutable, return new ViewBox):
+  - `scale(factor)`, `scale(scaleX, scaleY)` - Scale dimensions
+  - `translate(dx, dy)` - Shift coordinates
+  - `expand(margin)` - Add margins
+  - `centerAt(cx, cy)` - Center at point
+  - `withAspectRatio(ratio)` - Set aspect ratio
+  - `fitToContain(other)` - Fit viewBox to contain another
+- **Query methods**:
+  - `getCenterX()`, `getCenterY()`, `getMaxX()`, `getMaxY()`, `getAspectRatio()`
+  - `contains(x, y)`, `contains(viewBox)`, `intersects(viewBox)`
+- **Integration with Svg, Symbol, and View elements**:
+  - `svg.viewBox(ViewBox)` - Accept ViewBox objects
+  - `svg.viewBox(minX, minY, width, height)` - Four-parameter convenience
+  - `svg.getViewBoxObject()` - Parse and return ViewBox object
+- **Output**: `toString()` produces SVG-compatible viewBox strings, `toMap()` for data access
+
+### Enhanced Element Selection
+- **Filter and find methods**:
+  - `filter(predicate)` - Filter elements by closure
+  - `findAll(Class, predicate)` - Find all of a type, optionally filtered
+  - `findFirst(predicate)` - Find first matching element
+  - `findFirst(Class)` - Find first of a type
+- **Recursive search**:
+  - `descendants()` - Get all descendant elements recursively
+  - `descendants(Class)` - Get all descendants of a specific type
+- **XPath queries**:
+  - `xpath(query)` - Execute XPath queries on the SVG DOM
+  - Full XPath 1.0 support via dom4j/Jaxen
+- **Aggregate operations**:
+  - `count(predicate)` - Count matching elements
+  - `any(predicate)` - Check if any element matches
+  - `all(predicate)` - Check if all elements match
+  - `collect(transform)` - Transform and collect values from elements
+
+### Tests
+- Added 113 new tests (29 PathBuilder tests, 54 ViewBox tests, 30 enhanced selection tests)
+- Total test count: 447 tests (all passing)
+- 100% pass rate
+- Comprehensive coverage of new Phase 2 utilities
+- XPath namespace handling fully functional with transparent query transformation
+
+### Documentation
+- Updated `kanban/in-progress/svgTodo.md` marking Phase 2 complete
+- Added extensive inline documentation with usage examples
+- All new classes fully documented with Groovydoc
+
+**API additions/updates**
+- `se.alipsa.groovy.svg.utils.PathBuilder`: Complete path building utility
+- `se.alipsa.groovy.svg.utils.ViewBox`: ViewBox manipulation and coordinate helpers
+- `Path`: `d(PathBuilder)`, `builder(PathBuilder)` methods
+- `Svg`, `Symbol`, `View`: `viewBox(ViewBox)`, `viewBox(minX, minY, width, height)`, `getViewBoxObject()` methods
+- `ElementContainer`: `filter()`, `findAll()`, `findFirst()`, `descendants()`, `xpath()`, `count()`, `any()`, `all()`, `collect()` methods
+
+**Breaking changes**
+- None - all additions are backward compatible
+
 ## Version 0.6.0 - 2026-01-13
-**Phase 1: Ease of Use Enhancements**
+**Ease of Use Enhancements**
 
 This release focuses on improving API ergonomics and developer experience with new utilities for common SVG operations.
 

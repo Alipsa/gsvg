@@ -3,6 +3,7 @@ package se.alipsa.groovy.svg
 import groovy.transform.CompileStatic
 import groovy.transform.PackageScope
 import org.dom4j.Element
+import se.alipsa.groovy.svg.utils.PathBuilder
 
 /**
  * SVG {@code <path>} element that defines shapes using path data commands.
@@ -39,6 +40,40 @@ class Path extends AbstractShape<Path> implements Animatable<Path> {
    */
   String getD() {
     getAttribute('d')
+  }
+
+  /**
+   * Sets the path data from a PathBuilder (fluent API for building paths).
+   * <p>Example:</p>
+   * <pre>
+   * path.d(PathBuilder.moveTo(10, 10)
+   *     .lineTo(20, 20)
+   *     .lineTo(30, 10)
+   *     .closePath())
+   * </pre>
+   *
+   * @param builder the PathBuilder containing the path commands
+   * @return this element for chaining
+   */
+  Path d(PathBuilder builder) {
+    addAttribute('d', builder.toString())
+  }
+
+  /**
+   * Sets the path data from a PathBuilder.
+   * This is a convenience alias for the d(PathBuilder) method.
+   * <p>Example:</p>
+   * <pre>
+   * path.builder(PathBuilder.moveTo(10, 10)
+   *     .lineTo(20, 20)
+   *     .closePath())
+   * </pre>
+   *
+   * @param builder the PathBuilder to use
+   * @return this element for chaining
+   */
+  Path builder(PathBuilder builder) {
+    d(builder)
   }
 
 }
