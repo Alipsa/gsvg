@@ -86,25 +86,6 @@ class Ellipse extends AbstractShape<Ellipse>  {
   }
 
   /**
-   * Sets the fill paint used to draw the ellipse interior.
-   *
-   * @param fill the fill color
-   * @return this element for chaining
-   */
-  Ellipse fill(String fill) {
-    addAttribute('fill', fill)
-  }
-
-  /**
-   * Returns the fill paint used to draw the ellipse interior.
-   *
-   * @return the fill value
-   */
-  String getFill() {
-    getAttribute('fill')
-  }
-
-  /**
    * Returns the x-axis radius (rx) of the ellipse.
    *
    * @return the rx value

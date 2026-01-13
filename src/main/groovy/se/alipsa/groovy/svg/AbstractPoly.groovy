@@ -105,25 +105,6 @@ class AbstractPoly<T extends AbstractPoly<T>> extends AbstractShape<T> {
     getAttribute('points')
   }
 
-  /**
-   * Sets the fill paint used to draw the polygon or polyline interior.
-   *
-   * @param value the value
-   * @return this element for chaining
-   */
-  T fill(String value) {
-    addAttribute('fill', value)
-  }
-
-  /**
-   * Returns the fill paint used to draw the polygon or polyline interior.
-   *
-   * @return the fill value
-   */
-  String getFill() {
-    getAttribute('fill')
-  }
-
   private static String toAttributeValues(Coordinate... points) {
     return (points as List<Coordinate>).collect({ it.toString() }).join(' ')
   }

@@ -1,10 +1,9 @@
 package se.alipsa.groovy.svg
 
-
-
 import groovy.transform.PackageScope
 import org.dom4j.Element
 import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.utils.Color
 
 /**
  * SVG {@code <feFlood>} filter primitive that fills the filter region with a solid color.
@@ -36,6 +35,16 @@ class FeFlood extends  FilterElement<FeFlood> {
    */
   FeFlood floodColor(String color) {
     addAttribute('flood-color', color)
+  }
+
+  /**
+   * Sets the flood color using a Color object.
+   *
+   * @param color the color
+   * @return this element for chaining
+   */
+  FeFlood floodColor(Color color) {
+    addAttribute('flood-color', color.toString())
   }
 
   /**

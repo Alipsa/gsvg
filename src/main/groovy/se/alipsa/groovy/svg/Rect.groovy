@@ -207,41 +207,4 @@ class Rect extends AbstractShape<Rect>  {
     getAttribute('ry')
   }
 
-  /**
-   * Sets the fill paint used to draw the rectangle interior.
-   *
-   * @param fill the fill color
-   * @return this element for chaining
-   */
-  Rect fill(String fill) {
-    addAttribute('fill', fill)
-  }
-
-  /**
-   * Returns the fill paint used to draw the rectangle interior.
-   *
-   * @return the fill value
-   */
-  String getFill() {
-    getAttribute('fill')
-  }
-
-  /**
-   * Sets the stroke paint used to draw the rectangle outline.
-   *
-   * @param stroke the stroke color
-   * @return this element for chaining
-   */
-  Rect stroke(String stroke) {
-    addAttribute('stroke', stroke)
-  }
-
-  /**
-   * Returns the stroke paint used to draw the rectangle outline.
-   *
-   * @return the stroke value
-   */
-  String getStroke() {
-    getAttribute('stroke')
-  }
 }

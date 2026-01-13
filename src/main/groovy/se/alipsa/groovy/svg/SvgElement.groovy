@@ -231,6 +231,20 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
+   * Checks if this element has the specified attribute.
+   *
+   * @param name the name of the attribute
+   * @return true if the attribute exists, false otherwise
+   */
+  boolean hasAttribute(String name) {
+    if(name.contains(':')) {
+      element.attribute(getQName(name)) != null
+    } else {
+      element.attribute(name) != null
+    }
+  }
+
+  /**
    * Returns the value of the requested attribute.
    *
    * @param name the name of the element
@@ -289,6 +303,17 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   T addAttribute(QName qname, Object value) {
     element.addAttribute(qname, "$value")
     this as T
+  }
+
+  /**
+   * Adds multiple attributes to this element.
+   * This is an alias for {@link #addAttributes(Map)} for consistency.
+   *
+   * @param attributes the attributes
+   * @return this element for chaining
+   */
+  T attrs(Map<String, Object> attributes) {
+    addAttributes(attributes)
   }
 
   /**
