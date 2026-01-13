@@ -59,4 +59,216 @@ trait ElementContainer {
   List<SvgElement> getAt(Class<? extends SvgElement> clazz) {
     children.stream().filter (e -> e.class == clazz).findAll()
   }
+
+  // ==================== ENHANCED SELECTION METHODS ====================
+
+  /**
+   * Filter child elements using a predicate closure.
+   * <p>Example:</p>
+   * <pre>
+   * def largeRects = svg.filter { it instanceof Rect && it.width() as int > 100 }
+   * def redElements = svg.filter { it.fill() == 'red' }
+   * </pre>
+   *
+   * @param predicate a closure that returns true for elements to include
+   * @return a list of matching elements
+   */
+  List<SvgElement> filter(Closure<Boolean> predicate) {
+    children.findAll(predicate)
+  }
+
+  /**
+   * Find all child elements of a specific type, optionally filtered by a predicate.
+   * <p>Example:</p>
+   * <pre>
+   * def allCircles = svg.findAll(Circle)
+   * def largeCircles = svg.findAll(Circle) { it.r() as int > 50 }
+   * </pre>
+   *
+   * @param clazz the element type to find
+   * @param predicate optional predicate closure to filter results
+   * @return a list of matching elements
+   */
+  <T extends SvgElement> List<T> findAll(Class<T> clazz, Closure<Boolean> predicate = null) {
+    List<T> results = children.findAll { it.class == clazz } as List<T>
+    predicate ? results.findAll(predicate) : results
+  }
+
+  /**
+   * Find the first child element matching a predicate.
+   * <p>Example:</p>
+   * <pre>
+   * def firstRed = svg.findFirst { it.fill() == 'red' }
+   * def logoElement = svg.findFirst { it.id() == 'logo' }
+   * </pre>
+   *
+   * @param predicate a closure that returns true for the element to find
+   * @return the first matching element, or null if none found
+   */
+  SvgElement findFirst(Closure<Boolean> predicate) {
+    children.find(predicate)
+  }
+
+  /**
+   * Find the first child element of a specific type.
+   * <p>Example:</p>
+   * <pre>
+   * def firstCircle = svg.findFirst(Circle)
+   * </pre>
+   *
+   * @param clazz the element type to find
+   * @return the first matching element, or null if none found
+   */
+  <T extends SvgElement> T findFirst(Class<T> clazz) {
+    children.find { it.class == clazz } as T
+  }
+
+  /**
+   * Get all descendant elements (recursive search through all children and their children).
+   * <p>Example:</p>
+   * <pre>
+   * def allElements = svg.descendants()
+   * def allCircles = svg.descendants(Circle)
+   * </pre>
+   *
+   * @param clazz optional class filter, if null returns all descendants
+   * @return a list of all descendant elements (or only those of the specified type)
+   */
+  <T extends SvgElement> List<T> descendants(Class<T> clazz = null) {
+    List<T> results = []
+    collectDescendants(children, clazz, results)
+    results
+  }
+
+  /**
+   * Helper method for recursive descendant collection
+   */
+  private <T extends SvgElement> void collectDescendants(
+      List<SvgElement<? extends SvgElement>> elements,
+      Class<T> clazz,
+      List<T> results) {
+    for (SvgElement element : elements) {
+      // Add to results if it matches the type filter (or no filter)
+      if (clazz == null || element.class == clazz) {
+        results.add(element as T)
+      }
+
+      // Recurse into child containers
+      if (element instanceof ElementContainer) {
+        collectDescendants(((ElementContainer) element).children, clazz, results)
+      }
+    }
+  }
+
+  /**
+   * Execute XPath query on the SVG DOM and return matching elements.
+   * <p>Example:</p>
+   * <pre>
+   * def redRects = svg.xpath('//rect[@fill="red"]')
+   * def allPaths = svg.xpath('//path')
+   * def specificElement = svg.xpath('//*[@id="logo"]')
+   * </pre>
+   *
+   * @param xpathQuery the XPath query string
+   * @return a list of SvgElement objects matching the query
+   */
+  List<SvgElement> xpath(String xpathQuery) {
+    // Get the dom4j element from the container
+    org.dom4j.Element domElement = null
+    if (this instanceof SvgElement) {
+      domElement = ((SvgElement) this).element
+    } else {
+      throw new UnsupportedOperationException("XPath queries require the container to be an SvgElement")
+    }
+
+    // Execute XPath query
+    List<org.dom4j.Node> nodes = domElement.selectNodes(xpathQuery)
+
+    // Convert dom4j elements back to SvgElement wrappers
+    List<SvgElement> results = []
+    for (org.dom4j.Node node : nodes) {
+      if (node instanceof org.dom4j.Element) {
+        SvgElement svgElement = findSvgElementForDom((org.dom4j.Element) node)
+        if (svgElement != null) {
+          results.add(svgElement)
+        }
+      }
+    }
+    results
+  }
+
+  /**
+   * Helper method to find the SvgElement wrapper for a dom4j Element.
+   * This searches through the descendant tree to find the matching element.
+   */
+  private SvgElement findSvgElementForDom(org.dom4j.Element domElement) {
+    // Search through all descendants
+    for (SvgElement element : descendants()) {
+      if (element.element == domElement) {
+        return element
+      }
+    }
+    null
+  }
+
+  /**
+   * Count the number of child elements matching a predicate.
+   * <p>Example:</p>
+   * <pre>
+   * def redCount = svg.count { it.fill() == 'red' }
+   * </pre>
+   *
+   * @param predicate a closure that returns true for elements to count
+   * @return the count of matching elements
+   */
+  int count(Closure<Boolean> predicate) {
+    children.count(predicate) as int
+  }
+
+  /**
+   * Check if any child element matches a predicate.
+   * <p>Example:</p>
+   * <pre>
+   * if (svg.any { it instanceof Circle }) {
+   *   println "Contains at least one circle"
+   * }
+   * </pre>
+   *
+   * @param predicate a closure that returns true for matching elements
+   * @return true if at least one element matches
+   */
+  boolean any(Closure<Boolean> predicate) {
+    children.any(predicate)
+  }
+
+  /**
+   * Check if all child elements match a predicate.
+   * <p>Example:</p>
+   * <pre>
+   * if (svg.all { it.fill() != null }) {
+   *   println "All elements have a fill color"
+   * }
+   * </pre>
+   *
+   * @param predicate a closure that returns true for matching elements
+   * @return true if all elements match
+   */
+  boolean all(Closure<Boolean> predicate) {
+    children.every(predicate)
+  }
+
+  /**
+   * Collect values from child elements using a transformation closure.
+   * <p>Example:</p>
+   * <pre>
+   * def allFillColors = svg.collect { it.fill() }
+   * def allIds = svg.collect { it.id() }
+   * </pre>
+   *
+   * @param transform a closure that transforms each element to a value
+   * @return a list of collected values
+   */
+  <R> List<R> collect(Closure<R> transform) {
+    children.collect(transform)
+  }
 }

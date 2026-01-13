@@ -5,6 +5,7 @@ package se.alipsa.groovy.svg
 import groovy.transform.PackageScope
 import org.dom4j.Element
 import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.utils.ViewBox
 
 /**
  * SVG {@code <view>} element that defines a named view with viewBox settings.
@@ -46,6 +47,38 @@ class View extends SvgElement<View> {
    */
   String getViewBox() {
     getAttribute('viewBox')
+  }
+
+  /**
+   * Sets the view box from a ViewBox object.
+   *
+   * @param viewBox the ViewBox object
+   * @return this element for chaining
+   */
+  View viewBox(ViewBox viewBox) {
+    addAttribute('viewBox', viewBox.toString())
+  }
+
+  /**
+   * Sets the view box with four numeric parameters (convenience method).
+   *
+   * @param minX the minimum x coordinate
+   * @param minY the minimum y coordinate
+   * @param width the viewport width
+   * @param height the viewport height
+   * @return this element for chaining
+   */
+  View viewBox(Number minX, Number minY, Number width, Number height) {
+    viewBox(ViewBox.of(minX, minY, width, height))
+  }
+
+  /**
+   * Parses and returns the current viewBox as a ViewBox object.
+   * @return the parsed ViewBox, or null if not set
+   */
+  ViewBox getViewBoxObject() {
+    String vb = getViewBox()
+    vb ? ViewBox.parse(vb) : null
   }
 
   /**

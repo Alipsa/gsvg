@@ -7,6 +7,7 @@ import org.dom4j.Element
 import groovy.transform.CompileStatic
 import org.dom4j.Document
 import org.dom4j.DocumentHelper
+import se.alipsa.groovy.svg.utils.ViewBox
 
 /**
  * Root SVG document element and entry point for building or parsing SVG content.
@@ -173,6 +174,47 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    */
   String getViewBox() {
     getAttribute('viewBox')
+  }
+
+  /**
+   * Sets the view box from a ViewBox object.
+   * <p>Example:</p>
+   * <pre>
+   * svg.viewBox(ViewBox.of(0, 0, 100, 100))
+   * svg.viewBox(ViewBox.parse("0 0 100 100").scale(2))
+   * </pre>
+   *
+   * @param viewBox the ViewBox object
+   * @return this element for chaining
+   */
+  Svg viewBox(ViewBox viewBox) {
+    addAttribute('viewBox', viewBox.toString())
+  }
+
+  /**
+   * Sets the view box with four numeric parameters (convenience method).
+   * <p>Example:</p>
+   * <pre>
+   * svg.viewBox(0, 0, 100, 100)
+   * </pre>
+   *
+   * @param minX the minimum x coordinate
+   * @param minY the minimum y coordinate
+   * @param width the viewport width
+   * @param height the viewport height
+   * @return this element for chaining
+   */
+  Svg viewBox(Number minX, Number minY, Number width, Number height) {
+    viewBox(ViewBox.of(minX, minY, width, height))
+  }
+
+  /**
+   * Parses and returns the current viewBox as a ViewBox object.
+   * @return the parsed ViewBox, or null if not set
+   */
+  ViewBox getViewBoxObject() {
+    String vb = getViewBox()
+    vb ? ViewBox.parse(vb) : null
   }
 
   /**
