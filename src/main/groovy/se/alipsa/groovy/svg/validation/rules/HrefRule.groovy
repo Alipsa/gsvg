@@ -78,7 +78,8 @@ class HrefRule implements ValidationRule {
             try {
                 href = element.getAttribute(attrName)
             } catch (IllegalArgumentException e) {
-                // Namespace not bound (e.g., xlink:href without xlink namespace), skip
+                // Namespace not bound (e.g., xlink:href without xlink namespace)
+                // Return from closure to skip this attribute and continue with next one
                 return
             }
 
