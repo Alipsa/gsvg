@@ -7,7 +7,7 @@ This project provides a Groovy-friendly object model for creating, parsing, and 
 Gradle:
 ```groovy
 implementation "org.apache.groovy:groovy:5.0.3"
-implementation "se.alipsa.groovy:gsvg:0.5.0"
+implementation "se.alipsa.groovy:gsvg:0.8.0"
 ```
 
 Maven:
@@ -20,7 +20,7 @@ Maven:
 <dependency>
   <groupId>se.alipsa.groovy</groupId>
   <artifactId>gsvg</artifactId>
-  <version>0.5.0</version>
+  <version>0.8.0</version>
 </dependency>
 ```
 
@@ -28,6 +28,8 @@ Maven:
 - [Build SVGs fluently](creating.md) with a Groovy DSL (shapes, gradients, filters, text, animation).
 - [Parse existing SVG](parsing.md) files/strings/streams and modify them.
 - [Merge multiple SVG documents](merging.md) horizontally, vertically, or layered on top of each other.
+- Work with CSS: parse and manipulate CSS rules, manage inline styles as maps, add/remove CSS classes.
+- Validate SVG structure: opt-in validation with customizable rules for attributes, nesting, references, and more.
 - Work with SVG 2 `href` and legacy `xlink:href`, foreign content, and SVG 1.1/2 draft elements.
 
 ## Core concepts
@@ -42,7 +44,61 @@ Maven:
 - `element.toXml()` returns a fragment for just that element and its children.
 - `SvgReader.parse(...)` accepts `File`, `InputStream`, `Reader`, `InputSource`, or a raw XML string.
 
+## CSS Integration
+Work with CSS rules and inline styles using a complete object model:
+
+```groovy
+// Add CSS rules to style elements
+def style = svg.addStyle()
+style.addRule('.highlight', [fill: 'red', stroke: 'black', 'stroke-width': '2'])
+style.addRule('#logo', [transform: 'scale(2)'])
+
+// Manage CSS classes on elements
+rect.addClass('highlight').addClass('selected')
+rect.removeClass('selected')
+if (rect.hasClass('highlight')) { /* ... */ }
+
+// Work with inline styles as maps
+rect.style([fill: 'red', stroke: 'blue', 'stroke-width': '2'])
+def fillColor = rect.getStyleProperty('fill') // 'red'
+def styleMap = rect.getStyleMap() // [fill: 'red', stroke: 'blue', ...]
+```
+
+CSS classes: `CssRule`, `CssStyleSheet`, `CssParser` (in `se.alipsa.groovy.svg.css`)
+
+## Validation
+Validate SVG structure with opt-in validation (library remains permissive by default):
+
+```groovy
+// Basic validation
+def report = svg.validate()
+if (report.isValid()) {
+    // No errors (warnings and info don't fail validation)
+}
+
+// Inspect validation issues
+report.getErrors().each { println "ERROR: ${it.message}" }
+report.getWarnings().each { println "WARNING: ${it.message}" }
+report.getInfo().each { println "INFO: ${it.message}" }
+
+// Customize validation rules
+def engine = ValidationEngine.createDefault()
+engine.removeRule("VIEWBOX_RULE") // Disable specific rule
+def customReport = svg.validate(engine)
+```
+
+Six core validation rules:
+- `RequiredAttributeRule` - Check required attributes (e.g., circle needs cx/cy/r)
+- `AttributeValueRule` - Validate attribute value ranges
+- `ElementNestingRule` - Validate parent-child relationships
+- `ViewBoxRule` - Validate viewBox format
+- `HrefRule` - Validate href references exist
+- `DuplicateIdRule` - Detect duplicate IDs
+
+Validation classes in `se.alipsa.groovy.svg.validation` and `se.alipsa.groovy.svg.validation.rules`.
+
 ## Where to go next
 - `creating.md` for building SVGs with gradients, filters, reuse, text, foreign content, and scripts.
 - `parsing.md` for parsing, navigation, and editing patterns.
 - `merging.md` for combining SVG documents using `SvgMerger`.
+- `benchmarks.md` for performance benchmarks and optimization tips.

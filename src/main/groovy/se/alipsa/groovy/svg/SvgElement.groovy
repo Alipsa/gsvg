@@ -370,6 +370,47 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
+   * Sets the inline style attribute using a map of CSS properties.
+   *
+   * @param styleProps the CSS properties as a map (e.g., [fill: 'red', stroke: 'blue'])
+   * @return this element for chaining
+   */
+  T style(Map<String, Object> styleProps) {
+    if (styleProps == null || styleProps.isEmpty()) {
+      addAttribute('style', '')
+    } else {
+      String styleText = se.alipsa.groovy.svg.css.CssParser.toInlineStyle(
+        styleProps.collectEntries { k, v -> [(k as String): (v as String)] } as Map<String, String>
+      )
+      addAttribute('style', styleText)
+    }
+    this as T
+  }
+
+  /**
+   * Gets the inline style attribute as a map of CSS properties.
+   *
+   * @return a map of CSS property names to values
+   */
+  Map<String, String> getStyleMap() {
+    String styleAttr = getAttribute('style')
+    if (!styleAttr || styleAttr.trim().isEmpty()) {
+      return [:]
+    }
+    return se.alipsa.groovy.svg.css.CssParser.parseInlineStyle(styleAttr)
+  }
+
+  /**
+   * Gets a specific CSS property from the inline style attribute.
+   *
+   * @param property the CSS property name
+   * @return the property value, or null if not found
+   */
+  String getStyleProperty(String property) {
+    getStyleMap().get(property)
+  }
+
+  /**
    * Sets the style class attribute.
    *
    * @param styleClass the CSS style class
@@ -377,6 +418,84 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    */
   T styleClass(String styleClass) {
     addAttribute('class', styleClass)
+  }
+
+  /**
+   * Adds a CSS class to the element's class attribute.
+   * If the class already exists, it will not be added again.
+   *
+   * @param className the CSS class name to add
+   * @return this element for chaining
+   */
+  T addClass(String className) {
+    if (!className || className.trim().isEmpty()) {
+      return this as T
+    }
+    List<String> classes = getClasses()
+    if (!classes.contains(className)) {
+      classes.add(className)
+      addAttribute('class', classes.join(' '))
+    }
+    this as T
+  }
+
+  /**
+   * Removes a CSS class from the element's class attribute.
+   *
+   * @param className the CSS class name to remove
+   * @return this element for chaining
+   */
+  T removeClass(String className) {
+    if (!className || className.trim().isEmpty()) {
+      return this as T
+    }
+    List<String> classes = getClasses()
+    if (classes.remove(className)) {
+      addAttribute('class', classes.join(' '))
+    }
+    this as T
+  }
+
+  /**
+   * Toggles a CSS class on the element.
+   * If the class exists, it is removed; if it doesn't exist, it is added.
+   *
+   * @param className the CSS class name to toggle
+   * @return this element for chaining
+   */
+  T toggleClass(String className) {
+    if (hasClass(className)) {
+      removeClass(className)
+    } else {
+      addClass(className)
+    }
+    this as T
+  }
+
+  /**
+   * Checks if the element has the specified CSS class.
+   *
+   * @param className the CSS class name to check
+   * @return true if the class exists, false otherwise
+   */
+  boolean hasClass(String className) {
+    if (!className || className.trim().isEmpty()) {
+      return false
+    }
+    return getClasses().contains(className)
+  }
+
+  /**
+   * Gets all CSS classes from the element's class attribute.
+   *
+   * @return a list of CSS class names
+   */
+  List<String> getClasses() {
+    String classAttr = getAttribute('class')
+    if (!classAttr || classAttr.trim().isEmpty()) {
+      return []
+    }
+    return classAttr.split(/\s+/).findAll { it } as List<String>
   }
 
   /**
@@ -639,6 +758,33 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
 
     // If no setter exists or it's read-only, set it as an attribute
     addAttribute(propertyName, newValue)
+  }
+
+  /**
+   * Validates this element and all its descendants using default validation rules.
+   * <p>
+   * Applies all default validation rules to this element's subtree and returns
+   * a report with any issues found. This validates just this element's subtree,
+   * not the entire document.
+   * <p>
+   * For document-wide validation, use {@link Svg#validate()} on the root element.
+   *
+   * @return validation report with all issues found
+   */
+  se.alipsa.groovy.svg.validation.ValidationReport validate() {
+    se.alipsa.groovy.svg.validation.ValidationEngine.createDefault().validate(this)
+  }
+
+  /**
+   * Checks if this element passes validation (no errors).
+   * <p>
+   * This is a convenience method equivalent to {@code validate().isValid()}.
+   * Note that warnings and info messages don't prevent validation from passing.
+   *
+   * @return true if validation passes (no errors)
+   */
+  boolean isValid() {
+    validate().isValid()
   }
 
 }

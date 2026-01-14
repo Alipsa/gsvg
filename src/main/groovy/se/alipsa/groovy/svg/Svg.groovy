@@ -388,4 +388,60 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     view
   }
 
+  /**
+   * Validates this SVG document using default validation rules.
+   * <p>
+   * Applies all default validation rules to the entire document tree and returns
+   * a report with any issues found. Validation is opt-in and permissive - the SVG
+   * is still valid even if validation reports issues.
+   * <p>
+   * Example:
+   * <pre>
+   * Svg svg = new Svg(100, 100)
+   * ValidationReport report = svg.validate()
+   * if (report.hasErrors()) {
+   *     println "Validation failed: ${report.errorCount} errors"
+   *     report.errors.each { println it }
+   * }
+   * </pre>
+   *
+   * @return validation report with all issues found
+   * @see se.alipsa.groovy.svg.validation.ValidationEngine
+   */
+  se.alipsa.groovy.svg.validation.ValidationReport validate() {
+    validate(se.alipsa.groovy.svg.validation.ValidationEngine.createDefault())
+  }
+
+  /**
+   * Validates this SVG document using a custom validation engine.
+   * <p>
+   * Allows customizing which validation rules are applied by providing
+   * your own configured {@link se.alipsa.groovy.svg.validation.ValidationEngine}.
+   * <p>
+   * Example:
+   * <pre>
+   * ValidationEngine engine = ValidationEngine.createDefault()
+   * engine.removeRule("VIEWBOX_RULE")  // Disable viewBox validation
+   * ValidationReport report = svg.validate(engine)
+   * </pre>
+   *
+   * @param engine the validation engine to use
+   * @return validation report with all issues found
+   */
+  se.alipsa.groovy.svg.validation.ValidationReport validate(se.alipsa.groovy.svg.validation.ValidationEngine engine) {
+    engine.validate(this)
+  }
+
+  /**
+   * Checks if this SVG document passes validation (no errors).
+   * <p>
+   * This is a convenience method equivalent to {@code validate().isValid()}.
+   * Note that warnings and info messages don't prevent validation from passing.
+   *
+   * @return true if validation passes (no errors)
+   */
+  boolean isValid() {
+    validate().isValid()
+  }
+
 }

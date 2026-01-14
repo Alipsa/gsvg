@@ -358,6 +358,37 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   }
 
   /**
+   * Sets the overall opacity (0 to 1) for the entire element (affects both fill and stroke).
+   *
+   * @param alpha the opacity value (0 = transparent, 1 = opaque)
+   * @return this element for chaining
+   */
+  T opacity(Number alpha) {
+    addAttribute('opacity', alpha)
+    this as T
+  }
+
+  /**
+   * Sets the overall opacity using a string value (for example `"0.5"` or `"50%"`).
+   *
+   * @param alpha the opacity value
+   * @return this element for chaining
+   */
+  T opacity(String alpha) {
+    addAttribute('opacity', alpha)
+    this as T
+  }
+
+  /**
+   * Returns the overall opacity for the entire element.
+   *
+   * @return the opacity value
+   */
+  String getOpacity() {
+    getAttribute('opacity')
+  }
+
+  /**
    * Sets the transform attribute directly as a string.
    *
    * @param value the transform value

@@ -6,7 +6,7 @@
 
   <groupId>se.alipsa.groovy</groupId>
   <artifactId>gsvg</artifactId>
-  <version>0.7.0</version>
+  <version>0.8.0</version>
   <name>gsvg</name>
   <description>A Groovy object model for SVG (Scalable Vector Graphics)</description>
   <packaging>jar</packaging>
@@ -45,6 +45,7 @@
     <junit.version>6.0.2</junit.version>
     <dom4j.version>2.2.0</dom4j.version>
     <jaxen.version>2.0.0</jaxen.version>
+    <jmh.version>1.37</jmh.version>
   </properties>
 
   <dependencyManagement>
@@ -78,6 +79,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-css</artifactId>
+      <version>8.1.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
@@ -85,6 +91,18 @@
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-launcher</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>${jmh.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${jmh.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -352,6 +370,11 @@
             <goals>
               <goal>prepare-agent</goal>
             </goals>
+            <configuration>
+              <excludes>
+                <exclude>com/helger/**</exclude>
+              </excludes>
+            </configuration>
           </execution>
           <execution>
             <id>report</id>

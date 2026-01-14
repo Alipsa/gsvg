@@ -307,4 +307,49 @@ class AbstractShapeTest {
         String xml = svg.toXml()
         assertTrue(xml.contains('mask="url(#circleMask)"'))
     }
+
+    @Test
+    void testOpacityNumber() {
+        Svg svg = new Svg(100, 100)
+        Circle circle = svg.addCircle()
+                .cx(50).cy(50).r(40)
+                .fill('red')
+                .opacity(0.5)
+
+        assertEquals('0.5', circle.opacity)
+        assertEquals('0.5', circle.getOpacity())
+        assertTrue(circle.toXml().contains('opacity="0.5"'))
+    }
+
+    @Test
+    void testOpacityString() {
+        Svg svg = new Svg(100, 100)
+        Rect rect = svg.addRect()
+                .x(10).y(10).width(50).height(50)
+                .fill('blue')
+                .opacity('75%')
+
+        assertEquals('75%', rect.opacity)
+        assertTrue(rect.toXml().contains('opacity="75%"'))
+    }
+
+    @Test
+    void testOpacityChaining() {
+        // Test that opacity can be chained with other attributes
+        Svg svg = new Svg(200, 200)
+        Circle circle = svg.addCircle()
+                .cx(100).cy(100).r(50)
+                .fill('green')
+                .opacity(0.8)
+                .stroke('black')
+                .strokeWidth(2)
+
+        assertEquals('0.8', circle.opacity)
+        assertEquals('green', circle.fill)
+        assertEquals('black', circle.stroke)
+        String xml = circle.toXml()
+        assertTrue(xml.contains('opacity="0.8"'))
+        assertTrue(xml.contains('fill="green"'))
+        assertTrue(xml.contains('stroke="black"'))
+    }
 }
