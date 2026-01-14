@@ -1,10 +1,151 @@
 # gsvg release notes
 
-## Version 0.7.0 - 2026-01-13
+## Version 0.8.0 - 2026-01-15
+
+**Advanced Features**
+
+This release implements three major features: CSS integration, validation helpers, and performance benchmarks. All features are fully backward compatible and opt-in.
+
+### CSS Integration
+- **New CSS object model** with ph-css 8.1.1 integration for robust parsing
+- **CSS classes** (`se.alipsa.groovy.svg.css.CssRule`, `CssStyleSheet`, `CssParser`)
+- **Style element enhancements** on `Style`:
+  - `addRule(selector, declarations)` - Add CSS rules programmatically
+  - `removeRule(selector)` - Remove rules by selector
+  - `getStyleSheet()` - Get parsed CssStyleSheet object
+  - `setStyleSheet(CssStyleSheet)` - Replace stylesheet
+  - `getRules()` - Get all CSS rules
+- **Inline style Map API** on `SvgElement`:
+  - `style(Map<String, Object>)` - Set inline styles from map
+  - `getStyleMap()` - Parse inline style to map
+  - `getStyleProperty(property)` - Get specific style property
+- **CSS class management** on `SvgElement`:
+  - `addClass(className)` - Add CSS class
+  - `removeClass(className)` - Remove CSS class
+  - `toggleClass(className)` - Toggle CSS class
+  - `hasClass(className)` - Check if class exists
+  - `getClasses()` - Get all CSS classes as list
+- **Full method chaining** support for all CSS methods
+- **Maintains backward compatibility** - all string-based style/class APIs still work
+
+```groovy
+// CSS object model:
+def style = svg.addStyle()
+style.addRule('.highlight', [fill: 'red', stroke: 'black', 'stroke-width': '2'])
+style.addRule('#logo', [transform: 'scale(2)'])
+
+// Inline style Map API:
+rect.style([fill: 'red', stroke: 'blue', 'stroke-width': '2'])
+def fillColor = rect.getStyleProperty('fill') // 'red'
+
+// Class management:
+rect.addClass('highlight').addClass('selected')
+rect.removeClass('selected')
+if (rect.hasClass('highlight')) { /* ... */ }
+```
+
+### Validation Helpers
+- **Complete opt-in validation system** - library remains permissive by default
+- **Validation infrastructure**:
+  - `ValidationLevel` enum (ERROR, WARNING, INFO)
+  - `ValidationIssue` - Immutable issue objects with level, message, element path
+  - `ValidationReport` - Aggregates issues with query methods
+  - `ValidationRule` interface - Extensible validation rule system
+  - `ValidationEngine` - Orchestrates validation with customizable rule sets
+- **Six core validation rules**:
+  - `RequiredAttributeRule` - Validates required attributes (circle needs cx/cy/r, etc.)
+  - `AttributeValueRule` - Validates attribute value domains and ranges
+  - `ElementNestingRule` - Validates valid parent-child relationships
+  - `ViewBoxRule` - Validates viewBox format and dimensions
+  - `HrefRule` - Validates href/xlink:href references point to existing IDs
+  - `DuplicateIdRule` - Detects duplicate element IDs
+- **Validation methods** on `Svg` and `SvgElement`:
+  - `validate()` - Validate with default rules
+  - `validate(ValidationEngine)` - Validate with custom rules
+  - `isValid()` - Quick validation check (no errors)
+- **Optimized performance** - All rules run in O(N) time
+- **No breaking changes** - All invalid SVG creation continues to work, validation is purely opt-in
+
+```groovy
+// Basic validation:
+def report = svg.validate()
+if (report.isValid()) {
+    // No errors (warnings/info don't fail validation)
+}
+
+// Inspect issues:
+report.getErrors().each { println "ERROR: ${it.message}" }
+report.getWarnings().each { println "WARNING: ${it.message}" }
+report.getInfo().each { println "INFO: ${it.message}" }
+
+// Custom validation:
+def engine = ValidationEngine.createDefault()
+engine.removeRule("VIEWBOX_RULE") // Disable specific rule
+svg.validate(engine)
+```
+
+### Performance Benchmarks
+- **Complete JMH benchmark suite** (JMH 1.37)
+- **9 benchmark classes** covering all major operations:
+  - `ParsingBenchmark` - Parse simple/medium/large/complex SVGs
+  - `SerializationBenchmark` - toXml() and toXmlPretty() performance
+  - `CreationBenchmark` - Element creation and fluent API chaining
+  - `MergingBenchmark` - Horizontal/vertical/on-top merge performance
+  - `CloningBenchmark` - Deep copy operations
+  - `UtilityBenchmark` - Color, PathBuilder, ViewBox utilities
+  - `SelectionBenchmark` - Type filtering, XPath queries, descendants
+  - `RunAllBenchmarks` - Convenience runner for all benchmarks
+  - `BenchmarkBase` - Shared benchmark infrastructure
+- **4 test SVG files** in `src/test/resources/benchmarks/`:
+  - `simple.svg` (10 elements) - Basic operations
+  - `medium.svg` (100 elements) - Typical documents
+  - `large.svg` (1000 elements) - Stress testing
+  - `complex.svg` - Real-world structure
+- **Benchmark sanity tests** - 8 tests ensuring benchmarks execute without errors
+- **Comprehensive results documented** in `doc/benchmarks.md` with performance analysis
+- **Easy to run**: `mvn exec:java -Dexec.classpathScope=test -Dexec.mainClass="benchmarks.RunAllBenchmarks"`
+
+### Tests
+- Added 146 new tests (28 CSS tests, 73 validation tests, 8 benchmark tests, 37 rule tests)
+- Total test count: 593 tests (was 447 in v0.7.0)
+- 100% pass rate
+- Comprehensive coverage of all new features
+
+### Bug Fixes
+- Fixed ph-css API compatibility for version 8.1.1 (removed ECSSVersion usage)
+- Fixed HrefRule performance issue (O(N²) → O(N) optimization)
+- Fixed HrefRule namespace exception when xlink namespace not bound
+- Added proper exception handling for namespace-prefixed attributes
+
+### Documentation
+- Updated `kanban/in-progress/svgTodo.md` marking Phase 3 complete
+- Added extensive inline documentation with usage examples
+- All new classes fully documented with Groovydoc
+- Library status updated to 593 tests
+
+**API additions/updates**
+- `se.alipsa.groovy.svg.css.CssRule`: CSS rule value object
+- `se.alipsa.groovy.svg.css.CssStyleSheet`: CSS stylesheet management
+- `se.alipsa.groovy.svg.css.CssParser`: CSS parsing utilities (package-private)
+- `Style`: `addRule()`, `removeRule()`, `getStyleSheet()`, `setStyleSheet()`, `getRules()`
+- `SvgElement`: `style(Map)`, `getStyleMap()`, `getStyleProperty()`, `addClass()`, `removeClass()`, `toggleClass()`, `hasClass()`, `getClasses()`
+- `Svg`: `validate()`, `validate(ValidationEngine)`, `isValid()`
+- `SvgElement`: `validate()`, `isValid()`
+- `se.alipsa.groovy.svg.validation.*`: Complete validation infrastructure
+- `se.alipsa.groovy.svg.validation.rules.*`: Six validation rule implementations
+
+**Dependency updates**
+- Updated ph-css from 7.0.2 to 8.1.1
+- Added JMH 1.37 for benchmarking (test scope)
+
+**Breaking changes**
+- None - all additions are backward compatible and opt-in
+
+## Version 0.7.0 - 2026-01-14
 
 **Core Features Enhancement**
 
-This release implements Phase 2 features focusing on advanced path manipulation, coordinate system utilities, and powerful element selection methods.
+This release implements features focusing on advanced path manipulation, coordinate system utilities, and powerful element selection methods.
 
 ### Path Data Manipulation
 - **New `PathBuilder` class** (`se.alipsa.groovy.svg.utils.PathBuilder`) for fluent path construction

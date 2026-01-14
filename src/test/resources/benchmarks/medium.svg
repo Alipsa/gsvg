@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <g id="pattern">
+    <circle cx="50" cy="50" r="20" fill="url(#grad1)"/>
+    <rect x="80" y="40" width="40" height="40" fill="blue"/>
+    <ellipse cx="150" cy="50" rx="25" ry="15" fill="green"/>
+    <polygon points="200,40 220,60 200,80 180,60" fill="purple"/>
+  </g>
+  <use href="#pattern" x="0" y="0"/>
+  <use href="#pattern" x="250" y="0"/>
+  <use href="#pattern" x="500" y="0"/>
+  <use href="#pattern" x="750" y="0"/>
+  <use href="#pattern" x="0" y="100"/>
+  <use href="#pattern" x="250" y="100"/>
+  <use href="#pattern" x="500" y="100"/>
+  <use href="#pattern" x="750" y="100"/>
+  <use href="#pattern" x="0" y="200"/>
+  <use href="#pattern" x="250" y="200"/>
+  <use href="#pattern" x="500" y="200"/>
+  <use href="#pattern" x="750" y="200"/>
+  <use href="#pattern" x="0" y="300"/>
+  <use href="#pattern" x="250" y="300"/>
+  <use href="#pattern" x="500" y="300"/>
+  <use href="#pattern" x="750" y="300"/>
+  <use href="#pattern" x="0" y="400"/>
+  <use href="#pattern" x="250" y="400"/>
+  <use href="#pattern" x="500" y="400"/>
+  <use href="#pattern" x="750" y="400"/>
+  <use href="#pattern" x="0" y="500"/>
+  <use href="#pattern" x="250" y="500"/>
+  <use href="#pattern" x="500" y="500"/>
+  <use href="#pattern" x="750" y="500"/>
+  <use href="#pattern" x="0" y="600"/>
+  <use href="#pattern" x="250" y="600"/>
+  <use href="#pattern" x="500" y="600"/>
+  <use href="#pattern" x="750" y="600"/>
+  <use href="#pattern" x="0" y="700"/>
+  <use href="#pattern" x="250" y="700"/>
+  <use href="#pattern" x="500" y="700"/>
+  <use href="#pattern" x="750" y="700"/>
+  <use href="#pattern" x="0" y="800"/>
+  <use href="#pattern" x="250" y="800"/>
+  <use href="#pattern" x="500" y="800"/>
+  <use href="#pattern" x="750" y="800"/>
+  <use href="#pattern" x="0" y="900"/>
+  <use href="#pattern" x="250" y="900"/>
+  <use href="#pattern" x="500" y="900"/>
+  <use href="#pattern" x="750" y="900"/>
+  <circle cx="100" cy="100" r="10" fill="red"/>
+  <circle cx="150" cy="150" r="10" fill="orange"/>
+  <circle cx="200" cy="200" r="10" fill="yellow"/>
+  <circle cx="250" cy="250" r="10" fill="green"/>
+  <circle cx="300" cy="300" r="10" fill="blue"/>
+  <circle cx="350" cy="350" r="10" fill="indigo"/>
+  <circle cx="400" cy="400" r="10" fill="violet"/>
+  <rect x="50" y="50" width="30" height="30" fill="pink"/>
+  <rect x="100" y="100" width="30" height="30" fill="brown"/>
+  <rect x="150" y="150" width="30" height="30" fill="gray"/>
+  <rect x="200" y="200" width="30" height="30" fill="cyan"/>
+  <rect x="250" y="250" width="30" height="30" fill="magenta"/>
+  <rect x="300" y="300" width="30" height="30" fill="lime"/>
+  <rect x="350" y="350" width="30" height="30" fill="navy"/>
+  <rect x="400" y="400" width="30" height="30" fill="teal"/>
+  <rect x="450" y="450" width="30" height="30" fill="olive"/>
+  <rect x="500" y="500" width="30" height="30" fill="maroon"/>
+  <rect x="550" y="550" width="30" height="30" fill="silver"/>
+  <rect x="600" y="600" width="30" height="30" fill="gold"/>
+  <line x1="0" y1="0" x2="100" y2="100" stroke="black"/>
+  <line x1="100" y1="0" x2="200" y2="100" stroke="black"/>
+  <line x1="200" y1="0" x2="300" y2="100" stroke="black"/>
+  <line x1="300" y1="0" x2="400" y2="100" stroke="black"/>
+  <line x1="400" y1="0" x2="500" y2="100" stroke="black"/>
+  <path d="M 50 50 L 100 100" stroke="red" fill="none"/>
+  <path d="M 150 50 L 200 100" stroke="blue" fill="none"/>
+  <path d="M 250 50 L 300 100" stroke="green" fill="none"/>
+  <ellipse cx="500" cy="500" rx="50" ry="30" fill="aqua"/>
+  <ellipse cx="600" cy="600" rx="50" ry="30" fill="fuchsia"/>
+  <polygon points="700,700 750,750 700,800 650,750" fill="khaki"/>
+  <polygon points="800,800 850,850 800,900 750,850" fill="coral"/>
+</svg>

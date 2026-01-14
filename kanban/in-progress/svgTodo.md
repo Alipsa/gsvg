@@ -7,7 +7,10 @@ This document outlines potential improvements to the gsvg library in terms of ea
 **Library Status**: Production-ready with excellent foundations
 - ✅ Complete SVG element coverage (83 types)
 - ✅ Secure parsing with XXE/DTD protection
-- ✅ Comprehensive testing (259 tests)
+- ✅ Comprehensive testing (593 tests)
+- ✅ CSS object model with ph-css integration
+- ✅ Opt-in validation system (6 rules)
+- ✅ JMH performance benchmark suite
 - ✅ Solid documentation
 - ✅ Pure OO architecture
 
@@ -163,86 +166,121 @@ def fitted = vb.fitToContain(other)
 
 ## Medium-Priority Improvements (Feature Completeness)
 
-### 5. CSS Integration
+### 5. CSS Integration ✅
 
-**Current State**: `<style>` elements supported but only as text content
+**Current State**: Complete CSS object model with ph-css integration
 
-**Proposed Enhancement**:
-- [ ] CSS rule parsing
-- [ ] CSS rule manipulation
-- [ ] Style object model
-- [ ] Selector-based styling
-- [ ] CSS class utilities
-- [ ] Inline style parsing
+**Completed Enhancement**:
+- ✅ CSS rule parsing (using ph-css 8.1.1)
+- ✅ CSS rule manipulation
+- ✅ Style object model (CssRule, CssStyleSheet, CssParser)
+- ✅ CSS class utilities (addClass, removeClass, toggleClass, hasClass)
+- ✅ Inline style parsing and Map API
 
 ```groovy
-// Example API:
+// CSS object model:
 def style = svg.addStyle()
 style.addRule('.highlight', [fill: 'red', stroke: 'black'])
 style.addRule('#logo', [transform: 'scale(2)'])
 
-// Or inline style parsing:
-rect.style([fill: 'red', stroke: 'blue'])
-rect.addClass('highlight')
+// Parse existing CSS:
+def stylesheet = CssParser.parseStyleSheet('.class { fill: red; }')
+
+// Inline style Map API:
+rect.style([fill: 'red', stroke: 'blue', 'stroke-width': '2'])
+def styleMap = rect.getStyleMap()
+def fillColor = rect.getStyleProperty('fill')
+
+// CSS class management:
+rect.addClass('highlight').addClass('selected')
+rect.removeClass('selected')
+rect.toggleClass('active')
+if (rect.hasClass('highlight')) { /* ... */ }
+def classes = rect.getClasses() // ['highlight']
 ```
 
 **Implementation Notes**:
-- Create `CssRule` and `CssStyleSheet` classes
-- Add to Style element
-- Consider using existing CSS parser library vs custom implementation
+- ✅ Created `CssRule`, `CssStyleSheet`, and `CssParser` classes in `css/` package
+- ✅ Integrated ph-css 8.1.1 library for robust parsing
+- ✅ Added CSS methods to Style element
+- ✅ Added inline style Map API and class utilities to SvgElement
 
 ---
 
-### 6. Validation Helpers
+### 6. Validation Helpers ✅
 
-**Current State**: No structural validation
+**Current State**: Complete opt-in validation system with 6 core rules
 
-**Proposed Enhancement**:
-- [ ] SVG structural validation
-- [ ] Required attribute validation
-- [ ] Valid attribute value checking
-- [ ] Element nesting validation
-- [ ] Validation report with warnings/errors
+**Completed Enhancement**:
+- ✅ SVG structural validation (6 validation rules)
+- ✅ Required attribute validation (RequiredAttributeRule)
+- ✅ Valid attribute value checking (AttributeValueRule)
+- ✅ Element nesting validation (ElementNestingRule)
+- ✅ Validation report with errors/warnings/info (ValidationReport)
+- ✅ ViewBox validation (ViewBoxRule)
+- ✅ Href reference validation (HrefRule)
+- ✅ Duplicate ID detection (DuplicateIdRule)
 
 ```groovy
-// Example API:
+// Basic validation:
 def report = svg.validate()
-report.errors.each { println it }
-report.warnings.each { println it }
+if (report.isValid()) {
+    // No errors (warnings and info don't fail validation)
+}
 
+// Inspect issues:
+report.getErrors().each { println "ERROR: ${it.message}" }
+report.getWarnings().each { println "WARNING: ${it.message}" }
+report.getInfo().each { println "INFO: ${it.message}" }
+
+// Quick check:
 if (svg.isValid()) {
     // proceed
 }
 
-// Or validation on creation (opt-in):
-svg.strictMode = true // throws on invalid operations
+// Custom validation engine:
+def engine = ValidationEngine.createDefault()
+engine.removeRule("VIEWBOX_RULE") // Disable specific rule
+def customReport = svg.validate(engine)
+
+// Validation levels:
+// - ERROR: Invalid SVG (missing required attributes, invalid values)
+// - WARNING: Valid but not recommended (missing optional attributes)
+// - INFO: Best practice suggestions (consider adding viewBox)
 ```
 
 **Implementation Notes**:
-- Create `ValidationReport` class
-- Define validation rules based on SVG spec
-- Make validation optional (performance consideration)
-- Consider different validation levels (strict, lenient)
+- ✅ Created `ValidationReport`, `ValidationIssue`, `ValidationLevel`, `ValidationRule`, `ValidationEngine` classes
+- ✅ Implemented 6 core validation rules in `validation/rules/` package
+- ✅ Validation is completely opt-in (no automatic validation)
+- ✅ Library remains permissive by default - all invalid SVG creation continues to work
+- ✅ Optimized for performance (O(N) complexity for all rules)
 
 ---
 
-### 7. Performance Benchmarks
+### 7. Performance Benchmarks ✅
 
-**Current State**: Performance claims ("40-60% faster") are estimates
+**Current State**: Complete JMH benchmark suite with sanity tests
 
-**Proposed Enhancement**:
-- [ ] JMH benchmark suite
-- [ ] Parsing benchmarks
-- [ ] Merging benchmarks
-- [ ] Cloning benchmarks
-- [ ] Memory usage profiling
-- [ ] Document benchmark results
+**Completed Enhancement**:
+- ✅ JMH benchmark suite (JMH 1.37)
+- ✅ Parsing benchmarks (4 complexity levels)
+- ✅ Serialization benchmarks (toXml, toXmlPretty)
+- ✅ Creation benchmarks (element creation, fluent API)
+- ✅ Merging benchmarks (horizontal, vertical, on-top)
+- ✅ Cloning benchmarks (deep copy performance)
+- ✅ Utility benchmarks (Color, PathBuilder, ViewBox)
+- ✅ Selection benchmarks (type filtering, XPath, descendants)
+- ✅ Benchmark sanity tests (8 tests ensuring benchmarks don't throw exceptions)
+- ✅ Document benchmark results in doc/benchmarks.md
 
 **Implementation Notes**:
-- Add JMH dependency (test scope)
-- Create benchmarks in `src/test/java/benchmarks/`
-- Run on different JVM versions
-- Publish results in docs
+- ✅ Added JMH 1.37 dependency (test scope)
+- ✅ Created 9 benchmark classes in `src/test/java/benchmarks/`
+- ✅ Created 4 test SVG files (simple, medium, large, complex)
+- ✅ Created BenchmarkSanityTest.groovy to verify benchmarks work
+- ✅ Ran full benchmark suite and documented results
+- ✅ Created comprehensive doc/benchmarks.md with performance analysis and tips
 
 ---
 
@@ -425,10 +463,10 @@ These items are intentionally excluded to maintain the library's lightweight phi
 5. ✅ Enhanced element selection
 6. ✅ ViewBox/coordinate helpers
 
-**Phase 3: Advanced Features (v0.8.0)**
-7. CSS integration
-8. Validation helpers
-9. Performance benchmarks
+**Phase 3: Advanced Features (v0.8.0)** ✅
+7. ✅ CSS integration
+8. ✅ Validation helpers
+9. ✅ Performance benchmarks
 
 **Phase 4: Polish (v0.9.0)**
 10. Builder pattern enhancements
