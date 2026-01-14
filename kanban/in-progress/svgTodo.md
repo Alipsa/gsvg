@@ -377,6 +377,85 @@ graphic.role('img')
 
 ---
 
+### 13. Numeric Precision Control
+
+**Current State**: Numbers use full double precision via Groovy GString interpolation
+```groovy
+circle.cx(12.123456789)  // Outputs: cx="12.123456789"
+rect.x(50.0)             // Outputs: x="50.0"
+```
+
+**Problem**:
+- Excessive precision bloats SVG file size (each extra decimal adds bytes × number of coordinates)
+- Numbers with 30 decimals from calculations are unnecessarily large
+- Differences beyond 3 decimals are imperceptible to human eyes
+- No visual benefit but significant file size cost
+
+**Enhancement**:
+- [ ] Configurable number formatter with intelligent rounding
+- [ ] Default maximum of 3 decimal places (matching SVGO industry standard)
+- [ ] Remove trailing zeros (avoid 12.120, output 12.12)
+- [ ] Keep integers clean (50 not 50.0 or 50.000)
+- [ ] Only reduce decimals if exceeding the maximum
+- [ ] Apply formatting at `SvgElement.addAttribute()` level
+- [ ] Keep calculations at full precision, round only at output
+- [ ] Optional configuration via system property or builder method
+
+```groovy
+// Proposed API:
+circle.cx(12.123456789)      // Outputs: cx="12.123" (default 3 decimals)
+rect.x(50.0)                 // Outputs: x="50" (no trailing zeros)
+line.x1(10.12)               // Outputs: x1="10.12" (preserves existing precision)
+path.d("M 1.2345 5.6789")    // Outputs: d="M 1.235 5.679"
+
+// Configuration (optional):
+SvgConfig.setMaxPrecision(5)        // Change globally
+svg.setMaxPrecision(2)              // Per-document setting
+element.addAttribute("x", 12.5, 4)  // Per-attribute override
+```
+
+**Implementation Strategy**:
+1. Create `NumberFormatter` utility class with configurable precision
+2. Modify `SvgElement.addAttribute()` to detect Number types and format
+3. Default precision: 3 decimals (SVGO standard)
+4. Algorithm:
+   ```groovy
+   static String formatNumber(Number n, int maxDecimals = 3) {
+       double d = n.toDouble()
+       // If it's a whole number, return as integer
+       if (d == d.toLong()) {
+           return String.valueOf(d.toLong())
+       }
+       // Round to max decimals and remove trailing zeros
+       String formatted = String.format("%.${maxDecimals}f", d)
+       return formatted.replaceAll(/\.?0+$/, '') // Remove trailing zeros
+   }
+   ```
+5. Special handling for ViewBox (already has formatNumber, align behavior)
+6. Keep BigDecimal calculations in SvgMerger intact (precision preserved internally)
+
+**Benefits**:
+- **30-50% file size reduction** for graphics with many coordinates
+- **Industry standard alignment** (matches SVGO, Adobe Illustrator defaults)
+- **Visual quality maintained** (0.001 precision imperceptible)
+- **Cleaner output** (no trailing zeros, no .0 for integers)
+- **User control** (configurable for special cases requiring higher precision)
+
+**Research Notes**:
+- SVGO (industry standard optimizer) defaults to 3 decimals
+- Adobe Illustrator uses 3 decimals by default
+- SVG spec supports single-precision minimum, double-precision for High-Quality viewers
+- For reliable cross-browser: max 2 digits after decimal, 4 before (per industry sources)
+- Most web SVGs use 1-2 decimals; 3 is the sweet spot for balance
+
+**Important Constraints**:
+- ⚠️ **Do NOT use `Number.round(3)`** - this adds trailing zeros (12.12 → 12.120)
+- ✅ **Use formatting + trailing zero removal** (12.120 → 12.12)
+- ✅ **Preserve calculation precision** - only round at string conversion
+- ✅ **Backward compatible** - existing code works unchanged with better output
+
+---
+
 ### 12. Export Utilities (Optional - Separate Module)
 
 **Architecture**: Multi-module Maven project
@@ -472,6 +551,7 @@ These items are intentionally excluded to maintain the library's lightweight phi
 10. Builder pattern enhancements
 11. Extended documentation
 12. Accessibility helpers
+13. Numeric precision control
 
 ---
 
