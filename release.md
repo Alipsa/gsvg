@@ -1,6 +1,6 @@
 # gsvg release notes
 
-## Version 0.8.0 - 2026-01-14
+## Version 0.8.0 - 2026-01-15
 
 **Advanced Features**
 
@@ -141,7 +141,7 @@ svg.validate(engine)
 **Breaking changes**
 - None - all additions are backward compatible and opt-in
 
-## Version 0.7.0 - 2026-01-13
+## Version 0.7.0 - 2026-01-14
 
 **Core Features Enhancement**
 
