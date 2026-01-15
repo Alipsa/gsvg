@@ -37,7 +37,9 @@ Maven:
 - Elements wrap a dom4j `Element` (`element` property) while also tracking `children` for quick navigation.
 - Attributes can be set via fluent methods, `addAttribute(s)`, map-based adders (e.g. `addRect([x: 10, ...])`), or Groovy property assignment.
 - Element containers support `svg[0]`, `svg['rect']`, and `svg[Rect]` selectors.
-- Any element can be cloned into a new parent with `element.clone(targetSvg)` for reuse without XML serialization.
+- Any element can be cloned into a new parent with `element.clone(targetSvg)` or `element.cloneWith(targetSvg, [fill: 'red'])` for reuse without XML serialization.
+- Shape factory methods like `svg.createRoundedRect()`, `svg.createStar()`, and `svg.createArrow()` provide convenient presets.
+- Null-safe attribute access with `element.getAttributeOrDefault('fill', 'black')` prevents NullPointerExceptions.
 
 ## Serialization and I/O
 - Use `SvgWriter.toXml(svg)` or `SvgWriter.toXmlPretty(svg)` to serialize the full document.

@@ -87,7 +87,7 @@ class Circle extends AbstractShape<Circle> {
    * @return this element for chaining
    */
   Circle r(Number r) {
-    addAttribute('r', "$r")
+    addAttribute('r', r)
   }
 
   /**

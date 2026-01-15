@@ -498,7 +498,7 @@ class FilterTest {
           <circle style="fill:#000" id="pattern-circle1" cx="10" cy="10" r="2"/>
           <circle style="fill:#000" id="pattern-circle2" cx="2" cy="2" r="2"/>
         </g>
-        <filter id="dropShadow" height="1.154449" x="-0.0044999999" y="-0.0049999999" width="1.0582259">
+        <filter id="dropShadow" height="1.154" x="-0.004" y="-0.005" width="1.058">
           <feImage width="4" height="4" result="pattern-image" xlink:href="#dotted-pattern"/>
           <feTile in="pattern-image" result="texture" id="feTile4"/>   
           <feOffset dx="11" dy="15" result="offsetblur" id="feOffset6"/>

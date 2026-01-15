@@ -70,7 +70,7 @@ if (rect.hasClass('highlight')) { /* ... */ }
 // Basic validation:
 def report = svg.validate()
 if (report.isValid()) {
-    // No errors (warnings/info don't fail validation)
+  // No errors (warnings/info don't fail validation)
 }
 
 // Inspect issues:
@@ -112,7 +112,6 @@ svg.validate(engine)
 - Comprehensive coverage of all new features
 
 ### Bug Fixes
-- Fixed ph-css API compatibility for version 8.1.1 (removed ECSSVersion usage)
 - Fixed HrefRule performance issue (O(N²) → O(N) optimization)
 - Fixed HrefRule namespace exception when xlink namespace not bound
 - Added proper exception handling for namespace-prefixed attributes
@@ -135,7 +134,7 @@ svg.validate(engine)
 - `se.alipsa.groovy.svg.validation.rules.*`: Six validation rule implementations
 
 **Dependency updates**
-- Updated ph-css from 7.0.2 to 8.1.1
+- Added ph-css 8.1.1 for css management
 - Added JMH 1.37 for benchmarking (test scope)
 
 **Breaking changes**

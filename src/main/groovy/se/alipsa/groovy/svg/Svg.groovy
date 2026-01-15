@@ -18,6 +18,13 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   static final String xmlns="http://www.w3.org/2000/svg"
 
   /**
+   * Optional document-level numeric precision override.
+   * When set, all numeric attributes in this document use this precision.
+   * When null, the global default precision is used.
+   */
+  private Integer documentPrecision = null
+
+  /**
    * Creates a Svg.
    */
   Svg() {
@@ -62,6 +69,55 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     super(parent, element)
   }
 
+  /**
+   * Sets the numeric precision for this SVG document.
+   * <p>
+   * Controls how many decimal places are used when formatting numeric
+   * attributes (coordinates, dimensions, etc.). This affects all elements
+   * in this document.
+   * <p>
+   * Setting precision to lower values reduces file size. The default (3 decimals)
+   * matches industry standards and provides good balance between file size and
+   * visual quality.
+   * <p>
+   * Example:
+   * <pre>
+   * def svg = new Svg(200, 200).setMaxPrecision(2)
+   * svg.addCircle().cx(12.123456)  // Outputs cx="12.12" instead of cx="12.123"
+   * </pre>
+   *
+   * @param decimals maximum decimal places (0-10)
+   * @return this for chaining
+   * @throws IllegalArgumentException if decimals is outside valid range
+   */
+  Svg setMaxPrecision(int decimals) {
+    if (decimals < 0 || decimals > 10) {
+      throw new IllegalArgumentException("Precision must be between 0 and 10, got: ${decimals}")
+    }
+    this.documentPrecision = decimals
+    this
+  }
+
+  /**
+   * Gets the current numeric precision setting for this document.
+   *
+   * @return the precision setting, or null if using global default
+   */
+  Integer getMaxPrecision() {
+    documentPrecision
+  }
+
+  /**
+   * Gets the effective precision for this document.
+   * <p>
+   * Package-private method used by SvgElement to determine precision.
+   *
+   * @return the document precision, or null to use global default
+   */
+  @PackageScope
+  Integer getEffectivePrecision() {
+    documentPrecision
+  }
 
   /**
    * Sets the width attribute.
@@ -442,6 +498,143 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    */
   boolean isValid() {
     validate().isValid()
+  }
+
+  // ========== Shape Factory Methods ==========
+
+  /**
+   * Creates a rounded rectangle with uniform corner radius.
+   * <p>
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#roundedRect}.
+   * <p>
+   * Options:
+   * <ul>
+   *   <li>x - X coordinate (default: 0)</li>
+   *   <li>y - Y coordinate (default: 0)</li>
+   *   <li>width - Rectangle width (required)</li>
+   *   <li>height - Rectangle height (required)</li>
+   *   <li>radius - Corner radius (default: 5)</li>
+   * </ul>
+   * <p>
+   * Example:
+   * <pre>
+   * Rect rounded = svg.createRoundedRect(x: 10, y: 10, width: 100, height: 60, radius: 10)
+   * </pre>
+   *
+   * @param options configuration map
+   * @return configured Rect element
+   */
+  Rect createRoundedRect(Map options) {
+    se.alipsa.groovy.svg.presets.Shapes.roundedRect(this, options)
+  }
+
+  /**
+   * Creates a star polygon with specified number of points.
+   * <p>
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#star}.
+   * <p>
+   * Options:
+   * <ul>
+   *   <li>cx - Center X coordinate (default: 0)</li>
+   *   <li>cy - Center Y coordinate (default: 0)</li>
+   *   <li>points - Number of star points (default: 5)</li>
+   *   <li>outerRadius - Radius to outer points (default: 50)</li>
+   *   <li>innerRadius - Radius to inner points (default: outerRadius / 2.5)</li>
+   * </ul>
+   * <p>
+   * Example:
+   * <pre>
+   * Polygon star = svg.createStar(cx: 100, cy: 100, points: 5, outerRadius: 50, innerRadius: 25)
+   * </pre>
+   *
+   * @param options configuration map
+   * @return configured Polygon element
+   */
+  Polygon createStar(Map options) {
+    se.alipsa.groovy.svg.presets.Shapes.star(this, options)
+  }
+
+  /**
+   * Creates an arrow path from point (x1,y1) to (x2,y2).
+   * <p>
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#arrow}.
+   * <p>
+   * Options:
+   * <ul>
+   *   <li>x1 - Start X coordinate (required)</li>
+   *   <li>y1 - Start Y coordinate (required)</li>
+   *   <li>x2 - End X coordinate (required)</li>
+   *   <li>y2 - End Y coordinate (required)</li>
+   *   <li>headSize - Arrow head size in pixels (default: 10)</li>
+   *   <li>headAngle - Arrow head angle in degrees (default: 30)</li>
+   * </ul>
+   * <p>
+   * Example:
+   * <pre>
+   * Path arrow = svg.createArrow(x1: 10, y1: 50, x2: 100, y2: 50, headSize: 15)
+   * </pre>
+   *
+   * @param options configuration map
+   * @return configured Path element
+   */
+  Path createArrow(Map options) {
+    se.alipsa.groovy.svg.presets.Shapes.arrow(this, options)
+  }
+
+  /**
+   * Creates a regular polygon (triangle, hexagon, etc).
+   * <p>
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#regularPolygon}.
+   * <p>
+   * Options:
+   * <ul>
+   *   <li>cx - Center X coordinate (default: 0)</li>
+   *   <li>cy - Center Y coordinate (default: 0)</li>
+   *   <li>sides - Number of sides (default: 6)</li>
+   *   <li>radius - Distance from center to vertices (default: 50)</li>
+   *   <li>rotation - Rotation angle in degrees (default: 0)</li>
+   * </ul>
+   * <p>
+   * Example:
+   * <pre>
+   * Polygon hexagon = svg.createRegularPolygon(cx: 100, cy: 100, sides: 6, radius: 50)
+   * Polygon triangle = svg.createRegularPolygon(cx: 50, cy: 50, sides: 3, radius: 30)
+   * </pre>
+   *
+   * @param options configuration map
+   * @return configured Polygon element
+   */
+  Polygon createRegularPolygon(Map options) {
+    se.alipsa.groovy.svg.presets.Shapes.regularPolygon(this, options)
+  }
+
+  /**
+   * Creates a speech bubble with a tail pointing to a specific location.
+   * <p>
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#speechBubble}.
+   * <p>
+   * Options:
+   * <ul>
+   *   <li>x - Bubble X coordinate (default: 0)</li>
+   *   <li>y - Bubble Y coordinate (default: 0)</li>
+   *   <li>width - Bubble width (default: 100)</li>
+   *   <li>height - Bubble height (default: 60)</li>
+   *   <li>radius - Corner radius (default: 10)</li>
+   *   <li>tailX - Tail point X coordinate (required)</li>
+   *   <li>tailY - Tail point Y coordinate (required)</li>
+   *   <li>tailWidth - Width of tail base (default: 20)</li>
+   * </ul>
+   * <p>
+   * Example:
+   * <pre>
+   * Path bubble = svg.createSpeechBubble(x: 10, y: 10, width: 100, height: 60, tailX: 50, tailY: 80)
+   * </pre>
+   *
+   * @param options configuration map
+   * @return configured Path element
+   */
+  Path createSpeechBubble(Map options) {
+    se.alipsa.groovy.svg.presets.Shapes.speechBubble(this, options)
   }
 
 }
