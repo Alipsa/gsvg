@@ -42,6 +42,7 @@ class ValidationEngine {
      *   <li>ViewBoxRule - Validates viewBox dimensions</li>
      *   <li>HrefRule - Validates href references exist</li>
      *   <li>DuplicateIdRule - Checks for duplicate IDs</li>
+     *   <li>AccessibilityRule - Validates accessibility attributes and best practices</li>
      * </ul>
      *
      * @return engine with default rules
@@ -54,6 +55,20 @@ class ValidationEngine {
         engine.addRule(new ViewBoxRule())
         engine.addRule(new HrefRule())
         engine.addRule(new DuplicateIdRule())
+        engine.addRule(new AccessibilityRule())
+        engine
+    }
+
+    /**
+     * Creates a validation engine with only accessibility rules.
+     * <p>
+     * Useful for accessibility-focused validation without other structural checks.
+     *
+     * @return engine with accessibility rule
+     */
+    static ValidationEngine createAccessibility() {
+        ValidationEngine engine = new ValidationEngine()
+        engine.addRule(new AccessibilityRule())
         engine
     }
 

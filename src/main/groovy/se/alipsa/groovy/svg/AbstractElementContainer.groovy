@@ -891,4 +891,240 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     }
     t
   }
+
+  // DSL Closure Configuration Methods
+
+  /**
+   * Creates and adds a new Circle element with DSL-style configuration.
+   * <p>
+   * The closure is called with the Circle as delegate, allowing direct method calls.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addCircle {
+   *     cx 100
+   *     cy 100
+   *     r 50
+   *     fill 'red'
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Circle element
+   * @since 0.9.0
+   */
+  Circle addCircle(@DelegatesTo(Circle) Closure config) {
+    Circle circle = addCircle()
+    config.delegate = circle
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    circle
+  }
+
+  /**
+   * Creates and adds a new Rect element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addRect {
+   *     x 10
+   *     y 10
+   *     width 100
+   *     height 50
+   *     fill 'blue'
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Rect element
+   * @since 0.9.0
+   */
+  Rect addRect(@DelegatesTo(Rect) Closure config) {
+    Rect rect = addRect()
+    config.delegate = rect
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    rect
+  }
+
+  /**
+   * Creates and adds a new Ellipse element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addEllipse {
+   *     cx 100
+   *     cy 75
+   *     rx 80
+   *     ry 40
+   *     fill 'yellow'
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Ellipse element
+   * @since 0.9.0
+   */
+  Ellipse addEllipse(@DelegatesTo(Ellipse) Closure config) {
+    Ellipse ellipse = addEllipse()
+    config.delegate = ellipse
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    ellipse
+  }
+
+  /**
+   * Creates and adds a new Line element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addLine {
+   *     x1 10
+   *     y1 50
+   *     x2 190
+   *     y2 50
+   *     stroke 'black'
+   *     strokeWidth 2
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Line element
+   * @since 0.9.0
+   */
+  Line addLine(@DelegatesTo(Line) Closure config) {
+    Line line = addLine()
+    config.delegate = line
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    line
+  }
+
+  /**
+   * Creates and adds a new Path element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addPath {
+   *     d 'M 10 10 L 90 90'
+   *     fill 'none'
+   *     stroke 'green'
+   *     strokeWidth 2
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Path element
+   * @since 0.9.0
+   */
+  Path addPath(@DelegatesTo(Path) Closure config) {
+    Path path = addPath()
+    config.delegate = path
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    path
+  }
+
+  /**
+   * Creates and adds a new Text element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addText {
+   *     content = 'Hello World'
+   *     x 50
+   *     y 50
+   *     fontSize 24
+   *     fill 'black'
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Text element
+   * @since 0.9.0
+   */
+  Text addText(@DelegatesTo(Text) Closure config) {
+    Text text = addText()
+    config.delegate = text
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    text
+  }
+
+  /**
+   * Creates and adds a new G (group) element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addG {
+   *     fill 'blue'
+   *     stroke 'black'
+   *     strokeWidth 1
+   *     // Add children within the closure
+   *     addCircle().cx(50).cy(50).r(20)
+   *     addRect().x(100).y(40).width(20).height(20)
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created G element
+   * @since 0.9.0
+   */
+  G addG(@DelegatesTo(G) Closure config) {
+    G group = addG()
+    config.delegate = group
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    group
+  }
+
+  /**
+   * Creates and adds a new Polygon element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addPolygon {
+   *     points '100,10 40,198 190,78 10,78 160,198'
+   *     fill 'lime'
+   *     stroke 'purple'
+   *     strokeWidth 1
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Polygon element
+   * @since 0.9.0
+   */
+  Polygon addPolygon(@DelegatesTo(Polygon) Closure config) {
+    Polygon polygon = add(new Polygon(this))
+    config.delegate = polygon
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    polygon
+  }
+
+  /**
+   * Creates and adds a new Polyline element with DSL-style configuration.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addPolyline {
+   *     points '20,20 40,25 60,40 80,120 120,140 200,180'
+   *     fill 'none'
+   *     stroke 'black'
+   *     strokeWidth 3
+   * }
+   * </pre>
+   *
+   * @param config configuration closure
+   * @return the created Polyline element
+   * @since 0.9.0
+   */
+  Polyline addPolyline(@DelegatesTo(Polyline) Closure config) {
+    Polyline polyline = add(new Polyline(this))
+    config.delegate = polyline
+    config.resolveStrategy = Closure.DELEGATE_FIRST
+    config()
+    polyline
+  }
 }

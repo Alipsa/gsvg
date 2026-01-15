@@ -1,0 +1,615 @@
+# gsvg v1.0 Roadmap
+
+## Overview
+
+Version 1.0 represents the production-complete release of gsvg, incorporating deferred features, multi-module architecture, and final polish for enterprise adoption.
+
+**Current Status (v0.9.0)**: Feature-complete for single-module use
+- ✅ All Phase 1-4 features implemented (701 tests passing)
+- ✅ Complete SVG 1.1/2 element coverage
+- ✅ Comprehensive documentation suite
+- ✅ Accessibility, validation, and performance optimizations
+- ✅ Quick Wins all implemented
+
+**v1.0 Goals**:
+- Multi-module architecture (core + optional modules)
+- Export/rendering capabilities (optional module)
+- Enhanced selection with CSS selectors
+- Interactive documentation and examples
+- Performance validation and optimization
+- Production-ready stability and polish
+
+---
+
+## Phase 5: Multi-Module Architecture (v1.0-alpha)
+
+### 1. Project Restructuring
+
+**Goal**: Separate concerns into core library and optional modules while maintaining backward compatibility.
+
+#### 1.1 Multi-Module Maven Setup
+- [ ] Create parent POM at project root
+- [ ] Create `gsvg-core/` submodule
+  - [ ] Move existing source code to `gsvg-core/src/`
+  - [ ] Move existing test code to `gsvg-core/src/test/`
+  - [ ] Update package structure (no changes needed)
+  - [ ] Artifact ID remains `gsvg` for backward compatibility
+- [ ] Update all POMs with correct parent/module relationships
+- [ ] Update dependency management in parent POM
+- [ ] Verify all 701 tests pass after restructure
+- [ ] Update GitHub Actions CI/CD for multi-module build
+
+#### 1.2 Module Dependency Strategy
+```xml
+<!-- Parent POM structure -->
+<modules>
+  <module>gsvg-core</module>
+  <module>gsvg-export</module>
+  <module>gsvg-examples</module>  <!-- Optional: interactive examples -->
+</modules>
+```
+
+**Artifact naming**:
+- Core library: `se.alipsa.groovy:gsvg:1.0.0` (unchanged for backward compatibility)
+- Export module: `se.alipsa.groovy:gsvg-export:1.0.0`
+- Examples module: `se.alipsa.groovy:gsvg-examples:1.0.0`
+
+**Benefits**:
+- Keep core library lightweight (current ~200KB)
+- Optional features don't bloat core dependency
+- Users only include what they need
+- Easier to maintain and test separately
+
+---
+
+## Phase 6: Export Module (v1.0-beta)
+
+### 2. gsvg-export Module
+
+**Goal**: Provide SVG rendering, optimization, and export capabilities as an optional module.
+
+#### 2.1 Module Setup
+- [ ] Create `gsvg-export/` submodule structure
+- [ ] Add dependency on `gsvg-core`
+- [ ] Add jsvg dependency: `com.github.weisj:jsvg:1.5.0`
+- [ ] Create package structure: `se.alipsa.groovy.svg.export`
+
+#### 2.2 SVG Rendering (PNG/JPEG Export)
+
+**Technology Choice**: [jsvg](https://github.com/weisJ/jsvg)
+- Pure Java implementation (no native dependencies)
+- Better SVG 2 support than Batik
+- Active development and modern codebase
+- Lightweight (~500KB vs Batik's ~15MB)
+
+**Implementation**:
+- [ ] Create `SvgRenderer` class
+  - [ ] `toPng(Svg svg, File output, Map options)` - Render to PNG
+  - [ ] `toPng(Svg svg, OutputStream output, Map options)` - Stream output
+  - [ ] `toJpeg(Svg svg, File output, Map options)` - Render to JPEG
+  - [ ] `toBufferedImage(Svg svg, Map options)` - Get BufferedImage
+- [ ] Support rendering options:
+  - `width`, `height` - Output dimensions (scale from SVG viewBox)
+  - `scale` - Scale factor (alternative to width/height)
+  - `backgroundColor` - Background color for JPEG
+  - `quality` - JPEG quality (0.0-1.0)
+  - `antialiasing` - Enable/disable antialiasing
+
+**Example Usage**:
+```groovy
+@Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
+
+import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
+
+Svg svg = new Svg(200, 200)
+svg.addCircle().cx(100).cy(100).r(50).fill('red')
+
+// Export to PNG
+SvgRenderer.toPng(svg, new File('output.png'), [
+    width: 800,
+    height: 800,
+    antialiasing: true
+])
+
+// Export to JPEG with background
+SvgRenderer.toJpeg(svg, new File('output.jpg'), [
+    width: 800,
+    height: 800,
+    backgroundColor: 'white',
+    quality: 0.95
+])
+
+// Get BufferedImage for further processing
+def image = SvgRenderer.toBufferedImage(svg, [scale: 2.0])
+```
+
+#### 2.3 SVG Optimization
+
+**Goal**: Reduce SVG file size through various optimization techniques.
+
+**Implementation**:
+- [ ] Create `SvgOptimizer` class
+  - [ ] `optimize(Svg svg, Map options)` - Optimize and return new Svg
+  - [ ] `optimizeInPlace(Svg svg, Map options)` - Optimize existing Svg
+- [ ] Optimization features:
+  - [ ] Remove XML comments
+  - [ ] Remove metadata elements
+  - [ ] Remove unused defs
+  - [ ] Collapse redundant groups
+  - [ ] Round numbers to precision (already have NumberFormatter)
+  - [ ] Merge similar paths
+  - [ ] Remove default attributes
+  - [ ] Convert colors to shorter formats
+  - [ ] Minify path data (remove unnecessary spaces)
+  - [ ] Remove invisible elements (opacity=0, display=none)
+
+**Example Usage**:
+```groovy
+import se.alipsa.groovy.svg.export.SvgOptimizer
+
+Svg svg = SvgReader.read(new File('input.svg'))
+
+Svg optimized = SvgOptimizer.optimize(svg, [
+    removeComments: true,
+    removeMetadata: true,
+    removeUnusedDefs: true,
+    precision: 2,
+    minifyPathData: true,
+    removeDefaults: true
+])
+
+println "Original: ${svg.toString().length()} bytes"
+println "Optimized: ${optimized.toString().length()} bytes"
+
+new File('output.svg').text = optimized.toString()
+```
+
+#### 2.4 SVG Prettification
+
+**Goal**: Format SVG for human readability.
+
+**Implementation**:
+- [ ] Create `SvgFormatter` class
+  - [ ] `prettify(Svg svg, Map options)` - Return formatted XML string
+  - [ ] `format(Svg svg, Map options)` - Return formatted Svg
+- [ ] Formatting options:
+  - `indent` - Indentation string (default: "  ")
+  - `newline` - Newline character (default: "\n")
+  - `sortAttributes` - Sort attributes alphabetically
+  - `groupElements` - Group similar elements with blank lines
+  - `maxLineLength` - Wrap long attribute lists
+
+**Example Usage**:
+```groovy
+import se.alipsa.groovy.svg.export.SvgFormatter
+
+String formatted = SvgFormatter.prettify(svg, [
+    indent: '    ',
+    sortAttributes: true,
+    groupElements: true
+])
+
+new File('formatted.svg').text = formatted
+```
+
+#### 2.5 Testing
+- [ ] Create test suite for gsvg-export module
+  - [ ] Rendering tests (verify PNG/JPEG output)
+  - [ ] Optimization tests (verify file size reduction)
+  - [ ] Prettification tests (verify formatting)
+  - [ ] Integration tests with complex SVGs
+- [ ] Performance benchmarks for rendering
+- [ ] Memory usage tests for large SVGs
+
+---
+
+## Phase 7: Enhanced Selection (v1.0-beta)
+
+### 3. CSS Selector Support
+
+**Status**: Deferred from v0.9.0 (Phase 3, Item 8)
+
+**Goal**: Add CSS selector support for element selection alongside existing XPath.
+
+#### 3.1 CSS Selector Implementation
+
+**Technology Choice**: Use existing dependency or lightweight parser
+- Option 1: Leverage ph-css (already a dependency)
+- Option 2: Use jsoup selector parser
+- Option 3: Implement simple selector parser for common cases
+
+**Implementation**:
+- [ ] Create `CssSelectorEngine` class in `se.alipsa.groovy.svg.utils`
+- [ ] Support common CSS selectors:
+  - Type selectors: `rect`, `circle`, `path`
+  - Class selectors: `.highlight`, `.selected`
+  - ID selectors: `#logo`, `#background`
+  - Attribute selectors: `[fill="red"]`, `[stroke]`, `[width > 100]`
+  - Combinators: `g rect`, `g > rect`, `rect + circle`
+  - Pseudo-classes: `:first-child`, `:last-child`, `:nth-child(n)`
+- [ ] Add to AbstractElementContainer:
+  - [ ] `css(String selector)` - Select elements by CSS selector
+  - [ ] `cssFirst(String selector)` - Select first matching element
+
+**Example Usage**:
+```groovy
+// Select all rectangles
+def rects = svg.css('rect')
+
+// Select elements with class
+def highlighted = svg.css('.highlight')
+
+// Select by ID
+def logo = svg.cssFirst('#logo')
+
+// Complex selectors
+def redRects = svg.css('rect[fill="red"]')
+def childCircles = svg.css('g > circle')
+def firstRect = svg.cssFirst('rect:first-child')
+```
+
+#### 3.2 Performance Optimization
+- [ ] Benchmark CSS selector vs XPath performance
+- [ ] Add caching for frequently used selectors
+- [ ] Optimize attribute lookups
+
+#### 3.3 Testing
+- [ ] Create comprehensive test suite for CSS selectors
+- [ ] Test all selector types
+- [ ] Test edge cases and invalid selectors
+- [ ] Performance benchmarks
+
+---
+
+## Phase 8: Interactive Documentation (v1.0-rc)
+
+### 4. Interactive Examples and Playground
+
+**Status**: Deferred from v0.9.0 (Phase 4, Item 10)
+
+**Goal**: Provide web-based interactive examples and playground for learning gsvg.
+
+#### 4.1 gsvg-examples Module
+
+**Architecture**: Web application with Groovy backend
+- [ ] Create `gsvg-examples/` submodule
+- [ ] Add Ratpack or Spring Boot for web server
+- [ ] Add frontend dependencies (Bootstrap, CodeMirror, etc.)
+
+#### 4.2 Interactive Playground
+
+**Features**:
+- [ ] Web-based code editor (CodeMirror with Groovy syntax)
+- [ ] Live preview of generated SVG
+- [ ] Example library (load common examples)
+- [ ] Export buttons (download SVG, PNG, JPEG)
+- [ ] Share functionality (generate shareable links)
+- [ ] Documentation sidebar with API reference
+
+**Technology Stack**:
+- Backend: Ratpack + Groovy (lightweight, fast)
+- Frontend: Bootstrap + CodeMirror + vanilla JS
+- Build: Gradle wrapper for easy deployment
+
+**Example Structure**:
+```
+gsvg-examples/
+├── src/main/groovy/
+│   └── se/alipsa/groovy/svg/examples/
+│       ├── PlaygroundApp.groovy        # Ratpack application
+│       └── ExampleLibrary.groovy       # Example code library
+├── src/main/resources/
+│   ├── public/
+│   │   ├── index.html                  # Playground UI
+│   │   ├── style.css
+│   │   └── playground.js
+│   └── examples/                       # Example SVG scripts
+│       ├── basic-shapes.groovy
+│       ├── gradients.groovy
+│       ├── charts.groovy
+│       └── ...
+└── build.gradle
+```
+
+#### 4.3 Example Gallery
+
+**Features**:
+- [ ] Categorized example library (shapes, styling, effects, charts, etc.)
+- [ ] Searchable examples
+- [ ] "Copy to clipboard" functionality
+- [ ] "Open in playground" links
+- [ ] Rendered preview images for each example
+
+**Example Categories**:
+1. Basic Shapes (10 examples)
+2. Styling and Colors (8 examples)
+3. Gradients and Patterns (6 examples)
+4. Filters and Effects (10 examples)
+5. Text and Fonts (6 examples)
+6. Paths and Curves (8 examples)
+7. Transformations (5 examples)
+8. Charts and Graphs (8 examples)
+9. Advanced Patterns (10 examples)
+10. Accessibility (5 examples)
+
+#### 4.4 Deployment
+- [ ] Deploy to GitHub Pages (static build)
+- [ ] Or deploy to Heroku/Railway (dynamic playground)
+- [ ] Add to main documentation site
+
+#### 4.5 Video Tutorials (Optional)
+
+**Status**: Deferred from v0.9.0
+
+**Content Ideas**:
+- [ ] "Getting Started with gsvg" (10 min)
+- [ ] "Creating Your First Chart" (15 min)
+- [ ] "Understanding Paths and Curves" (12 min)
+- [ ] "Advanced Effects and Filters" (15 min)
+- [ ] "Making SVGs Accessible" (10 min)
+- [ ] "Performance Optimization Tips" (8 min)
+
+**Platform**: YouTube channel or embed in documentation
+**Tools**: OBS Studio + VS Code + presentation mode
+
+---
+
+## Phase 9: Performance Validation (v1.0-rc)
+
+### 5. Performance Benchmarking and Optimization
+
+**Goal**: Validate and optimize performance for v1.0 release.
+
+#### 5.1 Benchmark Updates
+
+**Task**: Re-run benchmarks and compare with `doc/benchmarks.md` baseline
+- [ ] Run full JMH benchmark suite
+- [ ] Compare with v0.8.0 baseline in doc/benchmarks.md
+- [ ] Identify any performance regressions
+- [ ] Analyze impact of Phase 4 features:
+  - Numeric precision control overhead
+  - Accessibility helper methods
+  - Template/DSL overhead
+  - New factory methods
+
+#### 5.2 Performance Analysis
+
+**Metrics to Track**:
+- [ ] Parsing performance (small/medium/large/complex SVGs)
+- [ ] Serialization performance (toXml, toXmlPretty)
+- [ ] Creation performance (fluent API, DSL)
+- [ ] Selection performance (type, XPath, CSS selectors)
+- [ ] Cloning performance
+- [ ] Memory usage (heap, GC pressure)
+
+**Expected Results**:
+- Parsing: < 5% regression acceptable (precision formatting overhead)
+- Creation: No significant regression (new methods are shortcuts)
+- Selection: CSS selectors should be faster than XPath for simple cases
+- Memory: No increase in baseline memory usage
+
+#### 5.3 Optimization Opportunities
+
+**If regressions found**:
+- [ ] Profile hot paths with JProfiler/YourKit
+- [ ] Optimize NumberFormatter if bottleneck
+- [ ] Cache compiled CSS selectors
+- [ ] Lazy initialization for rarely-used features
+- [ ] Review object allocation patterns
+
+#### 5.4 Documentation
+- [ ] Update `doc/benchmarks.md` with v1.0 results
+- [ ] Add performance comparison table (v0.8 vs v0.9 vs v1.0)
+- [ ] Document any breaking changes or optimization tips
+- [ ] Update `doc/performance.md` with new best practices
+
+---
+
+## Phase 10: Final Polish (v1.0)
+
+### 6. Production Readiness
+
+**Goal**: Ensure gsvg v1.0 is production-ready for enterprise adoption.
+
+#### 6.1 Code Quality
+- [ ] Run static analysis (CodeNarc, SpotBugs)
+- [ ] Fix all critical and high-priority issues
+- [ ] Review and improve Groovydoc coverage
+- [ ] Ensure all public APIs have comprehensive documentation
+- [ ] Add package-level documentation
+
+#### 6.2 Testing
+- [ ] Verify all tests pass (target: 750+ tests)
+- [ ] Achieve >85% code coverage
+- [ ] Add integration tests for multi-module scenarios
+- [ ] Test with different Groovy versions (4.0, 5.0)
+- [ ] Test with different Java versions (17, 21, 23)
+
+#### 6.3 Documentation Audit
+- [ ] Review all documentation for accuracy
+- [ ] Update all code examples to use v1.0 APIs
+- [ ] Add migration guide from v0.9 to v1.0
+- [ ] Update README with new features
+- [ ] Create CHANGELOG.md with detailed release notes
+
+#### 6.4 Security Audit
+- [ ] Review all dependencies for CVEs
+- [ ] Update dependencies to latest stable versions
+- [ ] Verify XXE/XSS protection still active
+- [ ] Review input validation in export module
+- [ ] Add security.md with reporting guidelines
+
+#### 6.5 Compatibility Testing
+- [ ] Test backward compatibility with v0.9 code
+- [ ] Verify Maven Central release process
+- [ ] Test Gradle and Maven integration
+- [ ] Test Groovy Grape (@Grab) functionality
+- [ ] Test with popular Groovy frameworks (Grails, Ratpack)
+
+#### 6.6 Release Preparation
+- [ ] Update version numbers to 1.0.0
+- [ ] Create release branch: `release/1.0`
+- [ ] Tag release: `v1.0.0`
+- [ ] Build and sign artifacts
+- [ ] Deploy to Maven Central
+- [ ] Create GitHub release with release notes
+- [ ] Update documentation website
+- [ ] Announce on Groovy mailing list, Twitter, Reddit
+
+---
+
+## Success Criteria for v1.0
+
+### Functional
+- ✅ Multi-module architecture working smoothly
+- ✅ gsvg-export module provides rendering and optimization
+- ✅ CSS selector support working alongside XPath
+- ✅ Interactive playground deployed and accessible
+- ✅ All deferred features from v0.9 implemented
+
+### Quality
+- ✅ 750+ tests passing (650 core + 100 export/examples)
+- ✅ >85% code coverage across all modules
+- ✅ Zero critical/high security vulnerabilities
+- ✅ All documentation accurate and complete
+- ✅ Performance within 5% of v0.8 baseline
+
+### Compatibility
+- ✅ 100% backward compatible with v0.9 API
+- ✅ Works with Groovy 4.0+ and Java 17+
+- ✅ Maven Central release successful
+- ✅ Easy integration with Gradle and Maven
+
+### User Experience
+- ✅ Interactive playground is intuitive and helpful
+- ✅ Documentation is comprehensive and easy to navigate
+- ✅ Export module is easy to use and well-documented
+- ✅ Migration from v0.9 is straightforward
+
+---
+
+## Timeline Estimate
+
+**Phase 5: Multi-Module Architecture**
+- Duration: 1-2 weeks
+- Complexity: Medium
+- Risk: Low (mostly organizational)
+
+**Phase 6: Export Module**
+- Duration: 3-4 weeks
+- Complexity: High
+- Risk: Medium (jsvg integration, testing)
+
+**Phase 7: Enhanced Selection**
+- Duration: 1-2 weeks
+- Complexity: Medium
+- Risk: Low (leveraging existing ph-css)
+
+**Phase 8: Interactive Documentation**
+- Duration: 2-3 weeks
+- Complexity: Medium
+- Risk: Low (frontend work)
+
+**Phase 9: Performance Validation**
+- Duration: 1 week
+- Complexity: Low
+- Risk: Low (benchmarking and analysis)
+
+**Phase 10: Final Polish**
+- Duration: 1-2 weeks
+- Complexity: Low
+- Risk: Low (cleanup and release prep)
+
+**Total Estimated Time**: 9-14 weeks (2-3.5 months)
+
+---
+
+## Post-1.0 Considerations
+
+### Future Enhancements (v1.1+)
+- Advanced animation support (SMIL builder API)
+- SVG sprite sheet generation
+- Automatic icon generation (multiple sizes)
+- Integration with popular charting libraries
+- Kotlin DSL support
+- GraalVM native image support
+
+### Community and Ecosystem
+- Encourage community contributions
+- Create plugin system for custom extensions
+- Build integrations with popular frameworks
+- Develop official examples repository
+- Regular maintenance releases (quarterly)
+
+---
+
+## Notes
+
+**Backward Compatibility**:
+- v1.0 must maintain 100% backward compatibility with v0.9
+- All existing APIs continue to work
+- New features are purely additive
+- Deprecation warnings for any planned changes in v2.0
+
+**Dependency Management**:
+- Keep core module dependencies minimal
+- Only add dependencies to export/examples modules
+- Regular dependency updates for security
+- Pin dependency versions for stability
+
+**Module Independence**:
+- gsvg-core: No dependency on export or examples
+- gsvg-export: Depends only on gsvg-core
+- gsvg-examples: Depends on gsvg-core and gsvg-export
+
+**Testing Strategy**:
+- Each module has its own test suite
+- Integration tests across modules
+- Performance regression tests
+- Cross-version compatibility tests
+
+---
+
+## Deferred Items (Post-v1.0)
+
+These items are out of scope for v1.0 but may be considered for future releases:
+
+### Advanced Features
+- ❌ Built-in rendering engine in core (use export module)
+- ❌ Animation timeline/sequencer (SMIL is sufficient)
+- ❌ Heavy CSS framework integration
+- ❌ Interactive SVG editor (desktop app)
+- ❌ Real-time collaboration features
+
+### Performance
+- ⏸️ Lazy loading for large SVGs
+- ⏸️ Streaming parser for huge files
+- ⏸️ Parallel processing for batch operations
+
+### Advanced Export
+- ⏸️ PDF export (requires Apache PDFBox or iText)
+- ⏸️ SVG to Canvas conversion
+- ⏸️ SVG to WebP/AVIF export
+
+### Developer Experience
+- ⏸️ IntelliJ IDEA plugin
+- ⏸️ VS Code extension
+- ⏸️ Live reload during development
+- ⏸️ Visual diff tool for SVG changes
+
+---
+
+## Feedback and Contributions
+
+This roadmap is open for discussion and community input. Please provide feedback through:
+- GitHub Issues: Feature requests and suggestions
+- GitHub Discussions: Architecture and design discussions
+- Pull Requests: Code contributions
+
+**Review Schedule**: This roadmap will be reviewed quarterly and updated based on:
+- Community feedback
+- Technology evolution
+- Dependency updates
+- Real-world usage patterns

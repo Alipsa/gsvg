@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import org.dom4j.Element
 import org.dom4j.Namespace
 import org.dom4j.QName
+import se.alipsa.groovy.svg.utils.NumberFormatter
 
 /**
  * Base class for all SVG elements backed by DOM4J elements.
@@ -205,6 +206,33 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
+   * Creates a clone of this element with the specified modifications.
+   * <p>
+   * This is a convenience method that clones the element and immediately
+   * applies a set of attribute modifications. Useful for creating variations
+   * of elements.
+   * <p>
+   * Example:
+   * <pre>
+   * Circle original = svg.addCircle().cx(100).cy(100).r(50).fill('red')
+   * Circle modified = original.cloneWith(svg, [fill: 'blue', r: 30])
+   * // Creates a new circle with same cx/cy but blue fill and radius 30
+   * </pre>
+   *
+   * @param newParent the parent container for the cloned element
+   * @param modifications map of attribute names to new values
+   * @return a clone of this element with modifications applied
+   * @since 0.9.0
+   */
+  T cloneWith(AbstractElementContainer newParent, Map modifications) {
+    T cloned = clone(newParent)
+    modifications.each { key, value ->
+      cloned.addAttribute(String.valueOf(key), value)
+    }
+    return cloned
+  }
+
+  /**
    * Adds a namespace declaration to this element.
    *
    * @param prefix the namespace prefix
@@ -266,7 +294,57 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
+   * Returns the value of the requested attribute, or a default value if the attribute doesn't exist.
+   * <p>
+   * This is a null-safe accessor that prevents NullPointerExceptions when working with
+   * optional attributes.
+   * <p>
+   * Example:
+   * <pre>
+   * String x = rect.getAttributeOrDefault('x', '0')
+   * String fill = circle.getAttributeOrDefault('fill', 'black')
+   * </pre>
+   *
+   * @param name the name of the attribute
+   * @param defaultValue the value to return if the attribute doesn't exist
+   * @return the attribute value, or defaultValue if the attribute is null or missing
+   */
+  String getAttributeOrDefault(String name, String defaultValue) {
+    String value = getAttribute(name)
+    value != null ? value : defaultValue
+  }
+
+  /**
+   * Returns the value of the requested attribute, or a default value if the attribute doesn't exist.
+   *
+   * @param qname the qualified name of the attribute
+   * @param defaultValue the value to return if the attribute doesn't exist
+   * @return the attribute value, or defaultValue if the attribute is null or missing
+   */
+  String getAttributeOrDefault(QName qname, String defaultValue) {
+    String value = getAttribute(qname)
+    value != null ? value : defaultValue
+  }
+
+  /**
+   * Returns the value of the requested attribute, or a default value if the attribute doesn't exist.
+   *
+   * @param nsPrefix the namespace prefix
+   * @param localName the local name of the element
+   * @param defaultValue the value to return if the attribute doesn't exist
+   * @return the attribute value, or defaultValue if the attribute is null or missing
+   */
+  String getAttributeOrDefault(String nsPrefix, String localName, String defaultValue) {
+    String value = getAttribute(nsPrefix, localName)
+    value != null ? value : defaultValue
+  }
+
+  /**
    * Adds an attribute to this element.
+   * <p>
+   * Numeric values are automatically formatted with configurable precision
+   * (default: 3 decimal places). This reduces file size while maintaining
+   * visual quality.
    *
    * @param name the name of the element
    * @param value the value
@@ -276,7 +354,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
     if (name.contains(':')) {
       addAttribute(getQName(name), value)
     } else {
-      element.addAttribute(name, "$value")
+      String formatted = NumberFormatter.format(value, getDocumentPrecision())
+      element.addAttribute(name, formatted)
     }
     this as T
   }
@@ -295,13 +374,16 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
 
   /**
    * Adds an attribute to this element.
+   * <p>
+   * Numeric values are automatically formatted with configurable precision.
    *
    * @param qname the qualified name
    * @param value the value
    * @return this element for chaining
    */
   T addAttribute(QName qname, Object value) {
-    element.addAttribute(qname, "$value")
+    String formatted = NumberFormatter.format(value, getDocumentPrecision())
+    element.addAttribute(qname, formatted)
     this as T
   }
 
@@ -357,6 +439,26 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
       element.remove(attr)
     }
     this as T
+  }
+
+  /**
+   * Gets the numeric precision setting for this element's document.
+   * <p>
+   * Walks up the parent chain to find the root Svg element and returns
+   * its precision setting. Returns null if no custom precision is set,
+   * which causes NumberFormatter to use the global default.
+   *
+   * @return the document's precision setting, or null for global default
+   */
+  private Integer getDocumentPrecision() {
+    SvgElement current = this
+    while (current != null) {
+      if (current instanceof Svg) {
+        return ((Svg) current).getEffectivePrecision()
+      }
+      current = current.parent
+    }
+    return null  // Use global default
   }
 
   /**
@@ -636,6 +738,212 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    */
   Desc getDesc() {
     desc
+  }
+
+  // ==================== ARIA ACCESSIBILITY HELPERS ====================
+
+  /**
+   * Sets the role attribute for accessibility.
+   * <p>
+   * Common values for SVG graphics:
+   * <ul>
+   *   <li>'img' - Marks the SVG as an image</li>
+   *   <li>'graphics-document' - Container for graphic elements</li>
+   *   <li>'graphics-symbol' - Reusable graphic symbol</li>
+   *   <li>'presentation' - Decorative element (hidden from assistive technology)</li>
+   * </ul>
+   *
+   * @param role the ARIA role
+   * @return this element for chaining
+   */
+  T role(String role) {
+    addAttribute('role', role)
+  }
+
+  /**
+   * Returns the role attribute value.
+   *
+   * @return the role, or null if not set
+   */
+  String getRole() {
+    getAttribute('role')
+  }
+
+  /**
+   * Sets the aria-label attribute for accessibility.
+   * <p>
+   * Provides a text alternative that screen readers announce to users.
+   * Use this to give a concise, descriptive label for the element.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.ariaLabel('Sales chart for Q1 2026')
+   * </pre>
+   *
+   * @param label the accessible label
+   * @return this element for chaining
+   */
+  T ariaLabel(String label) {
+    addAttribute('aria-label', label)
+  }
+
+  /**
+   * Returns the aria-label attribute value.
+   *
+   * @return the label, or null if not set
+   */
+  String getAriaLabel() {
+    getAttribute('aria-label')
+  }
+
+  /**
+   * Sets the aria-labelledby attribute.
+   * <p>
+   * References one or more element IDs that label this element.
+   * Screen readers will use the text content of the referenced elements
+   * as the accessible name.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addTitle().id('chart-title').content('Sales Chart')
+   * svg.ariaLabelledBy('chart-title')
+   * </pre>
+   *
+   * @param ids space-separated list of element IDs
+   * @return this element for chaining
+   */
+  T ariaLabelledBy(String ids) {
+    addAttribute('aria-labelledby', ids)
+  }
+
+  /**
+   * Returns the aria-labelledby attribute value.
+   *
+   * @return the IDs, or null if not set
+   */
+  String getAriaLabelledBy() {
+    getAttribute('aria-labelledby')
+  }
+
+  /**
+   * Sets the aria-describedby attribute.
+   * <p>
+   * References one or more element IDs that describe this element.
+   * Screen readers will announce this description after the accessible name.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.addDesc().id('chart-desc').content('Monthly sales from Jan to Mar')
+   * svg.ariaDescribedBy('chart-desc')
+   * </pre>
+   *
+   * @param ids space-separated list of element IDs
+   * @return this element for chaining
+   */
+  T ariaDescribedBy(String ids) {
+    addAttribute('aria-describedby', ids)
+  }
+
+  /**
+   * Returns the aria-describedby attribute value.
+   *
+   * @return the IDs, or null if not set
+   */
+  String getAriaDescribedBy() {
+    getAttribute('aria-describedby')
+  }
+
+  /**
+   * Sets the aria-hidden attribute.
+   * <p>
+   * When true, hides this element and its children from assistive technologies
+   * like screen readers. Use this for decorative graphics that don't convey
+   * meaningful information.
+   * <p>
+   * Example:
+   * <pre>
+   * decorativeRect.ariaHidden(true)
+   * </pre>
+   *
+   * @param hidden true to hide from screen readers, false to expose
+   * @return this element for chaining
+   */
+  T ariaHidden(boolean hidden) {
+    addAttribute('aria-hidden', String.valueOf(hidden))
+  }
+
+  /**
+   * Returns the aria-hidden attribute value.
+   *
+   * @return true if hidden from screen readers, false otherwise
+   */
+  boolean isAriaHidden() {
+    'true'.equalsIgnoreCase(getAttribute('aria-hidden'))
+  }
+
+  /**
+   * Sets the aria-live attribute for dynamic content.
+   * <p>
+   * Indicates that an element will be updated, and describes the types
+   * of updates screen readers should announce to users.
+   * <p>
+   * Valid values:
+   * <ul>
+   *   <li>'off' - Updates will not be announced (default)</li>
+   *   <li>'polite' - Announce updates when user is idle</li>
+   *   <li>'assertive' - Announce updates immediately, interrupting user</li>
+   * </ul>
+   *
+   * @param live the live region mode ('off', 'polite', or 'assertive')
+   * @return this element for chaining
+   */
+  T ariaLive(String live) {
+    addAttribute('aria-live', live)
+  }
+
+  /**
+   * Returns the aria-live attribute value.
+   *
+   * @return the live mode, or null if not set
+   */
+  String getAriaLive() {
+    getAttribute('aria-live')
+  }
+
+  /**
+   * Convenience method to mark an element as decorative.
+   * <p>
+   * Sets both role='presentation' and aria-hidden='true' to hide the element
+   * from assistive technologies. Use this for purely visual elements that
+   * don't convey meaningful information.
+   * <p>
+   * Example:
+   * <pre>
+   * backgroundRect.decorative()
+   * </pre>
+   *
+   * @return this element for chaining
+   */
+  T decorative() {
+    role('presentation').ariaHidden(true)
+  }
+
+  /**
+   * Convenience method to set up basic accessibility for an image-like graphic.
+   * <p>
+   * Sets role='img' and aria-label in one call. This is the recommended
+   * pattern for making SVG graphics accessible.
+   * <p>
+   * Example:
+   * <pre>
+   * svg.accessibleImage('Company logo')
+   * </pre>
+   *
+   * @param label the accessible label describing the graphic
+   * @return this element for chaining
+   */
+  T accessibleImage(String label) {
+    role('img').ariaLabel(label)
   }
 
   /**

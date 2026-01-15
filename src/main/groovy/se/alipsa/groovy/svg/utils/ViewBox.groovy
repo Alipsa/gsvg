@@ -341,15 +341,15 @@ class ViewBox {
   }
 
   /**
-   * Format a number nicely - remove unnecessary decimals
+   * Format a number nicely - removes unnecessary decimals and trailing zeros.
+   * <p>
+   * Delegates to {@link NumberFormatter} for consistent formatting across the library.
+   *
    * @param n the number to format
    * @return formatted string
    */
   private static String formatNumber(double n) {
-    if (n == (long) n) {
-      return String.valueOf((long) n)
-    }
-    return String.valueOf(n)
+    NumberFormatter.format(n)
   }
 
   /**

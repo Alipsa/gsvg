@@ -20,8 +20,8 @@ class Ellipse extends AbstractShape<Ellipse>  {
   @PackageScope
   Ellipse(SvgElement parent, Number rx, Number ry) {
     this(parent)
-    addAttribute('rx', "${rx}")
-    addAttribute('ry', "${ry}")
+    addAttribute('rx', rx)
+    addAttribute('ry', ry)
   }
 
   @PackageScope
@@ -36,7 +36,7 @@ class Ellipse extends AbstractShape<Ellipse>  {
    * @return this element for chaining
    */
   Ellipse cx(Number cx) {
-    addAttribute('cx', "${cx}")
+    addAttribute('cx', cx)
   }
 
   /**
@@ -64,7 +64,7 @@ class Ellipse extends AbstractShape<Ellipse>  {
    * @return this element for chaining
    */
   Ellipse cy(Number cy) {
-    addAttribute('cy', "${cy}")
+    addAttribute('cy', cy)
   }
 
   /**

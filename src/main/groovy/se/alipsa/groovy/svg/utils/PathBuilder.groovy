@@ -51,6 +51,17 @@ class PathBuilder {
   private PathBuilder() {}
 
   /**
+   * Format a number for use in path data.
+   * Delegates to NumberFormatter for consistent precision.
+   *
+   * @param n the number to format
+   * @return formatted string
+   */
+  private static String n(Number n) {
+    NumberFormatter.format(n)
+  }
+
+  /**
    * Private constructor for parsing - use static parse() method
    */
   private PathBuilder(String pathData) {
@@ -68,7 +79,7 @@ class PathBuilder {
    * @return a new PathBuilder
    */
   static PathBuilder moveTo(Number x, Number y) {
-    new PathBuilder().addCommand("M ${x} ${y}")
+    new PathBuilder().addCommand("M ${n(x)} ${n(y)}")
   }
 
   /**
@@ -78,7 +89,7 @@ class PathBuilder {
    * @return a new PathBuilder
    */
   static PathBuilder moveToRel(Number dx, Number dy) {
-    new PathBuilder().addCommand("m ${dx} ${dy}")
+    new PathBuilder().addCommand("m ${n(dx)} ${n(dy)}")
   }
 
   /**
@@ -124,7 +135,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder M(Number x, Number y) {
-    addCommand("M ${x} ${y}")
+    addCommand("M ${n(x)} ${n(y)}")
   }
 
   /**
@@ -134,7 +145,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder m(Number dx, Number dy) {
-    addCommand("m ${dx} ${dy}")
+    addCommand("m ${n(dx)} ${n(dy)}")
   }
 
   /**
@@ -144,7 +155,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder lineTo(Number x, Number y) {
-    addCommand("L ${x} ${y}")
+    addCommand("L ${n(x)} ${n(y)}")
   }
 
   /**
@@ -154,7 +165,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder lineToRel(Number dx, Number dy) {
-    addCommand("l ${dx} ${dy}")
+    addCommand("l ${n(dx)} ${n(dy)}")
   }
 
   /**
@@ -183,7 +194,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder horizontalTo(Number x) {
-    addCommand("H ${x}")
+    addCommand("H ${n(x)}")
   }
 
   /**
@@ -192,7 +203,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder horizontalToRel(Number dx) {
-    addCommand("h ${dx}")
+    addCommand("h ${n(dx)}")
   }
 
   /**
@@ -219,7 +230,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder verticalTo(Number y) {
-    addCommand("V ${y}")
+    addCommand("V ${n(y)}")
   }
 
   /**
@@ -228,7 +239,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder verticalToRel(Number dy) {
-    addCommand("v ${dy}")
+    addCommand("v ${n(dy)}")
   }
 
   /**
@@ -260,7 +271,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder curveTo(Number x1, Number y1, Number x2, Number y2, Number x, Number y) {
-    addCommand("C ${x1} ${y1}, ${x2} ${y2}, ${x} ${y}")
+    addCommand("C ${n(x1)} ${n(y1)}, ${n(x2)} ${n(y2)}, ${n(x)} ${n(y)}")
   }
 
   /**
@@ -274,7 +285,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder curveToRel(Number dx1, Number dy1, Number dx2, Number dy2, Number dx, Number dy) {
-    addCommand("c ${dx1} ${dy1}, ${dx2} ${dy2}, ${dx} ${dy}")
+    addCommand("c ${n(dx1)} ${n(dy1)}, ${n(dx2)} ${n(dy2)}, ${n(dx)} ${n(dy)}")
   }
 
   /**
@@ -314,7 +325,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder smoothCurveTo(Number x2, Number y2, Number x, Number y) {
-    addCommand("S ${x2} ${y2}, ${x} ${y}")
+    addCommand("S ${n(x2)} ${n(y2)}, ${n(x)} ${n(y)}")
   }
 
   /**
@@ -326,7 +337,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder smoothCurveToRel(Number dx2, Number dy2, Number dx, Number dy) {
-    addCommand("s ${dx2} ${dy2}, ${dx} ${dy}")
+    addCommand("s ${n(dx2)} ${n(dy2)}, ${n(dx)} ${n(dy)}")
   }
 
   /**
@@ -362,7 +373,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder quadTo(Number x1, Number y1, Number x, Number y) {
-    addCommand("Q ${x1} ${y1}, ${x} ${y}")
+    addCommand("Q ${n(x1)} ${n(y1)}, ${n(x)} ${n(y)}")
   }
 
   /**
@@ -374,7 +385,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder quadToRel(Number dx1, Number dy1, Number dx, Number dy) {
-    addCommand("q ${dx1} ${dy1}, ${dx} ${dy}")
+    addCommand("q ${n(dx1)} ${n(dy1)}, ${n(dx)} ${n(dy)}")
   }
 
   /**
@@ -408,7 +419,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder smoothQuadTo(Number x, Number y) {
-    addCommand("T ${x} ${y}")
+    addCommand("T ${n(x)} ${n(y)}")
   }
 
   /**
@@ -418,7 +429,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder smoothQuadToRel(Number dx, Number dy) {
-    addCommand("t ${dx} ${dy}")
+    addCommand("t ${n(dx)} ${n(dy)}")
   }
 
   /**
@@ -453,7 +464,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder arc(Number rx, Number ry, Number xAxisRotation, int largeArcFlag, int sweepFlag, Number x, Number y) {
-    addCommand("A ${rx} ${ry} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${x} ${y}")
+    addCommand("A ${n(rx)} ${n(ry)} ${n(xAxisRotation)} ${largeArcFlag} ${sweepFlag} ${n(x)} ${n(y)}")
   }
 
   /**
@@ -468,7 +479,7 @@ class PathBuilder {
    * @return this builder for chaining
    */
   PathBuilder arcRel(Number rx, Number ry, Number xAxisRotation, int largeArcFlag, int sweepFlag, Number dx, Number dy) {
-    addCommand("a ${rx} ${ry} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${dx} ${dy}")
+    addCommand("a ${n(rx)} ${n(ry)} ${n(xAxisRotation)} ${largeArcFlag} ${sweepFlag} ${n(dx)} ${n(dy)}")
   }
 
   /**
