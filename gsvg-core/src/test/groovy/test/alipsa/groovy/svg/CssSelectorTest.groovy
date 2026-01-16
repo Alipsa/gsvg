@@ -18,7 +18,7 @@ class CssSelectorTest {
         svg.addCircle().id('logo').addClass('icon').cx(50).cy(50).r(25).fill('red')
         svg.addCircle().id('avatar').addClass('icon').cx(100).cy(50).r(30).fill('blue')
         svg.addRect().id('background').addClass('layer').x(0).y(0).width(400).height(400).fill('white')
-        svg.addRect().id('panel').addClass('layer highlighted').x(10).y(10).width(200).height(200).fill('gray')
+        svg.addRect().id('panel').addClass('layer').addClass('highlighted').x(10).y(10).width(200).height(200).fill('gray')
 
         G group1 = svg.addG().id('group1').addClass('container')
         group1.addCircle().id('c1').addClass('highlight').cx(150).cy(150).r(20).fill('red')

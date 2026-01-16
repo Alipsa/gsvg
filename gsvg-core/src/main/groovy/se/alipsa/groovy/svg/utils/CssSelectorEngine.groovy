@@ -84,6 +84,15 @@ class CssSelectorEngine {
     }
 
     /**
+     * Check if a selector contains combinators (space or >).
+     * Used to determine if recursive processing is needed.
+     */
+    private static boolean hasCombinator(String selector) {
+        return (selector.contains(' ') && !isWithinBrackets(selector)) ||
+               hasChildCombinatorOutsideBrackets(selector)
+    }
+
+    /**
      * Select first element matching the given CSS selector.
      *
      * @param container the container to search in
@@ -135,6 +144,63 @@ class CssSelectorEngine {
     }
 
     /**
+     * Process a child selector that may contain combinators against a list of direct children.
+     * This method handles the logic of matching direct children and recursively processing
+     * remaining selectors.
+     *
+     * @param directChildren the list of direct children to match against
+     * @param childSelector the selector to apply to direct children (may contain combinators)
+     * @return list of matching elements
+     */
+    private static List<SvgElement> selectFromDirectChildren(List<SvgElement> directChildren, String childSelector) {
+        List<SvgElement> results = []
+
+        // Check for child combinator (>) first, as "g > circle" contains both > and space
+        if (childSelector.contains('>') && hasChildCombinatorOutsideBrackets(childSelector)) {
+            // Child combinator in childSelector: "g > circle"
+            String[] childParts = childSelector.split(/\s*>\s*/, 2)
+            String directChildType = childParts[0].trim()
+            String remainingSelector = childParts[1].trim()
+
+            // Find direct children matching the type, then find their direct children
+            directChildren.each { child ->
+                if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
+                    List<SvgElement> grandchildren = (child as ElementContainer).children as List<SvgElement>
+
+                    // If remainingSelector has combinators, evaluate recursively
+                    if (hasCombinator(remainingSelector)) {
+                        grandchildren.each { grandchild ->
+                            if (grandchild instanceof ElementContainer) {
+                                results.addAll(select(grandchild as ElementContainer, remainingSelector))
+                            }
+                        }
+                    } else {
+                        // Simple selector - filter grandchildren
+                        results.addAll(grandchildren.findAll { matchesSelector(it, remainingSelector) })
+                    }
+                }
+            }
+        } else if (childSelector.contains(' ') && !isWithinBrackets(childSelector)) {
+            // Space combinator (descendant) in childSelector: "g circle"
+            String[] childParts = childSelector.split(/\s+/, 2)
+            String directChildType = childParts[0]
+            String remainingSelector = childParts[1]
+
+            // Find direct children matching the type, then search within them
+            directChildren.each { child ->
+                if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
+                    results.addAll(select(child as ElementContainer, remainingSelector))
+                }
+            }
+        } else {
+            // Simple selector - filter direct children
+            results.addAll(directChildren.findAll { matchesSelector(it, childSelector) })
+        }
+
+        return results
+    }
+
+    /**
      * Select elements with child combinator (e.g., "g > circle").
      *
      * Note: Like descendant combinators, chained selectors (e.g., "svg g > circle")
@@ -147,56 +213,10 @@ class CssSelectorEngine {
         String parentSelector = parts[0].trim()
         String childSelector = parts[1].trim()
 
-        List<SvgElement> results = []
-
         // Special case: "svg > ..." where container IS svg
-        // Process as: find direct children, then apply childSelector to them
         if (parentSelector == 'svg' || parentSelector == '*') {
             List<SvgElement> directChildren = container.children as List<SvgElement>
-
-            // Check for child combinator (>) first, as "g > circle" contains both > and space
-            if (childSelector.contains('>') && hasChildCombinatorOutsideBrackets(childSelector)) {
-                // Child combinator in childSelector: "g > circle"
-                // Split on '>': "g" + "circle"
-                String[] childParts = childSelector.split(/\s*>\s*/, 2)
-                String directChildType = childParts[0].trim()
-                String remainingSelector = childParts[1].trim()
-
-                // Find direct children matching the type, then find their direct children matching remaining selector
-                directChildren.each { child ->
-                    if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
-                        List<SvgElement> grandchildren = (child as ElementContainer).children as List<SvgElement>
-
-                        // If remainingSelector has combinators, evaluate recursively
-                        if (remainingSelector.contains(' ') || remainingSelector.contains('>')) {
-                            grandchildren.each { grandchild ->
-                                if (grandchild instanceof ElementContainer) {
-                                    results.addAll(select(grandchild as ElementContainer, remainingSelector))
-                                }
-                            }
-                        } else {
-                            // Simple selector - filter grandchildren
-                            results.addAll(grandchildren.findAll { matchesSelector(it, remainingSelector) })
-                        }
-                    }
-                }
-            } else if (childSelector.contains(' ') && !isWithinBrackets(childSelector)) {
-                // Space combinator (descendant) in childSelector: "g circle"
-                String[] childParts = childSelector.split(/\s+/, 2)
-                String directChildType = childParts[0]
-                String remainingSelector = childParts[1]
-
-                // Find direct children matching the type, then search within them
-                directChildren.each { child ->
-                    if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
-                        results.addAll(select(child as ElementContainer, remainingSelector))
-                    }
-                }
-            } else {
-                // Simple selector - filter direct children
-                results.addAll(directChildren.findAll { matchesSelector(it, childSelector) })
-            }
-            return results
+            return selectFromDirectChildren(directChildren, childSelector)
         }
 
         // Find all elements matching parent selector (may contain combinators)
@@ -204,51 +224,11 @@ class CssSelectorEngine {
         List<SvgElement> parents = select(container, parentSelector)
 
         // For each parent, find direct children matching child selector
+        List<SvgElement> results = []
         parents.each { parent ->
             if (parent instanceof ElementContainer) {
                 List<SvgElement> directChildren = (parent as ElementContainer).children as List<SvgElement>
-
-                // Check for child combinator (>) first, as "g > circle" contains both > and space
-                if (childSelector.contains('>') && hasChildCombinatorOutsideBrackets(childSelector)) {
-                    // Child combinator in childSelector: "g > circle"
-                    String[] childParts = childSelector.split(/\s*>\s*/, 2)
-                    String directChildType = childParts[0].trim()
-                    String remainingSelector = childParts[1].trim()
-
-                    // Find direct children matching the type, then find their direct children
-                    directChildren.each { child ->
-                        if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
-                            List<SvgElement> grandchildren = (child as ElementContainer).children as List<SvgElement>
-
-                            // If remainingSelector has combinators, evaluate recursively
-                            if (remainingSelector.contains(' ') || remainingSelector.contains('>')) {
-                                grandchildren.each { grandchild ->
-                                    if (grandchild instanceof ElementContainer) {
-                                        results.addAll(select(grandchild as ElementContainer, remainingSelector))
-                                    }
-                                }
-                            } else {
-                                // Simple selector - filter grandchildren
-                                results.addAll(grandchildren.findAll { matchesSelector(it, remainingSelector) })
-                            }
-                        }
-                    }
-                } else if (childSelector.contains(' ') && !isWithinBrackets(childSelector)) {
-                    // Space combinator (descendant) in childSelector: "g circle"
-                    String[] childParts = childSelector.split(/\s+/, 2)
-                    String directChildType = childParts[0]
-                    String remainingSelector = childParts[1]
-
-                    // Find direct children matching the type, then search within them
-                    directChildren.each { child ->
-                        if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
-                            results.addAll(select(child as ElementContainer, remainingSelector))
-                        }
-                    }
-                } else {
-                    // Simple selector - filter direct children
-                    results.addAll(directChildren.findAll { matchesSelector(it, childSelector) })
-                }
+                results.addAll(selectFromDirectChildren(directChildren, childSelector))
             }
         }
 

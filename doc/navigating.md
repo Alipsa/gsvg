@@ -472,20 +472,20 @@ svg.css('#panel.highlighted')
 
 ### CSS vs XPath
 
-Both CSS selectors and XPath can achieve similar results:
+Both CSS selectors and XPath can achieve similar results. Choose the approach that best fits your needs:
 
 ```groovy
-// Find all circles - CSS vs XPath
-svg.css('circle')
-svg.xpath('//circle')
+// Find all circles (choose one approach):
+svg.css('circle')        // Using CSS selector
+svg.xpath('//circle')    // Using XPath - equivalent alternative
 
-// Find elements with fill='red' - CSS vs XPath
-svg.css('[fill="red"]')
-svg.xpath('//*[@fill="red"]')
+// Find elements with fill='red' (choose one approach):
+svg.css('[fill="red"]')       // Using CSS selector
+svg.xpath('//*[@fill="red"]') // Using XPath - equivalent alternative
 
-// Find circles in groups - CSS vs XPath
-svg.css('g circle')
-svg.xpath('//g//circle')
+// Find circles in groups (choose one approach):
+svg.css('g circle')      // Using CSS selector
+svg.xpath('//g//circle') // Using XPath - equivalent alternative
 ```
 
 **When to use CSS selectors:**
