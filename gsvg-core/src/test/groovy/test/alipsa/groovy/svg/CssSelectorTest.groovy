@@ -155,23 +155,15 @@ class CssSelectorTest {
     @Test
     void testDescendantCombinator_GCircle() {
         List<SvgElement> groupCircles = svg.css('g circle')
-        // c1, c2 are direct children of group1
-        // nested-circle is descendant of group2
-        // BUT: when we search from nested group's parent (group2), we'll find circles in group1 too
-        // Actually: we find all g elements, then find all circle descendants of each
-        // So we get: from group1: c1, c2; from group2: nested-circle; from nested: nothing (no circles)
-        // Wait, group2 contains nested which contains nested-circle, so searching group2's descendants finds it
-        // And searching group1 finds c1, c2
-        // But we're also searching nested group which has no circles
-        // Total: c1 (from group1), c2 (from group1), c1 again? Let me think...
-        // The algorithm finds all 'g' elements (group1, group2, nested), then for each finds circle descendants
+        // Finds all groups (group1, group2, nested), then finds circle descendants of each
         // group1 descendants: c1, c2
-        // group2 descendants: nested-circle (through nested group)
-        // nested descendants: nested-circle
-        // So we get c1, c2, nested-circle, nested-circle = 4, but one is duplicate
-        // Actually no - we find nested-circle from group2 AND from nested, so it appears twice
-        // Let me just check what we actually get and adjust
-        assertTrue(groupCircles.size() >= 3) // At least c1, c2, nested-circle
+        // group2 descendants: nested-circle
+        // nested descendants: nested-circle (duplicate, removed by deduplication)
+        // Result: c1, c2, nested-circle (3 unique circles)
+        assertEquals(3, groupCircles.size())
+        assertTrue(groupCircles.any { it.getId() == 'c1' })
+        assertTrue(groupCircles.any { it.getId() == 'c2' })
+        assertTrue(groupCircles.any { it.getId() == 'nested-circle' })
     }
 
     @Test
@@ -336,5 +328,93 @@ class CssSelectorTest {
         SvgElement first = group1.cssFirst('circle')
         assertNotNull(first)
         assertEquals('c1', first.getId())
+    }
+
+    // ==================== MALFORMED SELECTORS ====================
+
+    @Test
+    void testMalformedSelector_UnclosedBracket() {
+        // Unclosed bracket should return empty list (graceful handling)
+        List<SvgElement> results = svg.css('[fill="red"')
+        assertEquals(0, results.size())
+    }
+
+    @Test
+    void testMalformedSelector_UnclosedParenthesis() {
+        // Unclosed parenthesis in pseudo-class should return empty list
+        List<SvgElement> results = svg.css(':nth-child(2')
+        assertEquals(0, results.size())
+    }
+
+    @Test
+    void testMalformedSelector_UnclosedBracketInCompound() {
+        // Malformed compound selector should return empty list
+        List<SvgElement> results = svg.css('circle[fill="red"')
+        assertEquals(0, results.size())
+    }
+
+    @Test
+    void testValidSelector_BracketWithSpaces() {
+        // Selector with spaces inside attribute value should work correctly
+        // Note: SVG attributes rarely have spaces, but selector should handle it
+        svg.addCircle().id('test-spaces').addAttribute('data-value', 'red value')
+        List<SvgElement> results = svg.css('[data-value="red value"]')
+        assertEquals(1, results.size())
+        assertEquals('test-spaces', results[0].getId())
+    }
+
+    @Test
+    void testValidSelector_AttributeWithWhitespaceAroundEquals() {
+        // Attribute selector with spaces around '=' should work
+        List<SvgElement> results = svg.css('[fill = "red"]')
+        assertEquals(3, results.size())
+    }
+
+    @Test
+    void testValidSelector_AttributeInBrackets() {
+        // Attribute selector with '>' inside brackets should not be treated as combinator
+        svg.addRect().id('test-gt').addAttribute('data-count', '>5')
+        List<SvgElement> results = svg.css('[data-count=">5"]')
+        assertEquals(1, results.size())
+        assertEquals('test-gt', results[0].getId())
+    }
+
+    // ==================== CHAINED COMBINATORS ====================
+
+    @Test
+    void testChainedCombinator_DoubleDescendant() {
+        // "g g circle" should find circles in nested groups
+        List<SvgElement> results = svg.css('g g circle')
+        // Only nested-circle is inside a group that is inside another group
+        assertEquals(1, results.size())
+        assertEquals('nested-circle', results[0].getId())
+    }
+
+    @Test
+    void testChainedCombinator_DescendantThenChild() {
+        // "svg g > circle" should find circles that are direct children of groups
+        List<SvgElement> results = svg.css('svg g > circle')
+        // c1, c2 are direct children of group1, nested-circle is direct child of nested group
+        assertEquals(3, results.size())
+    }
+
+    @Test
+    void testChainedCombinator_ChildThenDescendant() {
+        // "svg > g circle" should find circles in groups that are direct children of svg
+        List<SvgElement> results = svg.css('svg > g circle')
+        // group1 and group2 are direct children of svg
+        // group1 contains c1, c2
+        // group2 contains nested-circle (through nested group)
+        assertEquals(3, results.size())
+    }
+
+    @Test
+    void testChainedCombinator_MultipleChildCombinators() {
+        // "g > g > circle" should find circles that are direct children of groups
+        // that are direct children of groups
+        List<SvgElement> results = svg.css('g > g > circle')
+        // nested group is direct child of group2, and nested-circle is direct child of nested
+        assertEquals(1, results.size())
+        assertEquals('nested-circle', results[0].getId())
     }
 }

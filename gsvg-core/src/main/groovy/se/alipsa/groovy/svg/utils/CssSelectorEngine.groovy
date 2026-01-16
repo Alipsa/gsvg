@@ -28,7 +28,8 @@ class CssSelectorEngine {
         selector = selector.trim()
 
         // Handle child combinators (>) - must check before space since " > " contains space
-        if (selector.contains('>') && !selector.startsWith('[')) {
+        // Only treat as combinator if '>' is outside of attribute selector brackets
+        if (hasChildCombinatorOutsideBrackets(selector)) {
             return selectWithChildCombinator(container, selector)
         }
 
@@ -42,14 +43,42 @@ class CssSelectorEngine {
     }
 
     /**
-     * Check if spaces are within attribute selector brackets.
+     * Check if all spaces in the selector are within attribute selector brackets.
+     * Returns false if any space is found outside brackets (indicating a combinator).
      */
     private static boolean isWithinBrackets(String selector) {
-        int bracketStart = selector.indexOf('[')
-        int bracketEnd = selector.indexOf(']')
-        if (bracketStart >= 0 && bracketEnd > bracketStart) {
-            String afterBracket = selector.substring(bracketEnd + 1)
-            return !afterBracket.contains(' ')
+        boolean inBrackets = false
+        for (int i = 0; i < selector.length(); i++) {
+            char c = selector.charAt(i)
+            if (c == '[') {
+                inBrackets = true
+            } else if (c == ']') {
+                inBrackets = false
+            } else if (c == ' ' && !inBrackets) {
+                // Found a space outside brackets - this is a combinator
+                return false
+            }
+        }
+        // All spaces (if any) are within brackets
+        return true
+    }
+
+    /**
+     * Check if a child combinator ('>') exists outside of attribute selector brackets.
+     * Returns true if '>' is found outside brackets, false otherwise.
+     */
+    private static boolean hasChildCombinatorOutsideBrackets(String selector) {
+        boolean inBrackets = false
+        for (int i = 0; i < selector.length(); i++) {
+            char c = selector.charAt(i)
+            if (c == '[') {
+                inBrackets = true
+            } else if (c == ']') {
+                inBrackets = false
+            } else if (c == '>' && !inBrackets) {
+                // Found '>' outside brackets - this is a child combinator
+                return true
+            }
         }
         return false
     }
@@ -68,50 +97,158 @@ class CssSelectorEngine {
 
     /**
      * Select elements with descendant combinator (e.g., "g circle").
+     *
+     * Note: This method splits the selector on the first space, handling only two parts.
+     * Chained combinators (e.g., "g g circle" or "g > circle rect") are handled through
+     * recursion - the recursive call to select() at line 123 will parse remaining combinators.
+     *
+     * Uses LinkedHashSet to eliminate duplicates that can occur when nested containers
+     * both match the parent selector (e.g., "g circle" with nested groups).
      */
     private static List<SvgElement> selectWithDescendantCombinator(ElementContainer container, String selector) {
+        // Split on first whitespace only (limit 2) - remaining combinators handled recursively
         String[] parts = selector.split(/\s+/, 2)
         String parentSelector = parts[0]
         String childSelector = parts[1]
 
-        List<SvgElement> results = []
+        // Special case: "svg ..." when container is the svg element itself
+        // In this case, treat "svg" as matching the current container and continue with childSelector
+        if (parentSelector == 'svg') {
+            return select(container, childSelector)
+        }
+
+        // Use LinkedHashSet to preserve order while eliminating duplicates
+        Set<SvgElement> resultsSet = new LinkedHashSet<>()
 
         // Find all elements matching parent selector
         List<SvgElement> parents = selectSimple(container, parentSelector, true)
 
         // For each parent, find descendants matching child selector
+        // Recursive call to select() handles any remaining combinators in childSelector
         parents.each { parent ->
             if (parent instanceof ElementContainer) {
-                results.addAll(select(parent as ElementContainer, childSelector))
+                resultsSet.addAll(select(parent as ElementContainer, childSelector))
             }
         }
 
-        return results
+        return new ArrayList<>(resultsSet)
     }
 
     /**
      * Select elements with child combinator (e.g., "g > circle").
+     *
+     * Note: Like descendant combinators, chained selectors (e.g., "svg g > circle")
+     * are handled through recursion - the call to select() for parentSelector
+     * will parse any combinators in that part of the selector.
      */
     private static List<SvgElement> selectWithChildCombinator(ElementContainer container, String selector) {
+        // Split on first '>' only (limit 2) - remaining combinators handled recursively
         String[] parts = selector.split(/\s*>\s*/, 2)
         String parentSelector = parts[0].trim()
         String childSelector = parts[1].trim()
 
         List<SvgElement> results = []
 
-        // Special case: "svg > circle" where container IS svg
+        // Special case: "svg > ..." where container IS svg
+        // Process as: find direct children, then apply childSelector to them
         if (parentSelector == 'svg' || parentSelector == '*') {
-            // Select direct children matching child selector
-            return selectSimple(container, childSelector, false)
+            List<SvgElement> directChildren = container.children as List<SvgElement>
+
+            // Check for child combinator (>) first, as "g > circle" contains both > and space
+            if (childSelector.contains('>') && hasChildCombinatorOutsideBrackets(childSelector)) {
+                // Child combinator in childSelector: "g > circle"
+                // Split on '>': "g" + "circle"
+                String[] childParts = childSelector.split(/\s*>\s*/, 2)
+                String directChildType = childParts[0].trim()
+                String remainingSelector = childParts[1].trim()
+
+                // Find direct children matching the type, then find their direct children matching remaining selector
+                directChildren.each { child ->
+                    if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
+                        List<SvgElement> grandchildren = (child as ElementContainer).children as List<SvgElement>
+
+                        // If remainingSelector has combinators, evaluate recursively
+                        if (remainingSelector.contains(' ') || remainingSelector.contains('>')) {
+                            grandchildren.each { grandchild ->
+                                if (grandchild instanceof ElementContainer) {
+                                    results.addAll(select(grandchild as ElementContainer, remainingSelector))
+                                }
+                            }
+                        } else {
+                            // Simple selector - filter grandchildren
+                            results.addAll(grandchildren.findAll { matchesSelector(it, remainingSelector) })
+                        }
+                    }
+                }
+            } else if (childSelector.contains(' ') && !isWithinBrackets(childSelector)) {
+                // Space combinator (descendant) in childSelector: "g circle"
+                String[] childParts = childSelector.split(/\s+/, 2)
+                String directChildType = childParts[0]
+                String remainingSelector = childParts[1]
+
+                // Find direct children matching the type, then search within them
+                directChildren.each { child ->
+                    if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
+                        results.addAll(select(child as ElementContainer, remainingSelector))
+                    }
+                }
+            } else {
+                // Simple selector - filter direct children
+                results.addAll(directChildren.findAll { matchesSelector(it, childSelector) })
+            }
+            return results
         }
 
-        // Find all elements matching parent selector
-        List<SvgElement> parents = selectSimple(container, parentSelector, true)
+        // Find all elements matching parent selector (may contain combinators)
+        // Use select() instead of selectSimple() to handle nested combinators
+        List<SvgElement> parents = select(container, parentSelector)
 
         // For each parent, find direct children matching child selector
         parents.each { parent ->
             if (parent instanceof ElementContainer) {
-                results.addAll(selectSimple(parent as ElementContainer, childSelector, false))
+                List<SvgElement> directChildren = (parent as ElementContainer).children as List<SvgElement>
+
+                // Check for child combinator (>) first, as "g > circle" contains both > and space
+                if (childSelector.contains('>') && hasChildCombinatorOutsideBrackets(childSelector)) {
+                    // Child combinator in childSelector: "g > circle"
+                    String[] childParts = childSelector.split(/\s*>\s*/, 2)
+                    String directChildType = childParts[0].trim()
+                    String remainingSelector = childParts[1].trim()
+
+                    // Find direct children matching the type, then find their direct children
+                    directChildren.each { child ->
+                        if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
+                            List<SvgElement> grandchildren = (child as ElementContainer).children as List<SvgElement>
+
+                            // If remainingSelector has combinators, evaluate recursively
+                            if (remainingSelector.contains(' ') || remainingSelector.contains('>')) {
+                                grandchildren.each { grandchild ->
+                                    if (grandchild instanceof ElementContainer) {
+                                        results.addAll(select(grandchild as ElementContainer, remainingSelector))
+                                    }
+                                }
+                            } else {
+                                // Simple selector - filter grandchildren
+                                results.addAll(grandchildren.findAll { matchesSelector(it, remainingSelector) })
+                            }
+                        }
+                    }
+                } else if (childSelector.contains(' ') && !isWithinBrackets(childSelector)) {
+                    // Space combinator (descendant) in childSelector: "g circle"
+                    String[] childParts = childSelector.split(/\s+/, 2)
+                    String directChildType = childParts[0]
+                    String remainingSelector = childParts[1]
+
+                    // Find direct children matching the type, then search within them
+                    directChildren.each { child ->
+                        if (matchesSelector(child, directChildType) && child instanceof ElementContainer) {
+                            results.addAll(select(child as ElementContainer, remainingSelector))
+                        }
+                    }
+                } else {
+                    // Simple selector - filter direct children
+                    results.addAll(directChildren.findAll { matchesSelector(it, childSelector) })
+                }
             }
         }
 
@@ -136,6 +273,7 @@ class CssSelectorEngine {
 
     /**
      * Check if an element matches a simple CSS selector (may be compound).
+     * Returns false if the selector is malformed.
      */
     private static boolean matchesSelector(SvgElement element, String selector) {
         selector = selector.trim()
@@ -148,6 +286,7 @@ class CssSelectorEngine {
         // Parse compound selector (e.g., "circle[fill='red']", "rect:first-child")
         String typeSelector = null
         List<String> modifiers = []
+        boolean hasModifierSyntax = selector.contains('[') || selector.contains(':')
 
         // Extract type selector and modifiers
         if (selector.startsWith('#') || selector.startsWith('.') || selector.startsWith('[') || selector.startsWith(':')) {
@@ -162,6 +301,11 @@ class CssSelectorEngine {
             } else {
                 typeSelector = selector
             }
+        }
+
+        // If selector had modifier syntax but parsing returned empty list, it's malformed
+        if (hasModifierSyntax && modifiers.isEmpty()) {
+            return false
         }
 
         // Check type selector first
@@ -198,6 +342,7 @@ class CssSelectorEngine {
 
     /**
      * Parse modifiers from selector (ID, class, attribute, pseudo-class).
+     * Returns empty list if selector is malformed (unclosed brackets/parentheses).
      */
     private static List<String> parseModifiers(String modifierString) {
         List<String> modifiers = []
@@ -220,7 +365,12 @@ class CssSelectorEngine {
             } else if (c == '[') {
                 // Attribute selector - read until ]
                 int start = i
-                i = modifierString.indexOf(']', i) + 1
+                int closeBracket = modifierString.indexOf(']', i)
+                if (closeBracket == -1) {
+                    // Malformed selector - unclosed bracket
+                    return []
+                }
+                i = closeBracket + 1
                 modifiers.add(modifierString.substring(start, i))
             } else if (c == ':') {
                 // Pseudo-class - read until next modifier or end
@@ -228,7 +378,12 @@ class CssSelectorEngine {
                 i++
                 // Handle :nth-child(n) with parentheses
                 if (modifierString.substring(i).startsWith('nth-child(')) {
-                    i = modifierString.indexOf(')', i) + 1
+                    int closeParen = modifierString.indexOf(')', i)
+                    if (closeParen == -1) {
+                        // Malformed selector - unclosed parenthesis
+                        return []
+                    }
+                    i = closeParen + 1
                 } else {
                     while (i < modifierString.length()) {
                         char next = modifierString.charAt(i)
@@ -269,24 +424,24 @@ class CssSelectorEngine {
     }
 
     /**
-     * Match attribute selectors: [fill="red"], [stroke], [width>100]
+     * Match attribute selectors: [fill="red"], [stroke]
+     * Note: Comparison operators (>, <) are mentioned but not implemented.
      */
     private static boolean matchesAttributeSelector(SvgElement element, String selector) {
-        String inner = selector.substring(1, selector.length() - 1)
+        String inner = selector.substring(1, selector.length() - 1).trim()
 
-        // [attribute] - has attribute
-        if (!inner.contains('=') && !inner.contains('>') && !inner.contains('<')) {
+        // [attribute] - has attribute (check for '=' to distinguish from [attr=value])
+        if (!inner.contains('=')) {
             return element.getAttribute(inner) != null
         }
 
-        // [attribute="value"] or [attribute='value'] - exact match
-        if (inner.contains('="') || inner.contains("='")) {
-            def matcher = inner =~ /^([^=]+)=["']([^"']*)["']$/
-            if (matcher.matches()) {
-                String attrName = matcher.group(1)
-                String attrValue = matcher.group(2)
-                return element.getAttribute(attrName) == attrValue
-            }
+        // Try matching with quotes first (handles whitespace around '=')
+        // Pattern: attribute name, optional spaces, =, optional spaces, quote, value, quote
+        def quotedMatcher = inner =~ /^([^=]+?)\s*=\s*["']([^"']*)["']$/
+        if (quotedMatcher.matches()) {
+            String attrName = quotedMatcher.group(1).trim()
+            String attrValue = quotedMatcher.group(2)
+            return element.getAttribute(attrName) == attrValue
         }
 
         // [attribute=value] - exact match without quotes
