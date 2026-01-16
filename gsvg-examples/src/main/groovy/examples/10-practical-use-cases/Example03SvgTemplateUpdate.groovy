@@ -13,7 +13,7 @@ String template = '''<svg width="240" height="120" xmlns="http://www.w3.org/2000
 
 Svg svg = SvgReader.parse(new StringReader(template))
 
-svg.xpath('//*[@id="label"]').each { it.text('Updated') }
+svg.xpath('//*[@id="label"]').each { it.replaceContent('Updated') }
 svg.xpath('//*[@id="panel"]').each { it.addAttribute('fill', 'lavender') }
 
 ExampleSupport.writeSvg(svg, 'usecase-template-update.svg')

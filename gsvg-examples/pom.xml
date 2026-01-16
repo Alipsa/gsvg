@@ -76,4 +76,52 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>run-examples</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+              <execution>
+                <id>run-examples</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>java</goal>
+                </goals>
+                <configuration>
+                  <mainClass>examples.runner.RunExamples</mainClass>
+                  <classpathScope>compile</classpathScope>
+                  <includeProjectDependencies>true</includeProjectDependencies>
+                  <includePluginDependencies>false</includePluginDependencies>
+                  <systemProperties>
+                    <systemProperty>
+                      <key>examples.baseDir</key>
+                      <value>${project.basedir}</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>groovy.grape.enable</key>
+                      <value>false</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>groovy.grape.autoDownload</key>
+                      <value>false</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>java.awt.headless</key>
+                      <value>true</value>
+                    </systemProperty>
+                  </systemProperties>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

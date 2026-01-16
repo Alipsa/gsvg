@@ -6,7 +6,7 @@ import examples.shared.ExampleSupport
 Svg svg = new Svg(240, 120)
 
 // Define a symbol
-svg.addDefs().addSymbol('badge').with { sym ->
+svg.addDefs().addSymbol([id: 'badge']).with { sym ->
   sym.viewBox(0, 0, 40, 40)
   sym.addCircle().cx(20).cy(20).r(18).fill('tomato')
 }

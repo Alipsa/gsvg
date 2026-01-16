@@ -326,9 +326,9 @@ def nested = svg.css('g g circle')
 #### 4.1 gsvg-examples Module
 
 **Architecture**: Self contained groovy scripts using Grab for dependencies
-- [ ] Create `gsvg-examples/` submodule
-- [ ] Add well documented examples showing main features
-- [ ] The build script should verify that syntax is correct bu compiling the scripts but it does need to actually run them.
+- [x] Create `gsvg-examples/` submodule
+- [x] Add well documented examples showing main features
+- [x] The build script should verify that syntax is correct bu compiling the scripts but it does need to actually run them.
 
 #### 4.3 Example Gallery
 
@@ -342,7 +342,7 @@ def nested = svg.css('g g circle')
 - Show usage of the gsvg-export module for formatting, rendering and optimization.
 
 **Features**:
-- [ ] Categorized example library demonstrating Svg model usage patterns
+- [x] Categorized example library demonstrating Svg model usage patterns
 
 **Example Categories**:
 1. Navigation and Selection (10 examples)
