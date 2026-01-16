@@ -95,12 +95,13 @@ class SvgFormatter {
 
             // Check if element has text content but no child elements
             // This applies to elements like <title>Text</title>, <text>Content</text>, etc.
-            boolean hasTextContent = element.element.getText() != null && !element.element.getText().isEmpty()
+            String textContent = element.element.getText()
+            boolean hasTextContent = textContent != null && !textContent.isEmpty()
             boolean simpleContent = children.isEmpty() && hasTextContent
 
             if (simpleContent) {
                 // Keep text content on same line
-                sb.append(escapeXml(element.element.getText()))
+                sb.append(escapeXml(textContent))
                 sb.append('</')
                 sb.append(element.getName())
                 sb.append('>')

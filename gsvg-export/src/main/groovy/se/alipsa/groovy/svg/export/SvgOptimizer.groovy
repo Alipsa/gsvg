@@ -315,20 +315,23 @@ class SvgOptimizer {
             if (element instanceof SvgElement) {
                 // Check href/xlink:href attributes
                 ['href', 'xlink:href'].each { attr ->
+                    // Only catch exceptions for namespaced attributes (those containing ':')
+                    // Non-namespaced attributes should not throw IllegalArgumentException
+                    boolean isNamespaced = attr.contains(':')
+
                     try {
                         String href = (element as SvgElement).getAttribute(attr)
                         if (href && href.startsWith('#')) {
                             ids.add(href.substring(1))
                         }
                     } catch (IllegalArgumentException e) {
-                        // Expected: xlink namespace may not be bound on all elements
-                        // Only swallow namespace-related exceptions
-                        if (e.message?.contains('Namespace') || e.message?.contains('namespace')) {
-                            // Namespace not bound, skip this attribute
+                        if (isNamespaced) {
+                            // Expected: namespace (e.g., xlink) may not be bound on all elements
+                            // Skip this attribute silently
                         } else {
-                            // Unexpected exception - rethrow for debugging
+                            // Unexpected: non-namespaced attribute should not throw
                             throw new IllegalStateException(
-                                "Unexpected error getting attribute '${attr}' from element '${element.getName()}': ${e.message}",
+                                "Unexpected error getting non-namespaced attribute '${attr}' from element '${element.getName()}': ${e.message}",
                                 e
                             )
                         }

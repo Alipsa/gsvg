@@ -217,8 +217,12 @@ class SvgRenderer {
                 colorString = colorString.collect { it + it }.join('')
             }
             if (colorString.length() == 6) {
-                int rgb = Integer.parseInt(colorString, 16)
-                return new Color(rgb)
+                try {
+                    int rgb = Integer.parseInt(colorString, 16)
+                    return new Color(rgb)
+                } catch (NumberFormatException e) {
+                    // Invalid hex color, fall through to default
+                }
             }
         }
 
