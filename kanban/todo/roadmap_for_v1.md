@@ -15,7 +15,7 @@ Version 1.0 represents the production-complete release of gsvg, incorporating de
 - Multi-module architecture (core + optional modules)
 - Export/rendering capabilities (optional module)
 - Enhanced selection with CSS selectors
-- Interactive documentation and examples
+- Enhanced documentation and examples
 - Performance validation and optimization
 - Production-ready stability and polish
 
@@ -45,7 +45,7 @@ Version 1.0 represents the production-complete release of gsvg, incorporating de
 <modules>
   <module>gsvg-core</module>
   <module>gsvg-export</module>
-  <module>gsvg-examples</module>  <!-- Optional: interactive examples -->
+  <module>gsvg-examples</module> 
 </modules>
 ```
 
@@ -263,96 +263,87 @@ def firstRect = svg.cssFirst('rect:first-child')
 
 ---
 
-## Phase 8: Interactive Documentation (v1.0-rc)
+## Phase 8: Examples Documentation (v1.0-rc)
 
-### 4. Interactive Examples and Playground
+### 4. Examples
 
 **Status**: Deferred from v0.9.0 (Phase 4, Item 10)
 
-**Goal**: Provide web-based interactive examples and playground for learning gsvg.
+**Goal**: Provide examples for learning gsvg.
 
 #### 4.1 gsvg-examples Module
 
-**Architecture**: Web application with Groovy backend
+**Architecture**: Self contained groovy scripts using Grab for dependencies
 - [ ] Create `gsvg-examples/` submodule
-- [ ] Add Ratpack or Spring Boot for web server
-- [ ] Add frontend dependencies (Bootstrap, CodeMirror, etc.)
-
-#### 4.2 Interactive Playground
-
-**Features**:
-- [ ] Web-based code editor (CodeMirror with Groovy syntax)
-- [ ] Live preview of generated SVG
-- [ ] Example library (load common examples)
-- [ ] Export buttons (download SVG, PNG, JPEG)
-- [ ] Share functionality (generate shareable links)
-- [ ] Documentation sidebar with API reference
-
-**Technology Stack**:
-- Backend: Ratpack + Groovy (lightweight, fast)
-- Frontend: Bootstrap + CodeMirror + vanilla JS
-- Build: Gradle wrapper for easy deployment
-
-**Example Structure**:
-```
-gsvg-examples/
-├── src/main/groovy/
-│   └── se/alipsa/groovy/svg/examples/
-│       ├── PlaygroundApp.groovy        # Ratpack application
-│       └── ExampleLibrary.groovy       # Example code library
-├── src/main/resources/
-│   ├── public/
-│   │   ├── index.html                  # Playground UI
-│   │   ├── style.css
-│   │   └── playground.js
-│   └── examples/                       # Example SVG scripts
-│       ├── basic-shapes.groovy
-│       ├── gradients.groovy
-│       ├── charts.groovy
-│       └── ...
-└── build.gradle
-```
+- [ ] Add well documented examples showing main features
 
 #### 4.3 Example Gallery
 
+**Focus**: Showcase the Svg model API - various ways of navigating and modifying SVG content programmatically
+
 **Features**:
-- [ ] Categorized example library (shapes, styling, effects, charts, etc.)
-- [ ] Searchable examples
-- [ ] "Copy to clipboard" functionality
-- [ ] "Open in playground" links
-- [ ] Rendered preview images for each example
+- [ ] Categorized example library demonstrating Svg model usage patterns
 
 **Example Categories**:
-1. Basic Shapes (10 examples)
-2. Styling and Colors (8 examples)
-3. Gradients and Patterns (6 examples)
-4. Filters and Effects (10 examples)
-5. Text and Fonts (6 examples)
-6. Paths and Curves (8 examples)
-7. Transformations (5 examples)
-8. Charts and Graphs (8 examples)
-9. Advanced Patterns (10 examples)
-10. Accessibility (5 examples)
+1. Navigation and Selection (10 examples)
+   - Finding elements by type, ID, class
+   - XPath queries
+   - CSS selectors (when available)
+   - Parent/child traversal
 
-#### 4.4 Deployment
-- [ ] Deploy to GitHub Pages (static build)
-- [ ] Or deploy to Heroku/Railway (dynamic playground)
-- [ ] Add to main documentation site
+2. Content Modification (10 examples)
+   - Adding elements dynamically
+   - Removing elements
+   - Moving/reparenting elements
+   - Replacing elements
 
-#### 4.5 Video Tutorials (Optional)
+3. Attribute Manipulation (8 examples)
+   - Getting and setting attributes
+   - Bulk attribute updates
+   - Conditional attribute changes
+   - Style manipulation
 
-**Status**: Deferred from v0.9.0
+4. Element Cloning and Templates (6 examples)
+   - Cloning elements
+   - Creating templates
+   - Batch element creation
+   - Pattern replication
 
-**Content Ideas**:
-- [ ] "Getting Started with gsvg" (10 min)
-- [ ] "Creating Your First Chart" (15 min)
-- [ ] "Understanding Paths and Curves" (12 min)
-- [ ] "Advanced Effects and Filters" (15 min)
-- [ ] "Making SVGs Accessible" (10 min)
-- [ ] "Performance Optimization Tips" (8 min)
+5. Tree Transformation (8 examples)
+   - Restructuring element hierarchies
+   - Flattening groups
+   - Creating groups from selections
+   - Optimizing element trees
 
-**Platform**: YouTube channel or embed in documentation
-**Tools**: OBS Studio + VS Code + presentation mode
+6. Builder Pattern Usage (8 examples)
+   - Fluent API chains
+   - DSL-style construction
+   - Factory methods
+   - Programmatic SVG generation
+
+7. Reading and Parsing (6 examples)
+   - Loading SVG from files/strings
+   - Querying existing SVG structure
+   - Extracting information
+   - Validating content
+
+8. Iteration and Filtering (6 examples)
+   - Iterating over elements
+   - Filtering by criteria
+   - Mapping transformations
+   - Collecting results
+
+9. Advanced Manipulation (8 examples)
+   - Conditional modifications
+   - Batch operations
+   - Complex transformations
+   - Combining navigation and modification
+
+10. Practical Use Cases (6 examples)
+    - Dynamic chart generation
+    - SVG templating systems
+    - Automated SVG modifications
+    - Content injection and updates
 
 ---
 
@@ -474,7 +465,7 @@ gsvg-examples/
 - ✅ >85% code coverage across all modules
 - ✅ Zero critical/high security vulnerabilities
 - ✅ All documentation accurate and complete
-- ✅ Performance within 5% of v0.8 baseline
+- ✅ Performance within 10% of v0.8 baseline
 
 ### Compatibility
 - ✅ 100% backward compatible with v0.9 API
@@ -483,7 +474,6 @@ gsvg-examples/
 - ✅ Easy integration with Gradle and Maven
 
 ### User Experience
-- ✅ Interactive playground is intuitive and helpful
 - ✅ Documentation is comprehensive and easy to navigate
 - ✅ Export module is easy to use and well-documented
 - ✅ Migration from v0.9 is straightforward
@@ -507,7 +497,7 @@ gsvg-examples/
 - Complexity: Medium
 - Risk: Low (leveraging existing ph-css)
 
-**Phase 8: Interactive Documentation**
+**Phase 8: Examples Documentation**
 - Duration: 2-3 weeks
 - Complexity: Medium
 - Risk: Low (frontend work)
