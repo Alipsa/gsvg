@@ -91,7 +91,7 @@ List<Text> textElements = svg[Text]
 
 This bracket notation (`svg[Type]`) is equivalent to calling `getAt(Class)` and is more concise and idiomatic than using filters or predicates.
 
-**Important**: Bracket notation uses **exact class matching** (not `instanceof`). For abstract classes or interfaces, use `filter { it instanceof Type }` instead. See [Navigating the SVG Model](navigating.md#direct-children) for detailed explanation of exact matching behavior.
+**Important**: Bracket notation uses **exact class matching** (not `instanceof`). For abstract classes or interfaces, use `filter { it instanceof Type }` instead. See [Navigating the SVG Model](navigating.md#type-based-access-bracket-notation) for detailed explanation of exact matching behavior.
 
 ### Selecting by Name
 
