@@ -31,6 +31,86 @@ trait ElementContainer {
   }
 
   /**
+   * Removes a child element from this container.
+   * <p>
+   * This method removes the element from both the object model (children list)
+   * and the underlying DOM tree. After removal, the element should not be used
+   * and all references should be set to null to allow garbage collection.
+   * </p>
+   * <p>Example:</p>
+   * <pre>
+   * Circle c = svg.addCircle().cx(100).cy(100).r(50)
+   * svg.remove(c)
+   * c = null  // Allow garbage collection
+   * </pre>
+   *
+   * @param svgElement the SVG element to remove
+   * @return true if the element was found and removed, false otherwise
+   */
+  boolean remove(SvgElement svgElement) {
+    if (svgElement == null) {
+      return false
+    }
+
+    // Remove from children list
+    boolean removedFromChildren = children.remove(svgElement)
+
+    // Remove from DOM tree
+    if (this instanceof SvgElement) {
+      org.dom4j.Element parentElement = ((SvgElement) this).element
+      boolean removedFromDom = parentElement.remove(svgElement.element)
+      return removedFromChildren || removedFromDom
+    }
+
+    return removedFromChildren
+  }
+
+  /**
+   * Removes a child element from this container.
+   * <p>
+   * This is an alias for {@link #remove(SvgElement)} for API consistency.
+   * </p>
+   *
+   * @param svgElement the SVG element to remove
+   * @return true if the element was found and removed, false otherwise
+   */
+  boolean removeChild(SvgElement svgElement) {
+    remove(svgElement)
+  }
+
+  /**
+   * Removes all child elements with the specified name.
+   * <p>
+   * This method removes all direct children whose element name matches the provided name.
+   * For example, {@code removeChild('circle')} will remove all circle elements.
+   * </p>
+   * <p>Example:</p>
+   * <pre>
+   * // Remove all circles
+   * svg.removeChild('circle')
+   *
+   * // Remove all rectangles
+   * svg.removeChild('rect')
+   * </pre>
+   *
+   * @param name the element name to remove (e.g., 'circle', 'rect', 'path')
+   * @return the number of elements removed
+   */
+  int removeChild(String name) {
+    if (!name || name.isBlank()) {
+      return 0
+    }
+
+    // Collect elements to remove (avoid concurrent modification)
+    def toRemove = children.findAll { it.getName() == name }
+
+    // Remove each element
+    toRemove.each { remove(it) }
+
+    return toRemove.size()
+  }
+
+  /**
    * Returns child element(s) for the provided selector.
    *
    * @param index the index

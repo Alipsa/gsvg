@@ -101,6 +101,8 @@ Validation classes in `se.alipsa.groovy.svg.validation` and `se.alipsa.groovy.sv
 
 ## Where to go next
 - `creating.md` for building SVGs with gradients, filters, reuse, text, foreign content, and scripts.
+- `navigating.md` for traversing and finding elements using children, descendants, filters, and XPath.
+- `modifying.md` for adding, editing, and removing elements and attributes.
 - `parsing.md` for parsing, navigation, and editing patterns.
 - `merging.md` for combining SVG documents using `SvgMerger`.
 - `benchmarks.md` for performance benchmarks and optimization tips.

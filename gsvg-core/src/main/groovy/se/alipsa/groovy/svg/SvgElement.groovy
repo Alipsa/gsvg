@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Attribute
 import org.dom4j.Element
 import org.dom4j.Namespace
 import org.dom4j.QName
@@ -85,7 +86,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
     // Add all other attributes (except id which we already showed)
     List attributes = element.attributes()
     for (Object attrObj : attributes) {
-      org.dom4j.Attribute attr = (org.dom4j.Attribute) attrObj
+      Attribute attr = (Attribute) attrObj
       String attrName = attr.getName()
 
       // Skip id since we already showed it
@@ -340,6 +341,28 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
+   * Returns all attributes as a map of attribute names to values.
+   * <p>
+   * This is useful when you need to iterate over all attributes of an element,
+   * such as when searching for patterns across all attribute values.
+   * </p>
+   * <p>Example:</p>
+   * <pre>
+   * Map&lt;String, String&gt; attrs = circle.getAttributes()
+   * attrs.each { name, value ->
+   *   println "$name = $value"
+   * }
+   * </pre>
+   *
+   * @return a map of attribute names to values (never null, empty map if no attributes)
+   */
+  Map<String, String> getAttributes() {
+    element.attributes().collectEntries { attr ->
+      [(attr.name): attr.value]
+    } as Map<String, String>
+  }
+
+  /**
    * Adds an attribute to this element.
    * <p>
    * Numeric values are automatically formatted with configurable precision
@@ -439,6 +462,29 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
       element.remove(attr)
     }
     this as T
+  }
+
+  /**
+   * Removes all attributes that match the given predicate.
+   * <p>Example:</p>
+   * <pre>
+   * // Remove all data- attributes
+   * circle.removeAttributes { it.startsWith('data-') }
+   *
+   * // Remove all aria- attributes
+   * rect.removeAttributes { it.startsWith('aria-') }
+   *
+   * // Remove specific attributes
+   * element.removeAttributes { it in ['opacity', 'transform', 'filter'] }
+   * </pre>
+   *
+   * @param predicate a closure that takes an attribute name and returns true if it should be removed
+   * @return the number of attributes removed
+   */
+  int removeAttributes(Closure<Boolean> predicate) {
+    def attributesToRemove = getAttributes().keySet().findAll(predicate)
+    attributesToRemove.each { removeAttribute(it) }
+    return attributesToRemove.size()
   }
 
   /**
@@ -674,7 +720,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the created element
    */
   Title addTitle() {
-    title = new Title(this)
+    title = add(new Title(this))
+    return title
   }
 
   /**
@@ -710,7 +757,8 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the created element
    */
   Desc addDesc() {
-    desc = new Desc(this)
+    desc = add(new Desc(this))
+    return desc
   }
 
   /**
