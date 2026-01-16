@@ -484,7 +484,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   int removeAttributes(Closure<Boolean> predicate) {
     def attributesToRemove = getAttributes().keySet().findAll(predicate)
     attributesToRemove.each { removeAttribute(it) }
-    attributesToRemove.size()
+    return attributesToRemove.size()
   }
 
   /**
