@@ -95,7 +95,6 @@ class SvgFormatter {
 
             // Check if all children are text-like (no formatting needed)
             boolean simpleContent = children.size() == 1 &&
-                    children[0] instanceof SvgElement &&
                     (children[0] as SvgElement).getName() in ['#text', '#cdata']
 
             if (simpleContent) {
