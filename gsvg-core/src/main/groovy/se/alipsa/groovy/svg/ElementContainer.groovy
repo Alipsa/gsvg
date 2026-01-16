@@ -97,7 +97,7 @@ trait ElementContainer {
    * @return the number of elements removed
    */
   int removeChild(String name) {
-    if (name == null || name.isBlank()) {
+    if (!name || name.isBlank()) {
       return 0
     }
 
