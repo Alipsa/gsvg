@@ -87,7 +87,7 @@ class SvgRenderer {
      * @return The rendered BufferedImage
      */
     static BufferedImage toBufferedImage(Svg svg, Map options = [:], boolean forJpeg = false) {
-        // Parse SVG using jsvg 2.0.0
+        // Parse SVG using jsvg library
         SVGLoader loader = new SVGLoader()
         String svgString = svg.toXml()
         ByteArrayInputStream svgStream = new ByteArrayInputStream(svgString.getBytes(StandardCharsets.UTF_8))
