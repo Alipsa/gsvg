@@ -406,6 +406,52 @@ class ElementContainerEnhancedTest {
   }
 
   @Test
+  void testBracketNotationEquivalentToFindAll() {
+    // Verify that svg[Type] is equivalent to svg.findAll(Type)
+    List<Circle> circlesWithBracket = svg[Circle]
+    List<Circle> circlesWithFindAll = svg.findAll(Circle)
+
+    assertEquals(circlesWithFindAll.size(), circlesWithBracket.size())
+    assertEquals(circlesWithFindAll, circlesWithBracket)
+
+    // Test with Rect
+    List<Rect> rectsWithBracket = svg[Rect]
+    List<Rect> rectsWithFindAll = svg.findAll(Rect)
+
+    assertEquals(rectsWithFindAll.size(), rectsWithBracket.size())
+    assertEquals(rectsWithFindAll, rectsWithBracket)
+
+    // Test with G
+    List<G> groupsWithBracket = svg[G]
+    List<G> groupsWithFindAll = svg.findAll(G)
+
+    assertEquals(groupsWithFindAll.size(), groupsWithBracket.size())
+    assertEquals(groupsWithFindAll, groupsWithBracket)
+  }
+
+  @Test
+  void testBracketNotationDoesNotMatchSubclasses() {
+    // Bracket notation uses exact class matching, not instanceof
+    Svg testSvg = new Svg(200, 200)
+    testSvg.addCircle().cx(50).cy(50).r(25).fill('red')
+    testSvg.addRect().x(10).y(10).width(50).height(50).fill('blue')
+    testSvg.addEllipse(30, 20).cx(100).cy(100).fill('green')
+
+    // AbstractShape is abstract - bracket notation won't match subclasses
+    List<AbstractShape> shapes = testSvg[AbstractShape]
+    assertEquals(0, shapes.size()) // No exact class match
+
+    // Use filter() with instanceof for subclass matching instead
+    List<SvgElement> shapesWithFilter = testSvg.filter { it instanceof AbstractShape }
+    assertEquals(3, shapesWithFilter.size())
+
+    // Or get each concrete type separately
+    assertEquals(1, testSvg[Circle].size())
+    assertEquals(1, testSvg[Rect].size())
+    assertEquals(1, testSvg[Ellipse].size())
+  }
+
+  @Test
   void testDescendantsOnG() {
     G g = svg.findFirst { it.getId() == 'group1' } as G
     List<SvgElement> groupDescendants = g.descendants()

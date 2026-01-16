@@ -233,7 +233,7 @@ class SvgOptimizerTest {
         assertTrue(optimizedSize < originalSize)
 
         // Check specific optimizations
-        def circles = optimized.findAll { it instanceof Circle }
+        def circles = optimized[Circle]
         assertEquals(1, circles.size())
 
         Circle optimizedCircle = circles[0] as Circle

@@ -80,8 +80,8 @@ class SvgFormatter {
         }
 
         // Check if element has children
-        boolean hasChildren = element instanceof AbstractElementContainer &&
-                !(element as AbstractElementContainer).children.isEmpty()
+        boolean hasChildren = element instanceof ElementContainer &&
+                !(element as ElementContainer).children.isEmpty()
 
         if (!hasChildren) {
             // Self-closing tag
@@ -90,7 +90,7 @@ class SvgFormatter {
         } else {
             sb.append('>')
 
-            def container = element as AbstractElementContainer
+            def container = element as ElementContainer
             def children = container.children
 
             // Check if all children are text-like (no formatting needed)

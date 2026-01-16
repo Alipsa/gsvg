@@ -108,7 +108,7 @@ class SvgOptimizer {
             }
         }
 
-        toRemove.each { svg.element.remove((it as SvgElement).element) }
+        toRemove.each { svg.remove(it) }
     }
 
     /**
@@ -131,7 +131,7 @@ class SvgOptimizer {
             }
         }
 
-        toRemove.each { container.element.remove((it as SvgElement).element) }
+        toRemove.each { container.remove(it) }
     }
 
     /**
@@ -272,10 +272,12 @@ class SvgOptimizer {
             def group = map.group as G
             def child = map.child as SvgElement
 
-            // Detach child from group first, then remove group, then add child to parent
-            group.element.remove(child.element)
-            parent.element.remove(group.element)
+            // Remove child from group, remove group from parent, add child to parent
+            group.remove(child)
+            parent.remove(group)
             parent.element.add(child.element)
+            parent.children.add(child)
+            child.parent = parent
         }
     }
 
@@ -284,7 +286,8 @@ class SvgOptimizer {
      * Note: This is a simplified implementation that removes defs with no references.
      */
     private static void removeUnusedDefinitions(Svg svg) {
-        def defs = svg.findAll { it instanceof Defs }
+        // Use bracket notation to find defs elements
+        def defs = svg[Defs]
 
         defs.each { defsElement ->
             def defsChildren = (defsElement as Defs).children
@@ -295,28 +298,32 @@ class SvgOptimizer {
                 id && !usedIds.contains(id)
             }
 
-            toRemove.each { (defsElement as Defs).element.remove((it as SvgElement).element) }
+            toRemove.each { (defsElement as Defs).remove(it) }
         }
     }
 
     /**
      * Collects all referenced IDs in the SVG.
      */
-    private static java.util.Set<String> collectUsedIds(AbstractElementContainer container) {
+    private static java.util.Set<String> collectUsedIds(ElementContainer container) {
         java.util.Set<String> ids = [] as java.util.HashSet
 
         container.children.each { element ->
             if (element instanceof SvgElement) {
                 // Check href/xlink:href attributes
                 ['href', 'xlink:href'].each { attr ->
-                    String href = element.getAttribute(attr)
-                    if (href && href.startsWith('#')) {
-                        ids.add(href.substring(1))
+                    try {
+                        String href = (element as SvgElement).getAttribute(attr)
+                        if (href && href.startsWith('#')) {
+                            ids.add(href.substring(1))
+                        }
+                    } catch (IllegalArgumentException e) {
+                        // Namespace not bound, skip this attribute
                     }
                 }
 
-                // Check url() references in attributes
-                element.getAttributes().each { attr, value ->
+                // Check url() references in all attributes
+                (element as SvgElement).getAttributes().each { name, value ->
                     if (value && value.contains('url(#')) {
                         def matcher = (value =~ /url\(#([^)]+)\)/)
                         matcher.each {
@@ -325,7 +332,7 @@ class SvgOptimizer {
                     }
                 }
 
-                if (element instanceof AbstractElementContainer) {
+                if (element instanceof ElementContainer) {
                     ids.addAll(collectUsedIds(element))
                 }
             }
