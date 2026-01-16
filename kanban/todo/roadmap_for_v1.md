@@ -66,34 +66,44 @@ Version 1.0 represents the production-complete release of gsvg, incorporating de
 
 ### 2. gsvg-export Module
 
+**Status**: ✅ Completed (v1.0.0-SNAPSHOT)
+
 **Goal**: Provide SVG rendering, optimization, and export capabilities as an optional module.
 
+**Completion Summary**:
+- Created SvgRenderer for PNG/JPEG export using jsvg
+- Created SvgOptimizer for file size reduction
+- Created SvgFormatter for pretty printing
+- 38 comprehensive tests (all passing)
+- 807 total tests passing (769 from phases 1-7 + 38 export)
+- Zero regressions to existing functionality
+
 #### 2.1 Module Setup
-- [ ] Create `gsvg-export/` submodule structure
-- [ ] Add dependency on `gsvg-core`
-- [ ] Add jsvg dependency: `com.github.weisj:jsvg:1.5.0`
-- [ ] Create package structure: `se.alipsa.groovy.svg.export`
+- [x] Create `gsvg-export/` submodule structure
+- [x] Add dependency on `gsvg-core`
+- [x] Add jsvg dependency: `com.github.weisj:jsvg:1.5.0`
+- [x] Create package structure: `se.alipsa.groovy.svg.export`
 
 #### 2.2 SVG Rendering (PNG/JPEG Export)
 
-**Technology Choice**: [jsvg](https://github.com/weisJ/jsvg)
+**Technology Choice**: ✅ [jsvg](https://github.com/weisJ/jsvg)
 - Pure Java implementation (no native dependencies)
 - Better SVG 2 support than Batik
 - Active development and modern codebase
 - Lightweight (~500KB vs Batik's ~15MB)
 
 **Implementation**:
-- [ ] Create `SvgRenderer` class
-  - [ ] `toPng(Svg svg, File output, Map options)` - Render to PNG
-  - [ ] `toPng(Svg svg, OutputStream output, Map options)` - Stream output
-  - [ ] `toJpeg(Svg svg, File output, Map options)` - Render to JPEG
-  - [ ] `toBufferedImage(Svg svg, Map options)` - Get BufferedImage
-- [ ] Support rendering options:
-  - `width`, `height` - Output dimensions (scale from SVG viewBox)
-  - `scale` - Scale factor (alternative to width/height)
-  - `backgroundColor` - Background color for JPEG
-  - `quality` - JPEG quality (0.0-1.0)
-  - `antialiasing` - Enable/disable antialiasing
+- [x] Create `SvgRenderer` class
+  - [x] `toPng(Svg svg, File output, Map options)` - Render to PNG
+  - [x] `toPng(Svg svg, OutputStream output, Map options)` - Stream output
+  - [x] `toJpeg(Svg svg, File output, Map options)` - Render to JPEG
+  - [x] `toBufferedImage(Svg svg, Map options)` - Get BufferedImage
+- [x] Support rendering options:
+  - [x] `width`, `height` - Output dimensions (scale from SVG viewBox)
+  - [x] `scale` - Scale factor (alternative to width/height)
+  - [x] `backgroundColor` - Background color for JPEG
+  - [x] `quality` - JPEG quality (0.0-1.0)
+  - [x] `antialiasing` - Enable/disable antialiasing
 
 **Example Usage**:
 ```groovy
@@ -130,20 +140,20 @@ def image = SvgRenderer.toBufferedImage(svg, [scale: 2.0])
 **Goal**: Reduce SVG file size through various optimization techniques.
 
 **Implementation**:
-- [ ] Create `SvgOptimizer` class
-  - [ ] `optimize(Svg svg, Map options)` - Optimize and return new Svg
-  - [ ] `optimizeInPlace(Svg svg, Map options)` - Optimize existing Svg
-- [ ] Optimization features:
-  - [ ] Remove XML comments
-  - [ ] Remove metadata elements
-  - [ ] Remove unused defs
-  - [ ] Collapse redundant groups
-  - [ ] Round numbers to precision (already have NumberFormatter)
-  - [ ] Merge similar paths
-  - [ ] Remove default attributes
-  - [ ] Convert colors to shorter formats
-  - [ ] Minify path data (remove unnecessary spaces)
-  - [ ] Remove invisible elements (opacity=0, display=none)
+- [x] Create `SvgOptimizer` class
+  - [x] `optimize(Svg svg, Map options)` - Optimize and return new Svg
+  - [x] `optimizeInPlace(Svg svg, Map options)` - Optimize existing Svg
+- [x] Optimization features:
+  - [x] Remove XML comments
+  - [x] Remove metadata elements
+  - [x] Remove unused defs
+  - [x] Collapse redundant groups
+  - [x] Round numbers to precision (already have NumberFormatter)
+  - [x] Remove default attributes
+  - [x] Convert colors to shorter formats
+  - [x] Minify path data (remove unnecessary spaces)
+  - [x] Remove invisible elements (opacity=0, display=none)
+- [ ] Merge similar paths (deferred to post-v1.0)
 
 **Example Usage**:
 ```groovy
@@ -171,15 +181,17 @@ new File('output.svg').text = optimized.toString()
 **Goal**: Format SVG for human readability.
 
 **Implementation**:
-- [ ] Create `SvgFormatter` class
-  - [ ] `prettify(Svg svg, Map options)` - Return formatted XML string
-  - [ ] `format(Svg svg, Map options)` - Return formatted Svg
-- [ ] Formatting options:
-  - `indent` - Indentation string (default: "  ")
-  - `newline` - Newline character (default: "\n")
-  - `sortAttributes` - Sort attributes alphabetically
-  - `groupElements` - Group similar elements with blank lines
-  - `maxLineLength` - Wrap long attribute lists
+- [x] Create `SvgFormatter` class
+  - [x] `prettify(Svg svg, Map options)` - Return formatted XML string
+  - [x] `format(Svg svg, Map options)` - Return formatted Svg
+  - [x] `prettifyWithSortedAttributes(Svg svg)` - Sort attributes alphabetically
+  - [x] `prettifyWithGrouping(Svg svg)` - Group similar elements with blank lines
+- [x] Formatting options:
+  - [x] `indent` - Indentation string (default: "  ")
+  - [x] `newline` - Newline character (default: "\n")
+  - [x] `sortAttributes` - Sort attributes alphabetically
+  - [x] `groupElements` - Group similar elements with blank lines
+- [ ] `maxLineLength` - Wrap long attribute lists (deferred to post-v1.0)
 
 **Example Usage**:
 ```groovy
@@ -195,13 +207,13 @@ new File('formatted.svg').text = formatted
 ```
 
 #### 2.5 Testing
-- [ ] Create test suite for gsvg-export module
-  - [ ] Rendering tests (verify PNG/JPEG output)
-  - [ ] Optimization tests (verify file size reduction)
-  - [ ] Prettification tests (verify formatting)
-  - [ ] Integration tests with complex SVGs
-- [ ] Performance benchmarks for rendering
-- [ ] Memory usage tests for large SVGs
+- [x] Create test suite for gsvg-export module (38 tests total)
+  - [x] Rendering tests (verify PNG/JPEG output) - 10 tests
+  - [x] Optimization tests (verify file size reduction) - 13 tests
+  - [x] Prettification tests (verify formatting) - 15 tests
+  - [x] Integration tests with complex SVGs
+- [ ] Performance benchmarks for rendering (deferred to Phase 9)
+- [ ] Memory usage tests for large SVGs (deferred to Phase 9)
 
 ---
 
