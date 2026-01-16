@@ -328,6 +328,7 @@ def nested = svg.css('g g circle')
 **Architecture**: Self contained groovy scripts using Grab for dependencies
 - [ ] Create `gsvg-examples/` submodule
 - [ ] Add well documented examples showing main features
+- [ ] The build script should verify that syntax is correct bu compiling the scripts but it does need to actually run them.
 
 #### 4.3 Example Gallery
 
