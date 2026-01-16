@@ -21,6 +21,17 @@ import java.nio.charset.StandardCharsets
 class SvgRenderer {
 
     /**
+     * Saves the SVG content to a file.
+     *
+     * @param svg The SVG object to save
+     * @param output The output file
+     */
+    static void toSvgFile(Svg svg, File output) {
+        output.parentFile?.mkdirs()
+        output.text = svg.toXml()
+    }
+
+    /**
      * Renders an SVG to PNG format and saves to a file.
      *
      * @param svg The SVG object to render

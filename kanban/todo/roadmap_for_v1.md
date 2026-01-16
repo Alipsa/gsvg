@@ -332,7 +332,14 @@ def nested = svg.css('g g circle')
 
 #### 4.3 Example Gallery
 
+**Goals**: Create easy to understand examples in idiomatic groovy style showing how to use the library in the gsvg-examples module.
+
 **Focus**: Showcase the Svg model API - various ways of navigating and modifying SVG content programmatically
+
+- Vary ways of importing and exporting data so you cover String, File and Programmatically created SVGs. Export to String, file, png and jpeg. 
+- Showcase examples of using both fluent API and DSL style creation.
+- Showcase DSL, XPath and CSS selector based navigation.
+- Show usage of the gsvg-export module for formatting, rendering and optimization.
 
 **Features**:
 - [ ] Categorized example library demonstrating Svg model usage patterns

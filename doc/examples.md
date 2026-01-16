@@ -2,6 +2,13 @@
 
 This guide provides comprehensive code examples demonstrating the various features of gsvg.
 
+## Example Gallery
+
+If you want runnable scripts, see the gsvg-examples module:
+- Source tree: `gsvg-examples/src/main/groovy/examples`
+- Catalog: `gsvg-examples/src/main/resources/examples/catalog.md`
+- Output target (when run manually): `gsvg-examples/target/examples-output`
+
 ## Table of Contents
 
 - [Basic Shapes](#basic-shapes)

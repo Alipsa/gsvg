@@ -1,12 +1,24 @@
 # gsvg-examples
 
-Placeholder module for Phase 8 (Examples Documentation).
+Example gallery for gsvg. Scripts live in `src/main/groovy/examples` and are compiled during the Maven build to validate syntax, but they are not executed.
 
-This module will provide:
-- Comprehensive example gallery
-- 70+ examples across 10 categories
-- Self-contained Groovy scripts using @Grab
+## Layout
 
-**Status**: Not yet implemented (planned for v1.0-rc)
+- Examples: `gsvg-examples/src/main/groovy/examples`
+- Shared helpers: `gsvg-examples/src/main/groovy/examples/shared/ExampleSupport.groovy`
+- Catalog: `gsvg-examples/src/main/resources/examples/catalog.md`
+- Output location (when run manually): `gsvg-examples/target/examples-output`
 
-See: `kanban/todo/roadmap_for_v1.md` Phase 8 for implementation details.
+## Running an Example
+
+Examples are standalone Groovy scripts that use `@Grab` so they can be run directly:
+
+```bash
+cd gsvg-examples
+
+groovy src/main/groovy/examples/10-practical-use-cases/Example01ExportFormats.groovy
+```
+
+## Build Notes
+
+The Maven build compiles scripts to validate syntax. Grape is disabled for compilation via `config/gmavenplus-config.groovy` to avoid network access; it is enabled by default when you run scripts directly with `groovy`.
