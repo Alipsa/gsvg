@@ -372,6 +372,159 @@ svg.xpath('//rect[@fill="red"]').each { rect ->
 }
 ```
 
+## CSS Selectors
+
+CSS selectors provide an alternative to XPath for querying SVG elements, with familiar syntax for web developers.
+
+### Basic Usage
+
+Use `css()` to select elements matching a CSS selector:
+
+```groovy
+// Type selector - all circles
+List<SvgElement> circles = svg.css('circle')
+
+// Class selector - elements with class 'highlighted'
+List<SvgElement> highlighted = svg.css('.highlighted')
+
+// ID selector - element with id 'logo'
+List<SvgElement> logo = svg.css('#logo')
+
+// Get first match only
+SvgElement firstCircle = svg.cssFirst('circle')
+```
+
+### Supported Selector Types
+
+**Type selectors** - Match elements by tag name:
+```groovy
+svg.css('rect')     // All rectangles
+svg.css('circle')   // All circles
+svg.css('path')     // All paths
+svg.css('g')        // All groups
+```
+
+**Class selectors** - Match elements with specific CSS classes:
+```groovy
+svg.css('.icon')        // Elements with class 'icon'
+svg.css('.selected')    // Elements with class 'selected'
+svg.css('.layer')       // Elements with class 'layer'
+```
+
+**ID selectors** - Match elements by ID:
+```groovy
+svg.css('#background')  // Element with id='background'
+svg.css('#logo')        // Element with id='logo'
+```
+
+**Attribute selectors** - Match elements by attributes:
+```groovy
+svg.css('[fill]')           // Elements with 'fill' attribute
+svg.css('[fill="red"]')     // Elements with fill='red'
+svg.css('[fill=red]')       // Same (quotes optional)
+svg.css('[stroke="black"]') // Elements with stroke='black'
+```
+
+**Descendant combinator** - Match descendants at any level:
+```groovy
+svg.css('g circle')     // All circles inside groups (at any depth)
+svg.css('g rect')       // All rectangles inside groups
+svg.css('.container circle')  // All circles inside elements with class 'container'
+```
+
+**Child combinator** - Match direct children only:
+```groovy
+svg.css('svg > circle')  // Only circles that are direct children of svg
+svg.css('g > circle')    // Only circles that are direct children of groups
+svg.css('g > g')         // Only groups that are direct children of groups
+```
+
+**Pseudo-classes** - Match based on element position:
+```groovy
+svg.css(':first-child')       // Elements that are first children of their parents
+svg.css(':last-child')        // Elements that are last children of their parents
+svg.css(':nth-child(2)')      // Elements that are 2nd children of their parents
+svg.css('circle:first-child') // Circles that are first children
+```
+
+**Universal selector** - Match all elements:
+```groovy
+svg.css('*')  // All elements
+```
+
+### Complex Selectors
+
+Combine multiple selector types:
+
+```groovy
+// Red circles
+svg.css('circle[fill="red"]')
+
+// Highlighted elements in containers
+svg.css('.container .highlight')
+
+// First circle child of groups
+svg.css('g > circle:first-child')
+
+// Elements with specific ID and class
+svg.css('#panel.highlighted')
+```
+
+### CSS vs XPath
+
+Both CSS selectors and XPath can achieve similar results. Choose the approach that best fits your needs:
+
+```groovy
+// Find all circles (choose one approach):
+svg.css('circle')        // Using CSS selector
+svg.xpath('//circle')    // Using XPath - equivalent alternative
+
+// Find elements with fill='red' (choose one approach):
+svg.css('[fill="red"]')       // Using CSS selector
+svg.xpath('//*[@fill="red"]') // Using XPath - equivalent alternative
+
+// Find circles in groups (choose one approach):
+svg.css('g circle')      // Using CSS selector
+svg.xpath('//g//circle') // Using XPath - equivalent alternative
+```
+
+**When to use CSS selectors:**
+- Familiar web development syntax
+- Simpler queries (types, classes, IDs)
+- Pseudo-class queries (:first-child, etc.)
+
+**When to use XPath:**
+- Complex attribute conditions
+- Advanced axis navigation
+- Numeric comparisons
+
+### Querying Nested Containers
+
+CSS selectors work on any container, not just the root SVG:
+
+```groovy
+G group = svg.descendants(G).find { it.getId() == 'group1' }
+
+// Query within the group
+List<SvgElement> circles = group.css('circle')
+SvgElement firstCircle = group.cssFirst('circle')
+```
+
+### Performance Notes
+
+CSS selector performance is O(n) where n is the number of elements searched:
+- Simple selectors (type, class, ID) scan all descendants once
+- Combinators may scan multiple times (once per parent match)
+- For best performance, make selectors as specific as possible
+
+```groovy
+// Efficient - searches only circles
+svg.css('circle[fill="red"]')
+
+// Less efficient - searches all descendants
+svg.css('[fill="red"]')
+```
+
 ## Parent and Hierarchy Navigation
 
 ### Accessing the Parent

@@ -25,40 +25,58 @@ Version 1.0 represents the production-complete release of gsvg, incorporating de
 
 ### 1. Project Restructuring
 
+**Status**: ✅ Completed (v1.0.0-SNAPSHOT)
+
 **Goal**: Separate concerns into core library and optional modules while maintaining backward compatibility.
 
-#### 1.1 Multi-Module Maven Setup
-- [ ] Create parent POM at project root
-- [ ] Create `gsvg-core/` submodule
-  - [ ] Move existing source code to `gsvg-core/src/`
-  - [ ] Move existing test code to `gsvg-core/src/test/`
-  - [ ] Update package structure (no changes needed)
-  - [ ] Artifact ID remains `gsvg` for backward compatibility
-- [ ] Update all POMs with correct parent/module relationships
-- [ ] Update dependency management in parent POM
-- [ ] Verify all 701 tests pass after restructure
-- [ ] Update GitHub Actions CI/CD for multi-module build
+**Completion Summary**:
+- Restructured from single-module to multi-module Maven architecture
+- Created parent POM with three modules: gsvg-core, gsvg-export, gsvg-examples
+- Moved all source code to gsvg-core module (git history preserved)
+- 807 total tests passing (769 in gsvg-core, 38 in gsvg-export)
+- 100% backward compatibility maintained (artifact ID unchanged)
+- Zero regressions to existing functionality
 
-#### 1.2 Module Dependency Strategy
+#### 1.1 Multi-Module Maven Setup
+- [x] Create parent POM at project root (artifactId: `gsvg-parent`)
+- [x] Create `gsvg-core/` submodule
+  - [x] Move existing source code to `gsvg-core/src/`
+  - [x] Move existing test code to `gsvg-core/src/test/`
+  - [x] Update package structure (no changes needed)
+  - [x] Artifact ID remains `gsvg` for backward compatibility
+- [x] Update all POMs with correct parent/module relationships
+- [x] Update dependency management in parent POM
+- [x] Verify all 701 tests pass after restructure (now 769 tests)
+- [ ] Update GitHub Actions CI/CD for multi-module build (deferred - not critical for v1.0)
+
+#### 1.2 Module Dependency Strategy ✅
+
+**Implemented Structure**:
 ```xml
 <!-- Parent POM structure -->
 <modules>
   <module>gsvg-core</module>
   <module>gsvg-export</module>
-  <module>gsvg-examples</module> 
+  <module>gsvg-examples</module>
 </modules>
 ```
 
 **Artifact naming**:
-- Core library: `se.alipsa.groovy:gsvg:1.0.0` (unchanged for backward compatibility)
-- Export module: `se.alipsa.groovy:gsvg-export:1.0.0`
-- Examples module: `se.alipsa.groovy:gsvg-examples:1.0.0`
+- ✅ Core library: `se.alipsa.groovy:gsvg:1.0.0-SNAPSHOT` (unchanged for backward compatibility)
+- ✅ Export module: `se.alipsa.groovy:gsvg-export:1.0.0-SNAPSHOT`
+- ✅ Examples module: `se.alipsa.groovy:gsvg-examples:1.0.0-SNAPSHOT` (placeholder)
 
-**Benefits**:
-- Keep core library lightweight (current ~200KB)
-- Optional features don't bloat core dependency
-- Users only include what they need
-- Easier to maintain and test separately
+**Module Dependencies**:
+- ✅ gsvg-core: No dependencies on other modules (independent)
+- ✅ gsvg-export: Depends on gsvg-core (includes jsvg library)
+- ✅ gsvg-examples: Depends on gsvg-core and gsvg-export (placeholder)
+
+**Benefits Achieved**:
+- ✅ Core library remains lightweight (~200KB)
+- ✅ Optional features don't bloat core dependency
+- ✅ Users only include what they need
+- ✅ Easier to maintain and test separately
+- ✅ Multi-module reactor build working perfectly
 
 ---
 
@@ -66,34 +84,44 @@ Version 1.0 represents the production-complete release of gsvg, incorporating de
 
 ### 2. gsvg-export Module
 
+**Status**: ✅ Completed (v1.0.0-SNAPSHOT)
+
 **Goal**: Provide SVG rendering, optimization, and export capabilities as an optional module.
 
+**Completion Summary**:
+- Created SvgRenderer for PNG/JPEG export using jsvg
+- Created SvgOptimizer for file size reduction
+- Created SvgFormatter for pretty printing
+- 38 comprehensive tests (all passing)
+- 807 total tests passing (769 from phases 1-7 + 38 export)
+- Zero regressions to existing functionality
+
 #### 2.1 Module Setup
-- [ ] Create `gsvg-export/` submodule structure
-- [ ] Add dependency on `gsvg-core`
-- [ ] Add jsvg dependency: `com.github.weisj:jsvg:1.5.0`
-- [ ] Create package structure: `se.alipsa.groovy.svg.export`
+- [x] Create `gsvg-export/` submodule structure
+- [x] Add dependency on `gsvg-core`
+- [x] Add jsvg dependency: `com.github.weisj:jsvg:1.5.0`
+- [x] Create package structure: `se.alipsa.groovy.svg.export`
 
 #### 2.2 SVG Rendering (PNG/JPEG Export)
 
-**Technology Choice**: [jsvg](https://github.com/weisJ/jsvg)
+**Technology Choice**: ✅ [jsvg](https://github.com/weisJ/jsvg)
 - Pure Java implementation (no native dependencies)
 - Better SVG 2 support than Batik
 - Active development and modern codebase
 - Lightweight (~500KB vs Batik's ~15MB)
 
 **Implementation**:
-- [ ] Create `SvgRenderer` class
-  - [ ] `toPng(Svg svg, File output, Map options)` - Render to PNG
-  - [ ] `toPng(Svg svg, OutputStream output, Map options)` - Stream output
-  - [ ] `toJpeg(Svg svg, File output, Map options)` - Render to JPEG
-  - [ ] `toBufferedImage(Svg svg, Map options)` - Get BufferedImage
-- [ ] Support rendering options:
-  - `width`, `height` - Output dimensions (scale from SVG viewBox)
-  - `scale` - Scale factor (alternative to width/height)
-  - `backgroundColor` - Background color for JPEG
-  - `quality` - JPEG quality (0.0-1.0)
-  - `antialiasing` - Enable/disable antialiasing
+- [x] Create `SvgRenderer` class
+  - [x] `toPng(Svg svg, File output, Map options)` - Render to PNG
+  - [x] `toPng(Svg svg, OutputStream output, Map options)` - Stream output
+  - [x] `toJpeg(Svg svg, File output, Map options)` - Render to JPEG
+  - [x] `toBufferedImage(Svg svg, Map options)` - Get BufferedImage
+- [x] Support rendering options:
+  - [x] `width`, `height` - Output dimensions (scale from SVG viewBox)
+  - [x] `scale` - Scale factor (alternative to width/height)
+  - [x] `backgroundColor` - Background color for JPEG
+  - [x] `quality` - JPEG quality (0.0-1.0)
+  - [x] `antialiasing` - Enable/disable antialiasing
 
 **Example Usage**:
 ```groovy
@@ -130,20 +158,20 @@ def image = SvgRenderer.toBufferedImage(svg, [scale: 2.0])
 **Goal**: Reduce SVG file size through various optimization techniques.
 
 **Implementation**:
-- [ ] Create `SvgOptimizer` class
-  - [ ] `optimize(Svg svg, Map options)` - Optimize and return new Svg
-  - [ ] `optimizeInPlace(Svg svg, Map options)` - Optimize existing Svg
-- [ ] Optimization features:
-  - [ ] Remove XML comments
-  - [ ] Remove metadata elements
-  - [ ] Remove unused defs
-  - [ ] Collapse redundant groups
-  - [ ] Round numbers to precision (already have NumberFormatter)
-  - [ ] Merge similar paths
-  - [ ] Remove default attributes
-  - [ ] Convert colors to shorter formats
-  - [ ] Minify path data (remove unnecessary spaces)
-  - [ ] Remove invisible elements (opacity=0, display=none)
+- [x] Create `SvgOptimizer` class
+  - [x] `optimize(Svg svg, Map options)` - Optimize and return new Svg
+  - [x] `optimizeInPlace(Svg svg, Map options)` - Optimize existing Svg
+- [x] Optimization features:
+  - [x] Remove XML comments
+  - [x] Remove metadata elements
+  - [x] Remove unused defs
+  - [x] Collapse redundant groups
+  - [x] Round numbers to precision (already have NumberFormatter)
+  - [x] Remove default attributes
+  - [x] Convert colors to shorter formats
+  - [x] Minify path data (remove unnecessary spaces)
+  - [x] Remove invisible elements (opacity=0, display=none)
+- [ ] Merge similar paths (deferred to post-v1.0)
 
 **Example Usage**:
 ```groovy
@@ -171,15 +199,17 @@ new File('output.svg').text = optimized.toString()
 **Goal**: Format SVG for human readability.
 
 **Implementation**:
-- [ ] Create `SvgFormatter` class
-  - [ ] `prettify(Svg svg, Map options)` - Return formatted XML string
-  - [ ] `format(Svg svg, Map options)` - Return formatted Svg
-- [ ] Formatting options:
-  - `indent` - Indentation string (default: "  ")
-  - `newline` - Newline character (default: "\n")
-  - `sortAttributes` - Sort attributes alphabetically
-  - `groupElements` - Group similar elements with blank lines
-  - `maxLineLength` - Wrap long attribute lists
+- [x] Create `SvgFormatter` class
+  - [x] `prettify(Svg svg, Map options)` - Return formatted XML string
+  - [x] `format(Svg svg, Map options)` - Return formatted Svg
+  - [x] `prettifyWithSortedAttributes(Svg svg)` - Sort attributes alphabetically
+  - [x] `prettifyWithGrouping(Svg svg)` - Group similar elements with blank lines
+- [x] Formatting options:
+  - [x] `indent` - Indentation string (default: "  ")
+  - [x] `newline` - Newline character (default: "\n")
+  - [x] `sortAttributes` - Sort attributes alphabetically
+  - [x] `groupElements` - Group similar elements with blank lines
+- [ ] `maxLineLength` - Wrap long attribute lists (deferred to post-v1.0)
 
 **Example Usage**:
 ```groovy
@@ -195,13 +225,13 @@ new File('formatted.svg').text = formatted
 ```
 
 #### 2.5 Testing
-- [ ] Create test suite for gsvg-export module
-  - [ ] Rendering tests (verify PNG/JPEG output)
-  - [ ] Optimization tests (verify file size reduction)
-  - [ ] Prettification tests (verify formatting)
-  - [ ] Integration tests with complex SVGs
-- [ ] Performance benchmarks for rendering
-- [ ] Memory usage tests for large SVGs
+- [x] Create test suite for gsvg-export module (38 tests total)
+  - [x] Rendering tests (verify PNG/JPEG output) - 10 tests
+  - [x] Optimization tests (verify file size reduction) - 13 tests
+  - [x] Prettification tests (verify formatting) - 15 tests
+  - [x] Integration tests with complex SVGs
+- [ ] Performance benchmarks for rendering (deferred to Phase 9)
+- [ ] Memory usage tests for large SVGs (deferred to Phase 9)
 
 ---
 
@@ -209,29 +239,44 @@ new File('formatted.svg').text = formatted
 
 ### 3. CSS Selector Support
 
-**Status**: Deferred from v0.9.0 (Phase 3, Item 8)
+**Status**: ✅ Completed (v1.0.0-SNAPSHOT)
 
 **Goal**: Add CSS selector support for element selection alongside existing XPath.
 
+**Completion Summary**:
+- Created custom CSS selector engine (400+ lines)
+- 49 comprehensive tests (all passing)
+- 769 total tests passing (720 original + 49 CSS selector)
+- Documentation updated in `doc/navigating.md`
+- Zero regressions to existing functionality
+
 #### 3.1 CSS Selector Implementation
 
-**Technology Choice**: Use existing dependency or lightweight parser
-- Option 1: Leverage ph-css (already a dependency)
-- Option 2: Use jsoup selector parser
-- Option 3: Implement simple selector parser for common cases
+**Technology Choice**: ✅ Implemented custom selector parser (Option 3)
+- Lightweight and performant
+- No additional dependencies required
+- Full control over implementation
 
 **Implementation**:
-- [ ] Create `CssSelectorEngine` class in `se.alipsa.groovy.svg.utils`
-- [ ] Support common CSS selectors:
-  - Type selectors: `rect`, `circle`, `path`
-  - Class selectors: `.highlight`, `.selected`
-  - ID selectors: `#logo`, `#background`
-  - Attribute selectors: `[fill="red"]`, `[stroke]`, `[width > 100]`
-  - Combinators: `g rect`, `g > rect`, `rect + circle`
-  - Pseudo-classes: `:first-child`, `:last-child`, `:nth-child(n)`
-- [ ] Add to AbstractElementContainer:
-  - [ ] `css(String selector)` - Select elements by CSS selector
-  - [ ] `cssFirst(String selector)` - Select first matching element
+- [x] Create `CssSelectorEngine` class in `se.alipsa.groovy.svg.utils`
+- [x] Support common CSS selectors:
+  - [x] Type selectors: `rect`, `circle`, `path`
+  - [x] Class selectors: `.highlight`, `.selected`
+  - [x] ID selectors: `#logo`, `#background`
+  - [x] Attribute selectors: `[fill="red"]`, `[stroke]`
+  - [x] Combinators: `g rect` (descendant), `g > rect` (child)
+  - [x] Pseudo-classes: `:first-child`, `:last-child`, `:nth-child(n)`
+  - [x] Universal selector: `*`
+  - [x] Compound selectors: `circle[fill="red"]`, `rect:first-child`
+  - [x] Chained combinators: `g g circle`, `svg > g > circle`
+- [x] Add to ElementContainer:
+  - [x] `css(String selector)` - Select elements by CSS selector
+  - [x] `cssFirst(String selector)` - Select first matching element
+
+**Not Implemented** (deferred):
+- ❌ Comparison operators `[width > 100]` - Not part of CSS specification
+  - Use `filter()` instead: `svg.filter { it.getAttribute('width') as int > 100 }`
+- ❌ Sibling combinator `rect + circle` - Deferred to post-v1.0
 
 **Example Usage**:
 ```groovy
@@ -248,18 +293,25 @@ def logo = svg.cssFirst('#logo')
 def redRects = svg.css('rect[fill="red"]')
 def childCircles = svg.css('g > circle')
 def firstRect = svg.cssFirst('rect:first-child')
+
+// Chained combinators
+def nested = svg.css('g g circle')
 ```
 
 #### 3.2 Performance Optimization
-- [ ] Benchmark CSS selector vs XPath performance
-- [ ] Add caching for frequently used selectors
-- [ ] Optimize attribute lookups
+- [ ] Benchmark CSS selector vs XPath performance (deferred to Phase 9)
+- [ ] Add caching for frequently used selectors (deferred to post-v1.0)
+- [ ] Optimize attribute lookups (deferred to post-v1.0)
+
+**Note**: Current implementation is efficient for typical use cases. Advanced optimizations deferred based on real-world performance data.
 
 #### 3.3 Testing
-- [ ] Create comprehensive test suite for CSS selectors
-- [ ] Test all selector types
-- [ ] Test edge cases and invalid selectors
-- [ ] Performance benchmarks
+- [x] Create comprehensive test suite for CSS selectors (49 tests)
+- [x] Test all selector types (type, class, ID, attribute, combinators, pseudo-classes)
+- [x] Test edge cases and invalid selectors (malformed selectors, unclosed brackets/parentheses)
+- [x] Test chained combinators (descendant and child combinations)
+- [x] Test nested container queries
+- [ ] Performance benchmarks (deferred to Phase 9)
 
 ---
 

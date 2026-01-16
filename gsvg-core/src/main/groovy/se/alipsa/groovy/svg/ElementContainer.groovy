@@ -338,6 +338,36 @@ trait ElementContainer {
   }
 
   /**
+   * Select all elements matching the given CSS selector.
+   * Supports common CSS selectors:
+   * - Type selectors: {@code rect}, {@code circle}, {@code path}
+   * - Class selectors: {@code .highlight}, {@code .selected}
+   * - ID selectors: {@code #logo}, {@code #background}
+   * - Attribute selectors: {@code [fill="red"]}, {@code [stroke]}
+   * - Descendant combinator: {@code g circle}
+   * - Child combinator: {@code g > circle}
+   * - Pseudo-classes: {@code :first-child}, {@code :last-child}, {@code :nth-child(n)}
+   *
+   * @param selector the CSS selector
+   * @return list of matching elements
+   * @since 1.0.0
+   */
+  List<SvgElement> css(String selector) {
+    se.alipsa.groovy.svg.utils.CssSelectorEngine.select(this, selector)
+  }
+
+  /**
+   * Select the first element matching the given CSS selector.
+   *
+   * @param selector the CSS selector
+   * @return first matching element or null if no match
+   * @since 1.0.0
+   */
+  SvgElement cssFirst(String selector) {
+    se.alipsa.groovy.svg.utils.CssSelectorEngine.selectFirst(this, selector)
+  }
+
+  /**
    * Count the number of child elements matching a predicate.
    * <p>Example:</p>
    * <pre>
