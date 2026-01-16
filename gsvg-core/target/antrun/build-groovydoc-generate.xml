@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="maven-antrun-" default="groovydoc-generate">
-  <target name="groovydoc-generate">
-    <taskdef classname="org.codehaus.groovy.ant.Groovydoc" name="groovydoc" classpathref="maven.plugin.classpath" />
-    <mkdir dir="/Users/pernyf/project/gsvg/gsvg-core/target/groovydoc" />
-    <groovydoc private="false" use="true" destdir="/Users/pernyf/project/gsvg/gsvg-core/target/groovydoc" windowtitle="gsvg 1.0.0-SNAPSHOT API" doctitle="gsvg 1.0.0-SNAPSHOT API" sourcepath="/Users/pernyf/project/gsvg/gsvg-core/src/main/groovy:/Users/pernyf/project/gsvg/gsvg-core/src/main/java" />
-  </target>
-</project>
