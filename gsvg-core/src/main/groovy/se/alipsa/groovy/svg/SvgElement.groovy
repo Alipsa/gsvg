@@ -721,6 +721,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    */
   Title addTitle() {
     title = add(new Title(this))
+    return title
   }
 
   /**
@@ -757,6 +758,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    */
   Desc addDesc() {
     desc = add(new Desc(this))
+    return desc
   }
 
   /**
