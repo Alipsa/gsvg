@@ -109,7 +109,7 @@ class CssSelectorEngine {
      *
      * Note: This method splits the selector on the first space, handling only two parts.
      * Chained combinators (e.g., "g g circle" or "g > circle rect") are handled through
-     * recursion - the recursive call to select() at line 123 will parse remaining combinators.
+     * recursion - the recursive call to select() below will parse remaining combinators.
      *
      * Uses LinkedHashSet to eliminate duplicates that can occur when nested containers
      * both match the parent selector (e.g., "g circle" with nested groups).
@@ -405,7 +405,15 @@ class CssSelectorEngine {
 
     /**
      * Match attribute selectors: [fill="red"], [stroke]
-     * Note: Comparison operators (>, <) are mentioned but not implemented.
+     *
+     * Supports standard CSS attribute selector syntax:
+     * - [attribute] - has attribute
+     * - [attribute="value"] - exact match
+     * - [attribute=value] - exact match without quotes
+     *
+     * Note: Comparison operators ([width>100], [height<50]) are NOT supported as they
+     * are not part of the CSS specification. For numeric comparisons, use filter() instead:
+     * <code>svg.filter { it.getAttribute('width') as int > 100 }</code>
      */
     private static boolean matchesAttributeSelector(SvgElement element, String selector) {
         String inner = selector.substring(1, selector.length() - 1).trim()
