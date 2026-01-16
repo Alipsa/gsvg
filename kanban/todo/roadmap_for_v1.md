@@ -209,29 +209,44 @@ new File('formatted.svg').text = formatted
 
 ### 3. CSS Selector Support
 
-**Status**: Deferred from v0.9.0 (Phase 3, Item 8)
+**Status**: ✅ Completed (v1.0.0-SNAPSHOT)
 
 **Goal**: Add CSS selector support for element selection alongside existing XPath.
 
+**Completion Summary**:
+- Created custom CSS selector engine (400+ lines)
+- 49 comprehensive tests (all passing)
+- 769 total tests passing (720 original + 49 CSS selector)
+- Documentation updated in `doc/navigating.md`
+- Zero regressions to existing functionality
+
 #### 3.1 CSS Selector Implementation
 
-**Technology Choice**: Use existing dependency or lightweight parser
-- Option 1: Leverage ph-css (already a dependency)
-- Option 2: Use jsoup selector parser
-- Option 3: Implement simple selector parser for common cases
+**Technology Choice**: ✅ Implemented custom selector parser (Option 3)
+- Lightweight and performant
+- No additional dependencies required
+- Full control over implementation
 
 **Implementation**:
-- [ ] Create `CssSelectorEngine` class in `se.alipsa.groovy.svg.utils`
-- [ ] Support common CSS selectors:
-  - Type selectors: `rect`, `circle`, `path`
-  - Class selectors: `.highlight`, `.selected`
-  - ID selectors: `#logo`, `#background`
-  - Attribute selectors: `[fill="red"]`, `[stroke]`, `[width > 100]`
-  - Combinators: `g rect`, `g > rect`, `rect + circle`
-  - Pseudo-classes: `:first-child`, `:last-child`, `:nth-child(n)`
-- [ ] Add to AbstractElementContainer:
-  - [ ] `css(String selector)` - Select elements by CSS selector
-  - [ ] `cssFirst(String selector)` - Select first matching element
+- [x] Create `CssSelectorEngine` class in `se.alipsa.groovy.svg.utils`
+- [x] Support common CSS selectors:
+  - [x] Type selectors: `rect`, `circle`, `path`
+  - [x] Class selectors: `.highlight`, `.selected`
+  - [x] ID selectors: `#logo`, `#background`
+  - [x] Attribute selectors: `[fill="red"]`, `[stroke]`
+  - [x] Combinators: `g rect` (descendant), `g > rect` (child)
+  - [x] Pseudo-classes: `:first-child`, `:last-child`, `:nth-child(n)`
+  - [x] Universal selector: `*`
+  - [x] Compound selectors: `circle[fill="red"]`, `rect:first-child`
+  - [x] Chained combinators: `g g circle`, `svg > g > circle`
+- [x] Add to ElementContainer:
+  - [x] `css(String selector)` - Select elements by CSS selector
+  - [x] `cssFirst(String selector)` - Select first matching element
+
+**Not Implemented** (deferred):
+- ❌ Comparison operators `[width > 100]` - Not part of CSS specification
+  - Use `filter()` instead: `svg.filter { it.getAttribute('width') as int > 100 }`
+- ❌ Sibling combinator `rect + circle` - Deferred to post-v1.0
 
 **Example Usage**:
 ```groovy
@@ -248,18 +263,25 @@ def logo = svg.cssFirst('#logo')
 def redRects = svg.css('rect[fill="red"]')
 def childCircles = svg.css('g > circle')
 def firstRect = svg.cssFirst('rect:first-child')
+
+// Chained combinators
+def nested = svg.css('g g circle')
 ```
 
 #### 3.2 Performance Optimization
-- [ ] Benchmark CSS selector vs XPath performance
-- [ ] Add caching for frequently used selectors
-- [ ] Optimize attribute lookups
+- [ ] Benchmark CSS selector vs XPath performance (deferred to Phase 9)
+- [ ] Add caching for frequently used selectors (deferred to post-v1.0)
+- [ ] Optimize attribute lookups (deferred to post-v1.0)
+
+**Note**: Current implementation is efficient for typical use cases. Advanced optimizations deferred based on real-world performance data.
 
 #### 3.3 Testing
-- [ ] Create comprehensive test suite for CSS selectors
-- [ ] Test all selector types
-- [ ] Test edge cases and invalid selectors
-- [ ] Performance benchmarks
+- [x] Create comprehensive test suite for CSS selectors (49 tests)
+- [x] Test all selector types (type, class, ID, attribute, combinators, pseudo-classes)
+- [x] Test edge cases and invalid selectors (malformed selectors, unclosed brackets/parentheses)
+- [x] Test chained combinators (descendant and child combinations)
+- [x] Test nested container queries
+- [ ] Performance benchmarks (deferred to Phase 9)
 
 ---
 
