@@ -98,6 +98,7 @@
                   <classpathScope>compile</classpathScope>
                   <includeProjectDependencies>true</includeProjectDependencies>
                   <includePluginDependencies>false</includePluginDependencies>
+                  <cleanupDaemonThreads>false</cleanupDaemonThreads>
                   <systemProperties>
                     <systemProperty>
                       <key>examples.baseDir</key>

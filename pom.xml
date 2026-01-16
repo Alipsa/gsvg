@@ -277,12 +277,6 @@
   <!-- Release profile (inherited by children) -->
   <profiles>
     <profile>
-      <id>run-examples</id>
-      <properties>
-        <maven.test.skip>true</maven.test.skip>
-      </properties>
-    </profile>
-    <profile>
       <id>release</id>
       <build>
         <plugins>

@@ -7,5 +7,5 @@ else
     exit 1
 fi
 . jdk17
-mvn -Prelease clean package site deploy
+mvn -Prelease,run-examples clean verify site deploy
 echo "Deployed to Maven repository successfully!"
