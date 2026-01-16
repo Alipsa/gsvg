@@ -2,3 +2,6 @@
 /target/
 /.claude/
 /gsvg.iml
+/gsvg-core/target/
+/gsvg-examples/target/
+/gsvg-export/target/
