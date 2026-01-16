@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ForeignObject.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">ForeignObject.groovy</span></div><h1>ForeignObject.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+import org.dom4j.Namespace
+import org.dom4j.QName
+
+/**
+ * SVG {@code &lt;foreignObject&gt;} element that embeds foreign XML content such as HTML.
+ */
+@CompileStatic
+class ForeignObject extends StringContentContainer&lt;ForeignObject&gt; implements Animatable&lt;ForeignObject&gt;, ExternalElementContainer&lt;ForeignObject&gt;  {
+
+  static final String NAME='foreignObject'
+
+  /**
+   * Creates a ForeignObject.
+   *
+   * @param parent the parent SVG element
+   */
+  ForeignObject(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L25">    super(parent, NAME)</span>
+<span class="fc" id="L26">  }</span>
+
+  @PackageScope
+  ForeignObject(SvgElement parent, Element element) {
+<span class="nc" id="L30">    super(parent, element)</span>
+<span class="nc" id="L31">  }</span>
+
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  ForeignObject width(Number width) {
+<span class="fc" id="L41">    addAttribute('width', width)</span>
+  }
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  ForeignObject width(String width) {
+<span class="nc" id="L51">    addAttribute('width', width)</span>
+  }
+
+  /**
+   * Returns the width value.
+   *
+   * @return the width value
+   */
+  String getWidth() {
+<span class="nc" id="L60">    getAttribute('width')</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  ForeignObject height(Number height) {
+<span class="fc" id="L70">    addAttribute('height', height)</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  ForeignObject height(String height) {
+<span class="nc" id="L80">    addAttribute('height', height)</span>
+  }
+
+  /**
+   * Returns the height value.
+   *
+   * @return the height value
+   */
+  String getHeight() {
+<span class="nc" id="L89">    getAttribute('height')</span>
+  }
+
+  /**
+   * Sets the x attribute.
+   *
+   * @param x the x-coordinate
+   * @return this element for chaining
+   */
+  ForeignObject x(Number x) {
+<span class="fc" id="L99">    addAttribute('x', x)</span>
+  }
+
+  /**
+   * Sets the x attribute.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
+  ForeignObject x(String x) {
+<span class="nc" id="L109">    addAttribute('x', x)</span>
+  }
+  /**
+   * Returns the x value.
+   *
+   * @return the x value
+   */
+  String getX() {
+<span class="nc" id="L117">    getAttribute('x')</span>
+  }
+
+  /**
+   * Sets the y attribute.
+   *
+   * @param y the y-coordinate
+   * @return this element for chaining
+   */
+  ForeignObject y(Number y) {
+<span class="fc" id="L127">    addAttribute('y', y)</span>
+  }
+
+  /**
+   * Sets the y attribute.
+   *
+   * @param y the y-coordinate
+   * @return this element for chaining
+   */
+  ForeignObject y(String y) {
+<span class="nc" id="L137">    addAttribute('y', y)</span>
+  }
+
+  /**
+   * Returns the y value.
+   *
+   * @return the y value
+   */
+  String getY() {
+<span class="nc" id="L146">    getAttribute('y')</span>
+  }
+
+  /**
+   * Creates and adds a new ForeignElement child element.
+   *
+   * @param qName the qualified name of the element
+   * @return the created element
+   */
+  ForeignElement addElement(String qName) {
+<span class="fc" id="L156">    add(new ForeignElement(this, qName, &quot;http://www.w3.org/1999/xhtml&quot;))</span>
+  }
+
+  /**
+   * Creates and adds a new ForeignElement child element.
+   *
+   * @param qName the qualified name of the element
+   * @return the created element
+   */
+  ForeignElement addElement(QName qName) {
+<span class="fc" id="L166">    add(new ForeignElement(this, qName))</span>
+  }
+
+  /**
+   * Creates and adds a new ForeignElement child element.
+   *
+   * @param localName the local name of the element
+   * @param namespaceUri the namespace URI
+   * @return the created element
+   */
+  ForeignElement addElement(String localName, String namespaceUri) {
+<span class="nc" id="L177">    Namespace ns = new Namespace('', namespaceUri)</span>
+<span class="nc" id="L178">    add(new ForeignElement(this, new QName(localName, ns)))</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

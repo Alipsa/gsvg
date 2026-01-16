@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilterFunction.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FilterFunction.groovy</span></div><h1>FilterFunction.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
+import org.dom4j.Element
+
+/**
+ * Base class for component transfer functions used by feComponentTransfer.
+ */
+@CompileStatic
+abstract class FilterFunction &lt;T extends FilterElement&lt;T&gt;&gt; extends FilterElement&lt;T&gt; {
+
+  /**
+   * Enum for filter type.
+   */
+  enum FilterType {
+    identity, table, discrete, linear, gamma
+  }
+
+  /**
+   * Creates a FilterFunction.
+   *
+   * @param parent the parent SVG element
+   * @param name the name of the element
+   */
+  FilterFunction(SvgElement&lt;? extends SvgElement&gt; parent, String name) {
+<span class="fc" id="L27">    super(parent, name)</span>
+<span class="fc" id="L28">  }</span>
+
+  /**
+   * Creates a FilterFunction by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  @PackageScope
+  FilterFunction(SvgElement parent, Element element) {
+<span class="nc" id="L39">    super(parent, element)</span>
+<span class="nc" id="L40">  }</span>
+
+  /**
+   * Sets the in attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  T 'in'(String value) {
+<span class="nc" id="L49">    addAttribute('in', value)</span>
+  }
+
+  /**
+   * Returns the in value.
+   *
+   * @return the in value
+   */
+  String getIn() {
+<span class="nc" id="L58">    getAttribute('in')</span>
+  }
+
+  /**
+   * Sets the type attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  T type(String value) {
+<span class="fc" id="L68">    addAttribute('type', value)</span>
+  }
+
+  /**
+   * Indicates the type of component transfer function
+   *
+   * @param value one of identity, table, discrete, linear, gamma
+   * @return the filter function class that the attribute belongs to
+   */
+  T type(FilterType value) {
+<span class="fc" id="L78">    addAttribute('type', value.name())</span>
+  }
+
+  /**
+   * Returns the type value.
+   *
+   * @return the type value
+   */
+  String getType() {
+<span class="nc" id="L87">    getAt('type')</span>
+  }
+
+  /**
+   * Attribute when type is table or discrete
+   * @param values
+   * @return the filter function class that the attribute belongs to
+   */
+  T tableValues(String values) {
+<span class="fc" id="L96">    addAttribute('tableValues', values)</span>
+  }
+
+  /**
+   * Returns the table values value.
+   *
+   * @return the table values value
+   */
+  String getTableValues() {
+<span class="nc" id="L105">    getAttribute('tableValues')</span>
+  }
+
+  /**
+   * Attribute when type is linear.
+   *
+   * @param value the slope value
+   * @return the filter function class that the attribute belongs to
+   */
+  T slope(Number value) {
+<span class="fc" id="L115">    addAttribute('slope', value)</span>
+  }
+
+  /**
+   * Attribute when type is linear.
+   *
+   * @param value the slope value
+   * @return the filter function class that the attribute belongs to
+   */
+  T slope(String value) {
+<span class="nc" id="L125">    addAttribute('slope', value)</span>
+  }
+
+  /**
+   * Returns the slope value.
+   *
+   * @return the slope value
+   */
+  String getSlope() {
+<span class="nc" id="L134">    getAttribute('slope')</span>
+  }
+
+  /**
+   * Attribute when type is linear.
+   *
+   * @param value the intercept value
+   * @return the filter function class that the attribute belongs to
+   */
+  T intercept(Number value) {
+<span class="fc" id="L144">    addAttribute('intercept', value)</span>
+  }
+
+  /**
+   * Attribute when type is linear.
+   *
+   * @param value the intercept value
+   * @return the filter function class that the attribute belongs to
+   */
+  T intercept(String value) {
+<span class="nc" id="L154">    addAttribute('intercept', value)</span>
+  }
+  /**
+   * Returns the intercept value.
+   *
+   * @return the intercept value
+   */
+  String getIntercept() {
+<span class="nc" id="L162">    getAttribute('intercept')</span>
+  }
+
+  /**
+   * Attribute when type is gamma.
+   *
+   * @param value the amplitude value
+   * @return the filter function class that the attribute belongs to
+   */
+  T amplitude(Number value) {
+<span class="fc" id="L172">    addAttribute('amplitude', value)</span>
+  }
+
+  /**
+   * Attribute when type is gamma.
+   *
+   * @param value the amplitude value
+   * @return the filter function class that the attribute belongs to
+   */
+  T amplitude(String value) {
+<span class="nc" id="L182">    addAttribute('amplitude', value)</span>
+  }
+  /**
+   * Returns the amplitude value.
+   *
+   * @return the amplitude value
+   */
+  String getAmplitude() {
+<span class="nc" id="L190">    getAttribute('amplitude')</span>
+  }
+
+  /**
+   * Attribute when type is gamma.
+   *
+   * @param value the exponent value
+   * @return the filter function class that the attribute belongs to
+   */
+  T exponent(Number value) {
+<span class="fc" id="L200">    addAttribute('exponent', value)</span>
+  }
+
+  /**
+   * Attribute when type is gamma.
+   *
+   * @param value the exponent value
+   * @return the filter function class that the attribute belongs to
+   */
+  T exponent(String value) {
+<span class="nc" id="L210">    addAttribute('exponent', value)</span>
+  }
+  /**
+   * Returns the exponent value.
+   *
+   * @return the exponent value
+   */
+  String getExponent() {
+<span class="nc" id="L218">    getAttribute('exponent')</span>
+  }
+
+  /**
+   * Attribute when type is gamma.
+   *
+   * @param value the offset value
+   * @return the filter function class that the attribute belongs to
+   */
+  T offset(Number value) {
+<span class="fc" id="L228">    addAttribute('offset', value)</span>
+  }
+
+  /**
+   * Attribute when type is gamma.
+   *
+   * @param value the offset value
+   * @return the filter function class that the attribute belongs to
+   */
+  T offset(String value) {
+<span class="nc" id="L238">    addAttribute('offset', value)</span>
+  }
+
+  /**
+   * Returns the offset value.
+   *
+   * @return the offset value
+   */
+  String getOffset() {
+<span class="nc" id="L247">    getAttribute('offset')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

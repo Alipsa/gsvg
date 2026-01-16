@@ -1,0 +1,9 @@
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/BenchmarkBase.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/CloningBenchmark.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/CreationBenchmark.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/MergingBenchmark.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/ParsingBenchmark.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/RunAllBenchmarks.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/SelectionBenchmark.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/SerializationBenchmark.java
+/Users/pernyf/project/gsvg/gsvg-core/src/test/java/benchmarks/UtilityBenchmark.java

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SvgElementFactory.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">SvgElementFactory.groovy</span></div><h1>SvgElementFactory.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import org.dom4j.Element
+
+/**
+ * Factory for creating SvgElement instances from DOM4J Elements.
+ * Enables pure object-oriented copying and cloning without XML serialization.
+ *
+ * &lt;h2&gt;Performance&lt;/h2&gt;
+ * The pure OO approach eliminates XML serialization overhead from merge operations.
+ * Both DOM structure and children lists are populated in a single pass during copying.
+ *
+ * @see se.alipsa.groovy.svg.utils.SvgMerger SvgMerger for usage examples
+ */
+@CompileStatic
+class SvgElementFactory {
+
+  /**
+   * Creates appropriate SvgElement from DOM4J Element with full recursion.
+   * Populates both DOM tree AND children lists for complete object model.
+   *
+   * @param parent the parent container
+   * @param element the DOM4J element to convert
+   * @return the created SvgElement
+   */
+  static SvgElement fromElement(AbstractElementContainer parent, Element element) {
+<span class="fc" id="L28">    String name = element.getName()</span>
+<span class="fc" id="L29">    SvgElement result = createElement(parent, element, name)</span>
+
+<span class="pc bpc" id="L31" title="2 of 4 branches missed.">    if (result == null) {</span>
+      // Unknown element - fall back to generic handling
+      // For now, just return null and let caller handle
+<span class="nc" id="L34">      return null</span>
+    }
+
+    // Add to parent's children list
+<span class="fc" id="L38">    parent.add(result)</span>
+
+    // Recursively process children if this is a container
+<span class="fc bfc" id="L41" title="All 2 branches covered.">    if (result instanceof AbstractElementContainer) {</span>
+<span class="fc" id="L42">      AbstractElementContainer container = result as AbstractElementContainer</span>
+<span class="fc" id="L43">      element.elements().each { Element childElement -&gt;</span>
+<span class="fc" id="L44">        fromElement(container, childElement)</span>
+      }
+    }
+
+<span class="fc" id="L48">    return result</span>
+  }
+
+  /**
+   * Creates element without recursion (for internal use).
+   * Supports all 83 concrete SVG element types.
+   *
+   * @param parent the parent element
+   * @param element the DOM4J element
+   * @param name the element name
+   * @return the created SvgElement or null if not supported
+   */
+  private static SvgElement createElement(SvgElement parent, Element element, String name) {
+<span class="fc" id="L61">    switch (name) {</span>
+      // Shape elements (7)
+<span class="pc bfc" id="L63" title="All 2 branches covered.">      case Circle.NAME: return new Circle(parent, element)</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">      case Ellipse.NAME: return new Ellipse(parent, element)</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">      case Line.NAME: return new Line(parent, element)</span>
+<span class="pc bfc" id="L66" title="All 2 branches covered.">      case Path.NAME: return new Path(parent, element)</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">      case Polygon.NAME: return new Polygon(parent, element)</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">      case Polyline.NAME: return new Polyline(parent, element)</span>
+<span class="pc bfc" id="L69" title="All 2 branches covered.">      case Rect.NAME: return new Rect(parent, element)</span>
+
+      // Container elements (10)
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">      case A.NAME: return new A(parent, element)</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">      case ClipPath.NAME: return new ClipPath(parent, element)</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">      case Defs.NAME: return new Defs(parent, element)</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">      case ForeignObject.NAME: return new ForeignObject(parent, element)</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">      case G.NAME: return new G(parent, element)</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">      case Marker.NAME: return new Marker(parent, element)</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">      case Mask.NAME: return new Mask(parent, element)</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">      case Pattern.NAME: return new Pattern(parent, element)</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">      case Switch.NAME: return new Switch(parent, element)</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">      case Symbol.NAME: return new Symbol(parent, element)</span>
+
+      // Text elements (7)
+<span class="nc bnc" id="L84" title="All 2 branches missed.">      case AltGlyph.NAME: return new AltGlyph(parent, element)</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">      case AltGlyphDef.NAME: return new AltGlyphDef(parent, element)</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">      case AltGlyphItem.NAME: return new AltGlyphItem(parent, element)</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">      case Text.NAME: return new Text(parent, element)</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">      case TextPath.NAME: return new TextPath(parent, element)</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">      case Tref.NAME: return new Tref(parent, element)</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">      case Tspan.NAME: return new Tspan(parent, element)</span>
+
+      // Gradient elements (5)
+<span class="nc bnc" id="L93" title="All 2 branches missed.">      case LinearGradient.NAME: return new LinearGradient(parent, element)</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">      case Mesh.NAME: return new Mesh(parent, element)</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">      case MeshGradient.NAME: return new MeshGradient(parent, element)</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">      case RadialGradient.NAME: return new RadialGradient(parent, element)</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">      case Stop.NAME: return new Stop(parent, element)</span>
+
+      // Filter elements (25)
+<span class="nc bnc" id="L100" title="All 2 branches missed.">      case FeBlend.NAME: return new FeBlend(parent, element)</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">      case FeColorMatrix.NAME: return new FeColorMatrix(parent, element)</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">      case FeComponentTransfer.NAME: return new FeComponentTransfer(parent, element)</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">      case FeComposite.NAME: return new FeComposite(parent, element)</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">      case FeConvolveMatrix.NAME: return new FeConvolveMatrix(parent, element)</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">      case FeDiffuseLighting.NAME: return new FeDiffuseLighting(parent, element)</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">      case FeDisplacementMap.NAME: return new FeDisplacementMap(parent, element)</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">      case FeDistantLight.NAME: return new FeDistantLight(parent, element)</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">      case FeDropShadow.NAME: return new FeDropShadow(parent, element)</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">      case FeFlood.NAME: return new FeFlood(parent, element)</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">      case FeFuncA.NAME: return new FeFuncA(parent, element)</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">      case FeFuncB.NAME: return new FeFuncB(parent, element)</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">      case FeFuncG.NAME: return new FeFuncG(parent, element)</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">      case FeFuncR.NAME: return new FeFuncR(parent, element)</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">      case FeGaussianBlur.NAME: return new FeGaussianBlur(parent, element)</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">      case FeImage.NAME: return new FeImage(parent, element)</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">      case FeMerge.NAME: return new FeMerge(parent, element)</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">      case FeMergeNode.NAME: return new FeMergeNode(parent, element)</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">      case FeMorphology.NAME: return new FeMorphology(parent, element)</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">      case FeOffset.NAME: return new FeOffset(parent, element)</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">      case FePointLight.NAME: return new FePointLight(parent, element)</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">      case FeSpecularLighting.NAME: return new FeSpecularLighting(parent, element)</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">      case FeSpotLight.NAME: return new FeSpotLight(parent, element)</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">      case FeTile.NAME: return new FeTile(parent, element)</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">      case FeTurbulence.NAME: return new FeTurbulence(parent, element)</span>
+
+      // Animation elements (4)
+<span class="nc bnc" id="L127" title="All 2 branches missed.">      case Animate.NAME: return new Animate(parent, element)</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">      case AnimateMotion.NAME: return new AnimateMotion(parent, element)</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">      case AnimateTransform.NAME: return new AnimateTransform(parent, element)</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">      case Set.NAME: return new Set(parent, element)</span>
+
+      // Font elements (10)
+<span class="nc bnc" id="L133" title="All 2 branches missed.">      case Font.NAME: return new Font(parent, element)</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">      case FontFace.NAME: return new FontFace(parent, element)</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">      case FontFaceFormat.NAME: return new FontFaceFormat(parent, element)</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">      case FontFaceName.NAME: return new FontFaceName(parent, element)</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">      case FontFaceSrc.NAME: return new FontFaceSrc(parent, element)</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">      case FontFaceUri.NAME: return new FontFaceUri(parent, element)</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">      case Glyph.NAME: return new Glyph(parent, element)</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">      case GlyphRef.NAME: return new GlyphRef(parent, element)</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">      case Hkern.NAME: return new Hkern(parent, element)</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">      case Vkern.NAME: return new Vkern(parent, element)</span>
+
+      // Metadata elements (5)
+<span class="nc bnc" id="L145" title="All 2 branches missed.">      case Desc.NAME: return new Desc(parent, element)</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">      case Metadata.NAME: return new Metadata(parent, element)</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">      case Script.NAME: return new Script(parent, element)</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">      case Style.NAME: return new Style(parent, element)</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">      case Title.NAME: return new Title(parent, element)</span>
+
+      // Other elements (15)
+<span class="nc bnc" id="L152" title="All 2 branches missed.">      case Audio.NAME: return new Audio(parent, element)</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">      case ColorProfile.NAME: return new ColorProfile(parent, element)</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">      case Cursor.NAME: return new Cursor(parent, element)</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">      case Discard.NAME: return new Discard(parent, element)</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">      case Filter.NAME: return new Filter(parent, element)</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">      case Hatch.NAME: return new Hatch(parent, element)</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">      case HatchPath.NAME: return new HatchPath(parent, element)</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">      case Image.NAME: return new Image(parent, element)</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">      case MeshPatch.NAME: return new MeshPatch(parent, element)</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">      case MeshRow.NAME: return new MeshRow(parent, element)</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">      case MissingGlyph.NAME: return new MissingGlyph(parent, element)</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">      case Mpath.NAME: return new Mpath(parent, element)</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">      case Solidcolor.NAME: return new Solidcolor(parent, element)</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">      case Use.NAME: return new Use(parent, element)</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">      case Video.NAME: return new Video(parent, element)</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">      case View.NAME: return new View(parent, element)</span>
+
+<span class="nc" id="L169">      default: return null</span>
+    }
+<span class="nc" id="L171">  }</span>
+
+  /**
+   * Deep copies an element with full child hierarchy.
+   * Pure object-oriented - no XML serialization.
+   *
+   * @param source the element to copy
+   * @param newParent the parent for the copy
+   * @return the copied element
+   */
+  static &lt;T extends SvgElement&gt; T deepCopy(T source, AbstractElementContainer newParent) {
+    // Clone the DOM4J element
+<span class="fc" id="L183">    Element clonedElement = source.element.createCopy()</span>
+
+    // Create appropriate SvgElement wrapper with recursion
+<span class="fc" id="L186">    SvgElement result = fromElement(newParent, clonedElement)</span>
+
+<span class="pc bpc" id="L188" title="2 of 4 branches missed.">    if (result == null) {</span>
+      // Fall back to adding cloned DOM element directly
+      // This handles elements not yet supported by the factory
+<span class="nc" id="L191">      newParent.element.add(clonedElement)</span>
+<span class="nc" id="L192">      return null</span>
+    }
+
+<span class="fc" id="L195">    return result as T</span>
+  }
+
+  /**
+   * Deep copies all children from source to target (pure OO).
+   * Uses fromElement for full object model construction.
+   *
+   * @param source the source container
+   * @param target the target container
+   */
+  static void copyChildren(AbstractElementContainer source, AbstractElementContainer target) {
+<span class="pc bpc" id="L206" title="2 of 6 branches missed.">    for (SvgElement child : source.getChildren()) {</span>
+<span class="fc" id="L207">      SvgElement copied = deepCopy(child, target)</span>
+
+      // If deepCopy returned null (unsupported element type),
+      // fall back to direct DOM cloning
+<span class="pc bpc" id="L211" title="2 of 4 branches missed.">      if (copied == null) {</span>
+<span class="nc" id="L212">        Element cloned = child.element.createCopy()</span>
+<span class="pc" id="L213">        target.element.add(cloned)</span>
+      }
+    }
+<span class="fc" id="L216">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

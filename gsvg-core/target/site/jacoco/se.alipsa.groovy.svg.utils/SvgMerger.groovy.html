@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SvgMerger.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.utils</a> &gt; <span class="el_source">SvgMerger.groovy</span></div><h1>SvgMerger.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.utils
+
+import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.G
+import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.SvgElementFactory
+
+/**
+ * Utility for merging multiple SVG documents using a pure object-oriented approach.
+ *
+ * &lt;h2&gt;Pure OO Implementation&lt;/h2&gt;
+ * This merger uses {@link SvgElementFactory} for efficient element copying without XML serialization.
+ * The factory populates both DOM4J structures and SvgElement children lists in a single pass,
+ * eliminating the need for XML parsing after merge operations.
+ *
+ * &lt;h2&gt;Performance&lt;/h2&gt;
+ * The pure OO approach provides:
+ * &lt;ul&gt;
+ * &lt;li&gt;Zero XML serialization overhead during merge operations&lt;/li&gt;
+ * &lt;li&gt;Direct object manipulation for better performance&lt;/li&gt;
+ * &lt;li&gt;Single-pass construction maintains both DOM and object model consistency&lt;/li&gt;
+ * &lt;/ul&gt;
+ *
+ * @see SvgElementFactory for the underlying copy mechanism
+ */
+@CompileStatic
+class SvgMerger {
+
+  /**
+   * Merge several svg files horizontally.
+   *
+   * @param svgs the svgs to merge
+   * @return a new svg svg containing all the svgs merged horizontally.
+   */
+  static Svg mergeHorizontally(Svg... svgs) {
+<span class="pc bpc" id="L36" title="2 of 10 branches missed.">    if (svgs == null || svgs.length == 0) {</span>
+<span class="fc" id="L37">      return new Svg()</span>
+    }
+
+<span class="fc bfc" id="L40" title="All 4 branches covered.">    if (svgs.length == 1) {</span>
+<span class="fc" id="L41">      return svgs[0]</span>
+    }
+
+    // Calculate dimensions
+<span class="fc" id="L45">    BigDecimal totalWidth = 0</span>
+<span class="fc" id="L46">    BigDecimal maxHeight = 0</span>
+
+<span class="fc" id="L48">    List&lt;SvgDimensions&gt; dimensions = []</span>
+
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">    for (Svg svg : svgs) {</span>
+<span class="fc" id="L51">      SvgDimensions dim = extractDimensions(svg)</span>
+<span class="fc" id="L52">      dimensions.add(dim)</span>
+<span class="fc" id="L53">      totalWidth += dim.width</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">      if (dim.height &gt; maxHeight) {</span>
+<span class="fc" id="L55">        maxHeight = dim.height</span>
+      }
+    }
+
+    // Create result SVG using object model
+<span class="fc" id="L60">    Svg result = new Svg(totalWidth, maxHeight)</span>
+
+    // Merge each SVG with horizontal offset
+<span class="fc" id="L63">    BigDecimal currentX = 0</span>
+
+<span class="fc bfc" id="L65" title="All 4 branches covered.">    for (int i = 0; i &lt; svgs.length; i++) {</span>
+<span class="fc" id="L66">      Svg sourceSvg = svgs[i]</span>
+<span class="fc" id="L67">      SvgDimensions dim = dimensions[i]</span>
+
+      // Create a group for this SVG's content
+<span class="fc" id="L70">      G group = result.addG()</span>
+
+      // Apply translation if not the first element
+<span class="fc bfc" id="L73" title="All 2 branches covered.">      if (currentX != 0) {</span>
+<span class="fc" id="L74">        group.transform(&quot;translate(${currentX}, 0)&quot;)</span>
+      }
+
+      // Copy all child elements using factory
+      // Factory uses pure OO approach: both DOM and children lists are populated
+<span class="fc" id="L79">      SvgElementFactory.copyChildren(sourceSvg, group)</span>
+
+      // Update offset for next SVG
+<span class="fc" id="L82">      currentX += dim.width</span>
+    }
+
+    // Pure OO: No XML serialization needed!
+    // Children lists are already populated by the factory.
+<span class="fc" id="L87">    return result</span>
+  }
+
+  /**
+   * Merge several svg files vertically.
+   *
+   * @param svgs the svgs to merge
+   * @return a new svg containing all the svgs merged vertically.
+   */
+  static Svg mergeVertically(Svg... svgs) {
+<span class="pc bpc" id="L97" title="2 of 10 branches missed.">    if (svgs == null || svgs.length == 0) {</span>
+<span class="fc" id="L98">      return new Svg()</span>
+    }
+
+<span class="fc bfc" id="L101" title="All 4 branches covered.">    if (svgs.length == 1) {</span>
+<span class="fc" id="L102">      return svgs[0]</span>
+    }
+
+    // Calculate dimensions
+<span class="fc" id="L106">    BigDecimal maxWidth = 0</span>
+<span class="fc" id="L107">    BigDecimal totalHeight = 0</span>
+
+<span class="fc" id="L109">    List&lt;SvgDimensions&gt; dimensions = []</span>
+
+<span class="pc bpc" id="L111" title="1 of 4 branches missed.">    for (Svg svg : svgs) {</span>
+<span class="fc" id="L112">      SvgDimensions dim = extractDimensions(svg)</span>
+<span class="fc" id="L113">      dimensions.add(dim)</span>
+<span class="fc" id="L114">      totalHeight += dim.height</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">      if (dim.width &gt; maxWidth) {</span>
+<span class="fc" id="L116">        maxWidth = dim.width</span>
+      }
+    }
+
+    // Create result SVG using object model
+<span class="fc" id="L121">    Svg result = new Svg(maxWidth, totalHeight)</span>
+
+    // Merge each SVG with vertical offset
+<span class="fc" id="L124">    BigDecimal currentY = 0</span>
+
+<span class="fc bfc" id="L126" title="All 4 branches covered.">    for (int i = 0; i &lt; svgs.length; i++) {</span>
+<span class="fc" id="L127">      Svg sourceSvg = svgs[i]</span>
+<span class="fc" id="L128">      SvgDimensions dim = dimensions[i]</span>
+
+      // Create a group for this SVG's content
+<span class="fc" id="L131">      G group = result.addG()</span>
+
+      // Apply translation if not the first element
+<span class="fc bfc" id="L134" title="All 2 branches covered.">      if (currentY != 0) {</span>
+<span class="fc" id="L135">        group.transform(&quot;translate(0, ${currentY})&quot;)</span>
+      }
+
+      // Copy all child elements using factory
+      // Factory uses pure OO approach: both DOM and children lists are populated
+<span class="fc" id="L140">      SvgElementFactory.copyChildren(sourceSvg, group)</span>
+
+      // Update offset for next SVG
+<span class="fc" id="L143">      currentY += dim.height</span>
+    }
+
+    // Pure OO: No XML serialization needed!
+    // Children lists are already populated by the factory.
+<span class="fc" id="L148">    return result</span>
+  }
+
+  /**
+   * Merge several svg files by layering them on top of each other.
+   * Later SVGs in the array will appear on top of earlier ones.
+   *
+   * @param svgs the svgs to merge
+   * @return a new svg containing all the svgs layered on top of each other.
+   */
+  static Svg mergeOnTop(Svg... svgs) {
+<span class="pc bpc" id="L159" title="2 of 10 branches missed.">    if (svgs == null || svgs.length == 0) {</span>
+<span class="fc" id="L160">      return new Svg()</span>
+    }
+
+<span class="fc bfc" id="L163" title="All 4 branches covered.">    if (svgs.length == 1) {</span>
+<span class="fc" id="L164">      return svgs[0]</span>
+    }
+
+    // Calculate dimensions - use maximum width and height
+<span class="fc" id="L168">    BigDecimal maxWidth = 0</span>
+<span class="fc" id="L169">    BigDecimal maxHeight = 0</span>
+
+<span class="pc bpc" id="L171" title="1 of 4 branches missed.">    for (Svg svg : svgs) {</span>
+<span class="fc" id="L172">      SvgDimensions dim = extractDimensions(svg)</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">      if (dim.width &gt; maxWidth) {</span>
+<span class="fc" id="L174">        maxWidth = dim.width</span>
+      }
+<span class="fc bfc" id="L176" title="All 2 branches covered.">      if (dim.height &gt; maxHeight) {</span>
+<span class="fc" id="L177">        maxHeight = dim.height</span>
+      }
+    }
+
+    // Create result SVG using object model
+<span class="fc" id="L182">    Svg result = new Svg(maxWidth, maxHeight)</span>
+
+    // Layer each SVG on top of each other (no translation)
+<span class="pc bpc" id="L185" title="1 of 4 branches missed.">    for (Svg sourceSvg : svgs) {</span>
+      // Create a group for each SVG's content
+<span class="fc" id="L187">      G group = result.addG()</span>
+
+      // Copy all child elements using factory
+      // Factory uses pure OO approach: both DOM and children lists are populated
+<span class="fc" id="L191">      SvgElementFactory.copyChildren(sourceSvg, group)</span>
+    }
+
+    // Pure OO: No XML serialization needed!
+    // Children lists are already populated by the factory.
+<span class="fc" id="L196">    return result</span>
+  }
+
+  /**
+   * Extracts dimensions from an SVG element.
+   */
+  private static SvgDimensions extractDimensions(Svg svg) {
+<span class="fc" id="L203">    BigDecimal width = 100  // default</span>
+<span class="fc" id="L204">    BigDecimal height = 100 // default</span>
+
+<span class="fc" id="L206">    String widthStr = svg.getWidth()</span>
+<span class="fc" id="L207">    String heightStr = svg.getHeight()</span>
+
+<span class="fc bfc" id="L209" title="All 4 branches covered.">    if (widthStr != null) {</span>
+<span class="fc" id="L210">      width = parseNumericValue(widthStr)</span>
+    }
+
+<span class="fc bfc" id="L213" title="All 4 branches covered.">    if (heightStr != null) {</span>
+<span class="fc" id="L214">      height = parseNumericValue(heightStr)</span>
+    }
+
+    // If width/height not set, try to extract from viewBox
+<span class="pc bpc" id="L218" title="2 of 10 branches missed.">    if (widthStr == null || heightStr == null) {</span>
+<span class="fc" id="L219">      String viewBox = svg.getViewBox()</span>
+<span class="pc bpc" id="L220" title="2 of 4 branches missed.">      if (viewBox != null) {</span>
+<span class="fc" id="L221">        String[] parts = viewBox.trim().split(/\s+/)</span>
+<span class="pc bpc" id="L222" title="2 of 4 branches missed.">        if (parts.length == 4) {</span>
+<span class="pc bpc" id="L223" title="2 of 4 branches missed.">          if (widthStr == null) {</span>
+<span class="fc" id="L224">            width = new BigDecimal(parts[2])</span>
+          }
+<span class="pc bpc" id="L226" title="2 of 4 branches missed.">          if (heightStr == null) {</span>
+<span class="fc" id="L227">            height = new BigDecimal(parts[3])</span>
+          }
+        }
+      }
+    }
+
+<span class="fc" id="L233">    return new SvgDimensions(width, height)</span>
+  }
+
+  /**
+   * Parses numeric value from string, stripping units like 'px', 'pt', etc.
+   */
+  private static BigDecimal parseNumericValue(String value) {
+<span class="pc bpc" id="L240" title="2 of 4 branches missed.">    if (value == null) {</span>
+<span class="nc" id="L241">      return new BigDecimal(100)</span>
+    }
+
+    // Remove common units
+<span class="fc" id="L245">    String numericPart = value.replaceAll(/(?i)(px|pt|em|rem|%|cm|mm|in)$/, '').trim()</span>
+
+    try {
+<span class="pc" id="L248">      return new BigDecimal(numericPart)</span>
+    } catch (NumberFormatException e) {
+<span class="nc" id="L250">      return new BigDecimal(100)</span>
+    }
+  }
+
+  /**
+   * Helper class to store SVG dimensions.
+   */
+  private static class SvgDimensions {
+    BigDecimal width
+    BigDecimal height
+
+<span class="fc" id="L261">    SvgDimensions(BigDecimal width, BigDecimal height) {</span>
+<span class="fc" id="L262">      this.width = width</span>
+<span class="fc" id="L263">      this.height = height</span>
+<span class="fc" id="L264">    }</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

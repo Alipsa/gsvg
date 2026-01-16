@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Mask.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Mask.groovy</span></div><h1>Mask.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import org.dom4j.Element
+
+/**
+ * SVG {@code &lt;mask&gt;} element that defines a mask for transparency effects.
+ */
+@CompileStatic
+class Mask extends AbstractElementContainer&lt;Mask&gt; implements Animatable&lt;Mask&gt; {
+
+  static final String NAME='mask'
+
+  /**
+   * Creates a Mask.
+   *
+   * @param parent the parent SVG element
+   */
+  Mask(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L20">    super(parent, NAME)</span>
+<span class="fc" id="L21">  }</span>
+
+  /**
+   * Creates a Mask by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Mask(SvgElement parent, Element element) {
+<span class="nc" id="L31">    super(parent, element)</span>
+<span class="nc" id="L32">  }</span>
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  Mask width(Number width) {
+<span class="nc" id="L41">    addAttribute('width', width)</span>
+  }
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  Mask width(String width) {
+<span class="nc" id="L51">    addAttribute('width', width)</span>
+  }
+
+  /**
+   * Returns the width value.
+   *
+   * @return the width value
+   */
+  String getWidth() {
+<span class="nc" id="L60">    getAttribute('width')</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  Mask height(Number height) {
+<span class="nc" id="L70">    addAttribute('height', height)</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  Mask height(String height) {
+<span class="nc" id="L80">    addAttribute('height', height)</span>
+  }
+
+  /**
+   * Returns the height value.
+   *
+   * @return the height value
+   */
+  String getHeight() {
+<span class="nc" id="L89">    getAttribute('height')</span>
+  }
+
+  /**
+   * Sets the x attribute.
+   *
+   * @param x the x-coordinate
+   * @return this element for chaining
+   */
+  Mask x(Number x) {
+<span class="nc" id="L99">    addAttribute('x', x)</span>
+  }
+
+  /**
+   * Sets the x attribute.
+   *
+   * @param x the x-coordinate
+   * @return this element for chaining
+   */
+  Mask x(String x) {
+<span class="nc" id="L109">    addAttribute('x', x)</span>
+  }
+
+  /**
+   * Returns the x value.
+   *
+   * @return the x value
+   */
+  String getX() {
+<span class="nc" id="L118">    getAttribute('x')</span>
+  }
+
+  /**
+   * Sets the y attribute.
+   *
+   * @param y the y-coordinate
+   * @return this element for chaining
+   */
+  Mask y(Number y) {
+<span class="nc" id="L128">    addAttribute('y', y)</span>
+  }
+
+  /**
+   * Sets the y attribute.
+   *
+   * @param y the y-coordinate
+   * @return this element for chaining
+   */
+  Mask y(String y) {
+<span class="nc" id="L138">    addAttribute('y', y)</span>
+  }
+
+  /**
+   * Returns the y value.
+   *
+   * @return the y value
+   */
+  String getY() {
+<span class="nc" id="L147">    getAttribute('y')</span>
+  }
+
+  /**
+   * Sets the mask content units attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  Mask maskContentUnits(String value) {
+<span class="nc" id="L157">    addAttribute('maskContentUnits', value)</span>
+  }
+
+  /**
+   * Returns the mask content units value.
+   *
+   * @return the mask content units value
+   */
+  String getMaskContentUnits() {
+<span class="nc" id="L166">    getAttribute('maskContentUnits')</span>
+  }
+
+  /**
+   * Sets the mask units attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  Mask maskUnits(String value) {
+<span class="nc" id="L176">    addAttribute('maskUnits', value)</span>
+  }
+
+  /**
+   * Mask units.
+   *
+   * @return the result
+   */
+  String maskUnits() {
+<span class="nc" id="L185">    getAttribute('maskUnits')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

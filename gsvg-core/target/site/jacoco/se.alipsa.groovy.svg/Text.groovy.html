@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Text.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Text.groovy</span></div><h1>Text.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import org.dom4j.Element
+
+/**
+ * SVG {@code &lt;text&gt;} element that renders text content.
+ */
+@CompileStatic
+class Text extends StringContentContainer&lt;Text&gt; implements Animatable&lt;Text&gt; {
+
+  static final String NAME='text'
+
+  /**
+   * Creates a Text.
+   *
+   * @param parent the parent SVG element
+   */
+  Text(SvgElement parent){
+<span class="fc" id="L20">    super(parent, NAME)</span>
+<span class="fc" id="L21">  }</span>
+
+  /**
+   * Creates a Text.
+   *
+   * @param parent the parent SVG element
+   * @param text the text value to add
+   */
+  Text(SvgElement parent, String text) {
+<span class="nc" id="L30">    this(parent)</span>
+<span class="nc" id="L31">    element.addText(text)</span>
+<span class="nc" id="L32">  }</span>
+
+  /**
+   * Creates a Text by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Text(SvgElement parent, Element element) {
+<span class="nc" id="L42">    super(parent, element)</span>
+<span class="nc" id="L43">  }</span>
+
+  /**
+   * Sets the fill attribute.
+   *
+   * @param fill the fill value
+   * @return this element for chaining
+   */
+  Text fill(String fill) {
+<span class="fc" id="L52">    addAttribute('fill', fill)</span>
+  }
+
+  /**
+   * Returns the fill value.
+   *
+   * @return the fill value
+   */
+  String getFill() {
+<span class="fc" id="L61">    getAttribute('fill')</span>
+  }
+
+  /**
+   * The x position of the start of the text. Default is 0.
+   *
+   * @param x the x value
+   * @return this element for chaining
+   */
+  Text x(Number x) {
+<span class="fc" id="L71">    addAttribute('x', String.valueOf(x))</span>
+  }
+
+  /**
+   * The x position of the start of the text. Default is 0.
+   *
+   * @param x the x value
+   * @return this element for chaining
+   */
+  Text x(String x) {
+<span class="nc" id="L81">    addAttribute('x', String.valueOf(x))</span>
+  }
+
+  /**
+   * The y position of the start of the text. Default is 0.
+   *
+   * @param y the y position
+   * @return this element for chaining
+   */
+  Text y(Number y) {
+<span class="fc" id="L91">    addAttribute('y', String.valueOf(y))</span>
+  }
+
+  /**
+   * The y position of the start of the text. Default is 0.
+   *
+   * @param y the y position
+   * @return this element for chaining
+   */
+  Text y(String y) {
+<span class="nc" id="L101">    addAttribute('y', String.valueOf(y))</span>
+  }
+
+  /**
+   * Returns the x value.
+   *
+   * @return the x value
+   */
+  String getX() {
+<span class="fc" id="L110">    getAttribute('x')</span>
+  }
+
+  /**
+   * Returns the y value.
+   *
+   * @return the y value
+   */
+  String getY() {
+<span class="fc" id="L119">    getAttribute('y')</span>
+  }
+
+  /**
+   * Creates and adds a new Tspan child element.
+   *
+   * @return the created element
+   */
+  Tspan addTspan() {
+<span class="fc" id="L128">    add(new Tspan(this))</span>
+  }
+
+  /**
+   * Creates and adds a new Tspan child element.
+   *
+   * @param content value
+   * @return the created element
+   */
+  Tspan addTspan(String content) {
+<span class="fc" id="L138">    add(new Tspan(this, content))</span>
+  }
+
+  Tspan addTspan(Map attributes) {
+<span class="nc" id="L142">    Tspan tspan = addTspan()</span>
+<span class="nc" id="L143">    attributes.each {</span>
+<span class="nc" id="L144">      key, value -&gt; tspan.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L146">    tspan</span>
+  }
+
+  /**
+   * Creates and adds a new TextPath child element.
+   *
+   * @return the created element
+   */
+  TextPath addTextPath() {
+<span class="fc" id="L155">    add(new TextPath(this))</span>
+  }
+
+  TextPath addTextPath(Map attributes) {
+<span class="nc" id="L159">    TextPath tp = addTextPath()</span>
+<span class="nc" id="L160">    attributes.each {</span>
+<span class="nc" id="L161">      key, value -&gt; tp.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L163">    tp</span>
+  }
+
+  /**
+   * Sets the font family attribute.
+   *
+   * @param family value
+   * @return this element for chaining
+   */
+  Text fontFamily(String family) {
+<span class="fc" id="L173">    addAttribute('font-family', family)</span>
+  }
+
+  /**
+   * Returns the font family value.
+   *
+   * @return the font family value
+   */
+  String getFontFamily() {
+<span class="fc" id="L182">    getAttribute('font-family')</span>
+  }
+
+  /**
+   * Sets the font size attribute.
+   *
+   * @param size value
+   * @return this element for chaining
+   */
+  Text fontSize(Number size) {
+<span class="fc" id="L192">    addAttribute('font-size', String.valueOf(size))</span>
+  }
+
+  /**
+   * Sets the font size attribute.
+   *
+   * @param size value
+   * @return this element for chaining
+   */
+  Text fontSize(String size) {
+<span class="nc" id="L202">    addAttribute('font-size', String.valueOf(size))</span>
+  }
+
+  /**
+   * The horizontal shift position for text (from previous text position).
+   *
+   * @param dx value
+   * @return this element for chaining
+   */
+  Text dx(Number dx) {
+<span class="fc" id="L212">    addAttribute('dx', &quot;$dx&quot;)</span>
+  }
+
+  /**
+   * The horizontal shift position for text (from previous text position).
+   *
+   * @param dx value
+   * @return this element for chaining
+   */
+  Text dx(String dx) {
+<span class="nc" id="L222">    addAttribute('dx', &quot;$dx&quot;)</span>
+  }
+
+  /**
+   * The vertical shift position for text (from previous text position).
+   *
+   * @param dy value
+   * @return this element for chaining
+   */
+  Text dy(Number dy) {
+<span class="fc" id="L232">    addAttribute('dy', &quot;$dy&quot;)</span>
+  }
+
+  /**
+   * The vertical shift position for text (from previous text position).
+   *
+   * @param dy value
+   * @return this element for chaining
+   */
+  Text dy(String dy) {
+<span class="nc" id="L242">    addAttribute('dy', &quot;$dy&quot;)</span>
+  }
+
+  /**
+   * Returns the dx value.
+   *
+   * @return the dx value
+   */
+  String getDx() {
+<span class="fc" id="L251">    getAttribute('dx')</span>
+  }
+
+  /**
+   * Returns the dy value.
+   *
+   * @return the dy value
+   */
+  String getDy() {
+<span class="fc" id="L260">    getAttribute('dy')</span>
+  }
+
+  /**
+   * The rotation (in degrees) applied to each letter of text.
+   *
+   * @param rotate value
+   * @return this element for chaining
+   */
+  Text rotate(Number rotate) {
+<span class="fc" id="L270">    addAttribute('rotate', &quot;$rotate&quot;)</span>
+  }
+
+  /**
+   * The rotation (in degrees) applied to each letter of text.
+   *
+   * @param rotate value
+   * @return this element for chaining
+   */
+  Text rotate(String rotate) {
+<span class="nc" id="L280">    addAttribute('rotate', &quot;$rotate&quot;)</span>
+  }
+
+  /**
+   * Returns the rotate value.
+   *
+   * @return the rotate value
+   */
+  String getRotate() {
+<span class="fc" id="L289">    getAttribute('rotate')</span>
+  }
+
+  /**
+   * Sets the text anchor attribute.
+   *
+   * @param anchor value
+   * @return this element for chaining
+   */
+  Text textAnchor(String anchor) {
+<span class="fc" id="L299">    addAttribute('text-anchor', anchor)</span>
+  }
+
+  /**
+   * Returns the text anchor value.
+   *
+   * @return the text anchor value
+   */
+  String getTextAnchor() {
+<span class="fc" id="L308">    getAttribute('text-anchor')</span>
+  }
+
+  /**
+   * The width that the text must fit in.
+   *
+   * @param textLength value
+   * @return this element for chaining
+   */
+  Text textLength(Number textLength) {
+<span class="fc" id="L318">    addAttribute('textLength', textLength)</span>
+  }
+
+  /**
+   * The width that the text must fit in.
+   *
+   * @param textLength value
+   * @return this element for chaining
+   */
+  Text textLength(String textLength) {
+<span class="nc" id="L328">    addAttribute('textLength', textLength)</span>
+  }
+
+  /**
+   * Returns the text length value.
+   *
+   * @return the text length value
+   */
+  String getTextLength() {
+<span class="fc" id="L337">    getAttribute('textLength')</span>
+  }
+
+  /**
+   * How the text should be compressed or stretched to fit the width defined by the textLength attribute.
+   *
+   * @param lengthAdjust value e.g. spacing, spacingAndGlyphs
+   * @return this element for chaining
+   */
+  Text lengthAdjust(String lengthAdjust) {
+<span class="fc" id="L347">    addAttribute('lengthAdjust', lengthAdjust)</span>
+  }
+  /**
+   * Returns the length adjust value.
+   *
+   * @return the length adjust value
+   */
+  String getLengthAdjust() {
+<span class="fc" id="L355">    getAttribute('lengthAdjust')</span>
+  }
+
+  /**
+   * Sets the transform attribute.
+   *
+   * @param transform value
+   * @return this element for chaining
+   */
+  Text transform(String transform) {
+<span class="fc" id="L365">    addAttribute('transform', transform)</span>
+  }
+
+  /**
+   * Returns the transform value.
+   *
+   * @return the transform value
+   */
+  String getTransform() {
+<span class="fc" id="L374">    getAttribute('transform')</span>
+  }
+
+  /**
+   * Sets the baseline shift attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Text baselineShift(String value) {
+<span class="fc" id="L384">    addAttribute('baseline-shift', value)</span>
+<span class="fc" id="L385">    this</span>
+  }
+
+  /**
+   * Returns the baseline shift value.
+   *
+   * @return the baseline shift value
+   */
+  String getBaselineShift() {
+<span class="fc" id="L394">    getAttribute('baseline-shift')</span>
+  }
+
+  /**
+   * Sets the dominant baseline attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Text dominantBaseline(String value) {
+<span class="fc" id="L404">    addAttribute('dominant-baseline', value)</span>
+<span class="fc" id="L405">    this</span>
+  }
+
+  /**
+   * Returns the dominant baseline value.
+   *
+   * @return the dominant baseline value
+   */
+  String getDominantBaseline() {
+<span class="fc" id="L414">    getAttribute('dominant-baseline')</span>
+  }
+
+  /**
+   * Sets the text decoration attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Text textDecoration(String value) {
+<span class="fc" id="L424">    addAttribute('text-decoration', value)</span>
+<span class="fc" id="L425">    this</span>
+  }
+
+  /**
+   * Returns the text decoration value.
+   *
+   * @return the text decoration value
+   */
+  String getTextDecoration() {
+<span class="fc" id="L434">    getAttribute('text-decoration')</span>
+  }
+
+  /**
+   * Sets the word spacing attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Text wordSpacing(String value) {
+<span class="fc" id="L444">    addAttribute('word-spacing', value)</span>
+<span class="fc" id="L445">    this</span>
+  }
+
+  /**
+   * Returns the word spacing value.
+   *
+   * @return the word spacing value
+   */
+  String getWordSpacing() {
+<span class="fc" id="L454">    getAttribute('word-spacing')</span>
+  }
+
+  /**
+   * Sets the letter spacing attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  Text letterSpacing(String value) {
+<span class="fc" id="L464">    addAttribute('letter-spacing', value)</span>
+<span class="fc" id="L465">    this</span>
+  }
+
+  /**
+   * Returns the letter spacing value.
+   *
+   * @return the letter spacing value
+   */
+  String getLetterSpacing() {
+<span class="fc" id="L474">    getAttribute('letter-spacing')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

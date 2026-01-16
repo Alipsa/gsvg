@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidationIssue.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.validation</a> &gt; <span class="el_source">ValidationIssue.groovy</span></div><h1>ValidationIssue.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.validation
+
+import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.SvgElement
+
+/**
+ * Immutable validation issue describing a problem found during SVG validation.
+ * &lt;p&gt;
+ * Each issue includes:
+ * &lt;ul&gt;
+ *   &lt;li&gt;Severity level (ERROR, WARNING, INFO)&lt;/li&gt;
+ *   &lt;li&gt;Descriptive message&lt;/li&gt;
+ *   &lt;li&gt;Optional element path for locating the issue&lt;/li&gt;
+ *   &lt;li&gt;Optional reference to the problematic element&lt;/li&gt;
+ *   &lt;li&gt;Rule ID that detected the issue&lt;/li&gt;
+ * &lt;/ul&gt;
+ * &lt;p&gt;
+ * Use the static factory methods to create instances:
+ * &lt;pre&gt;
+ * ValidationIssue.error(&quot;Missing required attribute 'cx'&quot;, &quot;circle&quot;, circleElement, &quot;REQUIRED_ATTR&quot;)
+ * ValidationIssue.warning(&quot;Duplicate ID found&quot;, &quot;/svg/rect[2]&quot;, rectElement, &quot;DUPLICATE_ID&quot;)
+ * ValidationIssue.info(&quot;Consider using viewBox for scalability&quot;, &quot;/svg&quot;, svgElement, &quot;VIEWBOX_BEST_PRACTICE&quot;)
+ * &lt;/pre&gt;
+ */
+@CompileStatic
+class ValidationIssue {
+    /** Severity level of this issue */
+    final ValidationLevel level
+
+    /** Human-readable description of the problem */
+    final String message
+
+    /** Optional path to the element (e.g., &quot;/svg/rect[2]&quot; or &quot;circle&quot;) */
+    final String elementPath
+
+    /** Optional reference to the problematic element */
+    final SvgElement element
+
+    /** ID of the validation rule that detected this issue */
+    final String ruleId
+
+    /**
+     * Creates a validation issue.
+     *
+     * @param level severity level
+     * @param message description of the problem
+     * @param elementPath optional path to the element
+     * @param element optional reference to the element
+     * @param ruleId ID of the rule that detected this issue
+     */
+<span class="fc" id="L51">    ValidationIssue(ValidationLevel level, String message, String elementPath = null, SvgElement element = null, String ruleId = null) {</span>
+<span class="fc" id="L52">        this.level = level</span>
+<span class="fc" id="L53">        this.message = message</span>
+<span class="fc" id="L54">        this.elementPath = elementPath</span>
+<span class="fc" id="L55">        this.element = element</span>
+<span class="fc" id="L56">        this.ruleId = ruleId</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Creates an ERROR level validation issue.
+     *
+     * @param message description of the problem
+     * @param elementPath optional path to the element
+     * @param element optional reference to the element
+     * @param ruleId ID of the rule that detected this issue
+     * @return new validation issue
+     */
+    static ValidationIssue error(String message, String elementPath = null, SvgElement element = null, String ruleId = null) {
+<span class="fc" id="L69">        new ValidationIssue(ValidationLevel.ERROR, message, elementPath, element, ruleId)</span>
+    }
+
+    /**
+     * Creates a WARNING level validation issue.
+     *
+     * @param message description of the problem
+     * @param elementPath optional path to the element
+     * @param element optional reference to the element
+     * @param ruleId ID of the rule that detected this issue
+     * @return new validation issue
+     */
+    static ValidationIssue warning(String message, String elementPath = null, SvgElement element = null, String ruleId = null) {
+<span class="fc" id="L82">        new ValidationIssue(ValidationLevel.WARNING, message, elementPath, element, ruleId)</span>
+    }
+
+    /**
+     * Creates an INFO level validation issue.
+     *
+     * @param message description of the problem
+     * @param elementPath optional path to the element
+     * @param element optional reference to the element
+     * @param ruleId ID of the rule that detected this issue
+     * @return new validation issue
+     */
+    static ValidationIssue info(String message, String elementPath = null, SvgElement element = null, String ruleId = null) {
+<span class="fc" id="L95">        new ValidationIssue(ValidationLevel.INFO, message, elementPath, element, ruleId)</span>
+    }
+
+    @Override
+    String toString() {
+<span class="fc" id="L100">        StringBuilder sb = new StringBuilder()</span>
+<span class="fc" id="L101">        sb.append(level.name())</span>
+<span class="pc bpc" id="L102" title="2 of 4 branches missed.">        if (elementPath) {</span>
+<span class="fc" id="L103">            sb.append(&quot; [&quot;).append(elementPath).append(&quot;]&quot;)</span>
+        }
+<span class="fc" id="L105">        sb.append(&quot;: &quot;).append(message)</span>
+<span class="pc bpc" id="L106" title="2 of 4 branches missed.">        if (ruleId) {</span>
+<span class="fc" id="L107">            sb.append(&quot; (&quot;).append(ruleId).append(&quot;)&quot;)</span>
+        }
+<span class="fc" id="L109">        sb.toString()</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

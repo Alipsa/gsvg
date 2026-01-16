@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeComposite.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FeComposite.groovy</span></div><h1>FeComposite.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;feComposite&gt;} filter primitive that composites two input images.
+ */
+@CompileStatic
+class FeComposite extends FilterElement&lt;FeComposite&gt; {
+
+  static final String NAME = 'feComposite'
+
+  /**
+   * Enum for operator.
+   */
+  enum Operator {
+    over, in, out, atop, xor, lighter, arithmetic
+  }
+
+  /**
+   * Creates a FeComposite.
+   *
+   * @param parent the parent SVG element
+   */
+  FeComposite(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L30">    super(parent, NAME)</span>
+<span class="fc" id="L31">  }</span>
+
+  @PackageScope
+  FeComposite(SvgElement parent, Element element) {
+<span class="nc" id="L35">    super(parent, element)</span>
+<span class="nc" id="L36">  }</span>
+
+
+  /**
+   *
+   * @param value, one of over | in | out | atop | xor | lighter | arithmetic
+   * @return
+   */
+  FeComposite operator(String value) {
+<span class="fc" id="L45">    addAttribute('operator', value)</span>
+  }
+
+  /**
+   * Sets the operator attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeComposite operator(Operator value) {
+<span class="fc" id="L55">    addAttribute('operator', value.name())</span>
+  }
+
+  /**
+   * Returns the operator value.
+   *
+   * @return the operator value
+   */
+  String getOperator() {
+<span class="fc" id="L64">    getAttribute('operator')</span>
+  }
+
+  /**
+   * Sets the in attribute.
+   *
+   * @param inStr the input source string identifier
+   * @return this element for chaining
+   */
+  FeComposite &quot;in&quot;(String inStr) {
+<span class="fc" id="L74">    addAttribute('in', inStr)</span>
+  }
+
+  /**
+   * Sets the in attribute.
+   *
+   * @param inEnum the input source enumeration
+   * @return this element for chaining
+   */
+  FeComposite &quot;in&quot;(In inEnum) {
+<span class="fc" id="L84">    addAttribute('in', inEnum.name())</span>
+  }
+
+  /**
+   * Returns the in value.
+   *
+   * @return the in value
+   */
+  String getIn() {
+<span class="fc" id="L93">    getAttribute('in')</span>
+  }
+
+  /**
+   * Sets the in 2 attribute.
+   *
+   * @param inStr the input source string identifier
+   * @return this element for chaining
+   */
+  FeComposite in2(String inStr) {
+<span class="fc" id="L103">    addAttribute('in2', inStr)</span>
+  }
+
+  /**
+   * Returns the in 2 value.
+   *
+   * @return the in 2 value
+   */
+  String getIn2() {
+<span class="fc" id="L112">    getAttribute('in2')</span>
+  }
+
+  /**
+   * Sets the k 1 value for the arithmetic operator.
+   *
+   * @param value the k 1 value
+   * @return the current {@link FeComposite} instance
+   */
+  FeComposite k1(Number value) {
+<span class="fc" id="L122">    addAttribute('k1', value)</span>
+  }
+
+  /**
+   * Sets the k 1 value for the arithmetic operator.
+   *
+   * @param value the k 1 value
+   * @return the current {@link FeComposite} instance
+   */
+  FeComposite k1(String value) {
+<span class="fc" id="L132">    addAttribute('k1', value)</span>
+  }
+
+  /**
+   * Sets the k 2 value for the arithmetic operator.
+   *
+   * @param value the k 2 value
+   * @return the current {@link FeComposite} instance
+   */
+  FeComposite k2(Number value) {
+<span class="fc" id="L142">    addAttribute('k2', value)</span>
+  }
+
+  /**
+   * Returns the k 1 value.
+   *
+   * @return the k 1 value
+   */
+  String getK1() {
+<span class="fc" id="L151">    getAttribute('k1')</span>
+  }
+
+  /**
+   * Sets the k 2 value for the arithmetic operator.
+   *
+   * @param value the k 2 value
+   * @return the current {@link FeComposite} instance
+   */
+  FeComposite k2(String value) {
+<span class="fc" id="L161">    addAttribute('k2', value)</span>
+  }
+
+  /**
+   * Sets the k 3 value for the arithmetic operator.
+   *
+   * @param value the k 3 value
+   * @return the current {@link FeComposite} instance
+   */
+  FeComposite k3(Number value) {
+<span class="fc" id="L171">    addAttribute('k3', value)</span>
+  }
+
+  /**
+   * Returns the k 2 value.
+   *
+   * @return the k 2 value
+   */
+  String getK2() {
+<span class="fc" id="L180">    getAttribute('k2')</span>
+  }
+
+  /**
+   * Sets the k 3 value used by the arithmetic operator.
+   *
+   * @param value the k 3 value
+   * @return this filter element
+   */
+  FeComposite k3(String value) {
+<span class="fc" id="L190">    addAttribute('k3', value)</span>
+  }
+
+  /**
+   * Returns the k 3 value.
+   *
+   * @return the k 3 value
+   */
+  String getK3() {
+<span class="fc" id="L199">    getAttribute('k3')</span>
+  }
+
+  /**
+   * Sets the k 4 value used by the arithmetic operator.
+   *
+   * @param value the k 4 value
+   * @return this filter element
+   */
+  FeComposite k4(Number value) {
+<span class="fc" id="L209">    addAttribute('k4', value)</span>
+  }
+
+  /**
+   * Sets the k 4 value used by the arithmetic operator.
+   *
+   * @param value the k 4 value
+   * @return this filter element
+   */
+  FeComposite k4(String value) {
+<span class="fc" id="L219">    addAttribute('k4', value)</span>
+  }
+
+  /**
+   * Returns the k 4 value.
+   *
+   * @return the k 4 value
+   */
+  String getK4() {
+<span class="fc" id="L228">    getAttribute('k4')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

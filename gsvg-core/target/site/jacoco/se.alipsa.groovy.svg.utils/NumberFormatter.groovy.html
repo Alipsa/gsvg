@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NumberFormatter.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.utils</a> &gt; <span class="el_source">NumberFormatter.groovy</span></div><h1>NumberFormatter.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.utils
+
+import groovy.transform.CompileStatic
+
+import java.math.RoundingMode
+
+/**
+ * Utility for formatting numeric values in SVG attributes with configurable precision.
+ * &lt;p&gt;
+ * By default, numbers are formatted with up to 3 decimal places, matching industry
+ * standards (SVGO, Adobe Illustrator). This reduces file size by 30-50% for
+ * coordinate-heavy graphics without affecting visual quality.
+ * &lt;p&gt;
+ * Features:
+ * &lt;ul&gt;
+ *   &lt;li&gt;Removes trailing zeros (12.120 → 12.12)&lt;/li&gt;
+ *   &lt;li&gt;Outputs integers without decimals (50.0 → 50)&lt;/li&gt;
+ *   &lt;li&gt;Configurable precision globally or per-attribute&lt;/li&gt;
+ *   &lt;li&gt;Thread-safe configuration&lt;/li&gt;
+ * &lt;/ul&gt;
+ * &lt;p&gt;
+ * Example usage:
+ * &lt;pre&gt;
+ * // Default formatting (3 decimals)
+ * NumberFormatter.format(12.123456789)  // Returns &quot;12.123&quot;
+ * NumberFormatter.format(50.0)          // Returns &quot;50&quot;
+ *
+ * // Custom precision
+ * NumberFormatter.format(12.123456, 5)  // Returns &quot;12.12346&quot;
+ *
+ * // Global configuration
+ * NumberFormatter.setDefaultPrecision(2)
+ * NumberFormatter.format(12.123)        // Returns &quot;12.12&quot;
+ * &lt;/pre&gt;
+ *
+ * @since 0.9.0
+ */
+@CompileStatic
+class NumberFormatter {
+
+    /**
+     * Default maximum decimal places (3 decimals = industry standard).
+     */
+    private static final int DEFAULT_MAX_DECIMALS = 3
+
+    /**
+     * Thread-local storage for configurable precision.
+     * Allows different threads to use different precision settings.
+     */
+<span class="fc" id="L50">    private static final ThreadLocal&lt;Integer&gt; maxPrecision = ThreadLocal.withInitial(() -&gt; DEFAULT_MAX_DECIMALS)</span>
+
+    /**
+     * Formats a value as a string with appropriate numeric precision.
+     * &lt;p&gt;
+     * Non-numeric values are converted to strings unchanged.
+     * Null values return null.
+     * Numbers are formatted with the specified precision (or default if not provided).
+     *
+     * @param value the value to format (can be Number, String, or any Object)
+     * @param precision optional precision override (number of decimal places), null to use default
+     * @return formatted string, or null if value is null
+     */
+    static String format(Object value, Integer precision = null) {
+<span class="fc bfc" id="L64" title="All 4 branches covered.">        if (value == null) {</span>
+<span class="fc" id="L65">            return null</span>
+        }
+
+        // Pass through non-numeric values unchanged
+<span class="fc bfc" id="L69" title="All 4 branches covered.">        if (!(value instanceof Number)) {</span>
+<span class="fc" id="L70">            return value.toString()</span>
+        }
+
+        // Use provided precision, thread-local, or default
+<span class="fc bfc" id="L74" title="All 4 branches covered.">        int decimals = precision != null ? precision : maxPrecision.get()</span>
+
+<span class="fc" id="L76">        double d = ((Number) value).doubleValue()</span>
+
+        // Handle special floating-point values
+<span class="fc bfc" id="L79" title="All 6 branches covered.">        if (Double.isNaN(d) || Double.isInfinite(d)) {</span>
+<span class="fc" id="L80">            return String.valueOf(d)</span>
+        }
+
+        // If it's a whole number, return as integer (no decimal point)
+<span class="pc bpc" id="L84" title="2 of 10 branches missed.">        if (d == Math.floor(d) &amp;&amp; !Double.isInfinite(d)) {</span>
+            // Handle very large numbers that exceed long range
+<span class="pc bpc" id="L86" title="5 of 10 branches missed.">            if (d &gt; Long.MAX_VALUE || d &lt; Long.MIN_VALUE) {</span>
+<span class="nc" id="L87">                return String.valueOf(d)</span>
+            }
+<span class="fc" id="L89">            return String.valueOf((long) d)</span>
+        }
+
+        // Round to specified decimal places using BigDecimal for precision
+<span class="fc" id="L93">        BigDecimal bd = new BigDecimal(String.valueOf(d))</span>
+<span class="fc" id="L94">        bd = bd.setScale(decimals, RoundingMode.HALF_UP)</span>
+
+        // Remove trailing zeros after decimal point
+<span class="fc" id="L97">        bd = bd.stripTrailingZeros()</span>
+
+        // Get plain string (no scientific notation)
+<span class="fc" id="L100">        String result = bd.toPlainString()</span>
+
+<span class="fc" id="L102">        return result</span>
+    }
+
+    /**
+     * Sets the default precision for all subsequent format() calls in this thread.
+     * &lt;p&gt;
+     * This setting is thread-local and does not affect other threads.
+     * The precision must be between 0 and 10 inclusive.
+     *
+     * @param decimals maximum number of decimal places (0-10)
+     * @throws IllegalArgumentException if decimals is negative or greater than 10
+     */
+    static void setDefaultPrecision(int decimals) {
+<span class="fc bfc" id="L115" title="All 10 branches covered.">        if (decimals &lt; 0 || decimals &gt; 10) {</span>
+<span class="fc" id="L116">            throw new IllegalArgumentException(&quot;Precision must be between 0 and 10, got: ${decimals}&quot;)</span>
+        }
+<span class="fc" id="L118">        maxPrecision.set(decimals)</span>
+<span class="fc" id="L119">    }</span>
+
+    /**
+     * Gets the current default precision for this thread.
+     *
+     * @return current maximum decimal places
+     */
+    static int getDefaultPrecision() {
+<span class="fc" id="L127">        maxPrecision.get()</span>
+    }
+
+    /**
+     * Resets the precision to the default value (3 decimals) for this thread.
+     */
+    static void resetPrecision() {
+<span class="fc" id="L134">        maxPrecision.set(DEFAULT_MAX_DECIMALS)</span>
+<span class="fc" id="L135">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

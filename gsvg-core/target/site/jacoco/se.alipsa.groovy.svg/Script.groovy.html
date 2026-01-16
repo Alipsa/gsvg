@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Script.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Script.groovy</span></div><h1>Script.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;script&gt;} element that holds scripting content for interactivity.
+ */
+@CompileStatic
+class Script extends StringContentContainer&lt;Script&gt; {
+
+  static final String NAME='script'
+
+  /**
+   * Creates a Script.
+   *
+   * @param parent the parent SVG element
+   */
+  Script(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L23">    super(parent, NAME)</span>
+<span class="fc" id="L24">  }</span>
+
+  @PackageScope
+  Script(SvgElement parent, Element element) {
+<span class="nc" id="L28">    super(parent, element)</span>
+<span class="nc" id="L29">  }</span>
+
+
+  /**
+   * Sets the type attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  Script type(String value) {
+<span class="fc" id="L39">    addAttribute('type', value)</span>
+  }
+
+  /**
+   * Returns the type value.
+   *
+   * @return the type value
+   */
+  String getType() {
+<span class="fc" id="L48">    getAttribute('type')</span>
+  }
+
+  /**
+   * Sets the href attribute.
+   *
+   * @param href the hyperlink URL
+   * @return this element for chaining
+   */
+  Script href(String href) {
+<span class="fc" id="L58">    addAttribute('href', href)</span>
+  }
+
+  /**
+   * Returns the href value.
+   *
+   * @return the href value
+   */
+  String getHref() {
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    getAttribute('href') ?: getAttribute(xlink('href'))</span>
+  }
+
+  /**
+   * Sets the xlink href attribute.
+   *
+   * @param href the hyperlink URL
+   * @return this element for chaining
+   */
+  Script xlinkHref(String href) {
+<span class="fc" id="L77">    addAttribute(xlink('href'), href)</span>
+  }
+
+  /**
+   * Returns the xlink href value.
+   *
+   * @return the xlink href value
+   */
+  String getXlinkHref() {
+<span class="fc" id="L86">    getAttribute(xlink('href'))</span>
+  }
+
+  /**
+   *
+   * @param value one of &quot;anonymous&quot;, &quot;use-credentials&quot;, &quot;&quot;
+   * @return
+   */
+  Script crossorigin(String value) {
+<span class="fc" id="L95">    addAttribute('crossorigin', value)</span>
+  }
+
+  /**
+   * Returns the crossorigin value.
+   *
+   * @return the crossorigin value
+   */
+  String getCrossorigin() {
+<span class="fc" id="L104">    getAttribute('crossorigin')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

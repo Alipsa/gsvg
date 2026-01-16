@@ -1,0 +1,1099 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SvgElement.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">SvgElement.groovy</span></div><h1>SvgElement.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import org.dom4j.Element
+import org.dom4j.Namespace
+import org.dom4j.QName
+import se.alipsa.groovy.svg.utils.NumberFormatter
+
+/**
+ * Base class for all SVG elements backed by DOM4J elements.
+ *
+ * &lt;h2&gt;Constructor Pattern&lt;/h2&gt;
+ * Each concrete SvgElement subclass provides two types of constructors:
+ *
+ * &lt;ol&gt;
+ * &lt;li&gt;&lt;b&gt;Creating constructors&lt;/b&gt; - Create new DOM elements and add them to the parent:
+ *     &lt;pre&gt;ClassName(SvgElement parent)&lt;/pre&gt;
+ *     These constructors call {@code super(parent, NAME)} to create a new DOM element.
+ * &lt;/li&gt;
+ * &lt;li&gt;&lt;b&gt;Adopting constructors&lt;/b&gt; - Adopt existing DOM elements for cloning/copying:
+ *     &lt;pre&gt;ClassName(SvgElement parent, Element element)&lt;/pre&gt;
+ *     These constructors call {@code super(parent, element)} to wrap an existing DOM element.
+ *     Used by {@link SvgElementFactory} for pure object-oriented element copying without
+ *     XML serialization.
+ * &lt;/li&gt;
+ * &lt;/ol&gt;
+ *
+ * &lt;h2&gt;Cloning&lt;/h2&gt;
+ * All SvgElement instances can be cloned using the {@link #clone(AbstractElementContainer)} method,
+ * which creates a deep copy including all child elements and attributes. The cloning uses the
+ * pure object-oriented approach without XML serialization for optimal performance.
+ *
+ * &lt;h3&gt;Example:&lt;/h3&gt;
+ * &lt;pre&gt;
+ * Circle original = svg.addCircle().cx(50).cy(50).r(25)
+ * Circle copy = original.clone(targetSvg)
+ * &lt;/pre&gt;
+ *
+ * The adopting constructor pattern enables efficient deep copying of SVG element trees
+ * while maintaining both the DOM4J structure and the SvgElement object hierarchy.
+ *
+ * @see SvgElementFactory#deepCopy(SvgElement, AbstractElementContainer)
+ */
+@CompileStatic
+abstract class SvgElement&lt;T extends SvgElement&lt;T&gt;&gt; implements ElementContainer, Cloneable {
+
+<span class="fc" id="L47">  Namespace xlinkNs = new Namespace('xlink', 'http://www.w3.org/1999/xlink')</span>
+  Element element
+  SvgElement&lt;? extends SvgElement&gt; parent
+
+  Desc desc
+  Title title
+
+  /**
+   * Serializes this element and its children as XML.
+   *
+   * @return the result
+   */
+  String toXml() {
+<span class="fc" id="L60">    element.asXML()</span>
+  }
+
+  /**
+   * Returns a brief string representation suitable for debugging.
+   * Shows the element name, all attributes, and parent information.
+   * For full XML serialization, use {@link #toXml()} instead.
+   *
+   * @return a concise string representation for debugging
+   */
+  @Override
+  String toString() {
+<span class="fc" id="L72">    StringBuilder sb = new StringBuilder()</span>
+<span class="fc" id="L73">    sb.append(getName())</span>
+<span class="fc" id="L74">    sb.append('(')</span>
+
+<span class="fc" id="L76">    boolean hasContent = false</span>
+
+    // Add id first if present
+<span class="fc" id="L79">    String id = getId()</span>
+<span class="fc bfc" id="L80" title="All 4 branches covered.">    if (id != null) {</span>
+<span class="fc" id="L81">      sb.append(&quot;id=&quot;).append(id)</span>
+<span class="fc" id="L82">      hasContent = true</span>
+    }
+
+    // Add all other attributes (except id which we already showed)
+<span class="fc" id="L86">    List attributes = element.attributes()</span>
+<span class="pc bpc" id="L87" title="2 of 6 branches missed.">    for (Object attrObj : attributes) {</span>
+<span class="fc" id="L88">      org.dom4j.Attribute attr = (org.dom4j.Attribute) attrObj</span>
+<span class="fc" id="L89">      String attrName = attr.getName()</span>
+
+      // Skip id since we already showed it
+<span class="fc bfc" id="L92" title="All 2 branches covered.">      if ('id' == attrName) {</span>
+<span class="fc" id="L93">        continue</span>
+      }
+
+<span class="fc bfc" id="L96" title="All 2 branches covered.">      if (hasContent) {</span>
+<span class="fc" id="L97">        sb.append(', ')</span>
+      }
+<span class="fc" id="L99">      sb.append(attrName).append('=').append(attr.getValue())</span>
+<span class="fc" id="L100">      hasContent = true</span>
+    }
+
+    // Add parent information
+<span class="pc bpc" id="L104" title="1 of 8 branches missed.">    if (parent != null &amp;&amp; parent != this) {</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">      if (hasContent) {</span>
+<span class="fc" id="L106">        sb.append(', ')</span>
+      }
+<span class="fc" id="L108">      sb.append('parent=').append(parent.getName())</span>
+<span class="fc" id="L109">      String parentId = parent.getId()</span>
+<span class="fc bfc" id="L110" title="All 4 branches covered.">      if (parentId != null) {</span>
+<span class="fc" id="L111">        sb.append('(id=').append(parentId).append(')')</span>
+      }
+    }
+
+<span class="fc" id="L115">    sb.append(')')</span>
+<span class="fc" id="L116">    return sb.toString()</span>
+  }
+
+  /**
+   * Creates a SvgElement.
+   *
+   * @param parent the parent SVG element
+   * @param name the name of the element
+   */
+<span class="fc" id="L125">  SvgElement(SvgElement&lt;? extends SvgElement&gt; parent, String name) {</span>
+<span class="fc" id="L126">    this.parent = parent</span>
+<span class="fc" id="L127">    element = parent.element.addElement(name)</span>
+<span class="fc" id="L128">  }</span>
+
+  /**
+   * Creates a SvgElement.
+   *
+   * @param parent the parent SVG element
+   * @param name the name of the element
+   * @param defaultNameSpace the default namespace
+   */
+<span class="fc" id="L137">  SvgElement(SvgElement&lt;? extends SvgElement&gt; parent, String name, String defaultNameSpace) {</span>
+<span class="fc" id="L138">    this.parent = parent</span>
+<span class="fc" id="L139">    element = parent.element.addElement(name, defaultNameSpace)</span>
+<span class="fc" id="L140">  }</span>
+
+  /**
+   * Creates a SvgElement.
+   *
+   * @param parent the parent SVG element
+   * @param qName the qualified name of the element
+   */
+<span class="fc" id="L148">  SvgElement(SvgElement&lt;? extends SvgElement&gt; parent, QName qName) {</span>
+<span class="fc" id="L149">    this.parent = parent</span>
+<span class="fc" id="L150">    element = parent.element.addElement(qName)</span>
+<span class="fc" id="L151">  }</span>
+
+  /**
+   * Special constructor for Svg as it does not have a parent
+   * Use this only to create Svg elements!
+   */
+<span class="fc" id="L157">  SvgElement(Element element) {</span>
+<span class="fc" id="L158">    this.element = element</span>
+<span class="fc" id="L159">  }</span>
+
+  /**
+   * Creates a SvgElement by adopting an existing DOM4J Element.
+   * This constructor is used for cloning/copying elements.
+   * The element is detached from its old parent and added to the new parent.
+   *
+   * @param parent the parent SVG element
+   * @param existingElement the DOM4J element to adopt
+   */
+<span class="fc" id="L169">  protected SvgElement(SvgElement&lt;? extends SvgElement&gt; parent, Element existingElement) {</span>
+<span class="fc" id="L170">    this.parent = parent</span>
+<span class="fc" id="L171">    Element cloned = existingElement.createCopy()</span>
+<span class="fc" id="L172">    this.element = cloned</span>
+<span class="fc" id="L173">    parent.element.add(cloned)</span>
+<span class="fc" id="L174">  }</span>
+
+  /**
+   * Creates a deep clone of this element with all its children and attributes.
+   * This is the recommended way to clone SVG elements as it uses the pure object-oriented
+   * approach without XML serialization for optimal performance.
+   *
+   * &lt;p&gt;The clone will be attached to the specified parent container and will include:
+   * &lt;ul&gt;
+   * &lt;li&gt;All attributes from the original element&lt;/li&gt;
+   * &lt;li&gt;All child elements (recursively cloned)&lt;/li&gt;
+   * &lt;li&gt;Proper parent-child relationships in both DOM and object model&lt;/li&gt;
+   * &lt;/ul&gt;
+   *
+   * &lt;h3&gt;Example:&lt;/h3&gt;
+   * &lt;pre&gt;
+   * // Create an original element with children
+   * G originalGroup = svg.addG().id(&quot;original&quot;)
+   * originalGroup.addCircle().cx(10).cy(10).r(5)
+   * originalGroup.addRect().x(20).y(20).width(10).height(10)
+   *
+   * // Clone it to another SVG
+   * G clonedGroup = originalGroup.clone(anotherSvg)
+   * // clonedGroup now has the same structure and children as originalGroup
+   * &lt;/pre&gt;
+   *
+   * @param newParent the parent container for the cloned element
+   * @return a deep clone of this element with type safety preserved
+   * @see SvgElementFactory#deepCopy(SvgElement, AbstractElementContainer)
+   */
+  T clone(AbstractElementContainer newParent) {
+<span class="fc" id="L205">    return SvgElementFactory.deepCopy(this, newParent) as T</span>
+  }
+
+  /**
+   * Creates a clone of this element with the specified modifications.
+   * &lt;p&gt;
+   * This is a convenience method that clones the element and immediately
+   * applies a set of attribute modifications. Useful for creating variations
+   * of elements.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * Circle original = svg.addCircle().cx(100).cy(100).r(50).fill('red')
+   * Circle modified = original.cloneWith(svg, [fill: 'blue', r: 30])
+   * // Creates a new circle with same cx/cy but blue fill and radius 30
+   * &lt;/pre&gt;
+   *
+   * @param newParent the parent container for the cloned element
+   * @param modifications map of attribute names to new values
+   * @return a clone of this element with modifications applied
+   * @since 0.9.0
+   */
+  T cloneWith(AbstractElementContainer newParent, Map modifications) {
+<span class="fc" id="L228">    T cloned = clone(newParent)</span>
+<span class="fc" id="L229">    modifications.each { key, value -&gt;</span>
+<span class="fc" id="L230">      cloned.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="fc" id="L232">    return cloned</span>
+  }
+
+  /**
+   * Adds a namespace declaration to this element.
+   *
+   * @param prefix the namespace prefix
+   * @param uri the URI
+   * @return this element for chaining
+   */
+  T addNamespace(String prefix, String uri) {
+<span class="fc" id="L243">    element.addNamespace(prefix, uri)</span>
+<span class="fc" id="L244">    this as T</span>
+  }
+
+  /**
+   * Returns the value of the requested attribute.
+   *
+   * @param name the name of the element
+   * @return the result
+   */
+  String getAttribute(String name) {
+<span class="fc bfc" id="L254" title="All 2 branches covered.">    if(name.contains(':')) {</span>
+<span class="pc" id="L255">      getAttribute(getQName(name))</span>
+    } else {
+<span class="fc" id="L257">      element.attributeValue(name)</span>
+    }
+  }
+
+  /**
+   * Checks if this element has the specified attribute.
+   *
+   * @param name the name of the attribute
+   * @return true if the attribute exists, false otherwise
+   */
+  boolean hasAttribute(String name) {
+<span class="pc bpc" id="L268" title="1 of 2 branches missed.">    if(name.contains(':')) {</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">      element.attribute(getQName(name)) != null</span>
+    } else {
+<span class="fc bfc" id="L271" title="All 2 branches covered.">      element.attribute(name) != null</span>
+    }
+  }
+
+  /**
+   * Returns the value of the requested attribute.
+   *
+   * @param name the name of the element
+   * @return the result
+   */
+  String getAttribute(QName name) {
+<span class="fc" id="L282">    element.attributeValue(name)</span>
+  }
+
+  /**
+   * Returns the value of the requested attribute.
+   *
+   * @param nsPrefix the namespace prefix
+   * @param localName the local name of the element
+   * @return the result
+   */
+  String getAttribute(String nsPrefix, String localName) {
+<span class="fc" id="L293">    getAttribute(getQName(nsPrefix, localName))</span>
+  }
+
+  /**
+   * Returns the value of the requested attribute, or a default value if the attribute doesn't exist.
+   * &lt;p&gt;
+   * This is a null-safe accessor that prevents NullPointerExceptions when working with
+   * optional attributes.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * String x = rect.getAttributeOrDefault('x', '0')
+   * String fill = circle.getAttributeOrDefault('fill', 'black')
+   * &lt;/pre&gt;
+   *
+   * @param name the name of the attribute
+   * @param defaultValue the value to return if the attribute doesn't exist
+   * @return the attribute value, or defaultValue if the attribute is null or missing
+   */
+  String getAttributeOrDefault(String name, String defaultValue) {
+<span class="fc" id="L313">    String value = getAttribute(name)</span>
+<span class="fc bfc" id="L314" title="All 4 branches covered.">    value != null ? value : defaultValue</span>
+  }
+
+  /**
+   * Returns the value of the requested attribute, or a default value if the attribute doesn't exist.
+   *
+   * @param qname the qualified name of the attribute
+   * @param defaultValue the value to return if the attribute doesn't exist
+   * @return the attribute value, or defaultValue if the attribute is null or missing
+   */
+  String getAttributeOrDefault(QName qname, String defaultValue) {
+<span class="nc" id="L325">    String value = getAttribute(qname)</span>
+<span class="nc bnc" id="L326" title="All 4 branches missed.">    value != null ? value : defaultValue</span>
+  }
+
+  /**
+   * Returns the value of the requested attribute, or a default value if the attribute doesn't exist.
+   *
+   * @param nsPrefix the namespace prefix
+   * @param localName the local name of the element
+   * @param defaultValue the value to return if the attribute doesn't exist
+   * @return the attribute value, or defaultValue if the attribute is null or missing
+   */
+  String getAttributeOrDefault(String nsPrefix, String localName, String defaultValue) {
+<span class="nc" id="L338">    String value = getAttribute(nsPrefix, localName)</span>
+<span class="nc bnc" id="L339" title="All 4 branches missed.">    value != null ? value : defaultValue</span>
+  }
+
+  /**
+   * Adds an attribute to this element.
+   * &lt;p&gt;
+   * Numeric values are automatically formatted with configurable precision
+   * (default: 3 decimal places). This reduces file size while maintaining
+   * visual quality.
+   *
+   * @param name the name of the element
+   * @param value the value
+   * @return this element for chaining
+   */
+  T addAttribute(String name, Object value) {
+<span class="fc bfc" id="L354" title="All 2 branches covered.">    if (name.contains(':')) {</span>
+<span class="fc" id="L355">      addAttribute(getQName(name), value)</span>
+    } else {
+<span class="fc" id="L357">      String formatted = NumberFormatter.format(value, getDocumentPrecision())</span>
+<span class="fc" id="L358">      element.addAttribute(name, formatted)</span>
+    }
+<span class="fc" id="L360">    this as T</span>
+  }
+
+  /**
+   * Adds an attribute to this element.
+   *
+   * @param prefix the namespace prefix
+   * @param localName the local name of the element
+   * @param value the value
+   * @return this element for chaining
+   */
+  T addAttribute(String prefix, String localName, Object value) {
+<span class="fc" id="L372">    addAttribute(getQName(prefix, localName), value)</span>
+  }
+
+  /**
+   * Adds an attribute to this element.
+   * &lt;p&gt;
+   * Numeric values are automatically formatted with configurable precision.
+   *
+   * @param qname the qualified name
+   * @param value the value
+   * @return this element for chaining
+   */
+  T addAttribute(QName qname, Object value) {
+<span class="fc" id="L385">    String formatted = NumberFormatter.format(value, getDocumentPrecision())</span>
+<span class="fc" id="L386">    element.addAttribute(qname, formatted)</span>
+<span class="fc" id="L387">    this as T</span>
+  }
+
+  /**
+   * Adds multiple attributes to this element.
+   * This is an alias for {@link #addAttributes(Map)} for consistency.
+   *
+   * @param attributes the attributes
+   * @return this element for chaining
+   */
+  T attrs(Map&lt;String, Object&gt; attributes) {
+<span class="fc" id="L398">    addAttributes(attributes)</span>
+  }
+
+  /**
+   * Adds multiple attributes to this element.
+   *
+   * @param attributes the attributes
+   * @return this element for chaining
+   */
+  T addAttributes(Map&lt;String, Object&gt; attributes) {
+<span class="fc" id="L408">    attributes.each {</span>
+<span class="fc" id="L409">      String key = it.key</span>
+<span class="fc bfc" id="L410" title="All 2 branches covered.">      if ('strokeWidth' == key) {</span>
+<span class="fc" id="L411">        key = 'stroke-width'</span>
+      }
+<span class="fc" id="L413">      addAttribute(key, it.value)</span>
+    }
+<span class="fc" id="L415">    this as T</span>
+  }
+
+  /**
+   * Updates an existing attribute on this element.
+   *
+   * @param attribute the attribute
+   * @param value the value
+   * @return this element for chaining
+   */
+  T changeAttribute(String attribute, Object value) {
+<span class="nc bnc" id="L426" title="All 2 branches missed.">    element.attribute(attribute)?.setValue(&quot;$value&quot;)</span>
+<span class="nc" id="L427">    this as T</span>
+  }
+
+  /**
+   * Removes an attribute from this element.
+   *
+   * @param attribute the attribute
+   * @return this element for chaining
+   */
+  T removeAttribute(String attribute) {
+<span class="fc" id="L437">    def attr = element.attribute(attribute)</span>
+<span class="pc bpc" id="L438" title="2 of 4 branches missed.">    if (attr != null) {</span>
+<span class="nc" id="L439">      element.remove(attr)</span>
+    }
+<span class="fc" id="L441">    this as T</span>
+  }
+
+  /**
+   * Gets the numeric precision setting for this element's document.
+   * &lt;p&gt;
+   * Walks up the parent chain to find the root Svg element and returns
+   * its precision setting. Returns null if no custom precision is set,
+   * which causes NumberFormatter to use the global default.
+   *
+   * @return the document's precision setting, or null for global default
+   */
+  private Integer getDocumentPrecision() {
+<span class="fc" id="L454">    SvgElement current = this</span>
+<span class="pc bpc" id="L455" title="2 of 4 branches missed.">    while (current != null) {</span>
+<span class="fc bfc" id="L456" title="All 2 branches covered.">      if (current instanceof Svg) {</span>
+<span class="fc" id="L457">        return ((Svg) current).getEffectivePrecision()</span>
+      }
+<span class="fc" id="L459">      current = current.parent</span>
+    }
+<span class="nc" id="L461">    return null  // Use global default</span>
+  }
+
+  /**
+   * Sets the style attribute.
+   *
+   * @param style the style
+   * @return this element for chaining
+   */
+  T style(String style) {
+<span class="fc" id="L471">    addAttribute('style', style)</span>
+  }
+
+  /**
+   * Sets the inline style attribute using a map of CSS properties.
+   *
+   * @param styleProps the CSS properties as a map (e.g., [fill: 'red', stroke: 'blue'])
+   * @return this element for chaining
+   */
+  T style(Map&lt;String, Object&gt; styleProps) {
+<span class="fc bfc" id="L481" title="All 8 branches covered.">    if (styleProps == null || styleProps.isEmpty()) {</span>
+<span class="fc" id="L482">      addAttribute('style', '')</span>
+    } else {
+      String styleText = se.alipsa.groovy.svg.css.CssParser.toInlineStyle(
+<span class="fc" id="L485">        styleProps.collectEntries { k, v -&gt; [(k as String): (v as String)] } as Map&lt;String, String&gt;</span>
+      )
+<span class="fc" id="L487">      addAttribute('style', styleText)</span>
+    }
+<span class="fc" id="L489">    this as T</span>
+  }
+
+  /**
+   * Gets the inline style attribute as a map of CSS properties.
+   *
+   * @return a map of CSS property names to values
+   */
+  Map&lt;String, String&gt; getStyleMap() {
+<span class="fc" id="L498">    String styleAttr = getAttribute('style')</span>
+<span class="pc bpc" id="L499" title="1 of 10 branches missed.">    if (!styleAttr || styleAttr.trim().isEmpty()) {</span>
+<span class="fc" id="L500">      return [:]</span>
+    }
+<span class="fc" id="L502">    return se.alipsa.groovy.svg.css.CssParser.parseInlineStyle(styleAttr)</span>
+  }
+
+  /**
+   * Gets a specific CSS property from the inline style attribute.
+   *
+   * @param property the CSS property name
+   * @return the property value, or null if not found
+   */
+  String getStyleProperty(String property) {
+<span class="fc" id="L512">    getStyleMap().get(property)</span>
+  }
+
+  /**
+   * Sets the style class attribute.
+   *
+   * @param styleClass the CSS style class
+   * @return this element for chaining
+   */
+  T styleClass(String styleClass) {
+<span class="fc" id="L522">    addAttribute('class', styleClass)</span>
+  }
+
+  /**
+   * Adds a CSS class to the element's class attribute.
+   * If the class already exists, it will not be added again.
+   *
+   * @param className the CSS class name to add
+   * @return this element for chaining
+   */
+  T addClass(String className) {
+<span class="fc bfc" id="L533" title="All 10 branches covered.">    if (!className || className.trim().isEmpty()) {</span>
+<span class="fc" id="L534">      return this as T</span>
+    }
+<span class="fc" id="L536">    List&lt;String&gt; classes = getClasses()</span>
+<span class="fc bfc" id="L537" title="All 4 branches covered.">    if (!classes.contains(className)) {</span>
+<span class="fc" id="L538">      classes.add(className)</span>
+<span class="fc" id="L539">      addAttribute('class', classes.join(' '))</span>
+    }
+<span class="fc" id="L541">    this as T</span>
+  }
+
+  /**
+   * Removes a CSS class from the element's class attribute.
+   *
+   * @param className the CSS class name to remove
+   * @return this element for chaining
+   */
+  T removeClass(String className) {
+<span class="fc bfc" id="L551" title="All 10 branches covered.">    if (!className || className.trim().isEmpty()) {</span>
+<span class="fc" id="L552">      return this as T</span>
+    }
+<span class="fc" id="L554">    List&lt;String&gt; classes = getClasses()</span>
+<span class="fc bfc" id="L555" title="All 2 branches covered.">    if (classes.remove(className)) {</span>
+<span class="fc" id="L556">      addAttribute('class', classes.join(' '))</span>
+    }
+<span class="fc" id="L558">    this as T</span>
+  }
+
+  /**
+   * Toggles a CSS class on the element.
+   * If the class exists, it is removed; if it doesn't exist, it is added.
+   *
+   * @param className the CSS class name to toggle
+   * @return this element for chaining
+   */
+  T toggleClass(String className) {
+<span class="fc bfc" id="L569" title="All 2 branches covered.">    if (hasClass(className)) {</span>
+<span class="fc" id="L570">      removeClass(className)</span>
+    } else {
+<span class="fc" id="L572">      addClass(className)</span>
+    }
+<span class="fc" id="L574">    this as T</span>
+  }
+
+  /**
+   * Checks if the element has the specified CSS class.
+   *
+   * @param className the CSS class name to check
+   * @return true if the class exists, false otherwise
+   */
+  boolean hasClass(String className) {
+<span class="pc bpc" id="L584" title="1 of 10 branches missed.">    if (!className || className.trim().isEmpty()) {</span>
+<span class="fc" id="L585">      return false</span>
+    }
+<span class="fc" id="L587">    return getClasses().contains(className)</span>
+  }
+
+  /**
+   * Gets all CSS classes from the element's class attribute.
+   *
+   * @return a list of CSS class names
+   */
+  List&lt;String&gt; getClasses() {
+<span class="fc" id="L596">    String classAttr = getAttribute('class')</span>
+<span class="pc bpc" id="L597" title="1 of 10 branches missed.">    if (!classAttr || classAttr.trim().isEmpty()) {</span>
+<span class="fc" id="L598">      return []</span>
+    }
+<span class="fc" id="L600">    return classAttr.split(/\s+/).findAll { it } as List&lt;String&gt;</span>
+  }
+
+  /**
+   * Sets the id attribute.
+   *
+   * @param id the unique identifier
+   * @return this element for chaining
+   */
+  T id(String id) {
+<span class="fc" id="L610">    addAttribute('id', id)</span>
+  }
+
+  /**
+   * Returns the id value.
+   *
+   * @return the id value
+   */
+  String getId() {
+<span class="fc" id="L619">    getAttribute('id')</span>
+  }
+
+  /**
+   * Sets the filter attribute.
+   *
+   * @param filter the filter
+   * @return this element for chaining
+   */
+  T filter(String filter) {
+<span class="fc" id="L629">    addAttribute('filter', filter)</span>
+  }
+
+  // TODO: Intellij does not recognize the type
+  /**
+   * Returns the parent value.
+   *
+   * @return the parent value
+   */
+  &lt;P extends SvgElement&lt;P&gt;&gt; P getParent() {
+<span class="fc" id="L639">    Class&lt;P&gt; clazz = parent.getClass() as Class&lt;P&gt;</span>
+<span class="fc" id="L640">    getParent(clazz)</span>
+  }
+
+  /**
+   * Get parent.
+   *
+   * @param type the type
+   * @return the result
+   */
+  &lt;P extends SvgElement&lt;P&gt;&gt; P getParent(Class&lt;P&gt; type) {
+<span class="fc" id="L650">    return type.cast(parent)</span>
+  }
+
+  /**
+   * Returns the name value.
+   *
+   * @return the name value
+   */
+  String getName() {
+<span class="fc" id="L659">    element.getName()</span>
+  }
+
+  /**
+   * Returns the xlink ns value.
+   *
+   * @return the xlink ns value
+   */
+  Namespace getXlinkNs() {
+<span class="fc" id="L668">    xlinkNs</span>
+  }
+
+  /**
+   * Creates and adds a new Title child element.
+   *
+   * @return the created element
+   */
+  Title addTitle() {
+<span class="fc" id="L677">    title = new Title(this)</span>
+  }
+
+  /**
+   * Creates and adds a new Title child element.
+   *
+   * @param content the content
+   * @return the created element
+   */
+  Title addTitle(String content) {
+<span class="fc" id="L687">    title = new Title(this).addContent(content)</span>
+  }
+
+  Title addTitle(Map attributes) {
+<span class="nc" id="L691">    Title t = addTitle()</span>
+<span class="nc" id="L692">    attributes.each {</span>
+<span class="nc" id="L693">      key, value -&gt; t.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L695">    t</span>
+  }
+
+  /**
+   * Returns the title value.
+   *
+   * @return the title value
+   */
+  Title getTitle() {
+<span class="fc" id="L704">    title</span>
+  }
+
+  /**
+   * Creates and adds a new Desc child element.
+   *
+   * @return the created element
+   */
+  Desc addDesc() {
+<span class="fc" id="L713">    desc = new Desc(this)</span>
+  }
+
+  /**
+   * Creates and adds a new Desc child element.
+   *
+   * @param content the content
+   * @return the created element
+   */
+  Desc addDesc(String content) {
+<span class="fc" id="L723">    desc = new Desc(this).addContent(content)</span>
+  }
+
+  Desc addDesc(Map attributes) {
+<span class="nc" id="L727">    Desc d = addDesc()</span>
+<span class="nc" id="L728">    attributes.each {</span>
+<span class="nc" id="L729">      key, value -&gt; d.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L731">    d</span>
+  }
+
+  /**
+   * Returns the desc value.
+   *
+   * @return the desc value
+   */
+  Desc getDesc() {
+<span class="fc" id="L740">    desc</span>
+  }
+
+  // ==================== ARIA ACCESSIBILITY HELPERS ====================
+
+  /**
+   * Sets the role attribute for accessibility.
+   * &lt;p&gt;
+   * Common values for SVG graphics:
+   * &lt;ul&gt;
+   *   &lt;li&gt;'img' - Marks the SVG as an image&lt;/li&gt;
+   *   &lt;li&gt;'graphics-document' - Container for graphic elements&lt;/li&gt;
+   *   &lt;li&gt;'graphics-symbol' - Reusable graphic symbol&lt;/li&gt;
+   *   &lt;li&gt;'presentation' - Decorative element (hidden from assistive technology)&lt;/li&gt;
+   * &lt;/ul&gt;
+   *
+   * @param role the ARIA role
+   * @return this element for chaining
+   */
+  T role(String role) {
+<span class="fc" id="L760">    addAttribute('role', role)</span>
+  }
+
+  /**
+   * Returns the role attribute value.
+   *
+   * @return the role, or null if not set
+   */
+  String getRole() {
+<span class="fc" id="L769">    getAttribute('role')</span>
+  }
+
+  /**
+   * Sets the aria-label attribute for accessibility.
+   * &lt;p&gt;
+   * Provides a text alternative that screen readers announce to users.
+   * Use this to give a concise, descriptive label for the element.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * svg.ariaLabel('Sales chart for Q1 2026')
+   * &lt;/pre&gt;
+   *
+   * @param label the accessible label
+   * @return this element for chaining
+   */
+  T ariaLabel(String label) {
+<span class="fc" id="L787">    addAttribute('aria-label', label)</span>
+  }
+
+  /**
+   * Returns the aria-label attribute value.
+   *
+   * @return the label, or null if not set
+   */
+  String getAriaLabel() {
+<span class="fc" id="L796">    getAttribute('aria-label')</span>
+  }
+
+  /**
+   * Sets the aria-labelledby attribute.
+   * &lt;p&gt;
+   * References one or more element IDs that label this element.
+   * Screen readers will use the text content of the referenced elements
+   * as the accessible name.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * svg.addTitle().id('chart-title').content('Sales Chart')
+   * svg.ariaLabelledBy('chart-title')
+   * &lt;/pre&gt;
+   *
+   * @param ids space-separated list of element IDs
+   * @return this element for chaining
+   */
+  T ariaLabelledBy(String ids) {
+<span class="fc" id="L816">    addAttribute('aria-labelledby', ids)</span>
+  }
+
+  /**
+   * Returns the aria-labelledby attribute value.
+   *
+   * @return the IDs, or null if not set
+   */
+  String getAriaLabelledBy() {
+<span class="fc" id="L825">    getAttribute('aria-labelledby')</span>
+  }
+
+  /**
+   * Sets the aria-describedby attribute.
+   * &lt;p&gt;
+   * References one or more element IDs that describe this element.
+   * Screen readers will announce this description after the accessible name.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * svg.addDesc().id('chart-desc').content('Monthly sales from Jan to Mar')
+   * svg.ariaDescribedBy('chart-desc')
+   * &lt;/pre&gt;
+   *
+   * @param ids space-separated list of element IDs
+   * @return this element for chaining
+   */
+  T ariaDescribedBy(String ids) {
+<span class="fc" id="L844">    addAttribute('aria-describedby', ids)</span>
+  }
+
+  /**
+   * Returns the aria-describedby attribute value.
+   *
+   * @return the IDs, or null if not set
+   */
+  String getAriaDescribedBy() {
+<span class="fc" id="L853">    getAttribute('aria-describedby')</span>
+  }
+
+  /**
+   * Sets the aria-hidden attribute.
+   * &lt;p&gt;
+   * When true, hides this element and its children from assistive technologies
+   * like screen readers. Use this for decorative graphics that don't convey
+   * meaningful information.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * decorativeRect.ariaHidden(true)
+   * &lt;/pre&gt;
+   *
+   * @param hidden true to hide from screen readers, false to expose
+   * @return this element for chaining
+   */
+  T ariaHidden(boolean hidden) {
+<span class="fc" id="L872">    addAttribute('aria-hidden', String.valueOf(hidden))</span>
+  }
+
+  /**
+   * Returns the aria-hidden attribute value.
+   *
+   * @return true if hidden from screen readers, false otherwise
+   */
+  boolean isAriaHidden() {
+<span class="fc" id="L881">    'true'.equalsIgnoreCase(getAttribute('aria-hidden'))</span>
+  }
+
+  /**
+   * Sets the aria-live attribute for dynamic content.
+   * &lt;p&gt;
+   * Indicates that an element will be updated, and describes the types
+   * of updates screen readers should announce to users.
+   * &lt;p&gt;
+   * Valid values:
+   * &lt;ul&gt;
+   *   &lt;li&gt;'off' - Updates will not be announced (default)&lt;/li&gt;
+   *   &lt;li&gt;'polite' - Announce updates when user is idle&lt;/li&gt;
+   *   &lt;li&gt;'assertive' - Announce updates immediately, interrupting user&lt;/li&gt;
+   * &lt;/ul&gt;
+   *
+   * @param live the live region mode ('off', 'polite', or 'assertive')
+   * @return this element for chaining
+   */
+  T ariaLive(String live) {
+<span class="fc" id="L901">    addAttribute('aria-live', live)</span>
+  }
+
+  /**
+   * Returns the aria-live attribute value.
+   *
+   * @return the live mode, or null if not set
+   */
+  String getAriaLive() {
+<span class="fc" id="L910">    getAttribute('aria-live')</span>
+  }
+
+  /**
+   * Convenience method to mark an element as decorative.
+   * &lt;p&gt;
+   * Sets both role='presentation' and aria-hidden='true' to hide the element
+   * from assistive technologies. Use this for purely visual elements that
+   * don't convey meaningful information.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * backgroundRect.decorative()
+   * &lt;/pre&gt;
+   *
+   * @return this element for chaining
+   */
+  T decorative() {
+<span class="fc" id="L928">    role('presentation').ariaHidden(true)</span>
+  }
+
+  /**
+   * Convenience method to set up basic accessibility for an image-like graphic.
+   * &lt;p&gt;
+   * Sets role='img' and aria-label in one call. This is the recommended
+   * pattern for making SVG graphics accessible.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * svg.accessibleImage('Company logo')
+   * &lt;/pre&gt;
+   *
+   * @param label the accessible label describing the graphic
+   * @return this element for chaining
+   */
+  T accessibleImage(String label) {
+<span class="fc" id="L946">    role('img').ariaLabel(label)</span>
+  }
+
+  /**
+   * Builds an xlink-qualified name for the provided local name.
+   *
+   * @param localName the local name of the element
+   * @return the result
+   */
+  QName xlink(String localName) {
+<span class="pc bpc" id="L956" title="4 of 8 branches missed.">    if (localName == null || localName.isBlank()) {</span>
+<span class="nc" id="L957">      throw new IllegalArgumentException(&quot;Local name must not be blank for xlink&quot;)</span>
+    }
+<span class="fc" id="L959">    new QName(localName, xlinkNs)</span>
+  }
+
+  /**
+   * Resolves a QName for the provided name.
+   *
+   * @param name the name of the element
+   * @return the result
+   */
+  QName getQName(String name) {
+<span class="fc" id="L969">    int idx = name.indexOf(':')</span>
+<span class="fc bfc" id="L970" title="All 4 branches covered.">    if (idx &lt; 0) {</span>
+<span class="fc" id="L971">      throw new IllegalArgumentException(&quot;Name '$name' must contain a namespace prefix&quot;)</span>
+    }
+<span class="fc" id="L973">    String prefix = name.substring(0, idx)</span>
+<span class="fc" id="L974">    String localName = name.substring(idx + 1)</span>
+<span class="pc bpc" id="L975" title="1 of 2 branches missed.">    if (localName.isBlank()) {</span>
+<span class="nc" id="L976">      throw new IllegalArgumentException(&quot;Local name must not be blank in '$name'&quot;)</span>
+    }
+<span class="fc" id="L978">    getQName(prefix, localName)</span>
+  }
+
+  /**
+   * Resolves a QName for the provided name.
+   *
+   * @param prefix the namespace prefix
+   * @param localName the local name of the element
+   * @return the result
+   */
+  QName getQName(String prefix, String localName) {
+<span class="fc" id="L989">    Namespace ns = element.getNamespaceForPrefix(prefix)</span>
+<span class="fc bfc" id="L990" title="All 4 branches covered.">    if (ns == null) {</span>
+<span class="fc" id="L991">      throw new IllegalArgumentException(&quot;No namespace bound for prefix '$prefix' on element '${element.getName()}'&quot;)</span>
+    }
+<span class="pc bpc" id="L993" title="4 of 8 branches missed.">    if (localName == null || localName.isBlank()) {</span>
+<span class="nc" id="L994">      throw new IllegalArgumentException(&quot;Local name must not be blank for prefix '$prefix'&quot;)</span>
+    }
+<span class="fc" id="L996">    new QName(localName, ns)</span>
+  }
+
+  /**
+   * Overrides Groovy's property access to provide automatic fallback to getAttribute().
+   * &lt;p&gt;
+   * This allows intuitive property-style access to SVG attributes. When accessing a property
+   * that doesn't have an explicit getter (e.g., {@code element.values}), this method will
+   * automatically try to retrieve it as an attribute using {@code getAttribute('values')}.
+   * &lt;p&gt;
+   * This maintains backward compatibility with existing explicit getters while providing
+   * a more natural API for accessing arbitrary SVG attributes.
+   *
+   * @param propertyName the name of the property to access
+   * @return the property value, or the attribute value if no property exists
+   */
+  @Override
+  Object getProperty(String propertyName) {
+    // Check if a real property/getter exists using MetaClass
+<span class="fc" id="L1015">    def metaProperty = this.metaClass.hasProperty(this, propertyName)</span>
+<span class="fc bfc" id="L1016" title="All 4 branches covered.">    if (metaProperty != null) {</span>
+<span class="fc" id="L1017">      return metaProperty.getProperty(this)</span>
+    }
+
+    // If no property exists, try to get it as an attribute
+<span class="fc" id="L1021">    return getAttribute(propertyName)</span>
+  }
+
+  /**
+   * Overrides Groovy's property assignment to provide automatic fallback to addAttribute().
+   * &lt;p&gt;
+   * This allows intuitive property-style assignment to SVG attributes. When assigning to a property
+   * that doesn't have an explicit setter (e.g., {@code element.values = '0.5'}), this method will
+   * automatically set it as an attribute using {@code addAttribute('values', '0.5')}.
+   * &lt;p&gt;
+   * This maintains backward compatibility with existing explicit setters while providing
+   * a more natural API for setting arbitrary SVG attributes.
+   * &lt;p&gt;
+   * &lt;b&gt;Note:&lt;/b&gt; Use with care - typos in property names will silently create incorrect attributes
+   * rather than failing at compile time. For critical code, consider using the explicit fluent API
+   * methods (e.g., {@code .gradientUnits('value')}) which provide better IDE autocomplete support.
+   *
+   * @param propertyName the name of the property to set
+   * @param newValue the value to assign
+   */
+  @Override
+  void setProperty(String propertyName, Object newValue) {
+    // Check if a method exists that matches the property name (fluent API style)
+    // This handles methods like x1(String) that return 'this' for chaining
+<span class="fc" id="L1045">    def metaMethod = this.metaClass.getMetaMethod(propertyName, newValue)</span>
+<span class="pc bpc" id="L1046" title="2 of 4 branches missed.">    if (metaMethod != null) {</span>
+      // Call the fluent API method
+<span class="fc" id="L1048">      metaMethod.invoke(this, newValue)</span>
+<span class="fc" id="L1049">      return</span>
+    }
+
+    // Check if a real property/setter exists using MetaClass
+<span class="nc" id="L1053">    def metaProperty = this.metaClass.hasProperty(this, propertyName)</span>
+<span class="nc bnc" id="L1054" title="All 4 branches missed.">    if (metaProperty != null) {</span>
+      try {
+        // Try to use the real property setter
+<span class="nc" id="L1057">        metaProperty.setProperty(this, newValue)</span>
+<span class="nc" id="L1058">        return</span>
+      } catch (GroovyRuntimeException e) {
+        // If it's read-only (fluent API), fall through to addAttribute
+<span class="nc bnc" id="L1061" title="All 8 branches missed.">        if (!e.message?.contains('read-only')) {</span>
+<span class="nc" id="L1062">          throw e</span>
+        }
+      }
+    }
+
+    // If no setter exists or it's read-only, set it as an attribute
+<span class="nc" id="L1068">    addAttribute(propertyName, newValue)</span>
+<span class="nc" id="L1069">  }</span>
+
+  /**
+   * Validates this element and all its descendants using default validation rules.
+   * &lt;p&gt;
+   * Applies all default validation rules to this element's subtree and returns
+   * a report with any issues found. This validates just this element's subtree,
+   * not the entire document.
+   * &lt;p&gt;
+   * For document-wide validation, use {@link Svg#validate()} on the root element.
+   *
+   * @return validation report with all issues found
+   */
+  se.alipsa.groovy.svg.validation.ValidationReport validate() {
+<span class="fc" id="L1083">    se.alipsa.groovy.svg.validation.ValidationEngine.createDefault().validate(this)</span>
+  }
+
+  /**
+   * Checks if this element passes validation (no errors).
+   * &lt;p&gt;
+   * This is a convenience method equivalent to {@code validate().isValid()}.
+   * Note that warnings and info messages don't prevent validation from passing.
+   *
+   * @return true if validation passes (no errors)
+   */
+  boolean isValid() {
+<span class="fc" id="L1095">    validate().isValid()</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

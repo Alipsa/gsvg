@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Defs.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Defs.groovy</span></div><h1>Defs.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import org.dom4j.Element
+
+/**
+ * SVG {@code &lt;defs&gt;} element that holds reusable definitions not rendered directly.
+ */
+@CompileStatic
+class Defs extends AbstractElementContainer&lt;Defs&gt; implements GradientContainer, Animatable&lt;Defs&gt; {
+
+  static final String NAME = 'defs'
+
+  /**
+   * Creates a Defs.
+   *
+   * @param parent the parent SVG element
+   */
+  Defs(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L20">    super(parent, NAME)</span>
+<span class="fc" id="L21">  }</span>
+
+  /**
+   * Creates a Defs by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Defs(SvgElement parent, Element element) {
+<span class="nc" id="L31">    super(parent, element)</span>
+<span class="nc" id="L32">  }</span>
+
+  /**
+   * Creates and adds a new Marker child element.
+   *
+   * @return the created element
+   */
+  Marker addMarker() {
+<span class="fc" id="L40">    add(new Marker(this))</span>
+  }
+
+  /**
+   * Creates and adds a new Marker child element.
+   *
+   * @param id the unique identifier
+   * @return the created element
+   */
+  Marker addMarker(String id) {
+<span class="fc" id="L50">    addMarker().id(id)</span>
+  }
+
+  Marker addMarker(Map attributes) {
+<span class="nc" id="L54">    Marker marker = addMarker()</span>
+<span class="nc" id="L55">    attributes.each {</span>
+<span class="nc" id="L56">      key, value -&gt; marker.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L58">    marker</span>
+  }
+
+  /**
+   * Creates and adds a new Pattern child element.
+   *
+   * @return the created element
+   */
+  Pattern addPattern() {
+<span class="fc" id="L67">    add(new Pattern(this))</span>
+  }
+
+  /**
+   * Creates and adds a new Pattern child element.
+   *
+   * @param id the unique identifier
+   * @return the created element
+   */
+  Pattern addPattern(String id) {
+<span class="fc" id="L77">    add(new Pattern(this).id(id))</span>
+  }
+
+  Pattern addPattern(Map attributes) {
+<span class="nc" id="L81">    Pattern pattern = addPattern()</span>
+<span class="nc" id="L82">    attributes.each {</span>
+<span class="nc" id="L83">      key, value -&gt; pattern.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L85">    pattern</span>
+  }
+
+  /**
+   * Creates and adds a new Symbol child element.
+   *
+   * @return the created element
+   */
+  Symbol addSymbol() {
+<span class="fc" id="L94">    add(new Symbol(this))</span>
+  }
+
+  Symbol addSymbol(Map attributes) {
+<span class="nc" id="L98">    Symbol symbol = addSymbol()</span>
+<span class="nc" id="L99">    attributes.each {</span>
+<span class="nc" id="L100">      key, value -&gt; symbol.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L102">    symbol</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

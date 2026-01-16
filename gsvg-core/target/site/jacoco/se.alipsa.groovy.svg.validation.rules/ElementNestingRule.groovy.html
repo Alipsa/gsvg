@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ElementNestingRule.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.validation.rules</a> &gt; <span class="el_source">ElementNestingRule.groovy</span></div><h1>ElementNestingRule.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.validation.rules
+
+import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.SvgElement
+import se.alipsa.groovy.svg.validation.ValidationIssue
+import se.alipsa.groovy.svg.validation.ValidationReport
+import se.alipsa.groovy.svg.validation.ValidationRule
+
+/**
+ * Validates that elements are nested according to SVG specification rules.
+ * &lt;p&gt;
+ * SVG has specific rules about which elements can contain which children.
+ * For example:
+ * &lt;ul&gt;
+ *   &lt;li&gt;defs should only contain definition elements (gradients, patterns, etc.)&lt;/li&gt;
+ *   &lt;li&gt;text can only contain tspan, textPath, etc.&lt;/li&gt;
+ *   &lt;li&gt;linearGradient/radialGradient can only contain stop elements&lt;/li&gt;
+ * &lt;/ul&gt;
+ * &lt;p&gt;
+ * This rule implements a subset of the most common nesting constraints.
+ */
+@CompileStatic
+class ElementNestingRule implements ValidationRule {
+    private static final String RULE_ID = &quot;ELEMENT_NESTING&quot;
+
+    // Elements that can only have specific children
+    private static final Map&lt;String, List&lt;String&gt;&gt; ALLOWED_CHILDREN = [
+<span class="fc" id="L28">        'linearGradient': ['stop', 'animate', 'animateTransform', 'set'],</span>
+<span class="fc" id="L29">        'radialGradient': ['stop', 'animate', 'animateTransform', 'set'],</span>
+<span class="fc" id="L30">        'text': ['tspan', 'textPath', 'animate', 'set', 'animateTransform'],</span>
+<span class="fc" id="L31">        'textPath': ['tspan', 'animate', 'set'],</span>
+<span class="fc" id="L32">        'clipPath': ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'text', 'use'],</span>
+<span class="fc" id="L33">        'marker': ['rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'path', 'text', 'use', 'g'],</span>
+    ]
+
+    // Elements that cannot have children
+<span class="fc" id="L37">    private static final List&lt;String&gt; NO_CHILDREN_ELEMENTS = [</span>
+        'circle', 'ellipse', 'line', 'rect', 'path', 'polyline', 'polygon',
+        'image', 'stop', 'animate', 'animateMotion', 'animateTransform', 'set'
+    ]
+
+    @Override
+    String getRuleId() {
+<span class="fc" id="L44">        RULE_ID</span>
+    }
+
+    @Override
+    String getDescription() {
+<span class="nc" id="L49">        &quot;Validates that elements are nested according to SVG specification&quot;</span>
+    }
+
+    @Override
+    void validate(SvgElement element, ValidationReport report) {
+<span class="fc bfc" id="L54" title="All 6 branches covered.">        if (!element) {</span>
+<span class="fc" id="L55">            return</span>
+        }
+
+<span class="fc" id="L58">        String elementName = element.name</span>
+
+        // Check if element shouldn't have children
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (NO_CHILDREN_ELEMENTS.contains(elementName)) {</span>
+<span class="pc" id="L62">            List&lt;SvgElement&gt; childElements = element.children.findAll { it instanceof SvgElement } as List&lt;SvgElement&gt;</span>
+<span class="pc bpc" id="L63" title="2 of 4 branches missed.">            if (!childElements.isEmpty()) {</span>
+<span class="nc" id="L64">                report.addIssue(ValidationIssue.warning(</span>
+<span class="nc" id="L65">                    &quot;Element '${elementName}' should not have child elements, found ${childElements.size()} children&quot;,</span>
+<span class="nc" id="L66">                    getElementPath(element),</span>
+                    element,
+                    RULE_ID
+                ))
+            }
+        }
+
+        // Check if element has restricted child types
+<span class="fc" id="L74">        List&lt;String&gt; allowedChildren = ALLOWED_CHILDREN[elementName]</span>
+<span class="fc bfc" id="L75" title="All 4 branches covered.">        if (allowedChildren) {</span>
+<span class="fc" id="L76">            element.children.each { child -&gt;</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">                if (child instanceof SvgElement) {</span>
+<span class="fc" id="L78">                    SvgElement childElement = child as SvgElement</span>
+<span class="fc" id="L79">                    String childName = childElement.name</span>
+
+<span class="pc bpc" id="L81" title="2 of 4 branches missed.">                    if (!allowedChildren.contains(childName)) {</span>
+<span class="nc" id="L82">                        report.addIssue(ValidationIssue.warning(</span>
+                            &quot;Element '${childName}' is not allowed as a child of '${elementName}'&quot;,
+<span class="nc" id="L84">                            getElementPath(childElement),</span>
+                            childElement,
+                            RULE_ID
+                        ))
+                    }
+                }
+<span class="fc" id="L90">            }</span>
+        }
+<span class="fc" id="L92">    }</span>
+
+    private String getElementPath(SvgElement element) {
+<span class="nc" id="L95">        String id = element.id</span>
+<span class="nc" id="L96">        String name = element.name</span>
+<span class="nc bnc" id="L97" title="All 4 branches missed.">        id ? &quot;${name}#${id}&quot; : name</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

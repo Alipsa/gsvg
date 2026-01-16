@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Svg.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Svg.groovy</span></div><h1>Svg.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+import org.dom4j.Document
+import org.dom4j.DocumentHelper
+import se.alipsa.groovy.svg.utils.ViewBox
+
+/**
+ * Root SVG document element and entry point for building or parsing SVG content.
+ */
+@CompileStatic
+class Svg extends AbstractElementContainer&lt;Svg&gt; implements GradientContainer, Animatable&lt;Svg&gt; {
+  static final String NAME='svg'
+  static final String xmlns=&quot;http://www.w3.org/2000/svg&quot;
+
+  /**
+   * Optional document-level numeric precision override.
+   * When set, all numeric attributes in this document use this precision.
+   * When null, the global default precision is used.
+   */
+  private Integer documentPrecision = null
+
+  /**
+   * Creates a Svg.
+   */
+  Svg() {
+<span class="fc" id="L31">    super(DocumentHelper.createDocument().addElement(NAME, &quot;${xmlns}&quot;))</span>
+<span class="fc" id="L32">  }</span>
+
+  /**
+   * Creates a Svg.
+   *
+   * @param parent the parent SVG element
+   */
+  Svg(AbstractElementContainer parent) {
+<span class="fc" id="L40">    super(parent, NAME)</span>
+<span class="fc" id="L41">  }</span>
+
+  /**
+   * Creates a Svg.
+   *
+   * @param w the width
+   * @param h the height
+   */
+  Svg(Number w, Number h) {
+<span class="fc" id="L50">    this()</span>
+<span class="fc" id="L51">    width(w)</span>
+<span class="fc" id="L52">    height(h)</span>
+<span class="fc" id="L53">  }</span>
+
+  /**
+   * Creates a Svg.
+   *
+   * @param w the width
+   * @param h the height
+   */
+  Svg(String w, String h) {
+<span class="fc" id="L62">    this()</span>
+<span class="fc" id="L63">    width(w)</span>
+<span class="fc" id="L64">    height(h)</span>
+<span class="fc" id="L65">  }</span>
+
+  @PackageScope
+  Svg(SvgElement parent, Element element) {
+<span class="nc" id="L69">    super(parent, element)</span>
+<span class="nc" id="L70">  }</span>
+
+  /**
+   * Sets the numeric precision for this SVG document.
+   * &lt;p&gt;
+   * Controls how many decimal places are used when formatting numeric
+   * attributes (coordinates, dimensions, etc.). This affects all elements
+   * in this document.
+   * &lt;p&gt;
+   * Setting precision to lower values reduces file size. The default (3 decimals)
+   * matches industry standards and provides good balance between file size and
+   * visual quality.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * def svg = new Svg(200, 200).setMaxPrecision(2)
+   * svg.addCircle().cx(12.123456)  // Outputs cx=&quot;12.12&quot; instead of cx=&quot;12.123&quot;
+   * &lt;/pre&gt;
+   *
+   * @param decimals maximum decimal places (0-10)
+   * @return this for chaining
+   * @throws IllegalArgumentException if decimals is outside valid range
+   */
+  Svg setMaxPrecision(int decimals) {
+<span class="nc bnc" id="L94" title="All 10 branches missed.">    if (decimals &lt; 0 || decimals &gt; 10) {</span>
+<span class="nc" id="L95">      throw new IllegalArgumentException(&quot;Precision must be between 0 and 10, got: ${decimals}&quot;)</span>
+    }
+<span class="nc" id="L97">    this.documentPrecision = decimals</span>
+<span class="nc" id="L98">    this</span>
+  }
+
+  /**
+   * Gets the current numeric precision setting for this document.
+   *
+   * @return the precision setting, or null if using global default
+   */
+  Integer getMaxPrecision() {
+<span class="nc" id="L107">    documentPrecision</span>
+  }
+
+  /**
+   * Gets the effective precision for this document.
+   * &lt;p&gt;
+   * Package-private method used by SvgElement to determine precision.
+   *
+   * @return the document precision, or null to use global default
+   */
+  @PackageScope
+  Integer getEffectivePrecision() {
+<span class="fc" id="L119">    documentPrecision</span>
+  }
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  Svg width(String width) {
+<span class="fc" id="L129">    addAttribute('width', width)</span>
+  }
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  Svg width(Number width) {
+<span class="fc" id="L139">    addAttribute('width', width)</span>
+  }
+
+  /**
+   * Returns the width value.
+   *
+   * @return the width value
+   */
+  String getWidth() {
+<span class="fc" id="L148">    getAttribute('width')</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  Svg height(Number height) {
+<span class="fc" id="L158">    addAttribute('height', height)</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  Svg height(String height) {
+<span class="fc" id="L168">    addAttribute('height', height)</span>
+  }
+
+  /**
+   * Returns the height value.
+   *
+   * @return the height value
+   */
+  String getHeight() {
+<span class="fc" id="L177">    getAttribute('height')</span>
+  }
+
+  /**
+   * Returns the document value.
+   *
+   * @return the document value
+   */
+  Document getDocument() {
+<span class="fc" id="L186">    element.getDocument()</span>
+  }
+
+  /**
+   * Creates and adds a new Defs child element.
+   *
+   * @return the created element
+   */
+  Defs addDefs() {
+<span class="fc" id="L195">    add(new Defs(this))</span>
+  }
+
+  /**
+   * Creates and adds a new Defs child element.
+   *
+   * @param id the unique identifier
+   * @return the created element
+   */
+  Defs addDefs(String id) {
+<span class="fc" id="L205">    addDefs().id(id)</span>
+  }
+
+  Defs addDefs(Map attributes) {
+<span class="nc" id="L209">    Defs defs = addDefs()</span>
+<span class="nc" id="L210">    attributes.each {</span>
+<span class="nc" id="L211">      key, value -&gt; defs.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L213">    defs</span>
+  }
+
+  /**
+   * Sets the view box attribute.
+   *
+   * @param params the parameters
+   * @return this element for chaining
+   */
+  Svg viewBox(String params) {
+<span class="fc" id="L223">    addAttribute('viewBox', params)</span>
+  }
+
+  /**
+   * Returns the view box value.
+   *
+   * @return the view box value
+   */
+  String getViewBox() {
+<span class="fc" id="L232">    getAttribute('viewBox')</span>
+  }
+
+  /**
+   * Sets the view box from a ViewBox object.
+   * &lt;p&gt;Example:&lt;/p&gt;
+   * &lt;pre&gt;
+   * svg.viewBox(ViewBox.of(0, 0, 100, 100))
+   * svg.viewBox(ViewBox.parse(&quot;0 0 100 100&quot;).scale(2))
+   * &lt;/pre&gt;
+   *
+   * @param viewBox the ViewBox object
+   * @return this element for chaining
+   */
+  Svg viewBox(ViewBox viewBox) {
+<span class="fc" id="L247">    addAttribute('viewBox', viewBox.toString())</span>
+  }
+
+  /**
+   * Sets the view box with four numeric parameters (convenience method).
+   * &lt;p&gt;Example:&lt;/p&gt;
+   * &lt;pre&gt;
+   * svg.viewBox(0, 0, 100, 100)
+   * &lt;/pre&gt;
+   *
+   * @param minX the minimum x coordinate
+   * @param minY the minimum y coordinate
+   * @param width the viewport width
+   * @param height the viewport height
+   * @return this element for chaining
+   */
+  Svg viewBox(Number minX, Number minY, Number width, Number height) {
+<span class="fc" id="L264">    viewBox(ViewBox.of(minX, minY, width, height))</span>
+  }
+
+  /**
+   * Parses and returns the current viewBox as a ViewBox object.
+   * @return the parsed ViewBox, or null if not set
+   */
+  ViewBox getViewBoxObject() {
+<span class="fc" id="L272">    String vb = getViewBox()</span>
+<span class="fc bfc" id="L273" title="All 4 branches covered.">    vb ? ViewBox.parse(vb) : null</span>
+  }
+
+  /**
+   * Adds the xlink namespace declaration.
+   *
+   * @return this element for chaining
+   */
+  Svg xlink() {
+<span class="fc" id="L282">    element.addNamespace(xlinkNs.prefix, xlinkNs.getURI())</span>
+<span class="fc" id="L283">    this</span>
+  }
+
+  // This is the top element so we return itself as the parent
+  /**
+   * Returns the parent value.
+   *
+   * @return the parent value
+   */
+  @Override
+  SvgElement getParent() {
+<span class="fc" id="L294">    this</span>
+  }
+
+  /**
+   * Sets the version attribute.
+   *
+   * @param version the version
+   * @return this element for chaining
+   */
+  Svg version(String version) {
+<span class="fc" id="L304">    addAttribute('version', version)</span>
+  }
+
+  /**
+   * Returns the version value.
+   *
+   * @return the version value
+   */
+  String getVersion() {
+<span class="nc" id="L313">    getAttribute('version')</span>
+  }
+
+  /**
+   * Creates and adds a new ForeignObject child element.
+   *
+   * @return the created element
+   */
+  ForeignObject addForeignObject() {
+<span class="fc" id="L322">    add(new ForeignObject(this))</span>
+  }
+
+  ForeignObject addForeignObject(Map attributes) {
+<span class="nc" id="L326">    ForeignObject foreignObject = addForeignObject()</span>
+<span class="nc" id="L327">    attributes.each {</span>
+<span class="nc" id="L328">      key, value -&gt; foreignObject.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L330">    foreignObject</span>
+  }
+
+  /**
+   * Creates and adds a new Style child element.
+   *
+   * @return the created element
+   */
+  Style addStyle() {
+<span class="fc" id="L339">    add(new Style(this))</span>
+  }
+
+  /**
+   * Creates and adds a new Metadata child element.
+   *
+   * @return the created element
+   */
+  Metadata addMetadata() {
+<span class="fc" id="L348">    add(new Metadata(this))</span>
+  }
+
+  Metadata addMetadata(Map attributes) {
+<span class="nc" id="L352">    Metadata metadata = addMetadata()</span>
+<span class="nc" id="L353">    attributes.each { key, value -&gt;</span>
+<span class="nc" id="L354">      metadata.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L356">    metadata</span>
+  }
+
+  /**
+   * Creates and adds a new Script child element.
+   *
+   * @return the created element
+   */
+  Script addScript() {
+<span class="fc" id="L365">    add(new Script(this))</span>
+  }
+
+  Script addScript(Map attributes) {
+<span class="nc" id="L369">    Script script = addScript()</span>
+<span class="nc" id="L370">    attributes.each { key, value -&gt;</span>
+<span class="nc" id="L371">      script.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L373">    script</span>
+  }
+
+  /**
+   * Creates and adds a new Switch child element.
+   *
+   * @return the created element
+   */
+  Switch addSwitch() {
+<span class="fc" id="L382">    add(new Switch(this))</span>
+  }
+
+  Switch addSwitch(Map attributes) {
+<span class="nc" id="L386">    Switch sw = addSwitch()</span>
+<span class="nc" id="L387">    attributes.each { key, value -&gt;</span>
+<span class="nc" id="L388">      sw.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L390">    sw</span>
+  }
+
+  /**
+   * Creates and adds a new Symbol child element.
+   *
+   * @return the created element
+   */
+  Symbol addSymbol() {
+<span class="fc" id="L399">    add(new Symbol(this))</span>
+  }
+
+  Symbol addSymbol(Map attributes) {
+<span class="nc" id="L403">    Symbol symbol = addSymbol()</span>
+<span class="nc" id="L404">    attributes.each { key, value -&gt;</span>
+<span class="nc" id="L405">      symbol.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L407">    symbol</span>
+  }
+
+  /**
+   * Creates and adds a new Symbol child element.
+   *
+   * @param id the unique identifier
+   * @return the created element
+   */
+  Symbol addSymbol(String id) {
+<span class="fc" id="L417">    addSymbol().id(id)</span>
+  }
+
+  /**
+   * Creates and adds a new View child element.
+   *
+   * @return the created element
+   */
+  View addView() {
+<span class="fc" id="L426">    add(new View(this))</span>
+  }
+
+  /**
+   * Creates and adds a new View child element.
+   *
+   * @param id the unique identifier
+   * @return the created element
+   */
+  View addView(String id) {
+<span class="fc" id="L436">    addView().id(id)</span>
+  }
+
+  View addView(Map attributes) {
+<span class="nc" id="L440">    View view = addView()</span>
+<span class="nc" id="L441">    attributes.each { key, value -&gt;</span>
+<span class="nc" id="L442">      view.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L444">    view</span>
+  }
+
+  /**
+   * Validates this SVG document using default validation rules.
+   * &lt;p&gt;
+   * Applies all default validation rules to the entire document tree and returns
+   * a report with any issues found. Validation is opt-in and permissive - the SVG
+   * is still valid even if validation reports issues.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * Svg svg = new Svg(100, 100)
+   * ValidationReport report = svg.validate()
+   * if (report.hasErrors()) {
+   *     println &quot;Validation failed: ${report.errorCount} errors&quot;
+   *     report.errors.each { println it }
+   * }
+   * &lt;/pre&gt;
+   *
+   * @return validation report with all issues found
+   * @see se.alipsa.groovy.svg.validation.ValidationEngine
+   */
+  se.alipsa.groovy.svg.validation.ValidationReport validate() {
+<span class="fc" id="L468">    validate(se.alipsa.groovy.svg.validation.ValidationEngine.createDefault())</span>
+  }
+
+  /**
+   * Validates this SVG document using a custom validation engine.
+   * &lt;p&gt;
+   * Allows customizing which validation rules are applied by providing
+   * your own configured {@link se.alipsa.groovy.svg.validation.ValidationEngine}.
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * ValidationEngine engine = ValidationEngine.createDefault()
+   * engine.removeRule(&quot;VIEWBOX_RULE&quot;)  // Disable viewBox validation
+   * ValidationReport report = svg.validate(engine)
+   * &lt;/pre&gt;
+   *
+   * @param engine the validation engine to use
+   * @return validation report with all issues found
+   */
+  se.alipsa.groovy.svg.validation.ValidationReport validate(se.alipsa.groovy.svg.validation.ValidationEngine engine) {
+<span class="fc" id="L488">    engine.validate(this)</span>
+  }
+
+  /**
+   * Checks if this SVG document passes validation (no errors).
+   * &lt;p&gt;
+   * This is a convenience method equivalent to {@code validate().isValid()}.
+   * Note that warnings and info messages don't prevent validation from passing.
+   *
+   * @return true if validation passes (no errors)
+   */
+  boolean isValid() {
+<span class="fc" id="L500">    validate().isValid()</span>
+  }
+
+  // ========== Shape Factory Methods ==========
+
+  /**
+   * Creates a rounded rectangle with uniform corner radius.
+   * &lt;p&gt;
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#roundedRect}.
+   * &lt;p&gt;
+   * Options:
+   * &lt;ul&gt;
+   *   &lt;li&gt;x - X coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;y - Y coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;width - Rectangle width (required)&lt;/li&gt;
+   *   &lt;li&gt;height - Rectangle height (required)&lt;/li&gt;
+   *   &lt;li&gt;radius - Corner radius (default: 5)&lt;/li&gt;
+   * &lt;/ul&gt;
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * Rect rounded = svg.createRoundedRect(x: 10, y: 10, width: 100, height: 60, radius: 10)
+   * &lt;/pre&gt;
+   *
+   * @param options configuration map
+   * @return configured Rect element
+   */
+  Rect createRoundedRect(Map options) {
+<span class="fc" id="L528">    se.alipsa.groovy.svg.presets.Shapes.roundedRect(this, options)</span>
+  }
+
+  /**
+   * Creates a star polygon with specified number of points.
+   * &lt;p&gt;
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#star}.
+   * &lt;p&gt;
+   * Options:
+   * &lt;ul&gt;
+   *   &lt;li&gt;cx - Center X coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;cy - Center Y coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;points - Number of star points (default: 5)&lt;/li&gt;
+   *   &lt;li&gt;outerRadius - Radius to outer points (default: 50)&lt;/li&gt;
+   *   &lt;li&gt;innerRadius - Radius to inner points (default: outerRadius / 2.5)&lt;/li&gt;
+   * &lt;/ul&gt;
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * Polygon star = svg.createStar(cx: 100, cy: 100, points: 5, outerRadius: 50, innerRadius: 25)
+   * &lt;/pre&gt;
+   *
+   * @param options configuration map
+   * @return configured Polygon element
+   */
+  Polygon createStar(Map options) {
+<span class="fc" id="L554">    se.alipsa.groovy.svg.presets.Shapes.star(this, options)</span>
+  }
+
+  /**
+   * Creates an arrow path from point (x1,y1) to (x2,y2).
+   * &lt;p&gt;
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#arrow}.
+   * &lt;p&gt;
+   * Options:
+   * &lt;ul&gt;
+   *   &lt;li&gt;x1 - Start X coordinate (required)&lt;/li&gt;
+   *   &lt;li&gt;y1 - Start Y coordinate (required)&lt;/li&gt;
+   *   &lt;li&gt;x2 - End X coordinate (required)&lt;/li&gt;
+   *   &lt;li&gt;y2 - End Y coordinate (required)&lt;/li&gt;
+   *   &lt;li&gt;headSize - Arrow head size in pixels (default: 10)&lt;/li&gt;
+   *   &lt;li&gt;headAngle - Arrow head angle in degrees (default: 30)&lt;/li&gt;
+   * &lt;/ul&gt;
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * Path arrow = svg.createArrow(x1: 10, y1: 50, x2: 100, y2: 50, headSize: 15)
+   * &lt;/pre&gt;
+   *
+   * @param options configuration map
+   * @return configured Path element
+   */
+  Path createArrow(Map options) {
+<span class="fc" id="L581">    se.alipsa.groovy.svg.presets.Shapes.arrow(this, options)</span>
+  }
+
+  /**
+   * Creates a regular polygon (triangle, hexagon, etc).
+   * &lt;p&gt;
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#regularPolygon}.
+   * &lt;p&gt;
+   * Options:
+   * &lt;ul&gt;
+   *   &lt;li&gt;cx - Center X coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;cy - Center Y coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;sides - Number of sides (default: 6)&lt;/li&gt;
+   *   &lt;li&gt;radius - Distance from center to vertices (default: 50)&lt;/li&gt;
+   *   &lt;li&gt;rotation - Rotation angle in degrees (default: 0)&lt;/li&gt;
+   * &lt;/ul&gt;
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * Polygon hexagon = svg.createRegularPolygon(cx: 100, cy: 100, sides: 6, radius: 50)
+   * Polygon triangle = svg.createRegularPolygon(cx: 50, cy: 50, sides: 3, radius: 30)
+   * &lt;/pre&gt;
+   *
+   * @param options configuration map
+   * @return configured Polygon element
+   */
+  Polygon createRegularPolygon(Map options) {
+<span class="fc" id="L608">    se.alipsa.groovy.svg.presets.Shapes.regularPolygon(this, options)</span>
+  }
+
+  /**
+   * Creates a speech bubble with a tail pointing to a specific location.
+   * &lt;p&gt;
+   * Convenience method that delegates to {@link se.alipsa.groovy.svg.presets.Shapes#speechBubble}.
+   * &lt;p&gt;
+   * Options:
+   * &lt;ul&gt;
+   *   &lt;li&gt;x - Bubble X coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;y - Bubble Y coordinate (default: 0)&lt;/li&gt;
+   *   &lt;li&gt;width - Bubble width (default: 100)&lt;/li&gt;
+   *   &lt;li&gt;height - Bubble height (default: 60)&lt;/li&gt;
+   *   &lt;li&gt;radius - Corner radius (default: 10)&lt;/li&gt;
+   *   &lt;li&gt;tailX - Tail point X coordinate (required)&lt;/li&gt;
+   *   &lt;li&gt;tailY - Tail point Y coordinate (required)&lt;/li&gt;
+   *   &lt;li&gt;tailWidth - Width of tail base (default: 20)&lt;/li&gt;
+   * &lt;/ul&gt;
+   * &lt;p&gt;
+   * Example:
+   * &lt;pre&gt;
+   * Path bubble = svg.createSpeechBubble(x: 10, y: 10, width: 100, height: 60, tailX: 50, tailY: 80)
+   * &lt;/pre&gt;
+   *
+   * @param options configuration map
+   * @return configured Path element
+   */
+  Path createSpeechBubble(Map options) {
+<span class="fc" id="L637">    se.alipsa.groovy.svg.presets.Shapes.speechBubble(this, options)</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

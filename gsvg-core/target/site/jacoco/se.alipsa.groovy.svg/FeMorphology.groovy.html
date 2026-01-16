@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeMorphology.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FeMorphology.groovy</span></div><h1>FeMorphology.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;feMorphology&gt;} filter primitive that erodes or dilates the input image.
+ */
+@CompileStatic
+class FeMorphology extends FilterElement&lt;FeMorphology&gt; {
+
+  static final String NAME='feMorphology'
+
+  /**
+   * Enum for operator.
+   */
+  enum Operator {
+    erode, dilate
+  }
+
+  /**
+   * Creates a FeMorphology.
+   *
+   * @param parent the parent SVG element
+   */
+  FeMorphology(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L30">    super(parent, NAME)</span>
+<span class="fc" id="L31">  }</span>
+
+  @PackageScope
+  FeMorphology(SvgElement parent, Element element) {
+<span class="nc" id="L35">    super(parent, element)</span>
+<span class="nc" id="L36">  }</span>
+
+
+  /**
+   * Sets the operator attribute.
+   *
+   * @param mode the mode
+   * @return this element for chaining
+   */
+  FeMorphology operator(String mode) {
+<span class="fc" id="L46">    addAttribute('operator', mode)</span>
+  }
+
+  /**
+   * Sets the operator attribute.
+   *
+   * @param mode the mode
+   * @return this element for chaining
+   */
+  FeMorphology operator(Operator mode) {
+<span class="fc" id="L56">    addAttribute('operator', mode.name())</span>
+  }
+
+  /**
+   * Returns the operator value.
+   *
+   * @return the operator value
+   */
+  String getOperator() {
+<span class="fc" id="L65">    getAttribute('operator')</span>
+  }
+
+  /**
+   * Sets the in attribute.
+   *
+   * @param inStr the input source string identifier
+   * @return this element for chaining
+   */
+  FeMorphology 'in'(String inStr) {
+<span class="nc" id="L75">    addAttribute('in', inStr)</span>
+  }
+
+  /**
+   * Sets the in attribute.
+   *
+   * @param inEnum the input source enumeration
+   * @return this element for chaining
+   */
+  FeMorphology 'in'(In inEnum) {
+<span class="nc" id="L85">    addAttribute('in', inEnum.name())</span>
+  }
+
+  /**
+   * Returns the in value.
+   *
+   * @return the in value
+   */
+  String getIn() {
+<span class="nc" id="L94">    getAttribute('in')</span>
+  }
+
+  /**
+   * Sets the radius attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeMorphology radius(Number value) {
+<span class="fc" id="L104">    addAttribute('radius', value)</span>
+  }
+
+  /**
+   * Sets the radius attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeMorphology radius(String value) {
+<span class="fc" id="L114">    addAttribute('radius', value)</span>
+  }
+
+  /**
+   * Returns the radius value.
+   *
+   * @return the radius value
+   */
+  String getRadius() {
+<span class="fc" id="L123">    getAttribute('radius')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

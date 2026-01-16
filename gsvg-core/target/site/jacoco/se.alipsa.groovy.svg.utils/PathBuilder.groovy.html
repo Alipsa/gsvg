@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PathBuilder.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.utils</a> &gt; <span class="el_source">PathBuilder.groovy</span></div><h1>PathBuilder.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.utils
+
+import groovy.transform.CompileStatic
+
+/**
+ * Fluent API for building SVG path data strings.
+ * &lt;p&gt;
+ * This class provides a convenient way to construct SVG path data using method chaining
+ * instead of manually building path data strings. It supports all SVG path commands
+ * in both absolute and relative forms.
+ * &lt;/p&gt;
+ *
+ * &lt;p&gt;Example usage:&lt;/p&gt;
+ * &lt;pre&gt;
+ * // Build a triangle
+ * def path = PathBuilder.moveTo(10, 10)
+ *     .lineTo(20, 20)
+ *     .lineTo(30, 10)
+ *     .closePath()
+ *     .toString()
+ *
+ * // Or parse and extend existing path
+ * def extended = PathBuilder.parse(&quot;M 10 10 L 20 20&quot;)
+ *     .lineTo(30, 30)
+ *     .closePath()
+ *     .toString()
+ * &lt;/pre&gt;
+ *
+ * &lt;p&gt;Supports both absolute and relative commands:&lt;/p&gt;
+ * &lt;ul&gt;
+ *   &lt;li&gt;M/m - MoveTo&lt;/li&gt;
+ *   &lt;li&gt;L/l - LineTo&lt;/li&gt;
+ *   &lt;li&gt;H/h - Horizontal line&lt;/li&gt;
+ *   &lt;li&gt;V/v - Vertical line&lt;/li&gt;
+ *   &lt;li&gt;C/c - Cubic bezier curve&lt;/li&gt;
+ *   &lt;li&gt;S/s - Smooth cubic bezier&lt;/li&gt;
+ *   &lt;li&gt;Q/q - Quadratic bezier&lt;/li&gt;
+ *   &lt;li&gt;T/t - Smooth quadratic bezier&lt;/li&gt;
+ *   &lt;li&gt;A/a - Elliptical arc&lt;/li&gt;
+ *   &lt;li&gt;Z/z - ClosePath&lt;/li&gt;
+ * &lt;/ul&gt;
+ */
+@CompileStatic
+class PathBuilder {
+
+<span class="fc" id="L46">  private final List&lt;String&gt; commands = []</span>
+
+  /**
+   * Private constructor - use static factory methods to create instances
+   */
+<span class="fc" id="L51">  private PathBuilder() {}</span>
+
+  /**
+   * Format a number for use in path data.
+   * Delegates to NumberFormatter for consistent precision.
+   *
+   * @param n the number to format
+   * @return formatted string
+   */
+  private static String n(Number n) {
+<span class="fc" id="L61">    NumberFormatter.format(n)</span>
+  }
+
+  /**
+   * Private constructor for parsing - use static parse() method
+   */
+<span class="fc" id="L67">  private PathBuilder(String pathData) {</span>
+<span class="pc bpc" id="L68" title="2 of 10 branches missed.">    if (pathData != null &amp;&amp; !pathData.trim().isEmpty()) {</span>
+<span class="fc" id="L69">      commands.add(pathData.trim())</span>
+    }
+<span class="fc" id="L71">  }</span>
+
+  // ==================== STATIC FACTORY METHODS ====================
+
+  /**
+   * Start a new path with an absolute moveTo command
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @return a new PathBuilder
+   */
+  static PathBuilder moveTo(Number x, Number y) {
+<span class="fc" id="L82">    new PathBuilder().addCommand(&quot;M ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Start a new path with a relative moveTo command
+   * @param dx the relative x offset
+   * @param dy the relative y offset
+   * @return a new PathBuilder
+   */
+  static PathBuilder moveToRel(Number dx, Number dy) {
+<span class="fc" id="L92">    new PathBuilder().addCommand(&quot;m ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Parse an existing SVG path data string and return a builder that can extend it.
+   * &lt;p&gt;
+   * &lt;strong&gt;Note:&lt;/strong&gt; The current implementation stores the path data as-is without
+   * parsing it into individual commands. The parsed string will be treated as a single
+   * command entry. When extending with new commands, they will be appended with proper spacing.
+   * This is sufficient for extending existing paths but means getCommands() will return the
+   * original string as one element.
+   * &lt;/p&gt;
+   * @param pathData the existing path data string (e.g., &quot;M 10 10 L 20 20&quot;)
+   * @return a PathBuilder containing the parsed path
+   */
+  static PathBuilder parse(String pathData) {
+<span class="fc" id="L108">    new PathBuilder(pathData)</span>
+  }
+
+  /**
+   * Create an empty path builder (useful for programmatic construction)
+   * @return an empty PathBuilder
+   */
+  static PathBuilder create() {
+<span class="fc" id="L116">    new PathBuilder()</span>
+  }
+
+  // ==================== FLUENT API METHODS ====================
+
+  /**
+   * Add a raw command to the path
+   * @param command the command string
+   * @return this builder for chaining
+   */
+  PathBuilder addCommand(String command) {
+<span class="fc" id="L127">    commands.add(command)</span>
+<span class="fc" id="L128">    this</span>
+  }
+
+  /**
+   * Add an absolute moveTo command
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @return this builder for chaining
+   */
+  PathBuilder M(Number x, Number y) {
+<span class="fc" id="L138">    addCommand(&quot;M ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative moveTo command
+   * @param dx the relative x offset
+   * @param dy the relative y offset
+   * @return this builder for chaining
+   */
+  PathBuilder m(Number dx, Number dy) {
+<span class="nc" id="L148">    addCommand(&quot;m ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute lineTo command
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @return this builder for chaining
+   */
+  PathBuilder lineTo(Number x, Number y) {
+<span class="fc" id="L158">    addCommand(&quot;L ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative lineTo command
+   * @param dx the relative x offset
+   * @param dy the relative y offset
+   * @return this builder for chaining
+   */
+  PathBuilder lineToRel(Number dx, Number dy) {
+<span class="fc" id="L168">    addCommand(&quot;l ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute lineTo command (alias for lineTo)
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @return this builder for chaining
+   */
+  PathBuilder L(Number x, Number y) {
+<span class="fc" id="L178">    lineTo(x, y)</span>
+  }
+
+  /**
+   * Add a relative lineTo command (alias for lineToRel)
+   * @param dx the relative x offset
+   * @param dy the relative y offset
+   * @return this builder for chaining
+   */
+  PathBuilder l(Number dx, Number dy) {
+<span class="nc" id="L188">    lineToRel(dx, dy)</span>
+  }
+
+  /**
+   * Add an absolute horizontal line command
+   * @param x the x coordinate
+   * @return this builder for chaining
+   */
+  PathBuilder horizontalTo(Number x) {
+<span class="fc" id="L197">    addCommand(&quot;H ${n(x)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative horizontal line command
+   * @param dx the relative x offset
+   * @return this builder for chaining
+   */
+  PathBuilder horizontalToRel(Number dx) {
+<span class="fc" id="L206">    addCommand(&quot;h ${n(dx)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute horizontal line command (alias for horizontalTo)
+   * @param x the x coordinate
+   * @return this builder for chaining
+   */
+  PathBuilder H(Number x) {
+<span class="fc" id="L215">    horizontalTo(x)</span>
+  }
+
+  /**
+   * Add a relative horizontal line command (alias for horizontalToRel)
+   * @param dx the relative x offset
+   * @return this builder for chaining
+   */
+  PathBuilder h(Number dx) {
+<span class="nc" id="L224">    horizontalToRel(dx)</span>
+  }
+
+  /**
+   * Add an absolute vertical line command
+   * @param y the y coordinate
+   * @return this builder for chaining
+   */
+  PathBuilder verticalTo(Number y) {
+<span class="fc" id="L233">    addCommand(&quot;V ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative vertical line command
+   * @param dy the relative y offset
+   * @return this builder for chaining
+   */
+  PathBuilder verticalToRel(Number dy) {
+<span class="fc" id="L242">    addCommand(&quot;v ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute vertical line command (alias for verticalTo)
+   * @param y the y coordinate
+   * @return this builder for chaining
+   */
+  PathBuilder V(Number y) {
+<span class="fc" id="L251">    verticalTo(y)</span>
+  }
+
+  /**
+   * Add a relative vertical line command (alias for verticalToRel)
+   * @param dy the relative y offset
+   * @return this builder for chaining
+   */
+  PathBuilder v(Number dy) {
+<span class="nc" id="L260">    verticalToRel(dy)</span>
+  }
+
+  /**
+   * Add an absolute cubic bezier curve command
+   * @param x1 first control point x
+   * @param y1 first control point y
+   * @param x2 second control point x
+   * @param y2 second control point y
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder curveTo(Number x1, Number y1, Number x2, Number y2, Number x, Number y) {
+<span class="fc" id="L274">    addCommand(&quot;C ${n(x1)} ${n(y1)}, ${n(x2)} ${n(y2)}, ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative cubic bezier curve command
+   * @param dx1 first control point x offset
+   * @param dy1 first control point y offset
+   * @param dx2 second control point x offset
+   * @param dy2 second control point y offset
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder curveToRel(Number dx1, Number dy1, Number dx2, Number dy2, Number dx, Number dy) {
+<span class="fc" id="L288">    addCommand(&quot;c ${n(dx1)} ${n(dy1)}, ${n(dx2)} ${n(dy2)}, ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute cubic bezier curve command (alias for curveTo)
+   * @param x1 first control point x
+   * @param y1 first control point y
+   * @param x2 second control point x
+   * @param y2 second control point y
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder C(Number x1, Number y1, Number x2, Number y2, Number x, Number y) {
+<span class="fc" id="L302">    curveTo(x1, y1, x2, y2, x, y)</span>
+  }
+
+  /**
+   * Add a relative cubic bezier curve command (alias for curveToRel)
+   * @param dx1 first control point x offset
+   * @param dy1 first control point y offset
+   * @param dx2 second control point x offset
+   * @param dy2 second control point y offset
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder c(Number dx1, Number dy1, Number dx2, Number dy2, Number dx, Number dy) {
+<span class="nc" id="L316">    curveToRel(dx1, dy1, dx2, dy2, dx, dy)</span>
+  }
+
+  /**
+   * Add an absolute smooth cubic bezier curve command
+   * @param x2 second control point x
+   * @param y2 second control point y
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder smoothCurveTo(Number x2, Number y2, Number x, Number y) {
+<span class="fc" id="L328">    addCommand(&quot;S ${n(x2)} ${n(y2)}, ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative smooth cubic bezier curve command
+   * @param dx2 second control point x offset
+   * @param dy2 second control point y offset
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder smoothCurveToRel(Number dx2, Number dy2, Number dx, Number dy) {
+<span class="fc" id="L340">    addCommand(&quot;s ${n(dx2)} ${n(dy2)}, ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute smooth cubic bezier curve command (alias for smoothCurveTo)
+   * @param x2 second control point x
+   * @param y2 second control point y
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder S(Number x2, Number y2, Number x, Number y) {
+<span class="fc" id="L352">    smoothCurveTo(x2, y2, x, y)</span>
+  }
+
+  /**
+   * Add a relative smooth cubic bezier curve command (alias for smoothCurveToRel)
+   * @param dx2 second control point x offset
+   * @param dy2 second control point y offset
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder s(Number dx2, Number dy2, Number dx, Number dy) {
+<span class="nc" id="L364">    smoothCurveToRel(dx2, dy2, dx, dy)</span>
+  }
+
+  /**
+   * Add an absolute quadratic bezier curve command
+   * @param x1 control point x
+   * @param y1 control point y
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder quadTo(Number x1, Number y1, Number x, Number y) {
+<span class="fc" id="L376">    addCommand(&quot;Q ${n(x1)} ${n(y1)}, ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative quadratic bezier curve command
+   * @param dx1 control point x offset
+   * @param dy1 control point y offset
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder quadToRel(Number dx1, Number dy1, Number dx, Number dy) {
+<span class="fc" id="L388">    addCommand(&quot;q ${n(dx1)} ${n(dy1)}, ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute quadratic bezier curve command (alias for quadTo)
+   * @param x1 control point x
+   * @param y1 control point y
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder Q(Number x1, Number y1, Number x, Number y) {
+<span class="fc" id="L400">    quadTo(x1, y1, x, y)</span>
+  }
+
+  /**
+   * Add a relative quadratic bezier curve command (alias for quadToRel)
+   * @param dx1 control point x offset
+   * @param dy1 control point y offset
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder q(Number dx1, Number dy1, Number dx, Number dy) {
+<span class="nc" id="L412">    quadToRel(dx1, dy1, dx, dy)</span>
+  }
+
+  /**
+   * Add an absolute smooth quadratic bezier curve command
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder smoothQuadTo(Number x, Number y) {
+<span class="fc" id="L422">    addCommand(&quot;T ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative smooth quadratic bezier curve command
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder smoothQuadToRel(Number dx, Number dy) {
+<span class="fc" id="L432">    addCommand(&quot;t ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute smooth quadratic bezier curve command (alias for smoothQuadTo)
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder T(Number x, Number y) {
+<span class="fc" id="L442">    smoothQuadTo(x, y)</span>
+  }
+
+  /**
+   * Add a relative smooth quadratic bezier curve command (alias for smoothQuadToRel)
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder t(Number dx, Number dy) {
+<span class="nc" id="L452">    smoothQuadToRel(dx, dy)</span>
+  }
+
+  /**
+   * Add an absolute elliptical arc command
+   * @param rx x-axis radius
+   * @param ry y-axis radius
+   * @param xAxisRotation rotation of the ellipse in degrees
+   * @param largeArcFlag 0 for small arc, 1 for large arc
+   * @param sweepFlag 0 for counter-clockwise, 1 for clockwise
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder arc(Number rx, Number ry, Number xAxisRotation, int largeArcFlag, int sweepFlag, Number x, Number y) {
+<span class="fc" id="L467">    addCommand(&quot;A ${n(rx)} ${n(ry)} ${n(xAxisRotation)} ${largeArcFlag} ${sweepFlag} ${n(x)} ${n(y)}&quot;)</span>
+  }
+
+  /**
+   * Add a relative elliptical arc command
+   * @param rx x-axis radius
+   * @param ry y-axis radius
+   * @param xAxisRotation rotation of the ellipse in degrees
+   * @param largeArcFlag 0 for small arc, 1 for large arc
+   * @param sweepFlag 0 for counter-clockwise, 1 for clockwise
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder arcRel(Number rx, Number ry, Number xAxisRotation, int largeArcFlag, int sweepFlag, Number dx, Number dy) {
+<span class="fc" id="L482">    addCommand(&quot;a ${n(rx)} ${n(ry)} ${n(xAxisRotation)} ${largeArcFlag} ${sweepFlag} ${n(dx)} ${n(dy)}&quot;)</span>
+  }
+
+  /**
+   * Add an absolute elliptical arc command (alias for arc)
+   * @param rx x-axis radius
+   * @param ry y-axis radius
+   * @param xAxisRotation rotation of the ellipse in degrees
+   * @param largeArcFlag 0 for small arc, 1 for large arc
+   * @param sweepFlag 0 for counter-clockwise, 1 for clockwise
+   * @param x end point x
+   * @param y end point y
+   * @return this builder for chaining
+   */
+  PathBuilder A(Number rx, Number ry, Number xAxisRotation, int largeArcFlag, int sweepFlag, Number x, Number y) {
+<span class="fc" id="L497">    arc(rx, ry, xAxisRotation, largeArcFlag, sweepFlag, x, y)</span>
+  }
+
+  /**
+   * Add a relative elliptical arc command (alias for arcRel)
+   * @param rx x-axis radius
+   * @param ry y-axis radius
+   * @param xAxisRotation rotation of the ellipse in degrees
+   * @param largeArcFlag 0 for small arc, 1 for large arc
+   * @param sweepFlag 0 for counter-clockwise, 1 for clockwise
+   * @param dx end point x offset
+   * @param dy end point y offset
+   * @return this builder for chaining
+   */
+  PathBuilder a(Number rx, Number ry, Number xAxisRotation, int largeArcFlag, int sweepFlag, Number dx, Number dy) {
+<span class="nc" id="L512">    arcRel(rx, ry, xAxisRotation, largeArcFlag, sweepFlag, dx, dy)</span>
+  }
+
+  /**
+   * Add a closePath command (connects the current point to the first point of the path)
+   * @return this builder for chaining
+   */
+  PathBuilder closePath() {
+<span class="fc" id="L520">    addCommand(&quot;Z&quot;)</span>
+  }
+
+  /**
+   * Add a closePath command (alias for closePath)
+   * @return this builder for chaining
+   */
+  PathBuilder Z() {
+<span class="fc" id="L528">    closePath()</span>
+  }
+
+  /**
+   * Add a closePath command (lowercase alias for closePath)
+   * @return this builder for chaining
+   */
+  PathBuilder z() {
+<span class="fc" id="L536">    closePath()</span>
+  }
+
+  // ==================== OUTPUT METHODS ====================
+
+  /**
+   * Convert the path to an SVG path data string
+   * @return the path data string suitable for use in a path element's 'd' attribute
+   */
+  @Override
+  String toString() {
+<span class="fc" id="L547">    commands.join(' ')</span>
+  }
+
+  /**
+   * Get the list of commands that make up this path
+   * @return a copy of the commands list
+   */
+  List&lt;String&gt; getCommands() {
+<span class="fc" id="L555">    new ArrayList&lt;&gt;(commands)</span>
+  }
+
+  /**
+   * Check if this path is empty
+   * @return true if the path has no commands
+   */
+  boolean isEmpty() {
+<span class="fc" id="L563">    commands.isEmpty()</span>
+  }
+
+  // ==================== UTILITY METHODS ====================
+
+  /**
+   * Create a copy of this PathBuilder
+   * @return a new PathBuilder with the same commands
+   */
+  PathBuilder copy() {
+<span class="fc" id="L573">    PathBuilder result = new PathBuilder()</span>
+<span class="fc" id="L574">    result.@commands.addAll(this.@commands)</span>
+<span class="fc" id="L575">    result</span>
+  }
+
+  @Override
+  boolean equals(Object obj) {
+<span class="pc bpc" id="L580" title="2 of 4 branches missed.">    if (this.is(obj)) return true</span>
+<span class="pc bpc" id="L581" title="4 of 8 branches missed.">    if (obj == null || getClass() != obj.getClass()) return false</span>
+<span class="fc" id="L582">    PathBuilder that = (PathBuilder) obj</span>
+<span class="fc" id="L583">    commands == that.commands</span>
+  }
+
+  @Override
+  int hashCode() {
+<span class="fc" id="L588">    commands.hashCode()</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Template.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.templates</a> &gt; <span class="el_source">Template.groovy</span></div><h1>Template.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.templates
+
+import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.AbstractElementContainer
+import se.alipsa.groovy.svg.SvgElement
+
+/**
+ * Abstract base class for creating reusable SVG templates.
+ * &lt;p&gt;
+ * Templates encapsulate complex SVG patterns that can be applied multiple times
+ * with different parameters. Subclasses implement the {@link #apply} method to
+ * create the actual SVG structure.
+ * &lt;p&gt;
+ * &lt;h2&gt;Usage Example:&lt;/h2&gt;
+ * &lt;pre&gt;
+ * class MyTemplate extends Template {
+ *     &amp;#64;Override
+ *     SvgElement apply(AbstractElementContainer parent, Map params) {
+ *         G group = parent.addG()
+ *         group.addRect()
+ *             .x(params.x ?: 0)
+ *             .y(params.y ?: 0)
+ *             .width(params.width ?: 100)
+ *             .height(params.height ?: 100)
+ *             .fill(params.color ?: 'blue')
+ *         return group
+ *     }
+ *
+ *     &amp;#64;Override
+ *     Map getDefaults() {
+ *         return [x: 0, y: 0, width: 100, height: 100, color: 'blue']
+ *     }
+ * }
+ *
+ * // Use the template
+ * Svg svg = new Svg(400, 400)
+ * MyTemplate template = new MyTemplate()
+ * template.apply(svg, [x: 50, y: 50, color: 'red'])
+ * template.apply(svg, [x: 200, y: 200, width: 150])
+ * &lt;/pre&gt;
+ *
+ * @since 0.9.0
+ */
+@CompileStatic
+abstract class Template {
+
+    /**
+     * Applies this template to the given parent element with the specified parameters.
+     * &lt;p&gt;
+     * The parameters map is merged with default values from {@link #getDefaults()}.
+     * Template-specific parameters override defaults.
+     *
+     * @param parent the parent element to add the template content to
+     * @param params optional configuration parameters (merged with defaults)
+     * @return the root element created by this template
+     */
+    abstract SvgElement apply(AbstractElementContainer parent, Map params)
+
+    /**
+     * Returns the default parameter values for this template.
+     * &lt;p&gt;
+     * Subclasses should override this method to provide sensible defaults
+     * for all configurable parameters.
+     *
+     * @return map of default parameter values
+     */
+    Map getDefaults() {
+<span class="nc" id="L68">        return [:]</span>
+    }
+
+    /**
+     * Merges the provided parameters with default values.
+     * &lt;p&gt;
+     * Parameters explicitly provided take precedence over defaults.
+     *
+     * @param params user-provided parameters
+     * @return merged parameter map
+     */
+    protected Map mergeParams(Map params) {
+<span class="fc" id="L80">        Map defaults = getDefaults()</span>
+<span class="fc" id="L81">        Map merged = new HashMap(defaults)</span>
+<span class="fc bfc" id="L82" title="All 4 branches covered.">        if (params != null) {</span>
+<span class="fc" id="L83">            merged.putAll(params)</span>
+        }
+<span class="fc" id="L85">        return merged</span>
+    }
+
+    /**
+     * Applies this template with default parameters.
+     *
+     * @param parent the parent element
+     * @return the root element created by this template
+     */
+    SvgElement apply(AbstractElementContainer parent) {
+<span class="fc" id="L95">        return apply(parent, [:])</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

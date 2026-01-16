@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Mpath.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Mpath.groovy</span></div><h1>Mpath.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;mpath&gt;} element that references a path for motion animation.
+ */
+@CompileStatic
+class Mpath extends SvgElement&lt;Mpath&gt; {
+
+  static final String NAME='mpath'
+
+  /**
+   * Creates a Mpath.
+   *
+   * @param parent the parent SVG element
+   */
+  Mpath(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L23">    super(parent, NAME)</span>
+<span class="fc" id="L24">  }</span>
+
+  @PackageScope
+  Mpath(SvgElement parent, Element element) {
+<span class="nc" id="L28">    super(parent, element)</span>
+<span class="nc" id="L29">  }</span>
+
+
+  /**
+   * Sets the xlink href attribute.
+   *
+   * @param href the hyperlink URL
+   * @return this element for chaining
+   */
+  Mpath xlinkHref(String href) {
+<span class="fc" id="L39">    addAttribute(xlink('href'), href)</span>
+  }
+
+  /**
+   * Sets the href attribute.
+   *
+   * @param href the hyperlink URL
+   * @return this element for chaining
+   */
+  Mpath href(String href) {
+<span class="nc" id="L49">    addAttribute('href', href)</span>
+  }
+
+  /**
+   * Returns the href value.
+   *
+   * @return the href value
+   */
+  String getHref() {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">    getAttribute('href') ?: getAttribute(xlink('href'))</span>
+  }
+
+  /**
+   * Returns the xlink href value.
+   *
+   * @return the xlink href value
+   */
+  String getXlinkHref() {
+<span class="nc" id="L67">    getAttribute(xlink('href'))</span>
+  }
+
+  /**
+   * Adds an attribute to this element.
+   *
+   * @param name the name of the element
+   * @param value the value
+   * @return the created element
+   */
+  @Override
+  Mpath addAttribute(String name, Object value) {
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    if ('href' == name) {</span>
+<span class="nc" id="L80">      element.addAttribute('href', &quot;$value&quot;)</span>
+<span class="nc" id="L81">      return this</span>
+    }
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">    if ('xlink:href' == name) {</span>
+<span class="fc" id="L84">      element.addAttribute(xlink('href'), &quot;$value&quot;)</span>
+<span class="fc" id="L85">      return this</span>
+    }
+<span class="nc" id="L87">    super.addAttribute(name, value) as Mpath</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

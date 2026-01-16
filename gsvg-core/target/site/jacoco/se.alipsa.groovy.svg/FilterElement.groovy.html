@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilterElement.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FilterElement.groovy</span></div><h1>FilterElement.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
+import org.dom4j.Element
+
+/**
+ * Base class for SVG filter primitives that process inputs and produce results.
+ */
+@CompileStatic
+abstract class FilterElement&lt;T extends SvgElement&lt;T&gt;&gt; extends SvgElement&lt;T&gt; {
+
+  /**
+   * Creates a FilterElement.
+   *
+   * @param parent the parent SVG element
+   * @param name the name of the element
+   */
+  FilterElement(SvgElement&lt;? extends SvgElement&gt; parent, String name) {
+<span class="fc" id="L20">    super(parent, name)</span>
+<span class="fc" id="L21">  }</span>
+
+  /**
+   * Creates a FilterElement by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  @PackageScope
+  FilterElement(SvgElement parent, Element element) {
+<span class="nc" id="L32">    super(parent, element)</span>
+<span class="nc" id="L33">  }</span>
+
+  /**
+   * Sets the result attribute.
+   *
+   * @param result the result identifier for this filter
+   * @return this element for chaining
+   */
+  T result(String result) {
+<span class="fc" id="L42">    addAttribute('result', result)</span>
+  }
+
+  /**
+   * Returns the result value.
+   *
+   * @return the result value
+   */
+  String getResult() {
+<span class="fc" id="L51">    getAttribute('result')</span>
+  }
+
+  /**
+   * Sets the x attribute.
+   *
+   * @param x the x-coordinate
+   * @return this element for chaining
+   */
+  T x(Number x) {
+<span class="fc" id="L61">    addAttribute('x', String.valueOf(x))</span>
+  }
+
+  /**
+   * Sets the x attribute.
+   *
+   * @param x value
+   * @return this element for chaining
+   */
+  T x(String x) {
+<span class="nc" id="L71">    addAttribute('x', String.valueOf(x))</span>
+  }
+  /**
+   * Returns the x value.
+   *
+   * @return the x value
+   */
+  String getX() {
+<span class="fc" id="L79">    getAttribute('x')</span>
+  }
+
+  /**
+   * Sets the y attribute.
+   *
+   * @param y the y-coordinate
+   * @return this element for chaining
+   */
+  T y(Number y) {
+<span class="fc" id="L89">    addAttribute('y', String.valueOf(y))</span>
+  }
+
+  /**
+   * Sets the y attribute.
+   *
+   * @param y value
+   * @return this element for chaining
+   */
+  T y(String y) {
+<span class="nc" id="L99">    addAttribute('y', String.valueOf(y))</span>
+  }
+  /**
+   * Returns the y value.
+   *
+   * @return the y value
+   */
+  String getY() {
+<span class="fc" id="L107">    getAttribute('y')</span>
+  }
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  T width(Number width) {
+<span class="fc" id="L117">    addAttribute('width', &quot;$width&quot;)</span>
+  }
+
+  /**
+   * Sets the width attribute.
+   *
+   * @param width the width
+   * @return this element for chaining
+   */
+  T width(String width) {
+<span class="fc" id="L127">    addAttribute('width', width)</span>
+  }
+
+  /**
+   * Returns the width value.
+   *
+   * @return the width value
+   */
+  String getWidth() {
+<span class="fc" id="L136">    getAttribute('width')</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  T height(Number height) {
+<span class="fc" id="L146">    addAttribute('height', &quot;$height&quot;)</span>
+  }
+
+  /**
+   * Sets the height attribute.
+   *
+   * @param height the height
+   * @return this element for chaining
+   */
+  T height(String height) {
+<span class="fc" id="L156">    addAttribute('height', height)</span>
+  }
+
+  /**
+   * Returns the height value.
+   *
+   * @return the height value
+   */
+  String getHeight() {
+<span class="fc" id="L165">    getAttribute('height')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

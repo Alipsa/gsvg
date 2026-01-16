@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccessibilityRule.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.validation.rules</a> &gt; <span class="el_source">AccessibilityRule.groovy</span></div><h1>AccessibilityRule.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.validation.rules
+
+import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.validation.ValidationIssue
+import se.alipsa.groovy.svg.validation.ValidationReport
+import se.alipsa.groovy.svg.validation.ValidationRule
+
+/**
+ * Validates accessibility attributes and best practices for SVG elements.
+ * &lt;p&gt;
+ * This rule checks for common accessibility issues to ensure SVG graphics
+ * work well with assistive technologies like screen readers.
+ * &lt;p&gt;
+ * Validation checks:
+ * &lt;ul&gt;
+ *   &lt;li&gt;Root SVG should have role or accessible name (WARNING)&lt;/li&gt;
+ *   &lt;li&gt;SVG with role='img' needs a label (WARNING)&lt;/li&gt;
+ *   &lt;li&gt;Interactive elements should have accessible labels (WARNING)&lt;/li&gt;
+ *   &lt;li&gt;aria-labelledby/aria-describedby references must exist (ERROR)&lt;/li&gt;
+ *   &lt;li&gt;Decorative elements are valid without labels&lt;/li&gt;
+ * &lt;/ul&gt;
+ * &lt;p&gt;
+ * This rule only validates when applied to the root SVG element for efficiency.
+ *
+ * @since 0.9.0
+ */
+@CompileStatic
+class AccessibilityRule implements ValidationRule {
+    private static final String RULE_ID = &quot;ACCESSIBILITY_RULE&quot;
+
+    @Override
+    String getRuleId() {
+<span class="fc" id="L34">        RULE_ID</span>
+    }
+
+    @Override
+    String getDescription() {
+<span class="fc" id="L39">        &quot;Validates accessibility attributes and best practices for SVG graphics&quot;</span>
+    }
+
+    @Override
+    void validate(SvgElement element, ValidationReport report) {
+<span class="pc bpc" id="L44" title="3 of 6 branches missed.">        if (!element) {</span>
+<span class="nc" id="L45">            return</span>
+        }
+
+        // Only run at root level to avoid redundant checking
+<span class="fc bfc" id="L49" title="All 4 branches covered.">        if (!(element instanceof Svg)) {</span>
+<span class="fc" id="L50">            return</span>
+        }
+
+<span class="fc" id="L53">        Svg svg = (Svg) element</span>
+
+        // Check root SVG accessibility
+<span class="fc" id="L56">        validateRootSvg(svg, report)</span>
+
+        // Collect all IDs for reference validation
+<span class="fc" id="L59">        java.util.Set&lt;String&gt; allIds = collectAllIds(svg)</span>
+
+        // Validate all elements recursively
+<span class="fc" id="L62">        validateElement(svg, report, &quot;/svg&quot;, allIds)</span>
+<span class="fc" id="L63">    }</span>
+
+    private void validateRootSvg(Svg svg, ValidationReport report) {
+<span class="fc" id="L66">        String role = svg.getRole()</span>
+<span class="fc" id="L67">        String ariaLabel = svg.getAriaLabel()</span>
+<span class="fc" id="L68">        String ariaLabelledBy = svg.getAriaLabelledBy()</span>
+
+        // Check if root SVG has title or desc (stored as fields, not in children)
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        boolean hasTitle = svg.title != null</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        boolean hasDesc = svg.desc != null</span>
+
+        // Root SVG should have some form of accessible name
+<span class="pc bpc" id="L75" title="3 of 28 branches missed.">        if (!role &amp;&amp; !ariaLabel &amp;&amp; !ariaLabelledBy &amp;&amp; !hasTitle) {</span>
+<span class="fc" id="L76">            report.addIssue(ValidationIssue.warning(</span>
+                &quot;Root &lt;svg&gt; should have an accessible name. Add role='img' with aria-label, or add a &lt;title&gt; element&quot;,
+                &quot;/svg&quot;,
+                svg,
+                RULE_ID
+            ))
+        }
+
+        // If it has role='img', it should have a label
+<span class="pc bpc" id="L85" title="2 of 24 branches missed.">        if (role == 'img' &amp;&amp; !ariaLabel &amp;&amp; !ariaLabelledBy &amp;&amp; !hasTitle) {</span>
+<span class="fc" id="L86">            report.addIssue(ValidationIssue.warning(</span>
+                &quot;SVG with role='img' should have an accessible label (aria-label, aria-labelledby, or &lt;title&gt;)&quot;,
+                &quot;/svg&quot;,
+                svg,
+                RULE_ID
+            ))
+        }
+<span class="fc" id="L93">    }</span>
+
+    private void validateElement(SvgElement element, ValidationReport report, String path, java.util.Set&lt;String&gt; allIds) {
+<span class="fc" id="L96">        String elementName = element.getName()</span>
+<span class="fc" id="L97">        String elementPath = buildElementPath(path, element)</span>
+
+        // Validate aria-labelledby references
+<span class="fc" id="L100">        String labelledBy = element.getAriaLabelledBy()</span>
+<span class="fc bfc" id="L101" title="All 4 branches covered.">        if (labelledBy) {</span>
+<span class="fc" id="L102">            validateIdReferences(element, labelledBy, 'aria-labelledby', report, elementPath, allIds)</span>
+        }
+
+        // Validate aria-describedby references
+<span class="fc" id="L106">        String describedBy = element.getAriaDescribedBy()</span>
+<span class="fc bfc" id="L107" title="All 4 branches covered.">        if (describedBy) {</span>
+<span class="fc" id="L108">            validateIdReferences(element, describedBy, 'aria-describedby', report, elementPath, allIds)</span>
+        }
+
+        // Check for interactive elements without labels
+<span class="fc bfc" id="L112" title="All 8 branches covered.">        if (isInteractive(element) &amp;&amp; !hasAccessibleName(element)) {</span>
+<span class="fc" id="L113">            report.addIssue(ValidationIssue.warning(</span>
+                &quot;Interactive element &lt;${elementName}&gt; should have an accessible name (aria-label, &lt;title&gt;, or aria-labelledby)&quot;,
+                elementPath,
+                element,
+                RULE_ID
+            ))
+        }
+
+        // Recursively validate children
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (element instanceof ElementContainer) {</span>
+<span class="fc" id="L123">            ElementContainer container = (ElementContainer) element</span>
+<span class="fc" id="L124">            container.children.each { child -&gt;</span>
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">                if (child instanceof SvgElement) {</span>
+<span class="fc" id="L126">                    validateElement((SvgElement) child, report, elementPath, allIds)</span>
+                }
+<span class="nc" id="L128">            }</span>
+        }
+<span class="fc" id="L130">    }</span>
+
+    private void validateIdReferences(SvgElement element, String ids, String attrName,
+                                     ValidationReport report, String path, java.util.Set&lt;String&gt; allIds) {
+        // Check each referenced ID exists
+<span class="fc" id="L135">        ids.split(/\s+/).each { refId -&gt;</span>
+<span class="pc bpc" id="L136" title="1 of 8 branches missed.">            if (refId &amp;&amp; !allIds.contains(refId)) {</span>
+<span class="fc" id="L137">                report.addIssue(ValidationIssue.error(</span>
+                    &quot;Attribute ${attrName}='${ids}' references non-existent ID '${refId}'&quot;,
+                    path,
+                    element,
+                    RULE_ID
+                ))
+            }
+<span class="fc" id="L144">        }</span>
+<span class="fc" id="L145">    }</span>
+
+    private java.util.Set&lt;String&gt; collectAllIds(SvgElement element) {
+<span class="fc" id="L148">        java.util.Set&lt;String&gt; ids = new java.util.HashSet&lt;&gt;()</span>
+<span class="fc" id="L149">        collectIds(element, ids)</span>
+<span class="fc" id="L150">        ids</span>
+    }
+
+    private void collectIds(SvgElement element, java.util.Set&lt;String&gt; ids) {
+<span class="fc" id="L154">        String id = element.getId()</span>
+<span class="fc bfc" id="L155" title="All 4 branches covered.">        if (id) {</span>
+<span class="fc" id="L156">            ids.add(id)</span>
+        }
+
+        // Check title and desc which are stored as special fields, not in children
+<span class="fc bfc" id="L160" title="All 4 branches covered.">        if (element.title) {</span>
+<span class="fc" id="L161">            String titleId = element.title.getId()</span>
+<span class="fc bfc" id="L162" title="All 4 branches covered.">            if (titleId) {</span>
+<span class="fc" id="L163">                ids.add(titleId)</span>
+            }
+        }
+<span class="fc bfc" id="L166" title="All 4 branches covered.">        if (element.desc) {</span>
+<span class="fc" id="L167">            String descId = element.desc.getId()</span>
+<span class="pc bpc" id="L168" title="2 of 4 branches missed.">            if (descId) {</span>
+<span class="fc" id="L169">                ids.add(descId)</span>
+            }
+        }
+
+<span class="pc bpc" id="L173" title="1 of 2 branches missed.">        if (element instanceof ElementContainer) {</span>
+<span class="fc" id="L174">            ElementContainer container = (ElementContainer) element</span>
+<span class="fc" id="L175">            container.children.each { child -&gt;</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">                if (child instanceof SvgElement) {</span>
+<span class="fc" id="L177">                    collectIds((SvgElement) child, ids)</span>
+                }
+<span class="nc" id="L179">            }</span>
+        }
+<span class="fc" id="L181">    }</span>
+
+    private boolean isInteractive(SvgElement element) {
+        // Interactive elements: &lt;a&gt;, elements with onclick/href, etc.
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (element instanceof A) {</span>
+<span class="fc" id="L186">            return true</span>
+        }
+
+        // Check for event handlers
+<span class="fc" id="L190">        String onclick = element.getAttribute('onclick')</span>
+<span class="fc" id="L191">        String href = element.getAttribute('href')</span>
+
+<span class="fc bfc" id="L193" title="All 4 branches covered.">        onclick || href</span>
+    }
+
+    private boolean hasAccessibleName(SvgElement element) {
+        // Check various ways to provide accessible name
+<span class="fc" id="L198">        String ariaLabel = element.getAriaLabel()</span>
+<span class="fc" id="L199">        String ariaLabelledBy = element.getAriaLabelledBy()</span>
+
+        // Check for title (stored as a field, not in children)
+<span class="fc bfc" id="L202" title="All 2 branches covered.">        boolean hasTitle = element.title != null</span>
+
+<span class="pc bpc" id="L204" title="1 of 8 branches missed.">        ariaLabel || ariaLabelledBy || hasTitle</span>
+    }
+
+    private String buildElementPath(String parentPath, SvgElement element) {
+<span class="fc" id="L208">        String path = &quot;${parentPath}/${element.getName()}&quot;</span>
+<span class="fc" id="L209">        String id = element.getId()</span>
+<span class="fc bfc" id="L210" title="All 4 branches covered.">        if (id) {</span>
+<span class="fc" id="L211">            path += &quot;[@id='${id}']&quot;</span>
+        }
+<span class="fc" id="L213">        path</span>
+    }
+
+    private String getElementPath(SvgElement element) {
+<span class="nc bnc" id="L217" title="All 6 branches missed.">        if (!element.parent) {</span>
+<span class="nc" id="L218">            return &quot;/${element.getName()}&quot;</span>
+        }
+
+<span class="nc" id="L221">        String parentPath = getElementPath(element.parent)</span>
+<span class="nc" id="L222">        buildElementPath(parentPath, element)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

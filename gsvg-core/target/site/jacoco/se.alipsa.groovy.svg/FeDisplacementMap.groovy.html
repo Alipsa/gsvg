@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeDisplacementMap.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FeDisplacementMap.groovy</span></div><h1>FeDisplacementMap.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;feDisplacementMap&gt;} filter primitive that displaces pixels using a map input.
+ */
+@CompileStatic
+class FeDisplacementMap extends FilterElement&lt;FeDisplacementMap&gt; {
+
+  static final String NAME = 'feDisplacementMap'
+
+  /**
+   * Creates a FeDisplacementMap.
+   *
+   * @param parent the parent SVG element
+   */
+  FeDisplacementMap(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L23">    super(parent, NAME)</span>
+<span class="fc" id="L24">  }</span>
+
+  @PackageScope
+  FeDisplacementMap(SvgElement parent, Element element) {
+<span class="nc" id="L28">    super(parent, element)</span>
+<span class="nc" id="L29">  }</span>
+
+
+  /**
+   * Sets the in attribute.
+   *
+   * @param inStr the input source string identifier
+   * @return this element for chaining
+   */
+  FeDisplacementMap 'in'(String inStr) {
+<span class="fc" id="L39">    addAttribute('in', inStr)</span>
+  }
+
+  /**
+   * Sets the in attribute.
+   *
+   * @param inEnum the input source enumeration
+   * @return this element for chaining
+   */
+  FeDisplacementMap 'in'(In inEnum) {
+<span class="nc" id="L49">    addAttribute('in', inEnum.name())</span>
+  }
+
+  /**
+   * Returns the in value.
+   *
+   * @return the in value
+   */
+  String getIn() {
+<span class="nc" id="L58">    getAttribute('in')</span>
+  }
+
+  /**
+   * Sets the in 2 attribute.
+   *
+   * @param inStr the input source string identifier
+   * @return this element for chaining
+   */
+  FeDisplacementMap in2(String inStr) {
+<span class="fc" id="L68">    addAttribute('in2', inStr)</span>
+  }
+
+  /**
+   * Returns the in 2 value.
+   *
+   * @return the in 2 value
+   */
+  String getIn2() {
+<span class="nc" id="L77">    getAttribute('in2')</span>
+  }
+
+  /**
+   * Sets the scale attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeDisplacementMap scale(Number value) {
+<span class="fc" id="L87">    addAttribute('scale', value)</span>
+  }
+
+  /**
+   * Sets the scale attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeDisplacementMap scale(String value) {
+<span class="nc" id="L97">    addAttribute('scale', value)</span>
+  }
+  /**
+   * Returns the scale value.
+   *
+   * @return the scale value
+   */
+  String getScale() {
+<span class="nc" id="L105">    getAttribute('scale')</span>
+  }
+
+  /**
+   * Sets the x channel selector attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeDisplacementMap xChannelSelector(String value) {
+<span class="fc" id="L115">    addAttribute('xChannelSelector', value)</span>
+  }
+
+  /**
+   * Returns the xchannel selector value.
+   *
+   * @return the xchannel selector value
+   */
+  String getXchannelSelector() {
+<span class="nc" id="L124">    getAttribute('xChannelSelector')</span>
+  }
+
+  /**
+   * Sets the y channel selector attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeDisplacementMap yChannelSelector(String value) {
+<span class="fc" id="L134">    addAttribute('yChannelSelector', value)</span>
+  }
+
+  /**
+   * Returns the ychannel selector value.
+   *
+   * @return the ychannel selector value
+   */
+  String getYchannelSelector() {
+<span class="nc" id="L143">    getAttribute('yChannelSelector')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

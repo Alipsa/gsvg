@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Gradient.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Gradient.groovy</span></div><h1>Gradient.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import org.dom4j.Element
+
+/**
+ * Base class for gradient elements that define color transitions.
+ */
+@CompileStatic
+abstract class Gradient&lt;T extends Gradient&lt;T&gt;&gt; extends SvgElement&lt;T&gt; {
+
+  /**
+   * Creates a Gradient.
+   *
+   * @param parent the parent SVG element
+   * @param name the name of the element
+   */
+  Gradient(SvgElement&lt;? extends SvgElement&gt; parent, String name) {
+<span class="fc" id="L19">    super(parent, name)</span>
+<span class="fc" id="L20">  }</span>
+
+  /**
+   * Creates a Gradient by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  Gradient(SvgElement parent, Element element) {
+<span class="nc" id="L30">    super(parent, element)</span>
+<span class="nc" id="L31">  }</span>
+
+  /**
+   * Creates and adds a new Stop child element.
+   *
+   * @return the created element
+   */
+  Stop addStop() {
+<span class="fc" id="L39">    add(new Stop(this))</span>
+  }
+
+  /**
+   * Sets the gradient units attribute.
+   *
+   * @param units the coordinate system units
+   * @return this element for chaining
+   */
+  T gradientUnits(String units) {
+<span class="fc" id="L49">    addAttribute('gradientUnits', units)</span>
+<span class="fc" id="L50">    this as T</span>
+  }
+
+  /**
+   * Sets the gradient transform attribute.
+   *
+   * @param transform the transformation matrix
+   * @return this element for chaining
+   */
+  T gradientTransform(String transform) {
+<span class="fc" id="L60">    addAttribute('gradientTransform', transform)</span>
+<span class="fc" id="L61">    this as T</span>
+  }
+
+  /**
+   * Sets the spread method attribute.
+   *
+   * @param method the interpolation method
+   * @return this element for chaining
+   */
+  T spreadMethod(String method) {
+<span class="fc" id="L71">    addAttribute('spreadMethod', method)</span>
+<span class="fc" id="L72">    this as T</span>
+  }
+
+  /**
+   * Returns the gradient units value.
+   *
+   * @return the gradient units value
+   */
+  String getGradientUnits() {
+<span class="fc" id="L81">    getAttribute('gradientUnits')</span>
+  }
+
+  /**
+   * Returns the gradient transform value.
+   *
+   * @return the gradient transform value
+   */
+  String getGradientTransform() {
+<span class="fc" id="L90">    getAttribute('gradientTransform')</span>
+  }
+
+  /**
+   * Returns the spread method value.
+   *
+   * @return the spread method value
+   */
+  String getSpreadMethod() {
+<span class="fc" id="L99">    getAttribute('spreadMethod')</span>
+  }
+
+  /**
+   * Returns the stops value.
+   *
+   * @return the stops value
+   */
+  List&lt;Stop&gt; getStops() {
+<span class="fc" id="L108">    children.findAll {it instanceof Stop} as List&lt;Stop&gt;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

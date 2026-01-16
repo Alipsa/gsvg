@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SvgReader.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.io</a> &gt; <span class="el_source">SvgReader.groovy</span></div><h1>SvgReader.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.io
+
+import groovy.transform.CompileDynamic
+import groovy.transform.CompileStatic
+import org.dom4j.Namespace
+import org.dom4j.QName
+import org.xml.sax.Attributes
+import org.xml.sax.InputSource
+import org.xml.sax.SAXException
+import org.xml.sax.ext.LexicalHandler
+import org.xml.sax.helpers.DefaultHandler
+import se.alipsa.groovy.svg.*
+
+import javax.xml.XMLConstants
+import javax.xml.parsers.SAXParser
+import javax.xml.parsers.SAXParserFactory
+
+/**
+ * Parses SVG XML into the gsvg object model.
+ */
+@CompileStatic
+class SvgReader extends DefaultHandler implements LexicalHandler {
+
+  Svg svg
+  SvgElement currentElement
+  boolean rootSvgAssigned = false
+  boolean isCdataSection = false
+
+  /**
+   * Start document.
+   */
+  @Override
+  void startDocument() throws SAXException {
+<span class="fc" id="L34">  }</span>
+
+  /**
+   * Start element.
+   *
+   * @param uri the namespace URI
+   * @param localName the local name
+   * @param qName the qualified name
+   * @param attributes the attributes
+   */
+  @CompileDynamic
+  @Override
+  void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    //print('begin element ' + qName)
+    // Note, we do no checking of whether the XML is properly constructed or not e.g.
+    // we do not check that a defs element only exists under a svg element, that a marker only exists in a defs etc.
+<span class="pc bpc" id="L50" title="3 of 6 branches missed.">    String elementName = (localName == null || localName.isBlank()) ? qName : localName</span>
+<span class="fc" id="L51">    switch (elementName) {</span>
+<span class="pc bfc" id="L52" title="All 2 branches covered.">      case A.NAME -&gt; currentElement = currentElement.addA()</span>
+<span class="pc bfc" id="L53" title="All 2 branches covered.">      case Animate.NAME -&gt; currentElement = currentElement.addAnimate()</span>
+<span class="pc bfc" id="L54" title="All 2 branches covered.">      case AnimateMotion.NAME -&gt; currentElement = currentElement.addAnimateMotion()</span>
+<span class="pc bfc" id="L55" title="All 2 branches covered.">      case AnimateTransform.NAME -&gt; currentElement = currentElement.addAnimateTransform()</span>
+<span class="pc bfc" id="L56" title="All 2 branches covered.">      case Audio.NAME -&gt; currentElement = currentElement.addAudio()</span>
+<span class="pc bfc" id="L57" title="All 2 branches covered.">      case Circle.NAME -&gt; currentElement = currentElement.addCircle()</span>
+<span class="pc bfc" id="L58" title="All 2 branches covered.">      case ClipPath.NAME -&gt; currentElement = currentElement.addClipPath()</span>
+<span class="pc bfc" id="L59" title="All 2 branches covered.">      case ColorProfile.NAME -&gt; currentElement = currentElement.addColorProfile()</span>
+<span class="pc bfc" id="L60" title="All 2 branches covered.">      case Cursor.NAME -&gt; currentElement = currentElement.addCursor()</span>
+<span class="pc bfc" id="L61" title="All 2 branches covered.">      case Defs.NAME -&gt; currentElement = currentElement.addDefs()</span>
+<span class="pc bfc" id="L62" title="All 2 branches covered.">      case Desc.NAME -&gt; currentElement = currentElement.addDesc()</span>
+<span class="pc bfc" id="L63" title="All 2 branches covered.">      case Discard.NAME -&gt; currentElement = currentElement.addDiscard()</span>
+<span class="pc bfc" id="L64" title="All 2 branches covered.">      case Ellipse.NAME -&gt; currentElement = currentElement.addEllipse()</span>
+<span class="pc bfc" id="L65" title="All 2 branches covered.">      case FeBlend.NAME -&gt; currentElement = currentElement.addFeBlend()</span>
+<span class="pc bfc" id="L66" title="All 2 branches covered.">      case FeColorMatrix.NAME -&gt; currentElement = currentElement.addFeColorMatrix()</span>
+<span class="pc bfc" id="L67" title="All 2 branches covered.">      case FeComponentTransfer.NAME -&gt; currentElement = currentElement.addFeComponentTransfer()</span>
+<span class="pc bfc" id="L68" title="All 2 branches covered.">      case FeComposite.NAME -&gt; currentElement = currentElement.addFeComposite()</span>
+<span class="pc bfc" id="L69" title="All 2 branches covered.">      case FeConvolveMatrix.NAME -&gt; currentElement = currentElement.addFeConvolveMatrix()</span>
+<span class="pc bfc" id="L70" title="All 2 branches covered.">      case FeDiffuseLighting.NAME -&gt; currentElement = currentElement.addFeDiffuseLighting()</span>
+<span class="pc bfc" id="L71" title="All 2 branches covered.">      case FeDisplacementMap.NAME -&gt; currentElement = currentElement.addFeDisplacementMap()</span>
+<span class="pc bfc" id="L72" title="All 2 branches covered.">      case FeDistantLight.NAME -&gt; currentElement = currentElement.addFeDistantLight()</span>
+<span class="pc bfc" id="L73" title="All 2 branches covered.">      case FeDropShadow.NAME -&gt; currentElement = currentElement.addFeDropShadow()</span>
+<span class="pc bfc" id="L74" title="All 2 branches covered.">      case FeFlood.NAME -&gt; currentElement = currentElement.addFeFlood()</span>
+<span class="pc bfc" id="L75" title="All 2 branches covered.">      case FeFuncA.NAME -&gt; currentElement = currentElement.addFeFuncA()</span>
+<span class="pc bfc" id="L76" title="All 2 branches covered.">      case FeFuncB.NAME -&gt; currentElement = currentElement.addFeFuncB()</span>
+<span class="pc bfc" id="L77" title="All 2 branches covered.">      case FeFuncG.NAME -&gt; currentElement = currentElement.addFeFuncG()</span>
+<span class="pc bfc" id="L78" title="All 2 branches covered.">      case FeFuncR.NAME -&gt; currentElement = currentElement.addFeFuncR()</span>
+<span class="pc bfc" id="L79" title="All 2 branches covered.">      case FeGaussianBlur.NAME -&gt; currentElement = currentElement.addFeGaussianBlur()</span>
+<span class="pc bfc" id="L80" title="All 2 branches covered.">      case FeImage.NAME -&gt; currentElement = currentElement.addFeImage()</span>
+<span class="pc bfc" id="L81" title="All 2 branches covered.">      case FeMerge.NAME -&gt; currentElement = currentElement.addFeMerge()</span>
+<span class="pc bfc" id="L82" title="All 2 branches covered.">      case FeMergeNode.NAME -&gt; currentElement = currentElement.addFeMergeNode()</span>
+<span class="pc bfc" id="L83" title="All 2 branches covered.">      case FeMorphology.NAME -&gt; currentElement = currentElement.addFeMorphology()</span>
+<span class="pc bfc" id="L84" title="All 2 branches covered.">      case FeOffset.NAME -&gt; currentElement = currentElement.addFeOffset()</span>
+<span class="pc bfc" id="L85" title="All 2 branches covered.">      case FePointLight.NAME -&gt; currentElement = currentElement.addFePointLight()</span>
+<span class="pc bfc" id="L86" title="All 2 branches covered.">      case FeSpecularLighting.NAME -&gt; currentElement = currentElement.addFeSpecularLighting()</span>
+<span class="pc bfc" id="L87" title="All 2 branches covered.">      case FeSpotLight.NAME -&gt; currentElement = currentElement.addFeSpotLight()</span>
+<span class="pc bfc" id="L88" title="All 2 branches covered.">      case FeTile.NAME -&gt; currentElement = currentElement.addFeTile()</span>
+<span class="pc bfc" id="L89" title="All 2 branches covered.">      case FeTurbulence.NAME -&gt; currentElement = currentElement.addFeTurbulence()</span>
+<span class="pc bfc" id="L90" title="All 2 branches covered.">      case Filter.NAME -&gt; currentElement = currentElement.addFilter()</span>
+<span class="pc bfc" id="L91" title="All 2 branches covered.">      case ForeignObject.NAME -&gt; currentElement = currentElement.addForeignObject()</span>
+<span class="pc bfc" id="L92" title="All 2 branches covered.">      case G.NAME -&gt; currentElement = currentElement.addG()</span>
+<span class="pc bfc" id="L93" title="All 2 branches covered.">      case Glyph.NAME -&gt; currentElement = currentElement.addGlyph()</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">      case GlyphRef.NAME -&gt; currentElement = currentElement.addGlyphRef()</span>
+<span class="pc bfc" id="L95" title="All 2 branches covered.">      case Hatch.NAME -&gt; currentElement = currentElement.addHatch()</span>
+<span class="pc bfc" id="L96" title="All 2 branches covered.">      case HatchPath.NAME -&gt; currentElement = currentElement.addHatchPath()</span>
+<span class="pc bfc" id="L97" title="All 2 branches covered.">      case Hkern.NAME -&gt; currentElement = currentElement.addHkern()</span>
+<span class="pc bfc" id="L98" title="All 2 branches covered.">      case Image.NAME -&gt; currentElement = currentElement.addImage()</span>
+<span class="pc bfc" id="L99" title="All 2 branches covered.">      case Line.NAME -&gt; currentElement = currentElement.addLine()</span>
+<span class="pc bfc" id="L100" title="All 2 branches covered.">      case LinearGradient.NAME -&gt; currentElement = currentElement.addLinearGradient()</span>
+<span class="pc bfc" id="L101" title="All 2 branches covered.">      case Marker.NAME -&gt; currentElement = currentElement.addMarker()</span>
+<span class="pc bfc" id="L102" title="All 2 branches covered.">      case Mask.NAME -&gt; currentElement = currentElement.addMask()</span>
+<span class="pc bfc" id="L103" title="All 2 branches covered.">      case Metadata.NAME -&gt; currentElement = currentElement.addMetadata()</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">      case Mesh.NAME -&gt; currentElement = currentElement.addMesh()</span>
+<span class="pc bfc" id="L105" title="All 2 branches covered.">      case MeshGradient.NAME -&gt; currentElement = currentElement.addMeshGradient()</span>
+<span class="pc bfc" id="L106" title="All 2 branches covered.">      case MeshPatch.NAME -&gt; currentElement = currentElement.addMeshPatch()</span>
+<span class="pc bfc" id="L107" title="All 2 branches covered.">      case MeshRow.NAME -&gt; currentElement = currentElement.addMeshRow()</span>
+<span class="pc bfc" id="L108" title="All 2 branches covered.">      case MissingGlyph.NAME -&gt; currentElement = currentElement.addMissingGlyph()</span>
+<span class="pc bfc" id="L109" title="All 2 branches covered.">      case Font.NAME -&gt; currentElement = currentElement.addFont()</span>
+<span class="pc bfc" id="L110" title="All 2 branches covered.">      case FontFace.NAME -&gt; currentElement = currentElement.addFontFace()</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">      case FontFaceSrc.NAME -&gt; currentElement = currentElement.addFontFaceSrc()</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">      case FontFaceUri.NAME -&gt; currentElement = currentElement.addFontFaceUri()</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">      case FontFaceName.NAME -&gt; currentElement = currentElement.addFontFaceName()</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">      case FontFaceFormat.NAME -&gt; currentElement = currentElement.addFontFaceFormat()</span>
+<span class="pc bfc" id="L115" title="All 2 branches covered.">      case Mpath.NAME -&gt; currentElement = currentElement.addMpath()</span>
+<span class="pc bfc" id="L116" title="All 2 branches covered.">      case Path.NAME -&gt; currentElement = currentElement.addPath()</span>
+<span class="pc bfc" id="L117" title="All 2 branches covered.">      case Pattern.NAME -&gt; currentElement = currentElement.addPattern()</span>
+<span class="pc bfc" id="L118" title="All 2 branches covered.">      case Polygon.NAME -&gt; currentElement = currentElement.addPolygon()</span>
+<span class="pc bfc" id="L119" title="All 2 branches covered.">      case Polyline.NAME -&gt; currentElement = currentElement.addPolyline()</span>
+<span class="pc bfc" id="L120" title="All 2 branches covered.">      case RadialGradient.NAME -&gt; currentElement = currentElement.addRadialGradient()</span>
+<span class="pc bfc" id="L121" title="All 2 branches covered.">      case Rect.NAME -&gt; currentElement = currentElement.addRect()</span>
+<span class="pc bfc" id="L122" title="All 2 branches covered.">      case Script.NAME -&gt; currentElement = currentElement.addScript()</span>
+<span class="pc bfc" id="L123" title="All 2 branches covered.">      case Set.NAME -&gt; currentElement = currentElement.addSet()</span>
+<span class="pc bfc" id="L124" title="All 2 branches covered.">      case Stop.NAME -&gt; currentElement = currentElement.addStop()</span>
+<span class="pc bfc" id="L125" title="All 2 branches covered.">      case Style.NAME -&gt; currentElement = currentElement.addStyle()</span>
+<span class="pc bfc" id="L126" title="All 2 branches covered.">      case Solidcolor.NAME -&gt; currentElement = currentElement.addSolidcolor()</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">      case Svg.NAME -&gt; {</span>
+<span class="pc bfc" id="L128" title="All 2 branches covered.">        if (!rootSvgAssigned) {</span>
+<span class="fc" id="L129">          currentElement = svg = new Svg()</span>
+<span class="pc" id="L130">          rootSvgAssigned = true</span>
+        } else {
+<span class="fc" id="L132">          currentElement = currentElement.addSvg()</span>
+        }
+      }
+<span class="pc bfc" id="L135" title="All 2 branches covered.">      case Switch.NAME -&gt; currentElement = currentElement.addSwitch()</span>
+<span class="pc bfc" id="L136" title="All 2 branches covered.">      case Symbol.NAME -&gt; currentElement = currentElement.addSymbol()</span>
+<span class="pc bfc" id="L137" title="All 2 branches covered.">      case Text.NAME -&gt; currentElement = currentElement.addText()</span>
+<span class="pc bfc" id="L138" title="All 2 branches covered.">      case TextPath.NAME -&gt; currentElement = currentElement.addTextPath()</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">      case Tref.NAME -&gt; currentElement = currentElement.addTref()</span>
+<span class="pc bfc" id="L140" title="All 2 branches covered.">      case Title.NAME -&gt; currentElement = currentElement.addTitle()</span>
+<span class="pc bfc" id="L141" title="All 2 branches covered.">      case Tspan.NAME -&gt; currentElement = currentElement.addTspan()</span>
+<span class="pc bfc" id="L142" title="All 2 branches covered.">      case Use.NAME -&gt; currentElement = currentElement.addUse()</span>
+<span class="pc bfc" id="L143" title="All 2 branches covered.">      case Vkern.NAME -&gt; currentElement = currentElement.addVkern()</span>
+<span class="pc bfc" id="L144" title="All 2 branches covered.">      case View.NAME -&gt; currentElement = currentElement.addView()</span>
+<span class="pc bfc" id="L145" title="All 2 branches covered.">      case Video.NAME -&gt; currentElement = currentElement.addVideo()</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">      case AltGlyph.NAME -&gt; currentElement = currentElement.addAltGlyph()</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">      case AltGlyphDef.NAME -&gt; currentElement = currentElement.addAltGlyphDef()</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">      case AltGlyphItem.NAME -&gt; currentElement = currentElement.addAltGlyphItem()</span>
+      default -&gt; {
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if (currentElement instanceof ExternalElementContainer) {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">          if (qName.contains(':')) {</span>
+            // a foreignElement or metadata element with a namespace
+<span class="fc" id="L153">            String prefix = qName.substring(0, qName.indexOf(':'))</span>
+<span class="pc bpc" id="L154" title="3 of 6 branches missed.">            String local = (localName == null || localName.isBlank()) ? qName.substring(qName.indexOf(':') + 1) : localName</span>
+<span class="fc" id="L155">            Namespace ns = new Namespace(prefix, uri)</span>
+<span class="fc" id="L156">            QName qn = new QName(local, ns)</span>
+<span class="pc" id="L157">            currentElement = currentElement.addElement(qn)</span>
+            //println(&quot;added qName '$qName', uri='$uri', localName='$localName' to ${currentElement.name}&quot;)
+<span class="pc bpc" id="L159" title="3 of 6 branches missed.">          } else if (uri != null &amp;&amp; !uri.isBlank()) {</span>
+            // a &quot;plain&quot; element or a foreignElement with a default namespace
+<span class="pc bpc" id="L161" title="3 of 6 branches missed.">            String local = (localName == null || localName.isBlank()) ? qName : localName</span>
+<span class="fc" id="L162">            Namespace ns = new Namespace('', uri)</span>
+<span class="fc" id="L163">            QName qn = new QName(local, ns)</span>
+<span class="pc" id="L164">            currentElement = currentElement.addElement(qn)</span>
+          } else {
+            // a &quot;plain&quot; element or a foreignElement with a default namespace
+<span class="nc" id="L167">            currentElement = currentElement.addElement(qName)</span>
+          }
+        } else {
+<span class="nc" id="L170">          throw new SAXException(&quot;qName '$qName' is unknown for '${currentElement.name}' to the SvgReader (uri='$uri', localName='$localName') , dont know what to do&quot;)</span>
+        }
+      }
+    }
+    //println(', current element is now ' + currentElement.element.getName())
+    // First capture namespace declarations to ensure prefixes are bound before attribute parsing
+<span class="fc bfc" id="L176" title="All 2 branches covered.">    for (int i = 0; i &lt; attributes.getLength(); i++) {</span>
+<span class="fc" id="L177">      String attrLocalName = attributes.getLocalName(i)</span>
+<span class="pc bpc" id="L178" title="1 of 6 branches missed.">      if (attrLocalName == null || attrLocalName.isBlank()) {</span>
+<span class="fc" id="L179">        String qn = attributes.getQName(i)</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        if ('xmlns' == qn) {</span>
+<span class="fc" id="L181">          currentElement.addNamespace('', attributes.getValue(i))</span>
+<span class="pc bpc" id="L182" title="3 of 6 branches missed.">        } else if (qn != null &amp;&amp; qn.startsWith('xmlns:')) {</span>
+<span class="fc" id="L183">          String prefix = qn.substring('xmlns:'.length())</span>
+<span class="fc" id="L184">          currentElement.addNamespace(prefix, attributes.getValue(i))</span>
+        }
+      }
+    }
+
+<span class="fc bfc" id="L189" title="All 2 branches covered.">    for (int i = 0; i &lt; attributes.getLength(); i++) {</span>
+<span class="fc" id="L190">      String attrLocalName = attributes.getLocalName(i)</span>
+<span class="pc bpc" id="L191" title="1 of 6 branches missed.">      if (attrLocalName != null &amp;&amp; !attrLocalName.isBlank()) {</span>
+<span class="fc" id="L192">        currentElement.addAttribute(attributes.getQName(i), attributes.getValue(i))</span>
+      }
+    }
+<span class="fc" id="L195">  }</span>
+
+  /**
+   * End element.
+   *
+   * @param uri the namespace URI
+   * @param localName the local name
+   * @param qName the qualified name
+   */
+  @Override
+  void endElement(String uri, String localName, String qName) throws SAXException {
+    //print('end element ' + qName)
+<span class="fc" id="L207">    currentElement = currentElement.getParent()</span>
+    //println(', current element is now ' + currentElement.element.getName())
+<span class="fc" id="L209">  }</span>
+
+  /**
+   * Characters.
+   *
+   * @param ch the character array
+   * @param start the start position
+   * @param length the length
+   */
+  @CompileDynamic
+  @Override
+  void characters(char[] ch, int start, int length) throws SAXException {
+<span class="fc" id="L221">    String text = new String(ch, start, length)</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">    if (currentElement instanceof StringContentContainer) {</span>
+      //println('found ' + text + ', current element is ' + currentElement.element.getName())
+<span class="fc bfc" id="L224" title="All 2 branches covered.">      if(isCdataSection) {</span>
+<span class="fc" id="L225">        currentElement.element.addCDATA(text)</span>
+      } else {
+<span class="fc" id="L227">        currentElement = currentElement.addContent(text)</span>
+      }
+    } else {
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">      if (!text.isBlank()) {</span>
+        //println('found ' + text + ', current element is ' + currentElement.name)
+<span class="nc" id="L232">        throw new SAXException(&quot;character data is not allowed in &quot; + currentElement.name)</span>
+      }
+    }
+<span class="fc" id="L235">  }</span>
+
+  /**
+   * Start prefix mapping.
+   *
+   * @param prefix the namespace prefix
+   * @param uri the namespace URI
+   */
+  @Override
+  void startPrefixMapping(String prefix, String uri) throws SAXException {
+    // do nothing, we handle namespace declaration in startElement as this method is called before the element is created
+    //if (currentElement.element.getNamespacePrefix() != prefix) {
+    //  println(&quot;Adding namespace $prefix with uri $uri to ${currentElement.name}&quot;)
+    //}
+<span class="fc" id="L249">  }</span>
+
+  /**
+   * Parse.
+   *
+   * @param svgFile the SVG file
+   * @return the result
+   */
+  static Svg parse(File svgFile) {
+<span class="fc" id="L258">    SvgReader reader = new SvgReader()</span>
+<span class="fc" id="L259">    createSAXParser(reader).parse(svgFile, reader)</span>
+<span class="fc" id="L260">    reader.svg</span>
+  }
+
+  /**
+   * Parse.
+   *
+   * @param svgFile the SVG file
+   * @return the result
+   */
+  static Svg parse(InputSource svgFile) {
+<span class="fc" id="L270">    SvgReader reader = new SvgReader()</span>
+<span class="fc" id="L271">    createSAXParser(reader).parse(svgFile, reader)</span>
+<span class="fc" id="L272">    reader.svg</span>
+  }
+
+  /**
+   * Creates a secured SAX parser configured for SVG parsing.
+   *
+   * @param reader the reader
+   * @return the result
+   */
+  static SAXParser createSAXParser(SvgReader reader) {
+<span class="fc" id="L282">    SAXParserFactory factory = SAXParserFactory.newInstance()</span>
+<span class="fc" id="L283">    factory.setNamespaceAware(true)</span>
+<span class="fc" id="L284">    factory.setXIncludeAware(false)</span>
+
+    // allow us to capture namespace declaration as attributes in startElement
+<span class="fc" id="L287">    factory.setFeature('http://xml.org/sax/features/namespace-prefixes', true)</span>
+<span class="fc" id="L288">    factory.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true)</span>
+<span class="fc" id="L289">    factory.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, false)</span>
+<span class="fc" id="L290">    factory.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false)</span>
+<span class="fc" id="L291">    factory.setFeature(&quot;http://apache.org/xml/features/nonvalidating/load-external-dtd&quot;, false)</span>
+<span class="fc" id="L292">    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true)</span>
+<span class="fc" id="L293">    SAXParser parser = factory.newSAXParser()</span>
+<span class="fc" id="L294">    parser.setProperty(&quot;http://xml.org/sax/properties/lexical-handler&quot;, reader)</span>
+<span class="fc" id="L295">    parser</span>
+  }
+
+  /**
+   * Parse.
+   *
+   * @param svgFile the SVG file
+   * @return the result
+   */
+  static Svg parse(InputStream svgFile) {
+<span class="fc" id="L305">    parse(new InputSource(svgFile))</span>
+  }
+
+  /**
+   * Parse.
+   *
+   * @param reader the reader
+   * @return the result
+   */
+  static Svg parse(Reader reader) {
+<span class="fc" id="L315">    parse(new InputSource(reader))</span>
+  }
+
+  /**
+   * Parse.
+   *
+   * @param content the content
+   * @return the result
+   */
+  static Svg parse(String content) {
+<span class="fc" id="L325">    try (StringReader reader = new StringReader(content)) {</span>
+<span class="pc bpc" id="L326" title="4 of 10 branches missed.">      return parse(reader)</span>
+    }
+  }
+
+  /**
+   * Start dtd.
+   *
+   * @param name the name
+   * @param publicId the public identifier
+   * @param systemId the system identifier
+   */
+  @Override
+  void startDTD(String name, String publicId, String systemId) throws SAXException {
+
+<span class="nc" id="L340">  }</span>
+
+  /**
+   * End dtd.
+   */
+  @Override
+  void endDTD() throws SAXException {
+
+<span class="nc" id="L348">  }</span>
+
+  /**
+   * Start entity.
+   *
+   * @param name the name
+   */
+  @Override
+  void startEntity(String name) throws SAXException {
+
+<span class="fc" id="L358">  }</span>
+
+  /**
+   * End entity.
+   *
+   * @param name the name
+   */
+  @Override
+  void endEntity(String name) throws SAXException {
+
+<span class="fc" id="L368">  }</span>
+
+  /**
+   * Start cdata.
+   */
+  @Override
+  void startCDATA() throws SAXException {
+<span class="fc" id="L375">    isCdataSection = true</span>
+<span class="fc" id="L376">  }</span>
+
+  /**
+   * End cdata.
+   */
+  @Override
+  void endCDATA() throws SAXException {
+<span class="fc" id="L383">    isCdataSection = false</span>
+<span class="fc" id="L384">  }</span>
+
+  /**
+   * Comment.
+   *
+   * @param ch the character array
+   * @param start the start position
+   * @param length the length
+   */
+  @Override
+  void comment(char[] ch, int start, int length) throws SAXException {
+
+<span class="fc" id="L396">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

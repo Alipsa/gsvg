@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Circle.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Circle.groovy</span></div><h1>Circle.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
+import org.dom4j.Element
+
+/**
+ * SVG {@code &lt;circle&gt;} element that draws a circle by center and radius.
+ */
+@CompileStatic
+class Circle extends AbstractShape&lt;Circle&gt; {
+
+  static final String NAME='circle'
+
+  @PackageScope
+  Circle(SvgElement parent) {
+<span class="fc" id="L17">    super(parent,NAME)</span>
+<span class="fc" id="L18">  }</span>
+
+  @PackageScope
+  Circle(SvgElement parent, Element element) {
+<span class="fc" id="L22">    super(parent, element)</span>
+<span class="fc" id="L23">  }</span>
+
+  /**
+   * Sets the x-coordinate of the circle center (cx) in the current user coordinate system.
+   *
+   * @param cx the center x-coordinate
+   * @return this element for chaining
+   */
+  Circle cx(Number cx) {
+<span class="fc" id="L32">    addAttribute('cx', cx)</span>
+  }
+
+  /**
+   * Sets the x-coordinate of the circle center (cx), including unit values such as percentages.
+   *
+   * @param cx the center x-coordinate
+   * @return this element for chaining
+   */
+  Circle cx(String cx) {
+<span class="fc" id="L42">    addAttribute('cx', cx)</span>
+  }
+
+  /**
+   * Returns the x-coordinate of the circle center (cx).
+   *
+   * @return the cx value
+   */
+  String getCx() {
+<span class="fc" id="L51">    getAttribute('cx')</span>
+  }
+
+  /**
+   * Sets the y-coordinate of the circle center (cy) in the current user coordinate system.
+   *
+   * @param cy the center y-coordinate
+   * @return this element for chaining
+   */
+  Circle cy(Number cy) {
+<span class="fc" id="L61">    addAttribute('cy', cy)</span>
+  }
+
+  /**
+   * Sets the y-coordinate of the circle center (cy), including unit values such as percentages.
+   *
+   * @param cy the center y-coordinate
+   * @return this element for chaining
+   */
+  Circle cy(String cy) {
+<span class="fc" id="L71">    addAttribute('cy', cy)</span>
+  }
+
+  /**
+   * Returns the y-coordinate of the circle center (cy).
+   *
+   * @return the cy value
+   */
+  String getCy() {
+<span class="fc" id="L80">    getAttribute('cy')</span>
+  }
+
+  /**
+   * Sets the circle radius (r) in the current user coordinate system.
+   *
+   * @param r the radius
+   * @return this element for chaining
+   */
+  Circle r(Number r) {
+<span class="fc" id="L90">    addAttribute('r', r)</span>
+  }
+
+  /**
+   * Sets the circle radius (r) in the current user coordinate system.
+   *
+   * @param r value
+   * @return this element for chaining
+   */
+  Circle r(String r) {
+<span class="nc" id="L100">    addAttribute('r', &quot;$r&quot;)</span>
+  }
+  /**
+   * Returns the circle radius (r).
+   *
+   * @return the r value
+   */
+  String getR() {
+<span class="fc" id="L108">    getAttribute('r')</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

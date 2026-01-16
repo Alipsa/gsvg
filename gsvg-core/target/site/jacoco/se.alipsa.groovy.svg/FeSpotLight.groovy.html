@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeSpotLight.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FeSpotLight.groovy</span></div><h1>FeSpotLight.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;feSpotLight&gt;} element that defines a spotlight source.
+ */
+@CompileStatic
+class FeSpotLight extends LightSourceElement&lt;FeSpotLight&gt; {
+
+  static final String NAME='feSpotLight'
+
+  /**
+   * Creates a FeSpotLight.
+   *
+   * @param parent the parent SVG element
+   */
+  FeSpotLight(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L23">    super(parent, NAME)</span>
+<span class="fc" id="L24">  }</span>
+
+  @PackageScope
+  FeSpotLight(SvgElement parent, Element element) {
+<span class="nc" id="L28">    super(parent, element)</span>
+<span class="nc" id="L29">  }</span>
+
+
+  /**
+   * Sets the z attribute.
+   *
+   * @param z the z-coordinate
+   * @return this element for chaining
+   */
+  FeSpotLight z(Number z) {
+<span class="fc" id="L39">    addAttribute('z', z)</span>
+  }
+
+  /**
+   * Sets the z attribute.
+   *
+   * @param z the z-coordinate
+   * @return this element for chaining
+   */
+  FeSpotLight z(String z) {
+<span class="nc" id="L49">    addAttribute('z', z)</span>
+  }
+
+  /**
+   * Returns the z value.
+   *
+   * @return the z value
+   */
+  String getZ() {
+<span class="nc" id="L58">    getAttribute('z')</span>
+  }
+
+  /**
+   * Sets the limiting cone angle attribute.
+   *
+   * @param angle the angle
+   * @return this element for chaining
+   */
+  FeSpotLight limitingConeAngle(Number angle) {
+<span class="fc" id="L68">    addAttribute('limitingConeAngle', angle)</span>
+  }
+
+  /**
+   * Sets the limiting cone angle attribute.
+   *
+   * @param angle value
+   * @return this element for chaining
+   */
+  FeSpotLight limitingConeAngle(String angle) {
+<span class="nc" id="L78">    addAttribute('limitingConeAngle', angle)</span>
+  }
+  /**
+   * Returns the limiting cone angle value.
+   *
+   * @return the limiting cone angle value
+   */
+  String getLimitingConeAngle() {
+<span class="nc" id="L86">    getAttribute('limitingConeAngle')</span>
+  }
+
+  /**
+   * Sets the points at x attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtX(Number value) {
+<span class="fc" id="L96">    addAttribute('pointsAtX', value)</span>
+  }
+
+  /**
+   * Sets the points at x attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtX(String value) {
+<span class="nc" id="L106">    addAttribute('pointsAtX', value)</span>
+  }
+  /**
+   * Sets the points at y attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtY(Number value) {
+<span class="fc" id="L115">    addAttribute('pointsAtY', value)</span>
+  }
+
+  /**
+   * Sets the points at y attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtY(String value) {
+<span class="nc" id="L125">    addAttribute('pointsAtY', value)</span>
+  }
+  /**
+   * Returns the points at y value.
+   *
+   * @return the points at y value
+   */
+  String getPointsAtY() {
+<span class="nc" id="L133">    getAttribute('pointsAtY')</span>
+  }
+
+  /**
+   * Sets the points at z attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtZ(Number value) {
+<span class="fc" id="L143">    addAttribute('pointsAtZ', value)</span>
+  }
+
+  /**
+   * Sets the points at z attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeSpotLight pointsAtZ(String value) {
+<span class="nc" id="L153">    addAttribute('pointsAtZ', value)</span>
+  }
+  /**
+   * Returns the points at z value.
+   *
+   * @return the points at z value
+   */
+  String getPointsAtZ() {
+<span class="nc" id="L161">    getAttribute('pointsAtZ')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

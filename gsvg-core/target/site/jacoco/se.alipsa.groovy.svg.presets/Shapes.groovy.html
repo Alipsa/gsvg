@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Shapes.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg.presets</a> &gt; <span class="el_source">Shapes.groovy</span></div><h1>Shapes.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg.presets
+
+import groovy.transform.CompileStatic
+import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.utils.PathBuilder
+
+/**
+ * Provides preset shapes and common shape patterns.
+ * &lt;p&gt;
+ * This utility class offers factory methods for creating commonly used shapes
+ * that require complex path calculations or multiple elements, such as stars,
+ * arrows, and rounded rectangles.
+ * &lt;p&gt;
+ * &lt;h2&gt;Usage Examples:&lt;/h2&gt;
+ * &lt;pre&gt;
+ * // Create a 5-point star
+ * Polygon star = Shapes.star(svg, cx: 100, cy: 100, points: 5, outerRadius: 50, innerRadius: 25)
+ *
+ * // Create a rounded rectangle
+ * Rect roundedRect = Shapes.roundedRect(svg, x: 10, y: 10, width: 100, height: 60, radius: 10)
+ *
+ * // Create an arrow
+ * Path arrow = Shapes.arrow(svg, x1: 10, y1: 50, x2: 100, y2: 50, headSize: 10)
+ * &lt;/pre&gt;
+ *
+ * @since 0.9.0
+ */
+@CompileStatic
+class Shapes {
+
+    /**
+     * Creates a rounded rectangle with uniform corner radius.
+     * &lt;p&gt;
+     * Options:
+     * &lt;ul&gt;
+     *   &lt;li&gt;x - X coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;y - Y coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;width - Rectangle width (required)&lt;/li&gt;
+     *   &lt;li&gt;height - Rectangle height (required)&lt;/li&gt;
+     *   &lt;li&gt;radius - Corner radius (default: 5)&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param parent parent element
+     * @param options configuration map
+     * @return configured Rect element
+     */
+    static Rect roundedRect(AbstractElementContainer parent, Map options) {
+<span class="fc bfc" id="L48" title="All 4 branches covered.">        Number x = options.x != null ? options.x as Number : 0</span>
+<span class="fc bfc" id="L49" title="All 4 branches covered.">        Number y = options.y != null ? options.y as Number : 0</span>
+<span class="fc" id="L50">        Number width = options.width as Number</span>
+<span class="fc" id="L51">        Number height = options.height as Number</span>
+<span class="fc bfc" id="L52" title="All 4 branches covered.">        Number radius = options.radius != null ? options.radius as Number : 5</span>
+
+<span class="fc" id="L54">        Rect rect = parent.addRect()</span>
+<span class="fc" id="L55">        rect.x(x).y(y).width(width).height(height)</span>
+<span class="fc" id="L56">        rect.rx(radius).ry(radius)</span>
+<span class="fc" id="L57">        rect</span>
+    }
+
+    /**
+     * Creates a star polygon with specified number of points.
+     * &lt;p&gt;
+     * Options:
+     * &lt;ul&gt;
+     *   &lt;li&gt;cx - Center X coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;cy - Center Y coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;points - Number of star points (default: 5)&lt;/li&gt;
+     *   &lt;li&gt;outerRadius - Radius to outer points (default: 50)&lt;/li&gt;
+     *   &lt;li&gt;innerRadius - Radius to inner points (default: outerRadius / 2.5)&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param parent parent element
+     * @param options configuration map
+     * @return configured Polygon element
+     */
+    static Polygon star(AbstractElementContainer parent, Map options) {
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">        double cx = options.cx != null ? (options.cx as Number).doubleValue() : 0</span>
+<span class="pc bpc" id="L78" title="2 of 4 branches missed.">        double cy = options.cy != null ? (options.cy as Number).doubleValue() : 0</span>
+<span class="fc bfc" id="L79" title="All 4 branches covered.">        int points = options.points != null ? (options.points as Number).intValue() : 5</span>
+<span class="pc bpc" id="L80" title="2 of 4 branches missed.">        double outerRadius = options.outerRadius != null ? (options.outerRadius as Number).doubleValue() : 50</span>
+<span class="fc bfc" id="L81" title="All 4 branches covered.">        double innerRadius = options.innerRadius != null ? (options.innerRadius as Number).doubleValue() : outerRadius / 2.5</span>
+
+<span class="fc" id="L83">        List&lt;String&gt; coords = []</span>
+<span class="fc" id="L84">        double angleStep = Math.PI / points</span>
+
+<span class="fc bfc" id="L86" title="All 4 branches covered.">        for (int i = 0; i &lt; points * 2; i++) {</span>
+<span class="fc" id="L87">            double angle = i * angleStep - Math.PI / 2</span>
+<span class="fc bfc" id="L88" title="All 4 branches covered.">            double radius = (i % 2 == 0) ? outerRadius : innerRadius</span>
+<span class="fc" id="L89">            double x = cx + radius * Math.cos(angle)</span>
+<span class="fc" id="L90">            double y = cy + radius * Math.sin(angle)</span>
+<span class="fc" id="L91">            coords.add(x.toString() + ',' + y.toString())</span>
+        }
+
+<span class="fc" id="L94">        String pointsStr = coords.join(' ')</span>
+<span class="fc" id="L95">        parent.addPolygon(pointsStr)</span>
+    }
+
+    /**
+     * Creates an arrow path from point (x1,y1) to (x2,y2).
+     * &lt;p&gt;
+     * Options:
+     * &lt;ul&gt;
+     *   &lt;li&gt;x1 - Start X coordinate (required)&lt;/li&gt;
+     *   &lt;li&gt;y1 - Start Y coordinate (required)&lt;/li&gt;
+     *   &lt;li&gt;x2 - End X coordinate (required)&lt;/li&gt;
+     *   &lt;li&gt;y2 - End Y coordinate (required)&lt;/li&gt;
+     *   &lt;li&gt;headSize - Arrow head size in pixels (default: 10)&lt;/li&gt;
+     *   &lt;li&gt;headAngle - Arrow head angle in degrees (default: 30)&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param parent parent element
+     * @param options configuration map
+     * @return configured Path element
+     */
+    static Path arrow(AbstractElementContainer parent, Map options) {
+<span class="fc" id="L116">        double x1 = (options.x1 as Number).doubleValue()</span>
+<span class="fc" id="L117">        double y1 = (options.y1 as Number).doubleValue()</span>
+<span class="fc" id="L118">        double x2 = (options.x2 as Number).doubleValue()</span>
+<span class="fc" id="L119">        double y2 = (options.y2 as Number).doubleValue()</span>
+<span class="fc bfc" id="L120" title="All 4 branches covered.">        double headSize = options.headSize != null ? (options.headSize as Number).doubleValue() : 10</span>
+<span class="pc bpc" id="L121" title="2 of 4 branches missed.">        double headAngle = options.headAngle != null ? (options.headAngle as Number).doubleValue() : 30</span>
+
+        // Calculate arrow direction
+<span class="fc" id="L124">        double dx = x2 - x1</span>
+<span class="fc" id="L125">        double dy = y2 - y1</span>
+<span class="fc" id="L126">        double angle = Math.atan2(dy, dx)</span>
+
+        // Calculate arrow head points
+<span class="fc" id="L129">        double angleRad = Math.toRadians(headAngle)</span>
+<span class="fc" id="L130">        double angle1 = angle + Math.PI - angleRad</span>
+<span class="fc" id="L131">        double angle2 = angle + Math.PI + angleRad</span>
+
+<span class="fc" id="L133">        double headX1 = x2 + headSize * Math.cos(angle1)</span>
+<span class="fc" id="L134">        double headY1 = y2 + headSize * Math.sin(angle1)</span>
+<span class="fc" id="L135">        double headX2 = x2 + headSize * Math.cos(angle2)</span>
+<span class="fc" id="L136">        double headY2 = y2 + headSize * Math.sin(angle2)</span>
+
+        // Build path
+<span class="fc" id="L139">        PathBuilder builder = PathBuilder.moveTo(x1, y1)</span>
+<span class="fc" id="L140">        builder.L(x2, y2)</span>
+<span class="fc" id="L141">        builder.M(headX1, headY1)</span>
+<span class="fc" id="L142">        builder.L(x2, y2)</span>
+<span class="fc" id="L143">        builder.L(headX2, headY2)</span>
+
+<span class="fc" id="L145">        parent.addPath().d(builder)</span>
+    }
+
+    /**
+     * Creates a regular polygon (triangle, hexagon, etc).
+     * &lt;p&gt;
+     * Options:
+     * &lt;ul&gt;
+     *   &lt;li&gt;cx - Center X coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;cy - Center Y coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;sides - Number of sides (default: 6)&lt;/li&gt;
+     *   &lt;li&gt;radius - Distance from center to vertices (default: 50)&lt;/li&gt;
+     *   &lt;li&gt;rotation - Rotation angle in degrees (default: 0)&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param parent parent element
+     * @param options configuration map
+     * @return configured Polygon element
+     */
+    static Polygon regularPolygon(AbstractElementContainer parent, Map options) {
+<span class="pc bpc" id="L165" title="2 of 4 branches missed.">        double cx = options.cx != null ? (options.cx as Number).doubleValue() : 0</span>
+<span class="pc bpc" id="L166" title="2 of 4 branches missed.">        double cy = options.cy != null ? (options.cy as Number).doubleValue() : 0</span>
+<span class="fc bfc" id="L167" title="All 4 branches covered.">        int sides = options.sides != null ? (options.sides as Number).intValue() : 6</span>
+<span class="pc bpc" id="L168" title="2 of 4 branches missed.">        double radius = options.radius != null ? (options.radius as Number).doubleValue() : 50</span>
+<span class="fc bfc" id="L169" title="All 4 branches covered.">        double rotation = options.rotation != null ? (options.rotation as Number).doubleValue() : 0</span>
+
+<span class="fc" id="L171">        List&lt;String&gt; coords = []</span>
+<span class="fc" id="L172">        double angleStep = 2 * Math.PI / sides</span>
+<span class="fc" id="L173">        double startAngle = Math.toRadians(rotation) - Math.PI / 2</span>
+
+<span class="fc bfc" id="L175" title="All 4 branches covered.">        for (int i = 0; i &lt; sides; i++) {</span>
+<span class="fc" id="L176">            double angle = startAngle + i * angleStep</span>
+<span class="fc" id="L177">            double x = cx + radius * Math.cos(angle)</span>
+<span class="fc" id="L178">            double y = cy + radius * Math.sin(angle)</span>
+<span class="fc" id="L179">            coords.add(x.toString() + ',' + y.toString())</span>
+        }
+
+<span class="fc" id="L182">        String pointsStr = coords.join(' ')</span>
+<span class="fc" id="L183">        parent.addPolygon(pointsStr)</span>
+    }
+
+    /**
+     * Creates a speech bubble with a tail pointing to a specific location.
+     * &lt;p&gt;
+     * Options:
+     * &lt;ul&gt;
+     *   &lt;li&gt;x - Bubble X coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;y - Bubble Y coordinate (default: 0)&lt;/li&gt;
+     *   &lt;li&gt;width - Bubble width (default: 100)&lt;/li&gt;
+     *   &lt;li&gt;height - Bubble height (default: 60)&lt;/li&gt;
+     *   &lt;li&gt;radius - Corner radius (default: 10)&lt;/li&gt;
+     *   &lt;li&gt;tailX - Tail point X coordinate (required)&lt;/li&gt;
+     *   &lt;li&gt;tailY - Tail point Y coordinate (required)&lt;/li&gt;
+     *   &lt;li&gt;tailWidth - Width of tail base (default: 20)&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param parent parent element
+     * @param options configuration map
+     * @return configured Path element
+     */
+    static Path speechBubble(AbstractElementContainer parent, Map options) {
+<span class="fc bfc" id="L206" title="All 4 branches covered.">        double x = options.x != null ? (options.x as Number).doubleValue() : 0</span>
+<span class="fc bfc" id="L207" title="All 4 branches covered.">        double y = options.y != null ? (options.y as Number).doubleValue() : 0</span>
+<span class="fc bfc" id="L208" title="All 4 branches covered.">        double width = options.width != null ? (options.width as Number).doubleValue() : 100</span>
+<span class="fc bfc" id="L209" title="All 4 branches covered.">        double height = options.height != null ? (options.height as Number).doubleValue() : 60</span>
+<span class="pc bpc" id="L210" title="2 of 4 branches missed.">        double radius = options.radius != null ? (options.radius as Number).doubleValue() : 10</span>
+<span class="fc" id="L211">        double tailX = (options.tailX as Number).doubleValue()</span>
+<span class="fc" id="L212">        double tailY = (options.tailY as Number).doubleValue()</span>
+<span class="pc bpc" id="L213" title="2 of 4 branches missed.">        double tailWidth = options.tailWidth != null ? (options.tailWidth as Number).doubleValue() : 20</span>
+
+        // Determine tail position (bottom edge for now)
+<span class="fc" id="L216">        double tailStart = x + width / 2 - tailWidth / 2</span>
+<span class="fc" id="L217">        double tailEnd = x + width / 2 + tailWidth / 2</span>
+
+        // Start at top-left, after radius
+<span class="fc" id="L220">        PathBuilder builder = PathBuilder.moveTo(x + radius, y)</span>
+
+        // Top edge
+<span class="fc" id="L223">        builder.H(x + width - radius)</span>
+
+        // Top-right corner
+<span class="fc" id="L226">        builder.A(radius, radius, 0, 0, 1, x + width, y + radius)</span>
+
+        // Right edge
+<span class="fc" id="L229">        builder.V(y + height - radius)</span>
+
+        // Bottom-right corner
+<span class="fc" id="L232">        builder.A(radius, radius, 0, 0, 1, x + width - radius, y + height)</span>
+
+        // Bottom edge to tail
+<span class="fc" id="L235">        builder.H(tailEnd)</span>
+<span class="fc" id="L236">        builder.L(tailX, tailY)</span>
+<span class="fc" id="L237">        builder.L(tailStart, y + height)</span>
+<span class="fc" id="L238">        builder.H(x + radius)</span>
+
+        // Bottom-left corner
+<span class="fc" id="L241">        builder.A(radius, radius, 0, 0, 1, x, y + height - radius)</span>
+
+        // Left edge
+<span class="fc" id="L244">        builder.V(y + radius)</span>
+
+        // Top-left corner
+<span class="fc" id="L247">        builder.A(radius, radius, 0, 0, 1, x + radius, y)</span>
+<span class="fc" id="L248">        builder.Z()</span>
+
+<span class="fc" id="L250">        parent.addPath().d(builder)</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

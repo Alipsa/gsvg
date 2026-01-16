@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeMerge.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FeMerge.groovy</span></div><h1>FeMerge.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;feMerge&gt;} filter primitive that merges multiple inputs into one.
+ */
+@CompileStatic
+class FeMerge extends FilterElement&lt;FeMerge&gt; {
+
+  static final String NAME = 'feMerge'
+
+  /**
+   * Creates a FeMerge.
+   *
+   * @param parent the parent SVG element
+   */
+  FeMerge(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L23">    super(parent, NAME)</span>
+<span class="fc" id="L24">  }</span>
+
+  @PackageScope
+  FeMerge(SvgElement parent, Element element) {
+<span class="nc" id="L28">    super(parent, element)</span>
+<span class="nc" id="L29">  }</span>
+
+
+  /**
+   * Creates and adds a new FeMergeNode child element.
+   *
+   * @return the created element
+   */
+  FeMergeNode addFeMergeNode() {
+<span class="fc" id="L38">    add(new FeMergeNode(this))</span>
+  }
+
+  /**
+   * Creates and adds a new FeMergeNode child element.
+   *
+   * @param id the unique identifier
+   * @return the created element
+   */
+  FeMergeNode addFeMergeNode(String id) {
+<span class="fc" id="L48">    addFeMergeNode().id(id)</span>
+  }
+
+  FeMergeNode addFeMergeNode(Map attributes) {
+<span class="nc" id="L52">    FeMergeNode elem = addFeMergeNode()</span>
+<span class="nc" id="L53">    attributes.each {</span>
+<span class="nc" id="L54">      key, value -&gt; elem.addAttribute(String.valueOf(key), value)</span>
+    }
+<span class="nc" id="L56">    elem</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

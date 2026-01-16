@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Animate.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">Animate.groovy</span></div><h1>Animate.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;animate&gt;} element that animates an attribute or property value over time.
+ */
+@CompileStatic
+class Animate extends Animation&lt;Animate&gt; {
+
+  static final String NAME='animate'
+
+  /**
+   * Creates a Animate.
+   *
+   * @param parent the parent SVG element
+   */
+  Animate(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L23">    super(parent, NAME)</span>
+<span class="fc" id="L24">  }</span>
+
+  @PackageScope
+  Animate(SvgElement parent, Element element) {
+<span class="nc" id="L28">    super(parent, element)</span>
+<span class="nc" id="L29">  }</span>
+
+
+  /**
+   * Sets the attribute name attribute.
+   *
+   * @param name the name of the element
+   * @return this element for chaining
+   */
+  Animate attributeName(String name) {
+<span class="fc" id="L39">    addAttribute('attributeName', name)</span>
+  }
+
+  /**
+   * Returns the attribute name value.
+   *
+   * @return the attribute name value
+   */
+  String getAttributeName() {
+<span class="fc" id="L48">    getAttribute('attributeName')</span>
+  }
+
+  /**
+   * Sets the values attribute.
+   *
+   * @param vals the values
+   * @return this element for chaining
+   */
+  Animate values(String vals) {
+<span class="fc" id="L58">    addAttribute('values', vals)</span>
+  }
+
+  /**
+   * Returns the values value.
+   *
+   * @return the values value
+   */
+  String getValues() {
+<span class="fc" id="L67">    getAttribute('values')</span>
+  }
+
+  /**
+   * Sets the dur attribute.
+   *
+   * @param duration the duration
+   * @return this element for chaining
+   */
+  Animate dur(String duration) {
+<span class="fc" id="L77">    addAttribute('dur', duration)</span>
+  }
+
+  /**
+   * Returns the dur value.
+   *
+   * @return the dur value
+   */
+  String getDur(){
+<span class="fc" id="L86">    getAttribute('dur')</span>
+  }
+
+  /**
+   * Sets the begin attribute.
+   *
+   * @param time the time value
+   * @return this element for chaining
+   */
+  Animate begin(String time) {
+<span class="fc" id="L96">    addAttribute('begin', time)</span>
+  }
+
+  /**
+   * Returns the begin value.
+   *
+   * @return the begin value
+   */
+  String getBegin() {
+<span class="fc" id="L105">    getAttribute('begin')</span>
+  }
+
+  /**
+   * Sets the from attribute.
+   *
+   * @param fromNum the starting number
+   * @return this element for chaining
+   */
+  Animate from(Number fromNum) {
+<span class="nc" id="L115">    addAttribute('from', &quot;$fromNum&quot;)</span>
+  }
+
+  /**
+   * Sets the from attribute.
+   *
+   * @param fromNum value
+   * @return this element for chaining
+   */
+  Animate from(String fromNum) {
+<span class="fc" id="L125">    addAttribute('from', &quot;$fromNum&quot;)</span>
+  }
+  /**
+   * Returns the from value.
+   *
+   * @return the from value
+   */
+  String getFrom() {
+<span class="fc" id="L133">    getAttribute('from')</span>
+  }
+
+  /**
+   * Sets the to attribute.
+   *
+   * @param to the ending value for the animation
+   * @return this element for chaining
+   */
+  Animate to(String to) {
+<span class="fc" id="L143">    addAttribute('to', to)</span>
+  }
+
+  /**
+   * Returns the to value.
+   *
+   * @return the to value
+   */
+  String getTo() {
+<span class="fc" id="L152">    getAttribute('to')</span>
+  }
+
+  /**
+   * Sets the fill attribute.
+   *
+   * @param fill the fill color
+   * @return this element for chaining
+   */
+  Animate fill(String fill) {
+<span class="fc" id="L162">    addAttribute('fill', &quot;$fill&quot;)</span>
+  }
+
+  /**
+   * Returns the fill value.
+   *
+   * @return the fill value
+   */
+  String getFill() {
+<span class="fc" id="L171">    getAttribute('fill')</span>
+  }
+
+  /**
+   * Sets the calcMode attribute (animation interpolation mode).
+   *
+   * @param mode the calculation mode (discrete, linear, paced, spline)
+   * @return this element for chaining
+   */
+  Animate calcMode(String mode) {
+<span class="fc" id="L181">    addAttribute('calcMode', mode)</span>
+  }
+
+  /**
+   * Returns the calcMode value.
+   *
+   * @return the calcMode value
+   */
+  String getCalcMode() {
+<span class="fc" id="L190">    getAttribute('calcMode')</span>
+  }
+
+  /**
+   * Sets the additive attribute.
+   *
+   * @param additive whether animation is additive (replace, sum)
+   * @return this element for chaining
+   */
+  Animate additive(String additive) {
+<span class="fc" id="L200">    addAttribute('additive', additive)</span>
+  }
+
+  /**
+   * Returns the additive value.
+   *
+   * @return the additive value
+   */
+  String getAdditive() {
+<span class="fc" id="L209">    getAttribute('additive')</span>
+  }
+
+  /**
+   * Sets the accumulate attribute.
+   *
+   * @param accumulate whether animation accumulates (none, sum)
+   * @return this element for chaining
+   */
+  Animate accumulate(String accumulate) {
+<span class="fc" id="L219">    addAttribute('accumulate', accumulate)</span>
+  }
+
+  /**
+   * Returns the accumulate value.
+   *
+   * @return the accumulate value
+   */
+  String getAccumulate() {
+<span class="fc" id="L228">    getAttribute('accumulate')</span>
+  }
+
+  /**
+   * Sets the end attribute.
+   *
+   * @param time the end time for the animation
+   * @return this element for chaining
+   */
+  Animate end(String time) {
+<span class="fc" id="L238">    addAttribute('end', time)</span>
+  }
+
+  /**
+   * Returns the end value.
+   *
+   * @return the end value
+   */
+  String getEnd() {
+<span class="fc" id="L247">    getAttribute('end')</span>
+  }
+
+  /**
+   * Sets the keyTimes attribute.
+   *
+   * @param times semicolon-separated time values
+   * @return this element for chaining
+   */
+  Animate keyTimes(String times) {
+<span class="fc" id="L257">    addAttribute('keyTimes', times)</span>
+  }
+
+  /**
+   * Returns the keyTimes value.
+   *
+   * @return the keyTimes value
+   */
+  String getKeyTimes() {
+<span class="fc" id="L266">    getAttribute('keyTimes')</span>
+  }
+
+  /**
+   * Sets the repeatDur attribute.
+   *
+   * @param duration total duration for repeating
+   * @return this element for chaining
+   */
+  Animate repeatDur(String duration) {
+<span class="fc" id="L276">    addAttribute('repeatDur', duration)</span>
+  }
+
+  /**
+   * Returns the repeatDur value.
+   *
+   * @return the repeatDur value
+   */
+  String getRepeatDur() {
+<span class="fc" id="L285">    getAttribute('repeatDur')</span>
+  }
+
+  /**
+   * Sets the repeatCount attribute.
+   *
+   * @param count number of times to repeat
+   * @return this element for chaining
+   */
+  Animate repeatCount(String count) {
+<span class="fc" id="L295">    addAttribute('repeatCount', count)</span>
+  }
+
+  /**
+   * Returns the repeatCount value.
+   *
+   * @return the repeatCount value
+   */
+  String getRepeatCount() {
+<span class="fc" id="L304">    getAttribute('repeatCount')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

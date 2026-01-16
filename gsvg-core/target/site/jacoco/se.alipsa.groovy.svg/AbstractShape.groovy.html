@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractShape.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">AbstractShape.groovy</span></div><h1>AbstractShape.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+import groovy.transform.CompileStatic
+import org.dom4j.Element
+import se.alipsa.groovy.svg.utils.Color
+
+/**
+ * Base class for basic SVG shape elements with shared presentation attributes.
+ */
+@CompileStatic
+class AbstractShape&lt;T extends SvgElement&lt;T&gt;&gt; extends SvgElement&lt;T&gt; implements Animatable&lt;T&gt;{
+
+  /**
+   * Creates a AbstractShape.
+   *
+   * @param parent the parent SVG element
+   * @param name the name of the element
+   */
+  AbstractShape(SvgElement&lt;? extends SvgElement&gt; parent, String name) {
+<span class="fc" id="L20">    super(parent, name)</span>
+<span class="fc" id="L21">  }</span>
+
+  /**
+   * Creates an AbstractShape by adopting an existing DOM4J Element.
+   * Used for cloning/copying operations.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
+  AbstractShape(SvgElement&lt;? extends SvgElement&gt; parent, Element element) {
+<span class="fc" id="L31">    super(parent, element)</span>
+<span class="fc" id="L32">  }</span>
+
+  /**
+   * Sets the mask reference applied when rendering this shape (for example `url(#maskId)`).
+   *
+   * @param ref the reference
+   * @return this element for chaining
+   */
+  T mask(String ref) {
+<span class="fc" id="L41">    addAttribute('mask', ref)</span>
+  }
+
+  /**
+   * Returns the mask reference applied when rendering this shape.
+   *
+   * @return the mask value
+   */
+  String getMask() {
+<span class="fc" id="L50">    getAttribute('mask')</span>
+  }
+
+  /**
+   * Sets the onclick event handler for this shape.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  T onClick(String value) {
+<span class="fc" id="L60">    addAttribute('onclick', value)</span>
+  }
+
+  /**
+   * Sets the fill rule used to determine the interior of the shape (for example `nonzero` or `evenodd`).
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  T fillRule(String value) {
+<span class="fc" id="L70">    addAttribute('fill-rule', value)</span>
+<span class="fc" id="L71">    this as T</span>
+  }
+
+  /**
+   * Returns the fill rule used to determine the interior of the shape.
+   *
+   * @return the fill rule value
+   */
+  String getFillRule() {
+<span class="fc" id="L80">    getAttribute('fill-rule')</span>
+  }
+
+  /**
+   * Sets the stroke line join style for corners (for example `miter`, `round`, or `bevel`).
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  T strokeLinejoin(String value) {
+<span class="fc" id="L90">    addAttribute('stroke-linejoin', value)</span>
+<span class="fc" id="L91">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke line join style for corners.
+   *
+   * @return the stroke linejoin value
+   */
+  String getStrokeLinejoin() {
+<span class="fc" id="L100">    getAttribute('stroke-linejoin')</span>
+  }
+
+  /**
+   * Sets the stroke line cap style for line ends (for example `butt`, `round`, or `square`).
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  T strokeLinecap(String value) {
+<span class="fc" id="L110">    addAttribute('stroke-linecap', value)</span>
+<span class="fc" id="L111">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke line cap style for line ends.
+   *
+   * @return the stroke linecap value
+   */
+  String getStrokeLinecap() {
+<span class="fc" id="L120">    getAttribute('stroke-linecap')</span>
+  }
+
+  /**
+   * Sets the stroke paint used to draw the shape outline.
+   *
+   * @param stroke the stroke color
+   * @return this element for chaining
+   */
+  T stroke(String stroke) {
+<span class="fc" id="L130">    addAttribute('stroke', stroke)</span>
+<span class="fc" id="L131">    this as T</span>
+  }
+
+  /**
+   * Sets the stroke paint using a Color object.
+   *
+   * @param color the stroke color
+   * @return this element for chaining
+   */
+  T stroke(Color color) {
+<span class="fc" id="L141">    addAttribute('stroke', color.toString())</span>
+<span class="fc" id="L142">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke paint used to draw the shape outline.
+   *
+   * @return the stroke value
+   */
+  String getStroke() {
+<span class="fc" id="L151">    getAttribute('stroke')</span>
+  }
+
+  /**
+   * Sets the stroke width used to draw the shape outline.
+   *
+   * @param strokeWidth the stroke width
+   * @return this element for chaining
+   */
+  T strokeWidth(Number strokeWidth) {
+<span class="fc" id="L161">    addAttribute('stroke-width', strokeWidth)</span>
+<span class="fc" id="L162">    this as T</span>
+  }
+
+  /**
+   * Sets the stroke width using a string value (for example `&quot;2&quot;` or `&quot;1.5px&quot;`).
+   *
+   * @param strokeWidth the stroke width
+   * @return this element for chaining
+   */
+  T strokeWidth(String strokeWidth) {
+<span class="nc" id="L172">    addAttribute('stroke-width', strokeWidth)</span>
+<span class="nc" id="L173">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke width used to draw the shape outline.
+   *
+   * @return the stroke width value
+   */
+  String getStrokeWidth() {
+<span class="fc" id="L182">    getAttribute('stroke-width')</span>
+  }
+
+  /**
+   * Sets the stroke dash pattern used to draw the outline (for example `&quot;4 2&quot;`).
+   *
+   * @param dashArray value
+   * @return this element for chaining
+   */
+  T strokeDasharray(String dashArray) {
+<span class="fc" id="L192">    addAttribute('stroke-dasharray', dashArray)</span>
+<span class="fc" id="L193">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke dash pattern used to draw the outline.
+   *
+   * @return the stroke dasharray value
+   */
+  String getStrokeDasharray() {
+<span class="fc" id="L202">    getAttribute('stroke-dasharray')</span>
+  }
+
+  /**
+   * Sets the stroke opacity (0 to 1) used when painting the outline.
+   *
+   * @param alpha value
+   * @return this element for chaining
+   */
+  T strokeOpacity(Number alpha) {
+<span class="fc" id="L212">    addAttribute('stroke-opacity', alpha)</span>
+<span class="fc" id="L213">    this as T</span>
+  }
+
+  /**
+   * Sets the stroke opacity using a string value (for example `&quot;0.5&quot;` or `&quot;50%&quot;`).
+   *
+   * @param alpha value
+   * @return this element for chaining
+   */
+  T strokeOpacity(String alpha) {
+<span class="fc" id="L223">    addAttribute('stroke-opacity', alpha)</span>
+<span class="fc" id="L224">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke opacity used when painting the outline.
+   *
+   * @return the stroke opacity value
+   */
+  String getStrokeOpacity() {
+<span class="fc" id="L233">    getAttribute('stroke-opacity')</span>
+  }
+
+  /**
+   * Sets the stroke miter limit used when {@code stroke-linejoin} is {@code miter}.
+   *
+   * @param limit value
+   * @return this element for chaining
+   */
+  T strokeMiterlimit(Number limit) {
+<span class="fc" id="L243">    addAttribute('stroke-miterlimit', limit)</span>
+<span class="fc" id="L244">    this as T</span>
+  }
+
+  /**
+   * Sets the stroke miter limit using a string value.
+   *
+   * @param limit value
+   * @return this element for chaining
+   */
+  T strokeMiterlimit(String limit) {
+<span class="fc" id="L254">    addAttribute('stroke-miterlimit', limit)</span>
+<span class="fc" id="L255">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke miter limit used when {@code stroke-linejoin} is {@code miter}.
+   *
+   * @return the stroke miterlimit value
+   */
+  String getStrokeMiterlimit() {
+<span class="fc" id="L264">    getAttribute('stroke-miterlimit')</span>
+  }
+
+  /**
+   * Sets the stroke dash offset, which shifts where the dash pattern starts.
+   *
+   * @param offset value
+   * @return this element for chaining
+   */
+  T strokeDashoffset(Number offset) {
+<span class="fc" id="L274">    addAttribute('stroke-dashoffset', offset)</span>
+<span class="fc" id="L275">    this as T</span>
+  }
+
+  /**
+   * Sets the stroke dash offset using a string value (for example `&quot;2&quot;` or `&quot;5px&quot;`).
+   *
+   * @param offset value
+   * @return this element for chaining
+   */
+  T strokeDashoffset(String offset) {
+<span class="fc" id="L285">    addAttribute('stroke-dashoffset', offset)</span>
+<span class="fc" id="L286">    this as T</span>
+  }
+
+  /**
+   * Returns the stroke dash offset, which shifts where the dash pattern starts.
+   *
+   * @return the stroke dashoffset value
+   */
+  String getStrokeDashoffset() {
+<span class="fc" id="L295">    getAttribute('stroke-dashoffset')</span>
+  }
+
+  /**
+   * Sets the fill paint used to draw the shape interior.
+   *
+   * @param fill the fill color
+   * @return this element for chaining
+   */
+  T fill(String fill) {
+<span class="fc" id="L305">    addAttribute('fill', fill)</span>
+<span class="fc" id="L306">    this as T</span>
+  }
+
+  /**
+   * Sets the fill paint using a Color object.
+   *
+   * @param color the fill color
+   * @return this element for chaining
+   */
+  T fill(Color color) {
+<span class="fc" id="L316">    addAttribute('fill', color.toString())</span>
+<span class="fc" id="L317">    this as T</span>
+  }
+
+  /**
+   * Returns the fill paint used to draw the shape interior.
+   *
+   * @return the fill value
+   */
+  String getFill() {
+<span class="fc" id="L326">    getAttribute('fill')</span>
+  }
+
+  /**
+   * Sets the fill opacity (0 to 1) used when painting the interior.
+   *
+   * @param alpha value
+   * @return this element for chaining
+   */
+  T fillOpacity(Number alpha) {
+<span class="fc" id="L336">    addAttribute('fill-opacity', alpha)</span>
+<span class="fc" id="L337">    this as T</span>
+  }
+
+  /**
+   * Sets the fill opacity using a string value (for example `&quot;0.5&quot;` or `&quot;50%&quot;`).
+   *
+   * @param alpha value
+   * @return this element for chaining
+   */
+  T fillOpacity(String alpha) {
+<span class="fc" id="L347">    addAttribute('fill-opacity', alpha)</span>
+<span class="fc" id="L348">    this as T</span>
+  }
+
+  /**
+   * Returns the fill opacity used when painting the interior.
+   *
+   * @return the fill opacity value
+   */
+  String getFillOpacity() {
+<span class="fc" id="L357">    getAttribute('fill-opacity')</span>
+  }
+
+  /**
+   * Sets the overall opacity (0 to 1) for the entire element (affects both fill and stroke).
+   *
+   * @param alpha the opacity value (0 = transparent, 1 = opaque)
+   * @return this element for chaining
+   */
+  T opacity(Number alpha) {
+<span class="fc" id="L367">    addAttribute('opacity', alpha)</span>
+<span class="fc" id="L368">    this as T</span>
+  }
+
+  /**
+   * Sets the overall opacity using a string value (for example `&quot;0.5&quot;` or `&quot;50%&quot;`).
+   *
+   * @param alpha the opacity value
+   * @return this element for chaining
+   */
+  T opacity(String alpha) {
+<span class="fc" id="L378">    addAttribute('opacity', alpha)</span>
+<span class="fc" id="L379">    this as T</span>
+  }
+
+  /**
+   * Returns the overall opacity for the entire element.
+   *
+   * @return the opacity value
+   */
+  String getOpacity() {
+<span class="fc" id="L388">    getAttribute('opacity')</span>
+  }
+
+  /**
+   * Sets the transform attribute directly as a string.
+   *
+   * @param value the transform value
+   * @return this element for chaining
+   */
+  T transform(String value) {
+<span class="fc" id="L398">    addAttribute('transform', value)</span>
+<span class="fc" id="L399">    this as T</span>
+  }
+
+  /**
+   * Returns the transform attribute value.
+   *
+   * @return the transform value
+   */
+  String getTransform() {
+<span class="fc" id="L408">    getAttribute('transform')</span>
+  }
+
+  /**
+   * Appends a rotate transform to the existing transform attribute.
+   * If no transform exists, creates a new one.
+   *
+   * @param angle the rotation angle in degrees
+   * @return this element for chaining
+   */
+  T rotate(Number angle) {
+<span class="fc" id="L419">    appendTransform(&quot;rotate($angle)&quot;)</span>
+  }
+
+  /**
+   * Appends a rotate transform around a specific center point.
+   *
+   * @param angle the rotation angle in degrees
+   * @param cx the x-coordinate of the rotation center
+   * @param cy the y-coordinate of the rotation center
+   * @return this element for chaining
+   */
+  T rotate(Number angle, Number cx, Number cy) {
+<span class="fc" id="L431">    appendTransform(&quot;rotate($angle $cx $cy)&quot;)</span>
+  }
+
+  /**
+   * Appends a translate transform to the existing transform attribute.
+   *
+   * @param tx the x-axis translation
+   * @param ty the y-axis translation
+   * @return this element for chaining
+   */
+  T translate(Number tx, Number ty) {
+<span class="fc" id="L442">    appendTransform(&quot;translate($tx $ty)&quot;)</span>
+  }
+
+  /**
+   * Appends a translate transform along the x-axis only.
+   *
+   * @param tx the x-axis translation
+   * @return this element for chaining
+   */
+  T translate(Number tx) {
+<span class="fc" id="L452">    appendTransform(&quot;translate($tx)&quot;)</span>
+  }
+
+  /**
+   * Appends a scale transform to the existing transform attribute.
+   *
+   * @param sx the x-axis scale factor
+   * @param sy the y-axis scale factor
+   * @return this element for chaining
+   */
+  T scale(Number sx, Number sy) {
+<span class="fc" id="L463">    appendTransform(&quot;scale($sx $sy)&quot;)</span>
+  }
+
+  /**
+   * Appends a uniform scale transform (same factor for both axes).
+   *
+   * @param s the scale factor
+   * @return this element for chaining
+   */
+  T scale(Number s) {
+<span class="fc" id="L473">    appendTransform(&quot;scale($s)&quot;)</span>
+  }
+
+  /**
+   * Appends a skewX transform (skew along the x-axis).
+   *
+   * @param angle the skew angle in degrees
+   * @return this element for chaining
+   */
+  T skewX(Number angle) {
+<span class="fc" id="L483">    appendTransform(&quot;skewX($angle)&quot;)</span>
+  }
+
+  /**
+   * Appends a skewY transform (skew along the y-axis).
+   *
+   * @param angle the skew angle in degrees
+   * @return this element for chaining
+   */
+  T skewY(Number angle) {
+<span class="fc" id="L493">    appendTransform(&quot;skewY($angle)&quot;)</span>
+  }
+
+  /**
+   * Appends a matrix transform.
+   *
+   * @param a the a component of the matrix
+   * @param b the b component of the matrix
+   * @param c the c component of the matrix
+   * @param d the d component of the matrix
+   * @param e the e component of the matrix
+   * @param f the f component of the matrix
+   * @return this element for chaining
+   */
+  T matrix(Number a, Number b, Number c, Number d, Number e, Number f) {
+<span class="fc" id="L508">    appendTransform(&quot;matrix($a $b $c $d $e $f)&quot;)</span>
+  }
+
+  /**
+   * Helper method to append a transform to the existing transform attribute.
+   * If the transform attribute doesn't exist, it creates it.
+   * If it exists, it appends the new transform with a space separator.
+   *
+   * @param transformValue the transform to append
+   * @return this element for chaining
+   */
+  private T appendTransform(String transformValue) {
+<span class="fc" id="L520">    String existing = getAttribute('transform')</span>
+<span class="pc bpc" id="L521" title="1 of 8 branches missed.">    if (existing == null || existing.isEmpty()) {</span>
+<span class="fc" id="L522">      addAttribute('transform', transformValue)</span>
+    } else {
+<span class="fc" id="L524">      addAttribute('transform', &quot;$existing $transformValue&quot;)</span>
+    }
+<span class="fc" id="L526">    this as T</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

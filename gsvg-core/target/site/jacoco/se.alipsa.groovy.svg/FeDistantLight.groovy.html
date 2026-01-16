@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FeDistantLight.groovy</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gsvg</a> &gt; <a href="index.source.html" class="el_package">se.alipsa.groovy.svg</a> &gt; <span class="el_source">FeDistantLight.groovy</span></div><h1>FeDistantLight.groovy</h1><pre class="source lang-java linenums">package se.alipsa.groovy.svg
+
+
+
+import groovy.transform.PackageScope
+import org.dom4j.Element
+import groovy.transform.CompileStatic
+
+/**
+ * SVG {@code &lt;feDistantLight&gt;} element that defines a distant light source.
+ */
+@CompileStatic
+class FeDistantLight extends LightSourceElement&lt;FeDistantLight&gt; {
+
+  static final String NAME = 'feDistantLight'
+
+  /**
+   * Creates a FeDistantLight.
+   *
+   * @param parent the parent SVG element
+   */
+  FeDistantLight(SvgElement&lt;? extends SvgElement&gt; parent) {
+<span class="fc" id="L23">    super(parent, NAME)</span>
+<span class="fc" id="L24">  }</span>
+
+  @PackageScope
+  FeDistantLight(SvgElement parent, Element element) {
+<span class="nc" id="L28">    super(parent, element)</span>
+<span class="nc" id="L29">  }</span>
+
+
+  /**
+   * Sets the azimuth attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeDistantLight azimuth(Number value) {
+<span class="fc" id="L39">    addAttribute('azimuth', value)</span>
+  }
+
+  /**
+   * Sets the azimuth attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeDistantLight azimuth(String value) {
+<span class="nc" id="L49">    addAttribute('azimuth', value)</span>
+  }
+  /**
+   * Returns the azimuth value.
+   *
+   * @return the azimuth value
+   */
+  String getAzimuth() {
+<span class="nc" id="L57">    getAttribute('azimuth')</span>
+  }
+
+  /**
+   * Sets the elevation attribute.
+   *
+   * @param value the value
+   * @return this element for chaining
+   */
+  FeDistantLight elevation(Number value) {
+<span class="fc" id="L67">    addAttribute('elevation', value)</span>
+  }
+
+  /**
+   * Sets the elevation attribute.
+   *
+   * @param value value
+   * @return this element for chaining
+   */
+  FeDistantLight elevation(String value) {
+<span class="nc" id="L77">    addAttribute('elevation', value)</span>
+  }
+  /**
+   * Returns the elevation value.
+   *
+   * @return the elevation value
+   */
+  String getElevation() {
+<span class="nc" id="L85">    getAttribute('elevation')</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
