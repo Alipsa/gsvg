@@ -93,13 +93,14 @@ class SvgFormatter {
             def container = element as ElementContainer
             def children = container.children
 
-            // Check if all children are text-like (no formatting needed)
-            boolean simpleContent = children.size() == 1 &&
-                    (children[0] as SvgElement).getName() in ['#text', '#cdata']
+            // Check if element has text content but no child elements
+            // This applies to elements like <title>Text</title>, <text>Content</text>, etc.
+            boolean hasTextContent = element.element.getText() != null && !element.element.getText().isEmpty()
+            boolean simpleContent = children.isEmpty() && hasTextContent
 
             if (simpleContent) {
-                // Keep on same line
-                formatElement(children[0] as SvgElement, sb, 0, '', '', sortAttrs, groupElems)
+                // Keep text content on same line
+                sb.append(escapeXml(element.element.getText()))
                 sb.append('</')
                 sb.append(element.getName())
                 sb.append('>')

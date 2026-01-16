@@ -490,4 +490,171 @@ class ElementContainerEnhancedTest {
     List<SvgElement> redElements = svg.xpath('//*[@fill="red"]')
     assertTrue(redElements.size() >= 1, "Should find at least one red element")
   }
+
+  // ==================== REMOVE TESTS ====================
+
+  @Test
+  void testRemoveElement() {
+    Circle circle = svg.findFirst(Circle)
+    assertNotNull(circle)
+    assertEquals(5, svg.children.size())
+
+    boolean removed = svg.remove(circle)
+    assertTrue(removed, "Should return true when element is removed")
+    assertEquals(4, svg.children.size())
+
+    // Verify element no longer in children list
+    assertFalse(svg.children.contains(circle))
+  }
+
+  @Test
+  void testRemoveElementFromDOM() {
+    Circle circle = svg.findFirst(Circle)
+    assertNotNull(circle)
+    String circleId = circle.getId()
+
+    svg.remove(circle)
+
+    // Verify element removed from DOM tree by checking XPath
+    List<SvgElement> found = svg.xpath("//*[@id='${circleId}']")
+    assertEquals(0, found.size(), "Element should be removed from DOM tree")
+  }
+
+  @Test
+  void testRemoveNull() {
+    int initialSize = svg.children.size()
+    boolean removed = svg.remove(null)
+    assertFalse(removed, "Should return false when removing null")
+    assertEquals(initialSize, svg.children.size(), "Size should not change")
+  }
+
+  @Test
+  void testRemoveNonExistentElement() {
+    Svg otherSvg = new Svg(100, 100)
+    Circle otherCircle = otherSvg.addCircle().cx(50).cy(50).r(25)
+
+    int initialSize = svg.children.size()
+    boolean removed = svg.remove(otherCircle)
+    // Should return false since element is not a child
+    assertFalse(removed, "Should return false when element is not a child")
+    assertEquals(initialSize, svg.children.size())
+  }
+
+  @Test
+  void testRemoveChildAlias() {
+    Rect rect = svg.findFirst(Rect)
+    assertNotNull(rect)
+    assertEquals(5, svg.children.size())
+
+    boolean removed = svg.removeChild(rect)
+    assertTrue(removed)
+    assertEquals(4, svg.children.size())
+    assertFalse(svg.children.contains(rect))
+  }
+
+  @Test
+  void testRemoveChildByName() {
+    // Initially has 2 circles
+    assertEquals(2, svg[Circle].size())
+
+    int removedCount = svg.removeChild('circle')
+    assertEquals(2, removedCount, "Should remove 2 circles")
+
+    // Verify all circles removed
+    assertEquals(0, svg[Circle].size())
+
+    // Verify other elements still present
+    assertEquals(2, svg[Rect].size())
+    assertEquals(1, svg[G].size())
+  }
+
+  @Test
+  void testRemoveChildByNameSingle() {
+    // Initially has 1 group
+    assertEquals(1, svg[G].size())
+
+    int removedCount = svg.removeChild('g')
+    assertEquals(1, removedCount, "Should remove 1 group")
+
+    // Verify group removed
+    assertEquals(0, svg[G].size())
+  }
+
+  @Test
+  void testRemoveChildByNameNonExistent() {
+    int initialSize = svg.children.size()
+    int removedCount = svg.removeChild('path')
+    assertEquals(0, removedCount, "Should remove 0 paths (none exist)")
+    assertEquals(initialSize, svg.children.size(), "Size should not change")
+  }
+
+  @Test
+  void testRemoveChildByNameNull() {
+    int initialSize = svg.children.size()
+    int removedCount = svg.removeChild(null as String)
+    assertEquals(0, removedCount)
+    assertEquals(initialSize, svg.children.size())
+  }
+
+  @Test
+  void testRemoveChildByNameBlank() {
+    int initialSize = svg.children.size()
+    int removedCount = svg.removeChild('')
+    assertEquals(0, removedCount)
+    assertEquals(initialSize, svg.children.size())
+  }
+
+  @Test
+  void testRemoveFromGroup() {
+    G group = svg.findFirst(G)
+    assertNotNull(group)
+    assertEquals(2, group.children.size())
+
+    Circle groupCircle = group.findFirst(Circle)
+    assertNotNull(groupCircle)
+
+    boolean removed = group.remove(groupCircle)
+    assertTrue(removed)
+    assertEquals(1, group.children.size())
+    assertFalse(group.children.contains(groupCircle))
+  }
+
+  @Test
+  void testRemoveMultipleElements() {
+    // Remove all red elements
+    List<SvgElement> redElements = svg.filter { it.getFill() == 'red' }
+    assertEquals(2, redElements.size())
+
+    redElements.each { svg.remove(it) }
+
+    // Verify all red elements removed
+    List<SvgElement> remaining = svg.filter { it.getFill() == 'red' }
+    assertEquals(0, remaining.size())
+  }
+
+  @Test
+  void testRemoveByNameFromGroup() {
+    G group = svg.findFirst(G)
+    assertNotNull(group)
+    assertEquals(2, group.children.size())
+    assertEquals(1, group[Circle].size())
+
+    int removedCount = group.removeChild('circle')
+    assertEquals(1, removedCount)
+    assertEquals(1, group.children.size())
+    assertEquals(0, group[Circle].size())
+  }
+
+  @Test
+  void testRemoveUpdatesParentReference() {
+    Circle circle = svg.findFirst(Circle)
+    assertNotNull(circle)
+    assertEquals(svg, circle.parent)
+
+    svg.remove(circle)
+
+    // Parent reference should still point to original parent
+    // (The element is detached but retains its reference)
+    assertEquals(svg, circle.parent)
+  }
 }

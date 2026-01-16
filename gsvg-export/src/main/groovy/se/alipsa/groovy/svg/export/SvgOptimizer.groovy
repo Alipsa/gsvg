@@ -321,7 +321,17 @@ class SvgOptimizer {
                             ids.add(href.substring(1))
                         }
                     } catch (IllegalArgumentException e) {
-                        // Namespace not bound, skip this attribute
+                        // Expected: xlink namespace may not be bound on all elements
+                        // Only swallow namespace-related exceptions
+                        if (e.message?.contains('Namespace') || e.message?.contains('namespace')) {
+                            // Namespace not bound, skip this attribute
+                        } else {
+                            // Unexpected exception - rethrow for debugging
+                            throw new IllegalStateException(
+                                "Unexpected error getting attribute '${attr}' from element '${element.getName()}': ${e.message}",
+                                e
+                            )
+                        }
                     }
                 }
 
