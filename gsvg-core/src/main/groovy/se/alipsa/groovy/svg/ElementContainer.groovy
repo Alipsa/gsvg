@@ -346,7 +346,7 @@ trait ElementContainer {
    * - Attribute selectors: {@code [fill="red"]}, {@code [stroke]}
    * - Descendant combinator: {@code g circle}
    * - Child combinator: {@code g > circle}
-   * - Pseudo-classes: {@code :first-child}, {@code :first-child}, {@code :nth-child(n)}
+   * - Pseudo-classes: {@code :first-child}, {@code :last-child}, {@code :nth-child(n)}
    *
    * @param selector the CSS selector
    * @return list of matching elements
