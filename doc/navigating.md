@@ -282,17 +282,24 @@ List<SvgElement> siblings = svg.xpath('//circle[@id="c1"]/following-sibling::*')
 
 ### Namespace Handling
 
-**GSVG automatically handles SVG namespaces** for you. Simple queries like `//circle` are automatically transformed to work with namespaced SVG elements:
+**GSVG automatically handles SVG namespaces** for you. Before executing XPath queries, GSVG preprocesses the query string using regex transformations to convert simple element names into namespace-agnostic predicates:
 
 ```groovy
 // You write this (simple, clean)
 svg.xpath('//circle')
 
-// GSVG transforms it internally to (namespace-aware)
+// GSVG preprocesses it to this (namespace-aware) before execution
 svg.xpath('//*[local-name()="circle"]')
 ```
 
-This means you don't need to worry about XML namespaces in your queries - just use element names naturally.
+**How it works:**
+- **Preprocessing step**: Uses regex to rewrite the query string before execution
+- **Transformation rules**:
+  - `//elementName` → `//*[local-name()='elementName']`
+  - `/elementName` → `/*[local-name()='elementName']`
+- **Skipped transformations**: Queries already using `local-name()` or namespace prefixes (`:`) are passed through unchanged
+
+This means you can write clean, intuitive XPath queries without worrying about SVG namespaces - just use element names naturally.
 
 ### XPath on Nested Containers
 

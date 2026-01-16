@@ -4,6 +4,9 @@ import se.alipsa.groovy.svg.*
 import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.utils.NumberFormatter
 
+import java.util.HashSet
+import java.util.Set
+
 /**
  * Provides SVG optimization capabilities to reduce file size.
  *
@@ -305,8 +308,8 @@ class SvgOptimizer {
     /**
      * Collects all referenced IDs in the SVG.
      */
-    private static java.util.Set<String> collectUsedIds(ElementContainer container) {
-        java.util.Set<String> ids = [] as java.util.HashSet
+    private static Set<String> collectUsedIds(ElementContainer container) {
+        Set<String> ids = new HashSet<>()
 
         container.children.each { element ->
             if (element instanceof SvgElement) {
