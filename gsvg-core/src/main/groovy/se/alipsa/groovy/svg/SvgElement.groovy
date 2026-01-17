@@ -411,6 +411,53 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
+   * Adds a raw attribute without numeric formatting.
+   * Intended for parsing where attribute values should be preserved as-is from the source document.
+   *
+   * @param name the attribute name
+   * @param value the attribute value
+   * @return this element for chaining
+   */
+  T addAttributeRaw(String name, String value) {
+    if (value == null) {
+      return this as T
+    }
+    if (name.contains(':')) {
+      addAttributeRaw(getQName(name), value)
+    } else {
+      element.addAttribute(name, value)
+    }
+    this as T
+  }
+
+  /**
+   * Adds a raw attribute without numeric formatting.
+   *
+   * @param prefix the namespace prefix
+   * @param localName the local name
+   * @param value the attribute value
+   * @return this element for chaining
+   */
+  T addAttributeRaw(String prefix, String localName, String value) {
+    addAttributeRaw(getQName(prefix, localName), value)
+  }
+
+  /**
+   * Adds a raw attribute without numeric formatting.
+   *
+   * @param qname the qualified name
+   * @param value the attribute value
+   * @return this element for chaining
+   */
+  T addAttributeRaw(QName qname, String value) {
+    if (value == null) {
+      return this as T
+    }
+    element.addAttribute(qname, value)
+    this as T
+  }
+
+  /**
    * Adds multiple attributes to this element.
    * This is an alias for {@link #addAttributes(Map)} for consistency.
    *

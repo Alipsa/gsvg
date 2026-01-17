@@ -230,8 +230,8 @@ new File('formatted.svg').text = formatted
   - [x] Optimization tests (verify file size reduction) - 13 tests
   - [x] Prettification tests (verify formatting) - 15 tests
   - [x] Integration tests with complex SVGs
-- [ ] Performance benchmarks for rendering (deferred to Phase 9)
-- [ ] Memory usage tests for large SVGs (deferred to Phase 9)
+- [x] Performance benchmarks for rendering (deferred to Phase 9)
+- [x] Memory usage tests for large SVGs (deferred to Phase 9)
 
 ---
 
@@ -299,7 +299,7 @@ def nested = svg.css('g g circle')
 ```
 
 #### 3.2 Performance Optimization
-- [ ] Benchmark CSS selector vs XPath performance (deferred to Phase 9)
+- [x] Benchmark CSS selector vs XPath performance (deferred to Phase 9)
 - [ ] Add caching for frequently used selectors (deferred to post-v1.0)
 - [ ] Optimize attribute lookups (deferred to post-v1.0)
 
@@ -311,7 +311,7 @@ def nested = svg.css('g g circle')
 - [x] Test edge cases and invalid selectors (malformed selectors, unclosed brackets/parentheses)
 - [x] Test chained combinators (descendant and child combinations)
 - [x] Test nested container queries
-- [ ] Performance benchmarks (deferred to Phase 9)
+- [x] Performance benchmarks (deferred to Phase 9)
 
 ---
 
@@ -416,10 +416,10 @@ def nested = svg.css('g g circle')
 #### 5.1 Benchmark Updates
 
 **Task**: Re-run benchmarks and compare with `doc/benchmarks.md` baseline
-- [ ] Run full JMH benchmark suite
-- [ ] Compare with v0.8.0 baseline in doc/benchmarks.md
-- [ ] Identify any performance regressions
-- [ ] Analyze impact of Phase 4 features:
+- [x] Run full JMH benchmark suite
+- [x] Compare with v0.8.0 baseline in doc/benchmarks.md
+- [x] Identify any performance regressions
+- [x] Analyze impact of Phase 4 features:
   - Numeric precision control overhead
   - Accessibility helper methods
   - Template/DSL overhead
@@ -428,12 +428,12 @@ def nested = svg.css('g g circle')
 #### 5.2 Performance Analysis
 
 **Metrics to Track**:
-- [ ] Parsing performance (small/medium/large/complex SVGs)
-- [ ] Serialization performance (toXml, toXmlPretty)
-- [ ] Creation performance (fluent API, DSL)
-- [ ] Selection performance (type, XPath, CSS selectors)
-- [ ] Cloning performance
-- [ ] Memory usage (heap, GC pressure)
+- [x] Parsing performance (small/medium/large/complex SVGs)
+- [x] Serialization performance (toXml, toXmlPretty)
+- [x] Creation performance (fluent API, DSL)
+- [x] Selection performance (type, XPath, CSS selectors)
+- [x] Cloning performance
+- [x] Memory usage (heap, GC pressure)
 
 **Expected Results**:
 - Parsing: < 5% regression acceptable (precision formatting overhead)
@@ -451,10 +451,10 @@ def nested = svg.css('g g circle')
 - [ ] Review object allocation patterns
 
 #### 5.4 Documentation
-- [ ] Update `doc/benchmarks.md` with v1.0 results
-- [ ] Add performance comparison table (v0.8 vs v0.9 vs v1.0)
-- [ ] Document any breaking changes or optimization tips
-- [ ] Update `doc/performance.md` with new best practices
+- [x] Update `doc/benchmarks.md` with v1.0 results
+- [x] Add performance comparison table (v0.8 vs v0.9 vs v1.0)
+- [x] Document any breaking changes or optimization tips
+- [x] Update `doc/performance.md` with new best practices
 
 ---
 

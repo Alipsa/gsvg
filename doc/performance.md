@@ -368,6 +368,7 @@ mvn exec:exec -Pbenchmark -Dbenchmark.mode=quick
 - Type-based selection
 - XPath queries
 - Descendant searches
+- CSS selector queries
 
 ### Interpreting Results
 
@@ -428,9 +429,10 @@ java -agentlib:hprof=cpu=samples,depth=20 -jar yourapp.jar
 
 1. ✅ Validate once at the end, not during construction
 2. ✅ Use method chaining or map-based construction
-3. ✅ Query elements once, cache results
-4. ✅ Use specific selectors (avoid recursive searches)
-5. ✅ Build paths incrementally with PathBuilder
+3. ✅ Parsed attributes keep original string values; normalize by setting attributes programmatically if needed
+4. ✅ Query elements once, cache results
+5. ✅ Use specific selectors (type-based or simple CSS) and avoid expensive XPath in tight loops
+6. ✅ Build paths incrementally with PathBuilder
 
 ### Memory
 

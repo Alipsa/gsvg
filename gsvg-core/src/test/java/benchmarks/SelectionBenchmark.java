@@ -5,6 +5,7 @@ import org.openjdk.jmh.annotations.Setup;
 import se.alipsa.groovy.svg.Circle;
 import se.alipsa.groovy.svg.Rect;
 import se.alipsa.groovy.svg.Svg;
+import se.alipsa.groovy.svg.SvgElement;
 import se.alipsa.groovy.svg.io.SvgReader;
 
 import java.util.List;
@@ -48,6 +49,21 @@ public class SelectionBenchmark extends BenchmarkBase {
     @Benchmark
     public List benchmarkXPathComplex() {
         return complexSvg.xpath("//g[@id='content']//rect[@class='card']");
+    }
+
+    @Benchmark
+    public List<SvgElement> benchmarkCssSimple() {
+        return mediumSvg.css("circle");
+    }
+
+    @Benchmark
+    public List<SvgElement> benchmarkCssComplex() {
+        return complexSvg.css("#content .card rect");
+    }
+
+    @Benchmark
+    public SvgElement benchmarkCssFirst() {
+        return mediumSvg.cssFirst("circle");
     }
 
     @Benchmark

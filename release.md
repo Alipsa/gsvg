@@ -1,5 +1,10 @@
 # gsvg release notes
 
+## Version 1.0.0 - 2026-01-17 (Draft)
+
+### Parsing
+- Parsing preserves raw attribute strings; numeric precision formatting is only applied when setting attributes programmatically.
+
 ## Version 0.9.0 - 2026-01-16
 
 **Polish and Production Readiness**
