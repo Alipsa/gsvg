@@ -493,7 +493,7 @@ def nested = svg.css('g g circle')
 - [x] Add security.md with reporting guidelines
 
 #### 6.5 Compatibility Testing
-- [ ] Test backward compatibility with v0.9 code
+- [x] Test backward compatibility with v0.9 code
 - [ ] Verify Maven Central release process
 - [ ] Test Gradle and Maven integration
 - [ ] Test Groovy Grape (@Grab) functionality
