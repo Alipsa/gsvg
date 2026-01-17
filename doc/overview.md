@@ -113,6 +113,7 @@ Validation classes in `se.alipsa.groovy.svg.validation` and `se.alipsa.groovy.sv
 - `modifying.md` for adding, editing, and removing elements and attributes.
 - `parsing.md` for parsing, navigation, and editing patterns.
 - `merging.md` for combining SVG documents using `SvgMerger`.
+- `framework-compatibility.md` for Grails and Ratpack smoke-test steps.
 - `benchmarks.md` for performance benchmarks and optimization tips.
 - `migration-v0.9.md` for migration notes from v0.9 to v1.0.
 - `../SECURITY.md` for security reporting guidelines.
