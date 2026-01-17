@@ -1,7 +1,9 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Circle
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(200, 140)
@@ -18,4 +20,5 @@ def descendants = svg.descendants()
 def firstOrange = svg.findFirst { it.getAttribute('fill') == 'orange' }
 
 println "circles=${circles.size()} largeCircles=${largeCircles.size()} descendants=${descendants.size()} firstOrange=${firstOrange?.name}"
-ExampleSupport.writeSvg(svg, 'navigation-descendants-filter.svg')
+File outputFile = ExampleSupport.outputDir().resolve('navigation-descendants-filter.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

@@ -1,10 +1,12 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.AbstractElementContainer
 import se.alipsa.groovy.svg.G
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
 import se.alipsa.groovy.svg.templates.Template
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 class BadgeTemplate extends Template {
@@ -33,4 +35,5 @@ BadgeTemplate badge = new BadgeTemplate()
 badge.apply(svg, [cx: 50, cy: 60, fill: 'gold', label: 'Gold'])
 badge.apply(svg, [cx: 140, cy: 60, fill: 'tomato', label: 'Red'])
 
-ExampleSupport.writeSvg(svg, 'clone-custom-template.svg')
+File outputFile = ExampleSupport.outputDir().resolve('clone-custom-template.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

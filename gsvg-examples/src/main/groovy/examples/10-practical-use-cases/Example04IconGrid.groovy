@@ -1,6 +1,8 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(260, 200)
@@ -17,4 +19,5 @@ int gap = 40
   }
 }
 
-ExampleSupport.writeSvg(svg, 'usecase-icon-grid.svg')
+File outputFile = ExampleSupport.outputDir().resolve('usecase-icon-grid.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

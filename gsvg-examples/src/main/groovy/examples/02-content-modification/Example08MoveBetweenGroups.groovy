@@ -1,7 +1,9 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.G
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(240, 140)
@@ -15,4 +17,5 @@ def movable = left.addRect().x(70).y(50).width(30).height(40).fill('gold')
 movable.clone(right)
 left.remove(movable)
 
-ExampleSupport.writeSvg(svg, 'content-move-between-groups.svg')
+File outputFile = ExampleSupport.outputDir().resolve('content-move-between-groups.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

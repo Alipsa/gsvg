@@ -1,7 +1,9 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.utils.SvgMerger
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg left = new Svg(120, 120)
@@ -14,4 +16,5 @@ Svg right = new Svg(120, 120)
 right.addPolygon('60,10 110,110 10,110').fill('seagreen')
 
 Svg merged = SvgMerger.mergeHorizontally(left, middle, right)
-ExampleSupport.writeSvg(merged, 'tree-merge-horizontal.svg')
+File outputFile = ExampleSupport.outputDir().resolve('tree-merge-horizontal.svg').toFile()
+SvgRenderer.toSvgFile(merged, outputFile)

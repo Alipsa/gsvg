@@ -1,6 +1,8 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(240, 140)
@@ -20,4 +22,5 @@ circles.take(2).each { circle ->
 
 group.addAttribute('transform', 'translate(0, 40)')
 
-ExampleSupport.writeSvg(svg, 'tree-regroup-selection.svg')
+File outputFile = ExampleSupport.outputDir().resolve('tree-regroup-selection.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

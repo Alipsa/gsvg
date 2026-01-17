@@ -5,7 +5,9 @@ import com.github.weisj.jsvg.parser.LoaderContext
 import com.github.weisj.jsvg.parser.SVGLoader
 import se.alipsa.groovy.svg.Svg
 
+import javax.imageio.IIOImage
 import javax.imageio.ImageIO
+import javax.imageio.ImageWriteParam
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.RenderingHints
@@ -71,12 +73,12 @@ class SvgRenderer {
         if (options.quality != null) {
             def writer = ImageIO.getImageWritersByFormatName('JPEG').next()
             def writeParam = writer.defaultWriteParam
-            writeParam.compressionMode = javax.imageio.ImageWriteParam.MODE_EXPLICIT
+            writeParam.compressionMode = ImageWriteParam.MODE_EXPLICIT
             writeParam.compressionQuality = options.quality as float
 
             output.withOutputStream { stream ->
                 writer.output = ImageIO.createImageOutputStream(stream)
-                writer.write(null, new javax.imageio.IIOImage(image, null, null), writeParam)
+                writer.write(null, new IIOImage(image, null, null), writeParam)
                 writer.dispose()
             }
         } else {

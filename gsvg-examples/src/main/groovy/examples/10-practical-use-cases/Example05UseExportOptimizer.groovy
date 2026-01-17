@@ -3,6 +3,7 @@
 
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.export.SvgOptimizer
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(200, 120)
@@ -12,4 +13,5 @@ svg.addCircle().cx(140).cy(60).r(18).fill('gold')
 
 Svg optimized = SvgOptimizer.optimize(svg, [precision: 1, removeMetadata: true, removeDefaults: true])
 
-ExampleSupport.writeText(optimized.toXml(), 'usecase-optimized.svg')
+File outputFile = ExampleSupport.outputDir().resolve('usecase-optimized.svg').toFile()
+SvgRenderer.toSvgFile(optimized, outputFile)

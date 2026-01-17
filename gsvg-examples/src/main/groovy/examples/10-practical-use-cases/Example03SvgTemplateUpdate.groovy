@@ -1,7 +1,9 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 import java.io.StringReader
@@ -16,4 +18,5 @@ Svg svg = SvgReader.parse(new StringReader(template))
 svg.xpath('//*[@id="label"]').each { it.replaceContent('Updated') }
 svg.xpath('//*[@id="panel"]').each { it.addAttribute('fill', 'lavender') }
 
-ExampleSupport.writeSvg(svg, 'usecase-template-update.svg')
+File outputFile = ExampleSupport.outputDir().resolve('usecase-template-update.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

@@ -1,6 +1,8 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(260, 120)
@@ -14,4 +16,5 @@ svg.descendants().eachWithIndex { element, idx ->
   element.addAttribute('data-index', idx)
 }
 
-ExampleSupport.writeSvg(svg, 'iteration-tagging.svg')
+File outputFile = ExampleSupport.outputDir().resolve('iteration-tagging.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

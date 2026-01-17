@@ -14,10 +14,12 @@ svg.addCircle().cx(150).cy(60).r(30).fill('steelblue')
 svg.addCircle().cx(240).cy(60).r(30).fill('seagreen')
 
 String pretty = SvgFormatter.prettify(svg, [indent: '  '])
-ExampleSupport.writeText(pretty, 'export-pretty.svg')
+File prettyFile = ExampleSupport.outputDir().resolve('export-pretty.svg').toFile()
+prettyFile.text = pretty
 
 Svg optimized = SvgOptimizer.optimize(svg, [removeComments: true, precision: 2])
-ExampleSupport.writeText(optimized.toXml(), 'export-optimized.svg')
+File optimizedFile = ExampleSupport.outputDir().resolve('export-optimized.svg').toFile()
+SvgRenderer.toSvgFile(optimized, optimizedFile)
 
 File pngFile = ExampleSupport.outputDir().resolve('export.png').toFile()
 SvgRenderer.toPng(svg, pngFile, [width: 600, height: 240, antialiasing: true])

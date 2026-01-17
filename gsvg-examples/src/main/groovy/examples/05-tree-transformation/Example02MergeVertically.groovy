@@ -1,7 +1,9 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.utils.SvgMerger
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg top = new Svg(140, 80)
@@ -11,4 +13,5 @@ Svg bottom = new Svg(140, 80)
 bottom.addCircle().cx(70).cy(40).r(25).fill('lightseagreen')
 
 Svg merged = SvgMerger.mergeVertically(top, bottom)
-ExampleSupport.writeSvg(merged, 'tree-merge-vertical.svg')
+File outputFile = ExampleSupport.outputDir().resolve('tree-merge-vertical.svg').toFile()
+SvgRenderer.toSvgFile(merged, outputFile)

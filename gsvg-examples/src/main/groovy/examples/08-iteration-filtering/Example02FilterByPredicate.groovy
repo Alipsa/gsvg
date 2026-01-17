@@ -1,6 +1,8 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(220, 120)
@@ -13,4 +15,5 @@ svg.filter { it.getAttribute('fill') == 'tomato' }.each {
   it.stroke('black').strokeWidth(2)
 }
 
-ExampleSupport.writeSvg(svg, 'iteration-filter-by-fill.svg')
+File outputFile = ExampleSupport.outputDir().resolve('iteration-filter-by-fill.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

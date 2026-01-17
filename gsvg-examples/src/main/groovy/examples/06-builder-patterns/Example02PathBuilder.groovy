@@ -1,7 +1,9 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.utils.PathBuilder
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(220, 120)
@@ -17,4 +19,5 @@ svg.addPath()
   .stroke('black')
   .strokeWidth(2)
 
-ExampleSupport.writeSvg(svg, 'builder-path.svg')
+File outputFile = ExampleSupport.outputDir().resolve('builder-path.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)

@@ -1,7 +1,9 @@
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
 import se.alipsa.groovy.svg.Circle
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.export.SvgRenderer
 import examples.shared.ExampleSupport
 
 Svg svg = new Svg(260, 120)
@@ -12,4 +14,5 @@ Circle base = svg.addCircle().cx(40).cy(60).r(12).fill('tomato')
   base.cloneWith(svg, [cx: cfg[0], fill: cfg[1]])
 }
 
-ExampleSupport.writeSvg(svg, 'clone-variations.svg')
+File outputFile = ExampleSupport.outputDir().resolve('clone-variations.svg').toFile()
+SvgRenderer.toSvgFile(svg, outputFile)
