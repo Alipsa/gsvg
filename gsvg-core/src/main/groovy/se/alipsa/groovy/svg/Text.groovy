@@ -138,6 +138,12 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     add(new Tspan(this, content))
   }
 
+  /**
+   * Creates and adds a new Tspan child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Tspan addTspan(Map attributes) {
     Tspan tspan = addTspan()
     attributes.each {
@@ -155,6 +161,12 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     add(new TextPath(this))
   }
 
+  /**
+   * Creates and adds a new TextPath child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   TextPath addTextPath(Map attributes) {
     TextPath tp = addTextPath()
     attributes.each {

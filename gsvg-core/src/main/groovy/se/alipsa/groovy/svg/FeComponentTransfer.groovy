@@ -48,6 +48,12 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
     addFeFuncA().type(type)
   }
 
+  /**
+   * Creates and adds a new FeFuncA child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeFuncA addFeFuncA(Map attributes) {
     FeFuncA elem = addFeFuncA()
     attributes.each {
@@ -75,6 +81,12 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
     addFeFuncB().type(type)
   }
 
+  /**
+   * Creates and adds a new FeFuncB child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeFuncB addFeFuncB(Map attributes) {
     FeFuncB elem = addFeFuncB()
     attributes.each {
@@ -102,6 +114,12 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
     addFeFuncG().type(type)
   }
 
+  /**
+   * Creates and adds a new FeFuncG child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeFuncG addFeFuncG(Map attributes) {
     FeFuncG elem = addFeFuncG()
     attributes.each {
@@ -129,6 +147,12 @@ class FeComponentTransfer extends FilterElement<FeComponentTransfer> {
     addFeFuncR().type(type)
   }
 
+  /**
+   * Creates and adds a new FeFuncR child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeFuncR addFeFuncR(Map attributes) {
     FeFuncR elem = addFeFuncR()
     attributes.each {

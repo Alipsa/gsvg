@@ -781,6 +781,12 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
     title = new Title(this).addContent(content)
   }
 
+  /**
+   * Creates and adds a new Title child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Title addTitle(Map attributes) {
     Title t = addTitle()
     attributes.each {
@@ -818,6 +824,12 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
     desc = new Desc(this).addContent(content)
   }
 
+  /**
+   * Creates and adds a new Desc child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Desc addDesc(Map attributes) {
     Desc d = addDesc()
     attributes.each {
