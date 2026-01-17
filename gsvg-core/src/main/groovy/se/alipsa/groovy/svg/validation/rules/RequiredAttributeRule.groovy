@@ -70,6 +70,7 @@ class RequiredAttributeRule implements ValidationRule {
                         xlinkHref = element.getAttribute('xlink:href')
                     } catch (IllegalArgumentException e) {
                         // xlink namespace not bound, ignore
+                        xlinkHref = null
                     }
                     if (!value && !xlinkHref) {
                         report.addIssue(ValidationIssue.error(

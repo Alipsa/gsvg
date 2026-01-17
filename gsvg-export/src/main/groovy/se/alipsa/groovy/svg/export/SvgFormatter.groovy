@@ -1,7 +1,8 @@
 package se.alipsa.groovy.svg.export
 
-import se.alipsa.groovy.svg.*
-import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.ElementContainer
+import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.SvgElement
 
 /**
  * Provides SVG prettification capabilities for human-readable output.
@@ -45,6 +46,7 @@ class SvgFormatter {
      * @param options Formatting options (see prettify method)
      * @return The SVG object (same instance)
      */
+    @SuppressWarnings('UnusedMethodParameter')
     static Svg format(Svg svg, Map options = [:]) {
         // Formatting is applied during toString(), so we just return the same object
         // Users should call prettify() to get the formatted string

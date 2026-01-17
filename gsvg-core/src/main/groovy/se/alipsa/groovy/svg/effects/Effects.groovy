@@ -1,7 +1,11 @@
 package se.alipsa.groovy.svg.effects
 
 import groovy.transform.CompileStatic
-import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.AbstractElementContainer
+import se.alipsa.groovy.svg.FeComponentTransfer
+import se.alipsa.groovy.svg.FeMerge
+import se.alipsa.groovy.svg.Filter
+import se.alipsa.groovy.svg.SvgElement
 
 /**
  * Provides preset filter effects for common visual effects.

@@ -111,7 +111,7 @@ class SvgRenderer {
         }
 
         // Determine output dimensions
-        def (int width, int height) = calculateDimensions(svg, document, options)
+        def (int width, int height) = calculateDimensions(document, options)
 
         // Create BufferedImage
         // TYPE_INT_ARGB is crucial for transparency support
@@ -157,7 +157,7 @@ class SvgRenderer {
     /**
      * Calculates output dimensions based on SVG and options.
      */
-    private static List<Integer> calculateDimensions(Svg svg, SVGDocument document, Map options) {
+    private static List<Integer> calculateDimensions(SVGDocument document, Map options) {
         int width
         int height
 
@@ -235,6 +235,7 @@ class SvgRenderer {
                     return new Color(rgb)
                 } catch (NumberFormatException e) {
                     // Invalid hex color, fall through to default
+                    return Color.WHITE
                 }
             }
         }

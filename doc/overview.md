@@ -7,7 +7,9 @@ This project provides a Groovy-friendly object model for creating, parsing, and 
 Gradle:
 ```groovy
 implementation "org.apache.groovy:groovy:5.0.3"
-implementation "se.alipsa.groovy:gsvg:0.9.0"
+implementation "se.alipsa.groovy:gsvg:1.0.0"
+// Optional rendering/export module
+implementation "se.alipsa.groovy:gsvg-export:1.0.0"
 ```
 
 Maven:
@@ -20,7 +22,12 @@ Maven:
 <dependency>
   <groupId>se.alipsa.groovy</groupId>
   <artifactId>gsvg</artifactId>
-  <version>0.9.0</version>
+  <version>1.0.0</version>
+</dependency>
+<dependency>
+  <groupId>se.alipsa.groovy</groupId>
+  <artifactId>gsvg-export</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
@@ -28,6 +35,7 @@ Maven:
 - [Build SVGs fluently](creating.md) with a Groovy DSL (shapes, gradients, filters, text, animation).
 - [Parse existing SVG](parsing.md) files/strings/streams and modify them.
 - [Merge multiple SVG documents](merging.md) horizontally, vertically, or layered on top of each other.
+- Render SVGs to PNG/JPEG with `gsvg-export` (raster output and optimizations).
 - Work with CSS: parse and manipulate CSS rules, manage inline styles as maps, add/remove CSS classes.
 - Validate SVG structure: opt-in validation with customizable rules for attributes, nesting, references, and more.
 - Work with SVG 2 `href` and legacy `xlink:href`, foreign content, and SVG 1.1/2 draft elements.
@@ -106,3 +114,5 @@ Validation classes in `se.alipsa.groovy.svg.validation` and `se.alipsa.groovy.sv
 - `parsing.md` for parsing, navigation, and editing patterns.
 - `merging.md` for combining SVG documents using `SvgMerger`.
 - `benchmarks.md` for performance benchmarks and optimization tips.
+- `migration-v0.9.md` for migration notes from v0.9 to v1.0.
+- `../SECURITY.md` for security reporting guidelines.

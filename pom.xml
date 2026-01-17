@@ -73,9 +73,13 @@
     <maven-jxr-plugin.version>3.6.0</maven-jxr-plugin.version>
     <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
+    <exec-maven-plugin.version>3.5.1</exec-maven-plugin.version>
     <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
     <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
     <maven-fluido-skin.version>2.1.0</maven-fluido-skin.version>
+    <codenarc.version>3.1.0</codenarc.version>
+    <spotbugs.version>4.8.6</spotbugs.version>
+    <spotbugs-maven-plugin.version>4.8.3.0</spotbugs-maven-plugin.version>
   </properties>
 
   <!-- Dependency Management (inherited by children) -->
@@ -224,6 +228,11 @@
           <version>${jacoco-maven-plugin.version}</version>
         </plugin>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>${exec-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${maven-gpg-plugin.version}</version>
@@ -232,6 +241,11 @@
           <groupId>org.sonatype.central</groupId>
           <artifactId>central-publishing-maven-plugin</artifactId>
           <version>${central-publishing-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <version>${spotbugs-maven-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -276,6 +290,71 @@
 
   <!-- Release profile (inherited by children) -->
   <profiles>
+    <profile>
+      <id>codenarc</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>codenarc</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${java.home}/bin/java</executable>
+                  <arguments>
+                    <argument>-cp</argument>
+                    <classpath/>
+                    <argument>org.codenarc.CodeNarc</argument>
+                    <argument>-basedir=${maven.multiModuleProjectDirectory}</argument>
+                    <argument>-rulesetfiles=file:${maven.multiModuleProjectDirectory}/config/codenarc/ruleset.groovy</argument>
+                    <argument>-includes=**/src/main/groovy/**/*.groovy,**/src/test/groovy/**/*.groovy</argument>
+                    <argument>-excludes=**/target/**</argument>
+                  </arguments>
+                  <includeProjectDependencies>false</includeProjectDependencies>
+                  <includePluginDependencies>true</includePluginDependencies>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.codenarc</groupId>
+                <artifactId>CodeNarc</artifactId>
+                <version>${codenarc.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>spotbugs</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs</artifactId>
+                <version>${spotbugs.version}</version>
+              </dependency>
+            </dependencies>
+            <configuration>
+              <effort>Default</effort>
+              <threshold>Medium</threshold>
+              <failOnError>false</failOnError>
+              <excludeFilterFile>${maven.multiModuleProjectDirectory}/config/spotbugs/exclude.xml</excludeFilterFile>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>release</id>
       <build>

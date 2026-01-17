@@ -1,7 +1,10 @@
 package se.alipsa.groovy.svg.presets
 
 import groovy.transform.CompileStatic
-import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.AbstractElementContainer
+import se.alipsa.groovy.svg.Path
+import se.alipsa.groovy.svg.Polygon
+import se.alipsa.groovy.svg.Rect
 import se.alipsa.groovy.svg.utils.PathBuilder
 
 /**

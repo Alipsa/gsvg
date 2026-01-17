@@ -3,7 +3,13 @@ package se.alipsa.groovy.svg.validation
 import groovy.transform.CompileStatic
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
-import se.alipsa.groovy.svg.validation.rules.*
+import se.alipsa.groovy.svg.validation.rules.AccessibilityRule
+import se.alipsa.groovy.svg.validation.rules.AttributeValueRule
+import se.alipsa.groovy.svg.validation.rules.DuplicateIdRule
+import se.alipsa.groovy.svg.validation.rules.ElementNestingRule
+import se.alipsa.groovy.svg.validation.rules.HrefRule
+import se.alipsa.groovy.svg.validation.rules.RequiredAttributeRule
+import se.alipsa.groovy.svg.validation.rules.ViewBoxRule
 
 /**
  * Orchestrates SVG validation by applying a set of {@link ValidationRule}s.

@@ -20,13 +20,17 @@ class Polyline extends AbstractPoly<Polyline> {
   @PackageScope
   Polyline(SvgElement parent, Coordinate... coordinates) {
     this(parent)
-    if (coordinates.length > 0) points(coordinates)
+    if (coordinates.length > 0) {
+      points(coordinates)
+    }
   }
 
   @PackageScope
   Polyline(SvgElement parent, List<Number>... coordinates) {
     this(parent)
-    if (coordinates.length > 0) points(coordinates)
+    if (coordinates.length > 0) {
+      points(coordinates)
+    }
   }
 
   @PackageScope
