@@ -80,6 +80,7 @@
     <codenarc.version>3.1.0</codenarc.version>
     <spotbugs.version>4.8.6</spotbugs.version>
     <spotbugs-maven-plugin.version>4.8.3.0</spotbugs-maven-plugin.version>
+    <dependency-check-maven-plugin.version>9.0.9</dependency-check-maven-plugin.version>
   </properties>
 
   <!-- Dependency Management (inherited by children) -->
@@ -350,6 +351,26 @@
               <threshold>Medium</threshold>
               <failOnError>false</failOnError>
               <excludeFilterFile>${maven.multiModuleProjectDirectory}/config/spotbugs/exclude.xml</excludeFilterFile>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>dependency-check</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <version>${dependency-check-maven-plugin.version}</version>
+            <configuration>
+              <format>HTML</format>
+              <failBuildOnCVSS>7</failBuildOnCVSS>
+              <skipTestScope>true</skipTestScope>
+              <suppressionFiles>
+                <suppressionFile>${maven.multiModuleProjectDirectory}/config/dependency-check/suppressions.xml</suppressionFile>
+              </suppressionFiles>
             </configuration>
           </plugin>
         </plugins>
