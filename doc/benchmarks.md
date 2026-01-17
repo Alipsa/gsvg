@@ -127,7 +127,7 @@ Measured with the JMH GC profiler (`-prof gc`). Parsing and merging values use t
 All comparison runs use the same machine and JDK as the results above.
 v1.0 parsing and merging values use the thorough run noted above; v0.8/v0.9 values use the default JMH settings.
 
-| Benchmark | v0.8.0 (us/op) | v0.9.0 (us/op) | v1.0.0 (us/op) |
+| Benchmark | v0.8.0 (µs/op) | v0.9.0 (µs/op) | v1.0.0 (µs/op) |
 |-----------|----------------:|----------------:|----------------:|
 | **Parsing** | | | |
 | `parseSimpleSvg` | 1857.934 | 1044.564 | 774.631 |
