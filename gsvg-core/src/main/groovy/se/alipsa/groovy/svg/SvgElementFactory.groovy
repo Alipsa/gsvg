@@ -179,15 +179,13 @@ class SvgElementFactory {
    * @return the copied element
    */
   static <T extends SvgElement> T deepCopy(T source, AbstractElementContainer newParent) {
-    // Clone the DOM4J element
-    Element clonedElement = source.element.createCopy()
-
     // Create appropriate SvgElement wrapper with recursion
-    SvgElement result = fromElement(newParent, clonedElement)
+    SvgElement result = fromElement(newParent, source.element)
 
     if (result == null) {
       // Fall back to adding cloned DOM element directly
       // This handles elements not yet supported by the factory
+      Element clonedElement = source.element.createCopy()
       newParent.element.add(clonedElement)
       return null
     }

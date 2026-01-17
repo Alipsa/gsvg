@@ -189,7 +189,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     for (int i = 0; i < attributes.getLength(); i++) {
       String attrLocalName = attributes.getLocalName(i)
       if (attrLocalName != null && !attrLocalName.isBlank()) {
-        currentElement.addAttribute(attributes.getQName(i), attributes.getValue(i))
+        currentElement.addAttributeRaw(attributes.getQName(i), attributes.getValue(i))
       }
     }
   }
