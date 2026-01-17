@@ -194,7 +194,6 @@ class SvgRenderer {
             }
         } else {
             // Use SVG's natural size
-            def size = document.size()
             width = size.width as int
             height = size.height as int
         }
