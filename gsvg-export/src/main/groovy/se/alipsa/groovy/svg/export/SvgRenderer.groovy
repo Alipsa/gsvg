@@ -161,21 +161,31 @@ class SvgRenderer {
         int width
         int height
 
-        if (options.scale) {
+        boolean hasScale = options.containsKey('scale')
+        boolean hasWidth = options.containsKey('width')
+        boolean hasHeight = options.containsKey('height')
+
+        def size = document.size()
+        if (size.width <= 0 || size.height <= 0) {
+            throw new IllegalArgumentException("SVG size must be positive (width=${size.width}, height=${size.height})")
+        }
+
+        if (hasScale) {
             // Use scale factor
             float scale = options.scale as float
-            def size = document.size()
+            if (scale <= 0) {
+                throw new IllegalArgumentException("Scale must be positive (scale=${scale})")
+            }
             width = (size.width * scale) as int
             height = (size.height * scale) as int
-        } else if (options.width || options.height) {
+        } else if (hasWidth || hasHeight) {
             // Use specified dimensions
-            def size = document.size()
             float aspectRatio = size.width / size.height
 
-            if (options.width && options.height) {
+            if (hasWidth && hasHeight) {
                 width = options.width as int
                 height = options.height as int
-            } else if (options.width) {
+            } else if (hasWidth) {
                 width = options.width as int
                 height = (width / aspectRatio) as int
             } else {
@@ -187,6 +197,10 @@ class SvgRenderer {
             def size = document.size()
             width = size.width as int
             height = size.height as int
+        }
+
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Output dimensions must be positive (width=${width}, height=${height})")
         }
 
         return [width, height]
