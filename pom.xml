@@ -283,7 +283,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
         <configuration>
-          <rulesUri>file://${project.basedir}/version-plugin-rules.xml</rulesUri>
+          <rulesUri>file://${maven.multiModuleProjectDirectory}/version-plugin-rules.xml</rulesUri>
         </configuration>
       </plugin>
     </plugins>
