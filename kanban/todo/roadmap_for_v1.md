@@ -487,7 +487,7 @@ def nested = svg.css('g g circle')
 
 #### 6.4 Security Audit
 - [ ] Review all dependencies for CVEs
-- [ ] Update dependencies to latest stable versions
+- [x] Update dependencies to latest stable versions
 - [x] Verify XXE/XSS protection still active
 - [x] Review input validation in export module
 - [x] Add security.md with reporting guidelines
