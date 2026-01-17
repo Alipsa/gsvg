@@ -31,12 +31,12 @@ Svg svg = new Svg()  // No dimensions
 svg.viewBox('0 0 800 600')
 
 // Parse from file/string
-import se.alipsa.groovy.svg.SvgReader
-Svg svg = SvgReader.read(new File('input.svg'))
-Svg svg = SvgReader.readFromString(xmlString)
+import se.alipsa.groovy.svg.io.SvgReader
+Svg svg = SvgReader.parse(new File('input.svg'))
+Svg svg = SvgReader.parse(xmlString)
 
 // Output
-String xml = svg.toString()
+String xml = svg.toXml()
 new File('output.svg').text = xml
 ```
 
@@ -495,10 +495,10 @@ def ids = svg.collect { it.getId() }
 
 ```groovy
 // Save SVG
-new File('output.svg').text = svg.toString()
+new File('output.svg').text = svg.toXml()
 
 // Read SVG
-Svg svg = SvgReader.read(new File('input.svg'))
+Svg svg = SvgReader.parse(new File('input.svg'))
 
 // Modify existing SVG
 svg[Circle].each { it.fill('red') }

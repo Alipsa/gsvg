@@ -479,8 +479,8 @@ def nested = svg.css('g g circle')
 - [ ] Test with different Java versions (17, 21, 23)
 
 #### 6.3 Documentation Audit
-- [ ] Review all documentation for accuracy
-- [ ] Update all code examples to use v1.0 APIs
+- [x] Review all documentation for accuracy
+- [x] Update all code examples to use v1.0 APIs
 - [x] Add migration guide from v0.9 to v1.0
 - [x] Update README with new features
 - [x] Create CHANGELOG.md with detailed release notes

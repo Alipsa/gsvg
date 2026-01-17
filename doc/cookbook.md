@@ -91,7 +91,7 @@ def legendItems = data.collect { [color: it.color, label: it.quarter] }
 legend.apply(svg, [x: 550, y: 100, items: legendItems])
 
 // Save
-new File('bar-chart.svg').text = svg.toString()
+new File('bar-chart.svg').text = svg.toXml()
 ```
 
 ### Line Chart with Grid
@@ -502,7 +502,7 @@ svg.addText('Modern Font')
 Svg svg = new Svg(400, 300)
 // ... add content ...
 
-new File('output.svg').text = svg.toString()
+new File('output.svg').text = svg.toXml()
 
 // Or with pretty formatting (larger file size)
 import groovy.xml.XmlUtil

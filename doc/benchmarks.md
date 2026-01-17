@@ -84,7 +84,7 @@ Rendering results are from `gsvg-export` and run headless with no forks.
 | `renderLargeSvg`          | 20,087.839    | ±30,178.537 | Render 1000-element SVG          |
 | `renderComplexSvg`        | 151,239.826   | ±77,387.525 | Render real-world SVG structure  |
 | **Selection**             |
-| `findAllByType`           | 8.632         | ±0.910      | Find all elements of type        |
+| `findAll`                 | 8.632         | ±0.910      | Find all elements of type        |
 | `findFirst`               | 4.911         | ±0.927      | Find first matching element      |
 | `descendants`             | 151.618       | ±28.568     | Get all descendants recursively  |
 | `descendantsOfType`       | 167.482       | ±34.778     | Get typed descendants            |
@@ -156,7 +156,7 @@ v1.0 parsing and merging values use the thorough run noted above; v0.8/v0.9 valu
 | `mergeOnTop` | 298.019 | 365.397 | 276.349 |
 | `mergeLargeSvgs` | 15115.115 | 18179.597 | 14,628.279 |
 | **Selection** | | | |
-| `findAllByType` | 11.782 | 9.759 | 8.632 |
+| `findAll` | 11.782 | 9.759 | 8.632 |
 | `findFirst` | 5.778 | 5.185 | 4.911 |
 | `descendants` | 151.591 | 185.968 | 151.618 |
 | `descendantsOfType` | 175.397 | 236.260 | 167.482 |
