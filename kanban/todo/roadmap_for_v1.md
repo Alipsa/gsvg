@@ -497,7 +497,7 @@ def nested = svg.css('g g circle')
 - [x] Verify Maven Central release process
 - [x] Test Gradle and Maven integration
 - [x] Test Groovy Grape (@Grab) functionality
-- [ ] Test with popular Groovy frameworks (Grails, Ratpack)
+- [x] Test with popular Groovy frameworks (Grails, Ratpack)
 
 #### 6.6 Release Preparation
 - [ ] Update version numbers to 1.0.0
