@@ -301,7 +301,7 @@ Test data:
 - Added gsvg-export rendering benchmarks
 - Baseline measurements on Linux Mint 22.3 / JDK 21.0.9
 
-### v0.9.0 (2026-01-17)
+### v0.9.0 (2026-01-16)
 - Baseline measurements on Linux Mint 22.3 / JDK 21.0.9
 
 ### v0.8.0 (2026-01-14)
