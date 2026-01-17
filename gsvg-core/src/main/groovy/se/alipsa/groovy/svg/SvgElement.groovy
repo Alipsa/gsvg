@@ -412,7 +412,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
 
   /**
    * Adds a raw attribute without numeric formatting.
-   * Intended for parsing paths where attribute values should be preserved.
+   * Intended for parsing where attribute values should be preserved as-is from the source document.
    *
    * @param name the attribute name
    * @param value the attribute value
