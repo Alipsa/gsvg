@@ -476,7 +476,7 @@ def nested = svg.css('g g circle')
 - [ ] Achieve >85% code coverage
 - [x] Add integration tests for multi-module scenarios
 - [x] Test with different Groovy versions (4.0, 5.0)
-- [ ] Test with different Java versions (17, 21, 23)
+- [x] Test with different Java versions (17, 21, 25)
 
 #### 6.3 Documentation Audit
 - [x] Review all documentation for accuracy
