@@ -718,7 +718,7 @@ This release focuses on improving API ergonomics and developer experience with n
   - Added missing elements: color-profile, cursor, solidcolor, mesh gradients (meshGradient, mesh, meshrow, meshpatch), hatching (hatch, hatchpath), media (audio, video), discard, and font module elements (font, font-face*, glyph, missing-glyph, hkern, vkern, glyphRef, altGlyph*, tref).
   - Added href parity for SVG2: use, image, mpath, feImage, textPath, script accept href with xlink fallback; getters normalized.
 - Attribute/API Enhancements
-  - Gradients gain gradientTransform and spreadMethod; filters gain colour-interpolation-filters and filterRes.
+  - Gradients gain gradientTransform and spreadMethod; filters gain color-interpolation-filters and filterRes.
   - Markers add markerUnits and orient.
   - Shapes add fill-rule, stroke-linejoin, stroke-linecap.
   - Text adds baseline-shift, dominant-baseline, text-decoration, word-spacing, letter-spacing.

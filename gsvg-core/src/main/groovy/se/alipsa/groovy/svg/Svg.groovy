@@ -3,11 +3,16 @@ package se.alipsa.groovy.svg
 
 
 import groovy.transform.PackageScope
+import org.dom4j.Attribute
 import org.dom4j.Element
+import org.dom4j.Namespace
 import groovy.transform.CompileStatic
 import org.dom4j.Document
 import org.dom4j.DocumentHelper
+import se.alipsa.groovy.svg.presets.Shapes
 import se.alipsa.groovy.svg.utils.ViewBox
+import se.alipsa.groovy.svg.validation.ValidationEngine
+import se.alipsa.groovy.svg.validation.ValidationReport
 
 /**
  * Root SVG document element and entry point for building or parsing SVG content.
@@ -64,9 +69,73 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     height(h)
   }
 
+  /**
+   * Creates a deep clone of this SVG, including attributes, namespaces, and children.
+   * The original SVG is not modified.
+   *
+   * @return a deep copy of this SVG
+   * @since 1.1.0
+   */
+  @Override
+  Svg clone() {
+    Svg copy = new Svg()
+    copy.documentPrecision = this.documentPrecision
+    copyRootAttributesAndNamespaces(copy)
+    SvgElementFactory.copyChildren(this, copy)
+    copy
+  }
+
+  /**
+   * Creates a deep clone of this SVG with the specified width and height.
+   * The viewBox is left unchanged to preserve standard SVG behavior.
+   *
+   * @param width the new width
+   * @param height the new height
+   * @return a deep copy of this SVG with updated dimensions
+   * @since 1.1.0
+   */
+  Svg clone(Number width, Number height) {
+    Svg copy = clone()
+    copy.width(width)
+    copy.height(height)
+    copy
+  }
+
+  /**
+   * Creates a deep clone of this SVG with the specified width and height.
+   * The viewBox is left unchanged to preserve standard SVG behavior.
+   *
+   * @param width the new width (supports units, e.g. "480px")
+   * @param height the new height (supports units, e.g. "320px")
+   * @return a deep copy of this SVG with updated dimensions
+   * @since 1.1.0
+   */
+  Svg clone(String width, String height) {
+    Svg copy = clone()
+    copy.width(width)
+    copy.height(height)
+    copy
+  }
+
   @PackageScope
   Svg(SvgElement parent, Element element) {
     super(parent, element)
+  }
+
+  private void copyRootAttributesAndNamespaces(Svg target) {
+    element.declaredNamespaces().each { Namespace ns ->
+      if (ns.prefix) {
+        target.element.addNamespace(ns.prefix, ns.getURI())
+      }
+    }
+
+    element.attributes().each { Attribute attribute ->
+      String prefix = attribute.getQName().getNamespacePrefix()
+      if (prefix == 'xmlns' || attribute.name == 'xmlns') {
+        return
+      }
+      target.element.addAttribute(attribute.getQName(), attribute.getValue())
+    }
   }
 
   /**
@@ -526,7 +595,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    * @param engine the validation engine to use
    * @return validation report with all issues found
    */
-  se.alipsa.groovy.svg.validation.ValidationReport validate(se.alipsa.groovy.svg.validation.ValidationEngine engine) {
+  ValidationReport validate(ValidationEngine engine) {
     engine.validate(this)
   }
 
@@ -567,7 +636,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    * @return configured Rect element
    */
   Rect createRoundedRect(Map options) {
-    se.alipsa.groovy.svg.presets.Shapes.roundedRect(this, options)
+    Shapes.roundedRect(this, options)
   }
 
   /**
@@ -593,7 +662,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    * @return configured Polygon element
    */
   Polygon createStar(Map options) {
-    se.alipsa.groovy.svg.presets.Shapes.star(this, options)
+    Shapes.star(this, options)
   }
 
   /**
@@ -620,7 +689,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    * @return configured Path element
    */
   Path createArrow(Map options) {
-    se.alipsa.groovy.svg.presets.Shapes.arrow(this, options)
+    Shapes.arrow(this, options)
   }
 
   /**
@@ -647,7 +716,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    * @return configured Polygon element
    */
   Polygon createRegularPolygon(Map options) {
-    se.alipsa.groovy.svg.presets.Shapes.regularPolygon(this, options)
+    Shapes.regularPolygon(this, options)
   }
 
   /**
@@ -676,7 +745,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
    * @return configured Path element
    */
   Path createSpeechBubble(Map options) {
-    se.alipsa.groovy.svg.presets.Shapes.speechBubble(this, options)
+    Shapes.speechBubble(this, options)
   }
 
 }
