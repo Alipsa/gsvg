@@ -500,12 +500,12 @@ def nested = svg.css('g g circle')
 - [x] Test with popular Groovy frameworks (Grails, Ratpack)
 
 #### 6.6 Release Preparation
-- [ ] Update version numbers to 1.0.0
-- [ ] Create release branch: `release/1.0`
-- [ ] Tag release: `v1.0.0`
-- [ ] Build and sign artifacts
-- [ ] Deploy to Maven Central
-- [ ] Create GitHub release with release notes
+- [X] Update version numbers to 1.0.0
+- [X] Create release branch: `release/1.0`
+- [X] Tag release: `v1.0.0`
+- [X] Build and sign artifacts
+- [X] Deploy to Maven Central
+- [X] Create GitHub release with release notes
 - [ ] Update documentation website
 - [ ] Announce on Groovy mailing list, Twitter, Reddit
 
