@@ -150,7 +150,6 @@
         </configuration>
       </plugin>
 
-      <!-- Groovydoc generation (FIXED PATHS for module structure) -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>

@@ -9,5 +9,5 @@ fi
 . jdk17
 mvn -Prelease,run-examples clean install site
 versionTest.sh
-mvn -Prelease deploy
+mvn -Prelease -Dmaven.test.skip=true deploy
 echo "Deployed to Maven repository successfully!"
