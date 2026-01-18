@@ -38,7 +38,8 @@ class SvgRenderer {
      *
      * @param svg The SVG object to render
      * @param output The output file
-     * @param options Rendering options (width, height, scale, antialiasing)
+     * @param options Rendering options (width, height, scale, antialiasing).
+     *   Use RendererOptionsBuilder for a fluent API.
      */
     static void toPng(Svg svg, File output, Map options = [:]) {
         BufferedImage image = toBufferedImage(svg, options)
@@ -51,7 +52,8 @@ class SvgRenderer {
      *
      * @param svg The SVG object to render
      * @param outputStream The output stream
-     * @param options Rendering options (width, height, scale, antialiasing)
+     * @param options Rendering options (width, height, scale, antialiasing).
+     *   Use RendererOptionsBuilder for a fluent API.
      */
     static void toPng(Svg svg, OutputStream outputStream, Map options = [:]) {
         BufferedImage image = toBufferedImage(svg, options)
@@ -63,7 +65,8 @@ class SvgRenderer {
      *
      * @param svg The SVG object to render
      * @param output The output file
-     * @param options Rendering options (width, height, scale, backgroundColor, quality, antialiasing)
+     * @param options Rendering options (width, height, scale, backgroundColor, quality, antialiasing).
+     *   Use RendererOptionsBuilder for a fluent API.
      */
     static void toJpeg(Svg svg, File output, Map options = [:]) {
         BufferedImage image = toBufferedImage(svg, options, true)
@@ -90,7 +93,7 @@ class SvgRenderer {
      * Renders an SVG to a BufferedImage.
      *
      * @param svg The SVG object to render
-     * @param options Rendering options:
+     * @param options Rendering options (use RendererOptionsBuilder for a fluent API):
      *   - width: Output width in pixels (if not specified, uses SVG width or viewBox)
      *   - height: Output height in pixels (if not specified, uses SVG height or viewBox)
      *   - scale: Scale factor (alternative to width/height)

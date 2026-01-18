@@ -13,7 +13,7 @@ Directory layout and planned counts:
 - `07-reading-parsing` (6)
 - `08-iteration-filtering` (6)
 - `09-advanced-manipulation` (8)
-- `10-practical-use-cases` (6)
+- `10-practical-use-cases` (7)
 
 Naming convention: `ExampleNNTitle.groovy` (two-digit sequence within each folder).
 
@@ -96,3 +96,4 @@ Implemented:
 - `10-practical-use-cases/Example04IconGrid.groovy`
 - `10-practical-use-cases/Example05UseExportOptimizer.groovy`
 - `10-practical-use-cases/Example06RenderScaled.groovy`
+- `10-practical-use-cases/Example07ResizeSvg.groovy`

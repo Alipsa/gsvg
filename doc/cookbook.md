@@ -510,6 +510,24 @@ String formatted = XmlUtil.serialize(svg.element)
 new File('output-pretty.svg').text = formatted
 ```
 
+### Resizing SVG Output
+
+```groovy
+import se.alipsa.groovy.svg.export.SvgResizer
+
+Svg svg = new Svg(400, 200)
+// ... add content ...
+
+// Resize proportionally by width
+Svg resized = SvgResizer.resizeToWidth(svg, 480)
+
+// Percentage sizing (uses viewBox/current size as the reference)
+Svg scaled = SvgResizer.resizeToWidth(svg, '150%')
+
+// Explicit reference for percentages
+Svg referenced = SvgResizer.resizeToWidth(svg, '150%', [referenceWidth: 400])
+```
+
 ## Advanced Patterns
 
 ### Clipping and Masking

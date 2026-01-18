@@ -49,8 +49,6 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   Element element
   SvgElement<? extends SvgElement> parent
 
-  Desc desc
-  Title title
 
   /**
    * Serializes this element and its children as XML.
@@ -767,8 +765,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the created element
    */
   Title addTitle() {
-    title = add(new Title(this))
-    return title
+    add(new Title(this)) as Title
   }
 
   /**
@@ -778,7 +775,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the created element
    */
   Title addTitle(String content) {
-    title = new Title(this).addContent(content)
+    add(new Title(this).addContent(content)) as Title
   }
 
   /**
@@ -801,7 +798,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the title value
    */
   Title getTitle() {
-    title
+    children.find { it instanceof Title } as Title
   }
 
   /**
@@ -810,8 +807,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the created element
    */
   Desc addDesc() {
-    desc = add(new Desc(this))
-    return desc
+    add(new Desc(this)) as Desc
   }
 
   /**
@@ -821,7 +817,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the created element
    */
   Desc addDesc(String content) {
-    desc = new Desc(this).addContent(content)
+    add(new Desc(this).addContent(content)) as Desc
   }
 
   /**
@@ -844,7 +840,7 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    * @return the desc value
    */
   Desc getDesc() {
-    desc
+    children.find { it instanceof Desc } as Desc
   }
 
   // ==================== ARIA ACCESSIBILITY HELPERS ====================

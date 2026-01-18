@@ -3,8 +3,10 @@ package se.alipsa.groovy.svg.validation.rules
 import groovy.transform.CompileStatic
 import se.alipsa.groovy.svg.A
 import se.alipsa.groovy.svg.ElementContainer
+import se.alipsa.groovy.svg.Desc
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
+import se.alipsa.groovy.svg.Title
 import se.alipsa.groovy.svg.validation.ValidationIssue
 import se.alipsa.groovy.svg.validation.ValidationReport
 import se.alipsa.groovy.svg.validation.ValidationRule
@@ -70,8 +72,7 @@ class AccessibilityRule implements ValidationRule {
         String ariaLabel = svg.getAriaLabel()
         String ariaLabelledBy = svg.getAriaLabelledBy()
 
-        // Check if root SVG has title (stored as a field, not in children)
-        boolean hasTitle = svg.title != null
+        boolean hasTitle = svg.getTitle() != null
 
         // Root SVG should have some form of accessible name
         if (!role && !ariaLabel && !ariaLabelledBy && !hasTitle) {
@@ -158,15 +159,16 @@ class AccessibilityRule implements ValidationRule {
             ids.add(id)
         }
 
-        // Check title and desc which are stored as special fields, not in children
-        if (element.title) {
-            String titleId = element.title.getId()
+        Title title = element.getTitle()
+        if (title) {
+            String titleId = title.getId()
             if (titleId) {
                 ids.add(titleId)
             }
         }
-        if (element.desc) {
-            String descId = element.desc.getId()
+        Desc desc = element.getDesc()
+        if (desc) {
+            String descId = desc.getId()
             if (descId) {
                 ids.add(descId)
             }
@@ -200,8 +202,7 @@ class AccessibilityRule implements ValidationRule {
         String ariaLabel = element.getAriaLabel()
         String ariaLabelledBy = element.getAriaLabelledBy()
 
-        // Check for title (stored as a field, not in children)
-        boolean hasTitle = element.title != null
+        boolean hasTitle = element.getTitle() != null
 
         ariaLabel || ariaLabelledBy || hasTitle
     }
