@@ -1,3 +1,6 @@
+import groovy.transform.Field
+import groovy.transform.SourceURI
+
 @Grab('se.alipsa.groovy:gsvg:1.0.0')
 @Grab('se.alipsa.groovy:gsvg-export:1.0.0')
 
@@ -7,7 +10,19 @@ import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
 import se.alipsa.groovy.svg.templates.Template
 import se.alipsa.groovy.svg.export.SvgRenderer
-import examples.shared.ExampleSupport
+
+@SourceURI
+@Field
+URI scriptUri
+
+File scriptDir = new File(scriptUri).parentFile
+File helper = new File(scriptDir.parentFile.parentFile, 'helper.groovy')
+
+if (!helper.exists()) {
+  throw new IllegalStateException("Cannot find helper script at ${helper.absolutePath}")
+}
+def exampleSupport = evaluate(helper)
+exampleSupport.scriptDir = scriptDir
 
 class BadgeTemplate extends Template {
   @Override
@@ -35,5 +50,5 @@ BadgeTemplate badge = new BadgeTemplate()
 badge.apply(svg, [cx: 50, cy: 60, fill: 'gold', label: 'Gold'])
 badge.apply(svg, [cx: 140, cy: 60, fill: 'tomato', label: 'Red'])
 
-File outputFile = ExampleSupport.outputDir().resolve('clone-custom-template.svg').toFile()
+File outputFile = exampleSupport.outputFile('clone-custom-template.svg')
 SvgRenderer.toSvgFile(svg, outputFile)

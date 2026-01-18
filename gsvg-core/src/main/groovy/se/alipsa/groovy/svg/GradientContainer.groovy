@@ -17,6 +17,12 @@ trait GradientContainer extends ElementContainer {
     add(new LinearGradient(this as SvgElement<? extends SvgElement>))
   }
 
+  /**
+   * Creates and adds a new LinearGradient child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   LinearGradient addLinearGradient(Map attributes) {
     LinearGradient lg = addLinearGradient()
     attributes.each {
@@ -34,6 +40,12 @@ trait GradientContainer extends ElementContainer {
     add(new RadialGradient(this as SvgElement<? extends SvgElement>))
   }
 
+  /**
+   * Creates and adds a new RadialGradient child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   RadialGradient addRadialGradient(Map attributes) {
     RadialGradient rg = addRadialGradient()
     attributes.each {

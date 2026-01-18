@@ -1,7 +1,10 @@
 package se.alipsa.groovy.svg.validation.rules
 
 import groovy.transform.CompileStatic
-import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.A
+import se.alipsa.groovy.svg.ElementContainer
+import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.SvgElement
 import se.alipsa.groovy.svg.validation.ValidationIssue
 import se.alipsa.groovy.svg.validation.ValidationReport
 import se.alipsa.groovy.svg.validation.ValidationRule
@@ -67,9 +70,8 @@ class AccessibilityRule implements ValidationRule {
         String ariaLabel = svg.getAriaLabel()
         String ariaLabelledBy = svg.getAriaLabelledBy()
 
-        // Check if root SVG has title or desc (stored as fields, not in children)
+        // Check if root SVG has title (stored as a field, not in children)
         boolean hasTitle = svg.title != null
-        boolean hasDesc = svg.desc != null
 
         // Root SVG should have some form of accessible name
         if (!role && !ariaLabel && !ariaLabelledBy && !hasTitle) {

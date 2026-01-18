@@ -57,9 +57,9 @@ Document doc = f.createDocument("file.svg");
 
 **gsvg**:
 ```groovy
-import se.alipsa.groovy.svg.SvgReader
+import se.alipsa.groovy.svg.io.SvgReader
 
-Svg svg = SvgReader.read(new File('file.svg'))
+Svg svg = SvgReader.parse(new File('file.svg'))
 ```
 
 ### Styling
@@ -131,7 +131,7 @@ svg.addCircle()
    .cx(200).cy(200).r(100)
    .fill('red')
 
-String xml = svg.toString()
+String xml = svg.toXml()
 ```
 
 ### Paths
@@ -202,7 +202,7 @@ SVGDiagram diagram = universe.getDiagram(uri);
 
 **gsvg**:
 ```groovy
-Svg svg = SvgReader.read(new File('image.svg'))
+Svg svg = SvgReader.parse(new File('image.svg'))
 ```
 
 ### Modifying SVG
@@ -211,7 +211,7 @@ Svg svg = SvgReader.read(new File('image.svg'))
 
 **gsvg**: Full modification support
 ```groovy
-Svg svg = SvgReader.read(new File('image.svg'))
+Svg svg = SvgReader.parse(new File('image.svg'))
 
 // Modify all circles
 svg[Circle].each { it.fill('red') }
@@ -220,7 +220,7 @@ svg[Circle].each { it.fill('red') }
 svg.addRect().x(10).y(10).width(100).height(50)
 
 // Save
-new File('modified.svg').text = svg.toString()
+new File('modified.svg').text = svg.toXml()
 ```
 
 ### When to Stay with SVGSalamander
@@ -256,7 +256,7 @@ svg.addCircle()
    .cx(200).cy(200).r(100)
    .fill('red')
 
-new File('test.svg').text = svg.toString()
+new File('test.svg').text = svg.toXml()
 ```
 
 ### Groups
@@ -438,13 +438,13 @@ svg.addShape().prop1(val1).prop2(val2)
 **Any Library** → **gsvg**:
 ```groovy
 // Read
-Svg svg = SvgReader.read(new File('input.svg'))
+Svg svg = SvgReader.parse(new File('input.svg'))
 
 // Modify
 svg[Circle].each { it.fill('red') }
 
 // Save
-new File('output.svg').text = svg.toString()
+new File('output.svg').text = svg.toXml()
 ```
 
 ### Pattern 3: Gradients

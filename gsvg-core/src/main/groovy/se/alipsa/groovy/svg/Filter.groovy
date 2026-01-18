@@ -213,6 +213,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeGaussianBlur(this))
   }
 
+  /**
+   * Creates and adds a new FeGaussianBlur child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeGaussianBlur addFeGaussianBlur(Map attributes) {
     FeGaussianBlur elem = addFeGaussianBlur()
     attributes.each {
@@ -230,6 +236,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeBlend(this))
   }
 
+  /**
+   * Creates and adds a new FeBlend child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeBlend addFeBlend(Map attributes) {
     FeBlend elem = addFeBlend()
     attributes.each {
@@ -247,6 +259,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeFlood(this))
   }
 
+  /**
+   * Creates and adds a new FeFlood child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeFlood addFeFlood(Map attributes) {
     FeFlood elem = addFeFlood()
     attributes.each {
@@ -264,6 +282,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeColorMatrix(this))
   }
 
+  /**
+   * Creates and adds a new FeColorMatrix child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeColorMatrix addFeColorMatrix(Map attributes) {
     FeColorMatrix elem = addFeColorMatrix()
     attributes.each {
@@ -281,6 +305,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeComponentTransfer(this))
   }
 
+  /**
+   * Creates and adds a new FeComponentTransfer child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeComponentTransfer addFeComponentTransfer(Map attributes) {
     FeComponentTransfer elem = addFeComponentTransfer()
     attributes.each {
@@ -298,6 +328,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeImage(this))
   }
 
+  /**
+   * Creates and adds a new FeImage child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeImage addFeImage(Map attributes) {
     FeImage elem = addFeImage()
     attributes.each {
@@ -315,6 +351,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeComposite(this))
   }
 
+  /**
+   * Creates and adds a new FeComposite child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeComposite addFeComposite(Map attributes) {
     FeComposite elem = addFeComposite()
     attributes.each {
@@ -332,6 +374,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeConvolveMatrix(this))
   }
 
+  /**
+   * Creates and adds a new FeConvolveMatrix child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeConvolveMatrix addFeConvolveMatrix(Map attributes) {
     FeConvolveMatrix elem = addFeConvolveMatrix()
     attributes.each {
@@ -349,6 +397,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeDiffuseLighting(this))
   }
 
+  /**
+   * Creates and adds a new FeDiffuseLighting child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeDiffuseLighting addFeDiffuseLighting(Map attributes) {
     FeDiffuseLighting elem = addFeDiffuseLighting()
     attributes.each {
@@ -376,6 +430,12 @@ class Filter extends AbstractElementContainer<Filter> {
     addFeMerge().id(id)
   }
 
+  /**
+   * Creates and adds a new FeMerge child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeMerge addFeMerge(Map attributes) {
     FeMerge elem = addFeMerge()
     attributes.each {
@@ -393,6 +453,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeOffset(this))
   }
 
+  /**
+   * Creates and adds a new FeOffset child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeOffset addFeOffset(Map attributes) {
     FeOffset elem = addFeOffset()
     attributes.each {
@@ -410,6 +476,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeTile(this))
   }
 
+  /**
+   * Creates and adds a new FeTile child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeTile addFeTile(Map attributes) {
     FeTile elem = addFeTile()
     attributes.each {
@@ -427,6 +499,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeDisplacementMap(this))
   }
 
+  /**
+   * Creates and adds a new FeDisplacementMap child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeDisplacementMap addFeDisplacementMap(Map attributes) {
     FeDisplacementMap elem = addFeDisplacementMap()
     attributes.each {
@@ -444,6 +522,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeTurbulence(this))
   }
 
+  /**
+   * Creates and adds a new FeTurbulence child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeTurbulence addFeTurbulence(Map attributes) {
     FeTurbulence elem = addFeTurbulence()
     attributes.each {
@@ -461,6 +545,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeDropShadow(this))
   }
 
+  /**
+   * Creates and adds a new FeDropShadow child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeDropShadow addFeDropShadow(Map attributes) {
     FeDropShadow elem = addFeDropShadow()
     attributes.each {
@@ -478,6 +568,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeMorphology(this))
   }
 
+  /**
+   * Creates and adds a new FeMorphology child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeMorphology addFeMorphology(Map attributes) {
     FeMorphology elem = addFeMorphology()
     attributes.each {
@@ -495,6 +591,12 @@ class Filter extends AbstractElementContainer<Filter> {
     add(new FeSpecularLighting(this))
   }
 
+  /**
+   * Creates and adds a new FeSpecularLighting child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeSpecularLighting addFeSpecularLighting(Map attributes) {
     FeSpecularLighting elem = addFeSpecularLighting()
     attributes.each {

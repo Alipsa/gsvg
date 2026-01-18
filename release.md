@@ -1,11 +1,22 @@
 # gsvg release notes
 
-## Version 1.0.0 - 2026-01-17 (Draft)
+## Version 1.0.0 - 2026-01-18
 
-### Parsing
-- Parsing preserves raw attribute strings; numeric precision formatting is only applied when setting attributes programmatically.
+### Added
+- `gsvg-export` module for rendering/optimization.
+- `gsvg-examples` module with example groovy script using the gsv library.
+- CSS selector queries (`css`, `cssFirst`) alongside XPath.
+- Rendering benchmarks and expanded performance documentation.
+
+### Changed
+- Parsing now preserves raw attribute strings; numeric precision formatting only applies to programmatic attribute setting.
+- Merge/cloning paths optimized for lower overhead.
 
 ## Version 0.9.0 - 2026-01-16
+- Numeric precision control via `NumberFormatter`.
+- Accessibility helpers and validation rules.
+- Builder presets (effects, shapes) and template support.
+- DSL-style element configuration closures.
 
 **Polish and Production Readiness**
 

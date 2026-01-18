@@ -460,8 +460,12 @@ class Color {
    * Clamps an integer value between min and max.
    */
   private static int clampInt(int value, int min, int max) {
-    if (value < min) return min
-    if (value > max) return max
+    if (value < min) {
+      return min
+    }
+    if (value > max) {
+      return max
+    }
     return value
   }
 
@@ -469,14 +473,20 @@ class Color {
    * Clamps a double value between min and max.
    */
   private static double clampDouble(double value, double min, double max) {
-    if (value < min) return min
-    if (value > max) return max
+    if (value < min) {
+      return min
+    }
+    if (value > max) {
+      return max
+    }
     return value
   }
 
   @Override
   boolean equals(Object obj) {
-    if (!(obj instanceof Color)) return false
+    if (!(obj instanceof Color)) {
+      return false
+    }
     Color other = (Color) obj
     return red == other.red &&
            green == other.green &&

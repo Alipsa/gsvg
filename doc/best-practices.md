@@ -373,12 +373,12 @@ def validateColor(String input) {
 
 ```groovy
 // gsvg automatically disables XXE attacks
-// SvgReader uses secure SAXReader configuration
+// SvgReader uses secure SAX parser configuration
 
-import se.alipsa.groovy.svg.SvgReader
+import se.alipsa.groovy.svg.io.SvgReader
 
 // Safe by default - XXE protection enabled
-Svg svg = SvgReader.read(userUploadedFile)
+Svg svg = SvgReader.parse(userUploadedFile)
 ```
 
 ### Avoid Script Injection
@@ -408,7 +408,7 @@ response.setHeader('Content-Security-Policy',
     "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'")
 
 // Or sanitize on output
-String safeSvg = sanitizeSvg(svg.toString())
+String safeSvg = sanitizeSvg(svg.toXml())
 ```
 
 ## Testing
@@ -480,7 +480,7 @@ def "chart should be accessible"() {
 def "should match expected SVG output"() {
     when:
     Svg svg = generateIcon('checkmark')
-    String actual = svg.toString()
+    String actual = svg.toXml()
 
     then:
     actual == expectedCheckmarkSvg()  // Compare against known good output

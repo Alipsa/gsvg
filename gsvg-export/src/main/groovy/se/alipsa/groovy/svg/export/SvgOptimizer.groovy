@@ -1,11 +1,17 @@
 package se.alipsa.groovy.svg.export
 
-import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.AbstractElementContainer
+import se.alipsa.groovy.svg.Defs
+import se.alipsa.groovy.svg.Desc
+import se.alipsa.groovy.svg.ElementContainer
+import se.alipsa.groovy.svg.G
+import se.alipsa.groovy.svg.Metadata
+import se.alipsa.groovy.svg.Path
+import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.SvgElement
+import se.alipsa.groovy.svg.Title
 import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.utils.NumberFormatter
-
-import java.util.HashSet
-import java.util.Set
 
 /**
  * Provides SVG optimization capabilities to reduce file size.
@@ -325,16 +331,15 @@ class SvgOptimizer {
                             ids.add(href.substring(1))
                         }
                     } catch (IllegalArgumentException e) {
-                        if (isNamespaced) {
-                            // Expected: namespace (e.g., xlink) may not be bound on all elements
-                            // Skip this attribute silently
-                        } else {
+                        if (!isNamespaced) {
                             // Unexpected: non-namespaced attribute should not throw
                             throw new IllegalStateException(
                                 "Unexpected error getting non-namespaced attribute '${attr}' from element '${element.getName()}': ${e.message}",
                                 e
                             )
                         }
+                        // Expected: namespace (e.g., xlink) may not be bound on all elements
+                        // Skip this attribute silently
                     }
                 }
 

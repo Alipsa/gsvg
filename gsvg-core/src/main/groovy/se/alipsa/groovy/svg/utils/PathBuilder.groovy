@@ -577,8 +577,12 @@ class PathBuilder {
 
   @Override
   boolean equals(Object obj) {
-    if (this.is(obj)) return true
-    if (obj == null || getClass() != obj.getClass()) return false
+    if (this.is(obj)) {
+      return true
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false
+    }
     PathBuilder that = (PathBuilder) obj
     commands == that.commands
   }

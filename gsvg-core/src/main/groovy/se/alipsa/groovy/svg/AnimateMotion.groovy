@@ -118,6 +118,12 @@ class AnimateMotion extends Animation<AnimateMotion> {
     mp
   }
 
+  /**
+   * Creates and adds a new Mpath child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Mpath addMpath(Map attributes) {
     Mpath mp = addMpath()
     attributes.each {

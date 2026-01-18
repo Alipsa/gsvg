@@ -111,7 +111,7 @@ class SvgRenderer {
         }
 
         // Determine output dimensions
-        def (int width, int height) = calculateDimensions(svg, document, options)
+        def (int width, int height) = calculateDimensions(document, options)
 
         // Create BufferedImage
         // TYPE_INT_ARGB is crucial for transparency support
@@ -157,25 +157,35 @@ class SvgRenderer {
     /**
      * Calculates output dimensions based on SVG and options.
      */
-    private static List<Integer> calculateDimensions(Svg svg, SVGDocument document, Map options) {
+    private static List<Integer> calculateDimensions(SVGDocument document, Map options) {
         int width
         int height
 
-        if (options.scale) {
+        boolean hasScale = options.containsKey('scale')
+        boolean hasWidth = options.containsKey('width')
+        boolean hasHeight = options.containsKey('height')
+
+        def size = document.size()
+        if (size.width <= 0 || size.height <= 0) {
+            throw new IllegalArgumentException("SVG size must be positive (width=${size.width}, height=${size.height})")
+        }
+
+        if (hasScale) {
             // Use scale factor
             float scale = options.scale as float
-            def size = document.size()
+            if (scale <= 0) {
+                throw new IllegalArgumentException("Scale must be positive (scale=${scale})")
+            }
             width = (size.width * scale) as int
             height = (size.height * scale) as int
-        } else if (options.width || options.height) {
+        } else if (hasWidth || hasHeight) {
             // Use specified dimensions
-            def size = document.size()
             float aspectRatio = size.width / size.height
 
-            if (options.width && options.height) {
+            if (hasWidth && hasHeight) {
                 width = options.width as int
                 height = options.height as int
-            } else if (options.width) {
+            } else if (hasWidth) {
                 width = options.width as int
                 height = (width / aspectRatio) as int
             } else {
@@ -184,9 +194,12 @@ class SvgRenderer {
             }
         } else {
             // Use SVG's natural size
-            def size = document.size()
             width = size.width as int
             height = size.height as int
+        }
+
+        if (width <= 0 || height <= 0) {
+            throw new IllegalArgumentException("Output dimensions must be positive (width=${width}, height=${height})")
         }
 
         return [width, height]
@@ -235,6 +248,7 @@ class SvgRenderer {
                     return new Color(rgb)
                 } catch (NumberFormatException e) {
                     // Invalid hex color, fall through to default
+                    return Color.WHITE
                 }
             }
         }

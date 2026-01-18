@@ -25,7 +25,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @return the created element
    */
   FeDistantLight addFeDistantLight() {
-    def light = new FeDistantLight(this)
+    def light = new FeDistantLight(this as SvgElement)
     lightSource = light
     light
   }
@@ -36,7 +36,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @return the created element
    */
   FePointLight addFePointLight() {
-    def light = new FePointLight(this)
+    def light = new FePointLight(this as SvgElement)
     lightSource = light
     light
   }
@@ -47,7 +47,7 @@ trait LightSourceContainer<T extends FilterElement<T>> {
    * @return the created element
    */
   FeSpotLight addFeSpotLight() {
-    def light = new FeSpotLight(this)
+    def light = new FeSpotLight(this as SvgElement)
     lightSource = light
     light
   }

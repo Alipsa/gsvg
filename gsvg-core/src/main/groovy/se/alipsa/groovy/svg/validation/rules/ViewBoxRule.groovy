@@ -64,8 +64,8 @@ class ViewBoxRule implements ValidationRule {
         }
 
         try {
-            double minX = Double.parseDouble(parts[0])
-            double minY = Double.parseDouble(parts[1])
+            Double.parseDouble(parts[0])
+            Double.parseDouble(parts[1])
             double width = Double.parseDouble(parts[2])
             double height = Double.parseDouble(parts[3])
 

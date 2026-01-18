@@ -465,47 +465,47 @@ def nested = svg.css('g g circle')
 **Goal**: Ensure gsvg v1.0 is production-ready for enterprise adoption.
 
 #### 6.1 Code Quality
-- [ ] Run static analysis (CodeNarc, SpotBugs)
-- [ ] Fix all critical and high-priority issues
-- [ ] Review and improve Groovydoc coverage
-- [ ] Ensure all public APIs have comprehensive documentation
-- [ ] Add package-level documentation
+- [x] Run static analysis (CodeNarc, SpotBugs)
+- [x] Fix all critical and high-priority issues
+- [x] Review and improve Groovydoc coverage
+- [x] Ensure all public APIs have comprehensive documentation
+- [x] Add package-level documentation
 
 #### 6.2 Testing
-- [ ] Verify all tests pass (target: 750+ tests)
+- [x] Verify all tests pass (target: 750+ tests)
 - [ ] Achieve >85% code coverage
-- [ ] Add integration tests for multi-module scenarios
-- [ ] Test with different Groovy versions (4.0, 5.0)
-- [ ] Test with different Java versions (17, 21, 23)
+- [x] Add integration tests for multi-module scenarios
+- [x] Test with different Groovy versions (4.0, 5.0)
+- [x] Test with different Java versions (17, 21, 25)
 
 #### 6.3 Documentation Audit
-- [ ] Review all documentation for accuracy
-- [ ] Update all code examples to use v1.0 APIs
-- [ ] Add migration guide from v0.9 to v1.0
-- [ ] Update README with new features
-- [ ] Create CHANGELOG.md with detailed release notes
+- [x] Review all documentation for accuracy
+- [x] Update all code examples to use v1.0 APIs
+- [x] Add migration guide from v0.9 to v1.0
+- [x] Update README with new features
+- [x] Create CHANGELOG.md with detailed release notes
 
 #### 6.4 Security Audit
-- [ ] Review all dependencies for CVEs
-- [ ] Update dependencies to latest stable versions
-- [ ] Verify XXE/XSS protection still active
-- [ ] Review input validation in export module
-- [ ] Add security.md with reporting guidelines
+- [x] Review all dependencies for CVEs
+- [x] Update dependencies to latest stable versions
+- [x] Verify XXE/XSS protection still active
+- [x] Review input validation in export module
+- [x] Add security.md with reporting guidelines
 
 #### 6.5 Compatibility Testing
-- [ ] Test backward compatibility with v0.9 code
-- [ ] Verify Maven Central release process
-- [ ] Test Gradle and Maven integration
-- [ ] Test Groovy Grape (@Grab) functionality
-- [ ] Test with popular Groovy frameworks (Grails, Ratpack)
+- [x] Test backward compatibility with v0.9 code
+- [x] Verify Maven Central release process
+- [x] Test Gradle and Maven integration
+- [x] Test Groovy Grape (@Grab) functionality
+- [x] Test with popular Groovy frameworks (Grails, Ratpack)
 
 #### 6.6 Release Preparation
-- [ ] Update version numbers to 1.0.0
-- [ ] Create release branch: `release/1.0`
-- [ ] Tag release: `v1.0.0`
-- [ ] Build and sign artifacts
-- [ ] Deploy to Maven Central
-- [ ] Create GitHub release with release notes
+- [X] Update version numbers to 1.0.0
+- [X] Create release branch: `release/1.0`
+- [X] Tag release: `v1.0.0`
+- [X] Build and sign artifacts
+- [X] Deploy to Maven Central
+- [X] Create GitHub release with release notes
 - [ ] Update documentation website
 - [ ] Announce on Groovy mailing list, Twitter, Reddit
 

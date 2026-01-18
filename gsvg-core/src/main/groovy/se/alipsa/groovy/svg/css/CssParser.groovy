@@ -4,8 +4,6 @@ import com.helger.css.decl.CSSDeclaration
 import com.helger.css.decl.CSSStyleRule
 import com.helger.css.decl.CascadingStyleSheet
 import com.helger.css.reader.CSSReader
-import com.helger.css.writer.CSSWriter
-import com.helger.css.writer.CSSWriterSettings
 import groovy.transform.CompileStatic
 
 /**
@@ -14,8 +12,6 @@ import groovy.transform.CompileStatic
  */
 @CompileStatic
 class CssParser {
-
-    private static final CSSWriter CSS_WRITER = new CSSWriter(new CSSWriterSettings(false))
 
     /**
      * Parses a CSS stylesheet from text.

@@ -20,13 +20,17 @@ class Polygon extends AbstractPoly<Polygon> {
   @PackageScope
   Polygon(SvgElement parent, Coordinate... coordinates) {
     this(parent)
-    if (coordinates.length > 0) points(coordinates)
+    if (coordinates.length > 0) {
+      points(coordinates)
+    }
   }
 
   @PackageScope
   Polygon(SvgElement parent, List<Number>... coordinates) {
     this(parent)
-    if (coordinates.length > 0)  points(coordinates)
+    if (coordinates.length > 0) {
+      points(coordinates)
+    }
   }
 
   @PackageScope

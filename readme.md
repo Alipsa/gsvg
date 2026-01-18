@@ -15,7 +15,9 @@ See the test for various ways to create, parse and write SVG
 to use it add the following to your Gradle build script
 ```groovy
 implementation("org.apache.groovy:groovy:5.0.3")
-implementation("se.alipsa.groovy:gsvg:0.9.0")
+implementation("se.alipsa.groovy:gsvg:1.0.0")
+// Optional rendering/export module
+implementation("se.alipsa.groovy:gsvg-export:1.0.0")
 ```
 or if you prefer maven:
 ```xml
@@ -28,10 +30,21 @@ or if you prefer maven:
   <dependency>
       <groupId>se.alipsa.groovy</groupId>
       <artifactId>gsvg</artifactId>
-      <version>0.9.0</version>
+      <version>1.0.0</version>
+  </dependency>
+  <dependency>
+      <groupId>se.alipsa.groovy</groupId>
+      <artifactId>gsvg-export</artifactId>
+      <version>1.0.0</version>
   </dependency>
 </dependencies>
 ```
+
+## Highlights
+- Fluent, Groovy-friendly SVG creation and manipulation
+- CSS selector queries alongside XPath
+- SVG validation rules with accessibility helpers
+- Export module for SVG rendering and optimization
 
 ## Quick start
 
@@ -66,4 +79,4 @@ new File('logo-out.svg').text = SvgWriter.toXmlPretty(svg)
 - [doc](doc/overview.md) for a simple overview of the library structure and usage examples.
 - [javadoc](https://javadoc.io/doc/se.alipsa.groovy/gsvg) for full API documentation.
 - [benchmarks](doc/benchmarks.md) for performance benchmarks and optimization tips.
-
+- [migration](doc/migration-v0.9.md) for notes when upgrading from v0.9 to v1.0.

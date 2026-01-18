@@ -47,6 +47,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Svg(this))
   }
 
+  /**
+   * Creates and adds a new Svg child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Svg addSvg(Map attributes) {
     Svg svg = addSvg()
     attributes.each {
@@ -64,6 +70,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new A(this))
   }
 
+  /**
+   * Creates and adds a new A child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   A addA(Map attributes) {
     A a = addA()
     attributes.each {
@@ -91,6 +103,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Circle(this).id(id))
   }
 
+  /**
+   * Creates and adds a new Circle child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Circle addCircle(Map attributes) {
     Circle circle = addCircle()
     attributes.each {
@@ -108,6 +126,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new ClipPath(this))
   }
 
+  /**
+   * Creates and adds a new ClipPath child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   ClipPath addClipPath(Map attributes) {
     ClipPath clipPath = addClipPath()
     attributes.each {
@@ -136,6 +160,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Ellipse(this, rx, ry))
   }
 
+  /**
+   * Creates and adds a new Ellipse child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Ellipse addEllipse(Map attributes) {
     Ellipse ellipse = addEllipse()
     attributes.each {
@@ -163,6 +193,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Filter(this).id(id))
   }
 
+  /**
+   * Creates and adds a new Filter child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Filter addFilter(Map attributes) {
     Filter filter = addFilter()
     attributes.each {
@@ -180,6 +216,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new G(this))
   }
 
+  /**
+   * Creates and adds a new G child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   G addG(Map attributes) {
     G g = addG()
     attributes.each {
@@ -197,6 +239,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Image(this))
   }
 
+  /**
+   * Creates and adds a new Image child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Image addImage(Map attributes) {
     Image img = addImage()
     attributes.each {
@@ -214,6 +262,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Line(this))
   }
 
+  /**
+   * Creates and adds a new Line child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Line addLine(Map attributes) {
     Line l = addLine()
     attributes.each {
@@ -253,6 +307,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Mask(this).id(id))
   }
 
+  /**
+   * Creates and adds a new Mask child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Mask addMask(Map attributes) {
     Mask m = addMask()
     attributes.each {
@@ -279,6 +339,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     addPath().id(id)
   }
 
+  /**
+   * Creates and adds a new Path child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Path addPath(Map attributes) {
     Path p = addPath()
     attributes.each {
@@ -316,6 +382,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Polygon(this, points))
   }
 
+  /**
+   * Creates and adds a new Polygon child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Polygon addPolygon(Map attributes) {
     Polygon p = add(new Polygon(this))
     attributes.each {
@@ -345,6 +417,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Polyline(this, points))
   }
 
+  /**
+   * Creates and adds a new Polyline child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Polyline addPolyline(Map attributes) {
     Polyline p = add(new Polyline(this))
     attributes.each {
@@ -382,6 +460,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Rect(this).id(id))
   }
 
+  /**
+   * Creates and adds a new Rect child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Rect addRect(Map attributes) {
     Rect r = addRect()
     attributes.each {
@@ -409,6 +493,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Text(this).addContent(content))
   }
 
+  /**
+   * Creates and adds a new Text child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Text addText(Map attributes) {
     Text t = addText()
     attributes.each {
@@ -426,6 +516,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Use(this))
   }
 
+  /**
+   * Creates and adds a new Use child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Use addUse(Map attributes) {
     Use u = addUse()
     attributes.each {
@@ -443,6 +539,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new ColorProfile(this))
   }
 
+  /**
+   * Creates and adds a new ColorProfile child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   ColorProfile addColorProfile(Map attributes) {
     ColorProfile c = addColorProfile()
     attributes.each {
@@ -460,6 +562,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Cursor(this))
   }
 
+  /**
+   * Creates and adds a new Cursor child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Cursor addCursor(Map attributes) {
     Cursor c = addCursor()
     attributes.each {
@@ -477,6 +585,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Solidcolor(this))
   }
 
+  /**
+   * Creates and adds a new Solidcolor child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Solidcolor addSolidcolor(Map attributes) {
     Solidcolor s = addSolidcolor()
     attributes.each {
@@ -493,6 +607,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new MeshGradient(this))
   }
 
+  /**
+   * Creates and adds a new MeshGradient child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   MeshGradient addMeshGradient(Map attributes) {
     MeshGradient mg = addMeshGradient()
     attributes.each {
@@ -510,6 +630,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Mesh(this))
   }
 
+  /**
+   * Creates and adds a new Mesh child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Mesh addMesh(Map attributes) {
     Mesh m = addMesh()
     attributes.each {
@@ -527,6 +653,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new MeshRow(this))
   }
 
+  /**
+   * Creates and adds a new MeshRow child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   MeshRow addMeshRow(Map attributes) {
     MeshRow mr = addMeshRow()
     attributes.each {
@@ -544,6 +676,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new MeshPatch(this))
   }
 
+  /**
+   * Creates and adds a new MeshPatch child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   MeshPatch addMeshPatch(Map attributes) {
     MeshPatch mp = addMeshPatch()
     attributes.each {
@@ -561,6 +699,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Hatch(this))
   }
 
+  /**
+   * Creates and adds a new Hatch child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Hatch addHatch(Map attributes) {
     Hatch h = addHatch()
     attributes.each {
@@ -578,6 +722,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new HatchPath(this))
   }
 
+  /**
+   * Creates and adds a new HatchPath child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   HatchPath addHatchPath(Map attributes) {
     HatchPath hp = addHatchPath()
     attributes.each {
@@ -595,6 +745,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Audio(this))
   }
 
+  /**
+   * Creates and adds a new Audio child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Audio addAudio(Map attributes) {
     Audio a = addAudio()
     attributes.each {
@@ -612,6 +768,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Video(this))
   }
 
+  /**
+   * Creates and adds a new Video child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Video addVideo(Map attributes) {
     Video v = addVideo()
     attributes.each {
@@ -629,6 +791,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Discard(this))
   }
 
+  /**
+   * Creates and adds a new Discard child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Discard addDiscard(Map attributes) {
     Discard d = addDiscard()
     attributes.each {
@@ -646,6 +814,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Font(this))
   }
 
+  /**
+   * Creates and adds a new Font child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Font addFont(Map attributes) {
     Font f = addFont()
     attributes.each {
@@ -663,6 +837,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFace(this))
   }
 
+  /**
+   * Creates and adds a new FontFace child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FontFace addFontFace(Map attributes) {
     FontFace ff = addFontFace()
     attributes.each {
@@ -680,6 +860,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFaceSrc(this))
   }
 
+  /**
+   * Creates and adds a new FontFaceSrc child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FontFaceSrc addFontFaceSrc(Map attributes) {
     FontFaceSrc ffs = addFontFaceSrc()
     attributes.each {
@@ -697,6 +883,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFaceUri(this))
   }
 
+  /**
+   * Creates and adds a new FontFaceUri child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FontFaceUri addFontFaceUri(Map attributes) {
     FontFaceUri ffu = addFontFaceUri()
     attributes.each {
@@ -714,6 +906,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFaceName(this))
   }
 
+  /**
+   * Creates and adds a new FontFaceName child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FontFaceName addFontFaceName(Map attributes) {
     FontFaceName ffn = addFontFaceName()
     attributes.each {
@@ -731,6 +929,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new FontFaceFormat(this))
   }
 
+  /**
+   * Creates and adds a new FontFaceFormat child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FontFaceFormat addFontFaceFormat(Map attributes) {
     FontFaceFormat fff = addFontFaceFormat()
     attributes.each {
@@ -748,6 +952,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Glyph(this))
   }
 
+  /**
+   * Creates and adds a new Glyph child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Glyph addGlyph(Map attributes) {
     Glyph g = addGlyph()
     attributes.each {
@@ -765,6 +975,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new MissingGlyph(this))
   }
 
+  /**
+   * Creates and adds a new MissingGlyph child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   MissingGlyph addMissingGlyph(Map attributes) {
     MissingGlyph mg = addMissingGlyph()
     attributes.each {
@@ -782,6 +998,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Hkern(this))
   }
 
+  /**
+   * Creates and adds a new Hkern child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Hkern addHkern(Map attributes) {
     Hkern h = addHkern()
     attributes.each {
@@ -799,6 +1021,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Vkern(this))
   }
 
+  /**
+   * Creates and adds a new Vkern child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Vkern addVkern(Map attributes) {
     Vkern v = addVkern()
     attributes.each {
@@ -816,6 +1044,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new GlyphRef(this))
   }
 
+  /**
+   * Creates and adds a new GlyphRef child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   GlyphRef addGlyphRef(Map attributes) {
     GlyphRef gr = addGlyphRef()
     attributes.each {
@@ -833,6 +1067,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new AltGlyph(this))
   }
 
+  /**
+   * Creates and adds a new AltGlyph child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   AltGlyph addAltGlyph(Map attributes) {
     AltGlyph ag = addAltGlyph()
     attributes.each {
@@ -850,6 +1090,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new AltGlyphDef(this))
   }
 
+  /**
+   * Creates and adds a new AltGlyphDef child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   AltGlyphDef addAltGlyphDef(Map attributes) {
     AltGlyphDef agd = addAltGlyphDef()
     attributes.each {
@@ -867,6 +1113,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new AltGlyphItem(this))
   }
 
+  /**
+   * Creates and adds a new AltGlyphItem child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   AltGlyphItem addAltGlyphItem(Map attributes) {
     AltGlyphItem agi = addAltGlyphItem()
     attributes.each {
@@ -884,6 +1136,12 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     add(new Tref(this))
   }
 
+  /**
+   * Creates and adds a new Tref child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Tref addTref(Map attributes) {
     Tref t = addTref()
     attributes.each {

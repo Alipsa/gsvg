@@ -205,6 +205,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addDefs().id(id)
   }
 
+  /**
+   * Creates and adds a new Defs child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Defs addDefs(Map attributes) {
     Defs defs = addDefs()
     attributes.each {
@@ -322,6 +328,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new ForeignObject(this))
   }
 
+  /**
+   * Creates and adds a new ForeignObject child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   ForeignObject addForeignObject(Map attributes) {
     ForeignObject foreignObject = addForeignObject()
     attributes.each {
@@ -348,6 +360,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new Metadata(this))
   }
 
+  /**
+   * Creates and adds a new Metadata child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Metadata addMetadata(Map attributes) {
     Metadata metadata = addMetadata()
     attributes.each { key, value ->
@@ -365,6 +383,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new Script(this))
   }
 
+  /**
+   * Creates and adds a new Script child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Script addScript(Map attributes) {
     Script script = addScript()
     attributes.each { key, value ->
@@ -382,6 +406,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new Switch(this))
   }
 
+  /**
+   * Creates and adds a new Switch child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Switch addSwitch(Map attributes) {
     Switch sw = addSwitch()
     attributes.each { key, value ->
@@ -399,6 +429,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     add(new Symbol(this))
   }
 
+  /**
+   * Creates and adds a new Symbol child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Symbol addSymbol(Map attributes) {
     Symbol symbol = addSymbol()
     attributes.each { key, value ->
@@ -436,6 +472,12 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     addView().id(id)
   }
 
+  /**
+   * Creates and adds a new View child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   View addView(Map attributes) {
     View view = addView()
     attributes.each { key, value ->

@@ -48,6 +48,12 @@ class FeMerge extends FilterElement<FeMerge> {
     addFeMergeNode().id(id)
   }
 
+  /**
+   * Creates and adds a new FeMergeNode child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   FeMergeNode addFeMergeNode(Map attributes) {
     FeMergeNode elem = addFeMergeNode()
     attributes.each {

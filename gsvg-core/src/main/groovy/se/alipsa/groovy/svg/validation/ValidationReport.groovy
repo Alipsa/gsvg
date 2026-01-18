@@ -168,13 +168,19 @@ class ValidationReport {
         int infos = infoCount
 
         sb.append(" (")
-        if (errors > 0) sb.append(errors).append(" error(s)")
+        if (errors > 0) {
+            sb.append(errors).append(" error(s)")
+        }
         if (warnings > 0) {
-            if (errors > 0) sb.append(", ")
+            if (errors > 0) {
+                sb.append(", ")
+            }
             sb.append(warnings).append(" warning(s)")
         }
         if (infos > 0) {
-            if (errors > 0 || warnings > 0) sb.append(", ")
+            if (errors > 0 || warnings > 0) {
+                sb.append(", ")
+            }
             sb.append(infos).append(" info")
         }
         sb.append(")\n")

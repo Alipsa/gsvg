@@ -50,6 +50,12 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
     addMarker().id(id)
   }
 
+  /**
+   * Creates and adds a new Marker child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Marker addMarker(Map attributes) {
     Marker marker = addMarker()
     attributes.each {
@@ -77,6 +83,12 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
     add(new Pattern(this).id(id))
   }
 
+  /**
+   * Creates and adds a new Pattern child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Pattern addPattern(Map attributes) {
     Pattern pattern = addPattern()
     attributes.each {
@@ -94,6 +106,12 @@ class Defs extends AbstractElementContainer<Defs> implements GradientContainer, 
     add(new Symbol(this))
   }
 
+  /**
+   * Creates and adds a new Symbol child element with attributes.
+   *
+   * @param attributes map of attributes to apply
+   * @return the created element
+   */
   Symbol addSymbol(Map attributes) {
     Symbol symbol = addSymbol()
     attributes.each {

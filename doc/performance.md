@@ -294,7 +294,7 @@ Svg svg = new Svg(10000, 10000)
     // Populate section...
 
     // Write section
-    new File("section-${batch}.svg").text = section.toString()
+    new File("section-${batch}.svg").text = section.toXml()
     section = null  // Release memory
 }
 ```
@@ -302,23 +302,23 @@ Svg svg = new Svg(10000, 10000)
 ### Optimize String Operations
 
 ```groovy
-// Efficient toString usage
+// Efficient toXml usage
 Svg svg = new Svg(400, 400)
 // ... build SVG ...
 
-// Call toString() once
-String xml = svg.toString()
+// Call toXml() once
+String xml = svg.toXml()
 new File('output.svg').text = xml
 
-// Don't repeatedly call toString() in loops
+// Don't repeatedly call toXml() in loops
 // Bad:
 for (int i = 0; i < 100; i++) {
-    String xml = svg.toString()  // Inefficient
+    String xml = svg.toXml()  // Inefficient
     // process xml...
 }
 
 // Good:
-String xml = svg.toString()
+String xml = svg.toXml()
 for (int i = 0; i < 100; i++) {
     // process xml...
 }
@@ -355,7 +355,7 @@ mvn exec:exec -Pbenchmark -Dbenchmark.mode=quick
 - Map-based construction
 
 **3. Serialization Benchmarks**
-- `toString()` performance
+- `toXml()` performance
 - Pretty printing overhead
 
 **4. Utility Benchmarks**
@@ -378,8 +378,8 @@ Typical performance (on modern hardware):
 Benchmark                                    Mode  Cnt    Score   Error  Units
 CreationBenchmark.createSimpleSvg           thrpt   20  50000.0  ±1000  ops/s
 CreationBenchmark.createComplexSvg          thrpt   20   5000.0   ±100  ops/s
-SerializationBenchmark.toStringSmall        thrpt   20  100000.0 ±2000  ops/s
-SerializationBenchmark.toStringLarge        thrpt   20   1000.0   ±50   ops/s
+SerializationBenchmark.benchmarkToXmlSimple thrpt   20  100000.0 ±2000  ops/s
+SerializationBenchmark.benchmarkToXmlLarge  thrpt   20   1000.0   ±50   ops/s
 PathBuilderBenchmark.buildSimplePath        thrpt   20  200000.0 ±5000  ops/s
 ColorBenchmark.parseHexColor                thrpt   20  500000.0 ±10000 ops/s
 ValidationBenchmark.validateDefaultRules    thrpt   20   10000.0  ±200  ops/s
@@ -400,7 +400,7 @@ class MyBenchmark {
         for (int i = 0; i < 100; i++) {
             svg.addCircle().cx(i).cy(i).r(5)
         }
-        return svg.toString()
+        return svg.toXml()
     }
 }
 ```
@@ -438,7 +438,7 @@ java -agentlib:hprof=cpu=samples,depth=20 -jar yourapp.jar
 
 1. ✅ Release references to removed elements
 2. ✅ Avoid accumulating elements in collections
-3. ✅ Call toString() once, reuse result
+3. ✅ Call toXml() once, reuse result
 4. ✅ Process large SVGs in batches if memory-constrained
 5. ✅ Clone only when necessary
 

@@ -29,7 +29,12 @@ class FeOffset extends FilterElement<FeOffset> {
   }
 
 
-  /** The horizontal shift position for the offset */
+  /**
+   * The horizontal shift position for the offset.
+   *
+   * @param dx the horizontal shift position for the offset
+   * @return this element for chaining
+   */
   FeOffset dx(Number dx) {
     addAttribute('dx', "$dx")
   }
