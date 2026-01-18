@@ -13,7 +13,7 @@ package se.alipsa.groovy.svg.export
  * SvgRenderer.toPng(svg, outputFile, options)
  * </pre>
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 class RendererOptionsBuilder {
 
