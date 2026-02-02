@@ -52,7 +52,7 @@
 
     <!-- Dependency versions -->
     <extra-enforcer-rules.version>1.11.0</extra-enforcer-rules.version>
-    <groovy.version>5.0.3</groovy.version>
+    <groovy.version>5.0.4</groovy.version>
     <junit.version>6.0.2</junit.version>
     <dom4j.version>2.2.0</dom4j.version>
     <jaxen.version>2.0.0</jaxen.version>
@@ -61,10 +61,10 @@
 
     <!-- Plugin versions -->
     <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
-    <versions-maven-plugin.version>2.20.1</versions-maven-plugin.version>
-    <gmavenplus-plugin.version>4.2.1</gmavenplus-plugin.version>
+    <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
+    <gmavenplus-plugin.version>4.3.0</gmavenplus-plugin.version>
     <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
-    <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+    <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
     <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
