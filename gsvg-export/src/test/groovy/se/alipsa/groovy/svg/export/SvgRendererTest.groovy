@@ -91,6 +91,30 @@ class SvgRendererTest {
     }
 
     @Test
+    void testToJpegOutputStream() {
+        Svg svg = new Svg(200, 200)
+        Ellipse ellipse = svg.addEllipse().cx(100).cy(100).fill('green')
+        ellipse.addAttribute('rx', '80')
+        ellipse.addAttribute('ry', '50')
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        SvgRenderer.toJpeg(svg, baos, [
+                width: 400,
+                height: 400,
+                backgroundColor: 'white',
+                quality: 0.9
+        ])
+
+        assertTrue(baos.size() > 0)
+
+        // Verify it's a valid JPEG
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(baos.toByteArray()))
+        assertNotNull(image)
+        assertEquals(400, image.width)
+        assertEquals(400, image.height)
+    }
+
+    @Test
     void testToBufferedImage() {
         Svg svg = new Svg(100, 100)
         svg.addCircle().cx(50).cy(50).r(40).fill('purple')

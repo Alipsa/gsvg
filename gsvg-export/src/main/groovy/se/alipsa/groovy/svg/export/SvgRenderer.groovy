@@ -90,6 +90,31 @@ class SvgRenderer {
     }
 
     /**
+     * Renders an SVG to JPEG format and writes to an output stream.
+     *
+     * @param svg The SVG object to render
+     * @param outputStream The output stream
+     * @param options Rendering options (width, height, scale, backgroundColor, quality, antialiasing).
+     *   Use RendererOptionsBuilder for a fluent API.
+     */
+    static void toJpeg(Svg svg, OutputStream outputStream, Map options = [:]) {
+        BufferedImage image = toBufferedImage(svg, options, true)
+
+        if (options.quality != null) {
+            def writer = ImageIO.getImageWritersByFormatName('JPEG').next()
+            def writeParam = writer.defaultWriteParam
+            writeParam.compressionMode = ImageWriteParam.MODE_EXPLICIT
+            writeParam.compressionQuality = options.quality as float
+
+            writer.output = ImageIO.createImageOutputStream(outputStream)
+            writer.write(null, new IIOImage(image, null, null), writeParam)
+            writer.dispose()
+        } else {
+            ImageIO.write(image, 'JPEG', outputStream)
+        }
+    }
+
+    /**
      * Renders an SVG to a BufferedImage.
      *
      * @param svg The SVG object to render
