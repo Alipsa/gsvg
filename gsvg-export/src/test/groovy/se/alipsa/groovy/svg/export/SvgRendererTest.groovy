@@ -31,6 +31,20 @@ class SvgRendererTest {
     }
 
     @Test
+    void testToSvgFileOutputStream() {
+        Svg svg = new Svg(100, 100)
+        svg.addRect().x(10).y(10).width(80).height(80).fill('blue')
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        SvgRenderer.toSvgFile(svg, baos)
+
+        String content = baos.toString('UTF-8')
+        assertTrue(content.contains('<svg'))
+        assertTrue(content.contains('<rect'))
+        assertTrue(content.contains('width="80"'))
+    }
+
+    @Test
     void testToPngFile() {
         Svg svg = new Svg(200, 200)
         svg.addCircle().cx(100).cy(100).r(50).fill('red')

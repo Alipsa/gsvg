@@ -151,41 +151,4 @@ class Line extends AbstractShape<Line> {
     getAttribute('y2')
   }
 
-  /**
-   * Sets the marker reference to draw at the line start (for example `url(#markerId)`).
-   *
-   * @param start the start marker reference
-   * @return this element for chaining
-   */
-  Line markerStart(String start) {
-    addAttribute('marker-start', start)
-  }
-
-  /**
-   * Returns the marker reference drawn at the line start.
-   *
-   * @return the marker start value
-   */
-  String getMarkerStart() {
-    getAttribute('marker-start')
-  }
-
-  /**
-   * Sets the marker reference to draw at the line end (for example `url(#markerId)`).
-   *
-   * @param end the end marker reference
-   * @return this element for chaining
-   */
-  Line markerEnd(String end) {
-    addAttribute('marker-end', end)
-  }
-
-  /**
-   * Returns the marker reference drawn at the line end.
-   *
-   * @return the marker end value
-   */
-  String getMarkerEnd() {
-    getAttribute('marker-end')
-  }
 }

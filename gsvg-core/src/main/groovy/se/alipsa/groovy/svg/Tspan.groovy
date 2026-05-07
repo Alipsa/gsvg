@@ -7,7 +7,7 @@ import org.dom4j.Element
  * SVG {@code <tspan>} element that positions and styles a span of text.
  */
 @CompileStatic
-class Tspan extends StringContentContainer<Tspan> {
+class Tspan extends StringContentContainer<Tspan> implements PresentationAttributes<Tspan> {
 
   static final String NAME='tspan'
 
@@ -198,41 +198,5 @@ class Tspan extends StringContentContainer<Tspan> {
     addAttribute('textLength', "$textLength")
   }
 
-  /**
-   * Sets the fill attribute.
-   *
-   * @param fill the fill value
-   * @return this element for chaining
-   */
-  Tspan fill(String fill) {
-    addAttribute('fill', fill)
-  }
-
-  /**
-   * Returns the fill value.
-   *
-   * @return the fill value
-   */
-  String getFill() {
-    getAttribute('fill')
-  }
-
-  /**
-   * Sets the stroke attribute.
-   *
-   * @param stroke the stroke value
-   * @return this element for chaining
-   */
-  Tspan stroke(String stroke) {
-    addAttribute('stroke', stroke)
-  }
-
-  /**
-   * Returns the stroke value.
-   *
-   * @return the stroke value
-   */
-  String getStroke() {
-    getAttribute('stroke')
-  }
+  // fill, stroke, and other presentation attributes are provided by PresentationAttributes trait
 }

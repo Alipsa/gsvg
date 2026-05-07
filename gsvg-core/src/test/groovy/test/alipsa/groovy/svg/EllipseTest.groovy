@@ -8,6 +8,26 @@ import org.junit.jupiter.api.Test
 class EllipseTest {
 
     @Test
+    void testEllipseRxRySetters() {
+        Svg svg = new Svg(200, 200)
+        def ellipse = svg.addEllipse().cx(100).cy(100).rx(80).ry(50)
+
+        assertEquals('80', ellipse.rx)
+        assertEquals('50', ellipse.ry)
+        assertEquals('100', ellipse.cx)
+        assertEquals('100', ellipse.cy)
+    }
+
+    @Test
+    void testEllipseRxRyStringSetters() {
+        Svg svg = new Svg(200, 200)
+        def ellipse = svg.addEllipse().cx(100).cy(100).rx('80px').ry('50%')
+
+        assertEquals('80px', ellipse.rx)
+        assertEquals('50%', ellipse.ry)
+    }
+
+    @Test
     void testSimpleEllipse() {
         Svg svg = new Svg(100,100)
         svg.addEllipse(100, 50)

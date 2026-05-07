@@ -12,11 +12,22 @@ class Circle extends AbstractShape<Circle> {
 
   static final String NAME='circle'
 
+  /**
+   * Creates a Circle.
+   *
+   * @param parent the parent SVG element
+   */
   @PackageScope
   Circle(SvgElement parent) {
     super(parent,NAME)
   }
 
+  /**
+   * Creates a Circle by adopting an existing DOM4J Element.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to adopt
+   */
   @PackageScope
   Circle(SvgElement parent, Element element) {
     super(parent, element)

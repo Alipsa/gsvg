@@ -6,7 +6,8 @@ Security fixes are provided for the latest minor release line.
 
 | Version | Supported |
 |---------|-----------|
-| 1.0.x   | Yes       |
+| 1.1.x   | Yes       |
+| 1.0.x   | No        |
 | < 1.0   | No        |
 
 ## Reporting a Vulnerability

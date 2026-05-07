@@ -147,6 +147,70 @@ class ShapeFactoryMethodsTest {
     }
 
     @Test
+    void addCircleWithCoordinates() {
+        Svg svg = new Svg(200, 200)
+        Circle circle = svg.addCircle(50, 75, 30)
+
+        assertEquals('50', circle.cx)
+        assertEquals('75', circle.cy)
+        assertEquals('30', circle.r)
+    }
+
+    @Test
+    void addEllipseWithCoordinates() {
+        Svg svg = new Svg(200, 200)
+        Ellipse ellipse = svg.addEllipse(100, 50, 80, 40)
+
+        assertEquals('100', ellipse.cx)
+        assertEquals('50', ellipse.cy)
+        assertEquals('80', ellipse.rx)
+        assertEquals('40', ellipse.ry)
+    }
+
+    @Test
+    void addRectWithPositionAndSize() {
+        Svg svg = new Svg(200, 200)
+        Rect rect = svg.addRect(10, 20, 100, 60)
+
+        assertEquals('10', rect.x)
+        assertEquals('20', rect.y)
+        assertEquals('100', rect.width)
+        assertEquals('60', rect.height)
+    }
+
+    @Test
+    void addPathData() {
+        Svg svg = new Svg(200, 200)
+        Path path = svg.addPathData('M0,0 L10,10 L20,0 Z')
+
+        assertEquals('M0,0 L10,10 L20,0 Z', path.d)
+    }
+
+    @Test
+    void addPolylineNoArg() {
+        Svg svg = new Svg(200, 200)
+        Polyline polyline = svg.addPolyline().points('0,0 10,10 20,0')
+
+        assertEquals('0,0 10,10 20,0', polyline.points)
+    }
+
+    @Test
+    void addPolylineWithStringPoints() {
+        Svg svg = new Svg(200, 200)
+        Polyline polyline = svg.addPolyline('10,20 30,40 50,60')
+
+        assertEquals('10,20 30,40 50,60', polyline.points)
+    }
+
+    @Test
+    void addPolygonNoArg() {
+        Svg svg = new Svg(200, 200)
+        Polygon polygon = svg.addPolygon().points('0,0 10,10 20,0')
+
+        assertEquals('0,0 10,10 20,0', polygon.points)
+    }
+
+    @Test
     void multipleShapesCanBeCreatedOnSameSVG() {
         Svg svg = new Svg(400, 400)
 

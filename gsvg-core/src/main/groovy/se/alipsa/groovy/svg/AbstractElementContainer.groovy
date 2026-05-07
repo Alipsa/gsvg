@@ -104,6 +104,18 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
   }
 
   /**
+   * Creates and adds a new Circle child element with center and radius.
+   *
+   * @param cx the x-coordinate of the center
+   * @param cy the y-coordinate of the center
+   * @param r the radius
+   * @return the created element
+   */
+  Circle addCircle(Number cx, Number cy, Number r) {
+    addCircle().cx(cx).cy(cy).r(r)
+  }
+
+  /**
    * Creates and adds a new Circle child element with attributes.
    *
    * @param attributes map of attributes to apply
@@ -158,6 +170,19 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Ellipse addEllipse(Number rx, Number ry) {
     add(new Ellipse(this, rx, ry))
+  }
+
+  /**
+   * Creates and adds a new Ellipse child element with center and radii.
+   *
+   * @param cx the x-coordinate of the center
+   * @param cy the y-coordinate of the center
+   * @param rx the x-axis radius
+   * @param ry the y-axis radius
+   * @return the created element
+   */
+  Ellipse addEllipse(Number cx, Number cy, Number rx, Number ry) {
+    addEllipse(rx, ry).cx(cx).cy(cy)
   }
 
   /**
@@ -352,6 +377,26 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     }
     p
   }
+
+  /**
+   * Creates and adds a new Path child element with the given path data.
+   *
+   * @param d the path data string (for example {@code "M0,0 L10,10"})
+   * @return the created element
+   */
+  Path addPathData(String d) {
+    addPath().d(d)
+  }
+
+  /**
+   * Creates and adds a new Polygon child element.
+   *
+   * @return the created element
+   */
+  Polygon addPolygon() {
+    add(new Polygon(this))
+  }
+
   /**
    * Creates and adds a new Polygon child element.
    *
@@ -396,6 +441,25 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
     p
   }
 
+
+  /**
+   * Creates and adds a new Polyline child element.
+   *
+   * @return the created element
+   */
+  Polyline addPolyline() {
+    add(new Polyline(this))
+  }
+
+  /**
+   * Creates and adds a new Polyline child element.
+   *
+   * @param points the points defining the shape as a string (for example {@code "0,0 10,0 10,10"})
+   * @return the created element
+   */
+  Polyline addPolyline(String points) {
+    add(new Polyline(this).points(points))
+  }
 
   /**
    * Creates and adds a new Polyline child element.
@@ -458,6 +522,19 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    */
   Rect addRect(String id) {
     add(new Rect(this).id(id))
+  }
+
+  /**
+   * Creates and adds a new Rect child element with position and size.
+   *
+   * @param x the x-coordinate of the rectangle
+   * @param y the y-coordinate of the rectangle
+   * @param width the width
+   * @param height the height
+   * @return the created element
+   */
+  Rect addRect(Number x, Number y, Number width, Number height) {
+    addRect().x(x).y(y).width(width).height(height)
   }
 
   /**

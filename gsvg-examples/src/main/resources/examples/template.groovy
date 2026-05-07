@@ -3,8 +3,8 @@
 // Tags:
 // Output:
 
-@Grab('se.alipsa.groovy:gsvg:1.0.0')
-@Grab('se.alipsa.groovy:gsvg-export:1.0.0')
+@Grab('se.alipsa.groovy:gsvg:1.1.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.1.0')
 
 import se.alipsa.groovy.svg.Svg
 import examples.shared.ExampleSupport

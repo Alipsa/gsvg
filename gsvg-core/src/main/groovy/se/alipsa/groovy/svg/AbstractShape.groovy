@@ -2,13 +2,12 @@ package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
 import org.dom4j.Element
-import se.alipsa.groovy.svg.utils.Color
 
 /**
  * Base class for basic SVG shape elements with shared presentation attributes.
  */
 @CompileStatic
-class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements Animatable<T>{
+class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements Animatable<T>, PresentationAttributes<T> {
 
   /**
    * Creates a AbstractShape.
@@ -80,158 +79,8 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
     getAttribute('fill-rule')
   }
 
-  /**
-   * Sets the stroke line join style for corners (for example `miter`, `round`, or `bevel`).
-   *
-   * @param value the value
-   * @return this element for chaining
-   */
-  T strokeLinejoin(String value) {
-    addAttribute('stroke-linejoin', value)
-    this as T
-  }
-
-  /**
-   * Returns the stroke line join style for corners.
-   *
-   * @return the stroke linejoin value
-   */
-  String getStrokeLinejoin() {
-    getAttribute('stroke-linejoin')
-  }
-
-  /**
-   * Sets the stroke line cap style for line ends (for example `butt`, `round`, or `square`).
-   *
-   * @param value the value
-   * @return this element for chaining
-   */
-  T strokeLinecap(String value) {
-    addAttribute('stroke-linecap', value)
-    this as T
-  }
-
-  /**
-   * Returns the stroke line cap style for line ends.
-   *
-   * @return the stroke linecap value
-   */
-  String getStrokeLinecap() {
-    getAttribute('stroke-linecap')
-  }
-
-  /**
-   * Sets the stroke paint used to draw the shape outline.
-   *
-   * @param stroke the stroke color
-   * @return this element for chaining
-   */
-  T stroke(String stroke) {
-    addAttribute('stroke', stroke)
-    this as T
-  }
-
-  /**
-   * Sets the stroke paint using a Color object.
-   *
-   * @param color the stroke color
-   * @return this element for chaining
-   */
-  T stroke(Color color) {
-    addAttribute('stroke', color.toString())
-    this as T
-  }
-
-  /**
-   * Returns the stroke paint used to draw the shape outline.
-   *
-   * @return the stroke value
-   */
-  String getStroke() {
-    getAttribute('stroke')
-  }
-
-  /**
-   * Sets the stroke width used to draw the shape outline.
-   *
-   * @param strokeWidth the stroke width
-   * @return this element for chaining
-   */
-  T strokeWidth(Number strokeWidth) {
-    addAttribute('stroke-width', strokeWidth)
-    this as T
-  }
-
-  /**
-   * Sets the stroke width using a string value (for example `"2"` or `"1.5px"`).
-   *
-   * @param strokeWidth the stroke width
-   * @return this element for chaining
-   */
-  T strokeWidth(String strokeWidth) {
-    addAttribute('stroke-width', strokeWidth)
-    this as T
-  }
-
-  /**
-   * Returns the stroke width used to draw the shape outline.
-   *
-   * @return the stroke width value
-   */
-  String getStrokeWidth() {
-    getAttribute('stroke-width')
-  }
-
-  /**
-   * Sets the stroke dash pattern used to draw the outline (for example `"4 2"`).
-   *
-   * @param dashArray value
-   * @return this element for chaining
-   */
-  T strokeDasharray(String dashArray) {
-    addAttribute('stroke-dasharray', dashArray)
-    this as T
-  }
-
-  /**
-   * Returns the stroke dash pattern used to draw the outline.
-   *
-   * @return the stroke dasharray value
-   */
-  String getStrokeDasharray() {
-    getAttribute('stroke-dasharray')
-  }
-
-  /**
-   * Sets the stroke opacity (0 to 1) used when painting the outline.
-   *
-   * @param alpha value
-   * @return this element for chaining
-   */
-  T strokeOpacity(Number alpha) {
-    addAttribute('stroke-opacity', alpha)
-    this as T
-  }
-
-  /**
-   * Sets the stroke opacity using a string value (for example `"0.5"` or `"50%"`).
-   *
-   * @param alpha value
-   * @return this element for chaining
-   */
-  T strokeOpacity(String alpha) {
-    addAttribute('stroke-opacity', alpha)
-    this as T
-  }
-
-  /**
-   * Returns the stroke opacity used when painting the outline.
-   *
-   * @return the stroke opacity value
-   */
-  String getStrokeOpacity() {
-    getAttribute('stroke-opacity')
-  }
+  // stroke, strokeWidth, strokeOpacity, strokeDasharray, strokeLinecap, strokeLinejoin
+  // are provided by PresentationAttributes trait
 
   /**
    * Sets the stroke miter limit used when {@code stroke-linejoin} is {@code miter}.
@@ -295,36 +144,7 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
     getAttribute('stroke-dashoffset')
   }
 
-  /**
-   * Sets the fill paint used to draw the shape interior.
-   *
-   * @param fill the fill color
-   * @return this element for chaining
-   */
-  T fill(String fill) {
-    addAttribute('fill', fill)
-    this as T
-  }
-
-  /**
-   * Sets the fill paint using a Color object.
-   *
-   * @param color the fill color
-   * @return this element for chaining
-   */
-  T fill(Color color) {
-    addAttribute('fill', color.toString())
-    this as T
-  }
-
-  /**
-   * Returns the fill paint used to draw the shape interior.
-   *
-   * @return the fill value
-   */
-  String getFill() {
-    getAttribute('fill')
-  }
+  // fill, getFill are provided by PresentationAttributes trait
 
   /**
    * Sets the fill opacity (0 to 1) used when painting the interior.
@@ -357,140 +177,24 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
     getAttribute('fill-opacity')
   }
 
-  /**
-   * Sets the overall opacity (0 to 1) for the entire element (affects both fill and stroke).
-   *
-   * @param alpha the opacity value (0 = transparent, 1 = opaque)
-   * @return this element for chaining
-   */
-  T opacity(Number alpha) {
-    addAttribute('opacity', alpha)
-    this as T
-  }
+  // opacity, getOpacity are provided by PresentationAttributes trait
 
-  /**
-   * Sets the overall opacity using a string value (for example `"0.5"` or `"50%"`).
-   *
-   * @param alpha the opacity value
-   * @return this element for chaining
-   */
-  T opacity(String alpha) {
-    addAttribute('opacity', alpha)
-    this as T
-  }
-
-  /**
-   * Returns the overall opacity for the entire element.
-   *
-   * @return the opacity value
-   */
-  String getOpacity() {
-    getAttribute('opacity')
-  }
-
-  /**
-   * Sets the transform attribute directly as a string.
-   *
-   * @param value the transform value
-   * @return this element for chaining
-   */
-  T transform(String value) {
-    addAttribute('transform', value)
-    this as T
-  }
-
-  /**
-   * Returns the transform attribute value.
-   *
-   * @return the transform value
-   */
-  String getTransform() {
-    getAttribute('transform')
-  }
+  // transform, getTransform, rotate(angle,cx,cy), translate, scale, skewX, skewY
+  // are provided by PresentationAttributes trait
 
   /**
    * Appends a rotate transform to the existing transform attribute.
    * If no transform exists, creates a new one.
+   *
+   * <p>Note: Text elements cannot use this single-arg overload because it
+   * conflicts with the per-character {@code rotate} SVG attribute.
+   * Use {@code rotate(angle, cx, cy)} or {@code transform("rotate(...)")} instead.</p>
    *
    * @param angle the rotation angle in degrees
    * @return this element for chaining
    */
   T rotate(Number angle) {
     appendTransform("rotate($angle)")
-  }
-
-  /**
-   * Appends a rotate transform around a specific center point.
-   *
-   * @param angle the rotation angle in degrees
-   * @param cx the x-coordinate of the rotation center
-   * @param cy the y-coordinate of the rotation center
-   * @return this element for chaining
-   */
-  T rotate(Number angle, Number cx, Number cy) {
-    appendTransform("rotate($angle $cx $cy)")
-  }
-
-  /**
-   * Appends a translate transform to the existing transform attribute.
-   *
-   * @param tx the x-axis translation
-   * @param ty the y-axis translation
-   * @return this element for chaining
-   */
-  T translate(Number tx, Number ty) {
-    appendTransform("translate($tx $ty)")
-  }
-
-  /**
-   * Appends a translate transform along the x-axis only.
-   *
-   * @param tx the x-axis translation
-   * @return this element for chaining
-   */
-  T translate(Number tx) {
-    appendTransform("translate($tx)")
-  }
-
-  /**
-   * Appends a scale transform to the existing transform attribute.
-   *
-   * @param sx the x-axis scale factor
-   * @param sy the y-axis scale factor
-   * @return this element for chaining
-   */
-  T scale(Number sx, Number sy) {
-    appendTransform("scale($sx $sy)")
-  }
-
-  /**
-   * Appends a uniform scale transform (same factor for both axes).
-   *
-   * @param s the scale factor
-   * @return this element for chaining
-   */
-  T scale(Number s) {
-    appendTransform("scale($s)")
-  }
-
-  /**
-   * Appends a skewX transform (skew along the x-axis).
-   *
-   * @param angle the skew angle in degrees
-   * @return this element for chaining
-   */
-  T skewX(Number angle) {
-    appendTransform("skewX($angle)")
-  }
-
-  /**
-   * Appends a skewY transform (skew along the y-axis).
-   *
-   * @param angle the skew angle in degrees
-   * @return this element for chaining
-   */
-  T skewY(Number angle) {
-    appendTransform("skewY($angle)")
   }
 
   /**
@@ -509,20 +213,59 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   }
 
   /**
-   * Helper method to append a transform to the existing transform attribute.
-   * If the transform attribute doesn't exist, it creates it.
-   * If it exists, it appends the new transform with a space separator.
+   * Sets the marker reference to draw at the start of the shape (for example {@code url(#markerId)}).
    *
-   * @param transformValue the transform to append
+   * @param start the start marker reference
    * @return this element for chaining
    */
-  private T appendTransform(String transformValue) {
-    String existing = getAttribute('transform')
-    if (existing == null || existing.isEmpty()) {
-      addAttribute('transform', transformValue)
-    } else {
-      addAttribute('transform', "$existing $transformValue")
-    }
-    this as T
+  T markerStart(String start) {
+    addAttribute('marker-start', start)
+  }
+
+  /**
+   * Returns the marker reference drawn at the start of the shape.
+   *
+   * @return the marker-start value
+   */
+  String getMarkerStart() {
+    getAttribute('marker-start')
+  }
+
+  /**
+   * Sets the marker reference to draw at the midpoints of the shape (for example {@code url(#markerId)}).
+   *
+   * @param mid the mid marker reference
+   * @return this element for chaining
+   */
+  T markerMid(String mid) {
+    addAttribute('marker-mid', mid)
+  }
+
+  /**
+   * Returns the marker reference drawn at the midpoints of the shape.
+   *
+   * @return the marker-mid value
+   */
+  String getMarkerMid() {
+    getAttribute('marker-mid')
+  }
+
+  /**
+   * Sets the marker reference to draw at the end of the shape (for example {@code url(#markerId)}).
+   *
+   * @param end the end marker reference
+   * @return this element for chaining
+   */
+  T markerEnd(String end) {
+    addAttribute('marker-end', end)
+  }
+
+  /**
+   * Returns the marker reference drawn at the end of the shape.
+   *
+   * @return the marker-end value
+   */
+  String getMarkerEnd() {
+    getAttribute('marker-end')
   }
 }

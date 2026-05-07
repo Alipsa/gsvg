@@ -20,20 +20,40 @@ if (!helper.exists()) {
 def exampleSupport = evaluate(helper)
 exampleSupport.scriptDir = scriptDir
 
-Svg svg = new Svg(320, 140)
+Svg svg = new Svg(400, 180)
 
-svg.createStar(cx: 60, cy: 70, points: 5, outerRadius: 35, innerRadius: 14)
-  .fill('gold')
-  .stroke('orange')
-
-svg.createArrow(x1: 120, y1: 30, x2: 280, y2: 110, headSize: 12)
-  .fill('none')
-  .stroke('black')
+// New style: all attributes via fluent rx/ry setters
+svg.addEllipse()
+  .cx(100)
+  .cy(90)
+  .rx(80)
+  .ry(40)
+  .fill('lightsalmon')
+  .stroke('orangered')
   .strokeWidth(2)
 
-svg.createSpeechBubble(x: 170, y: 15, width: 120, height: 60, tailX: 240, tailY: 120)
-  .fill('aliceblue')
+// Old style: rx/ry via constructor, cx/cy via setters
+svg.addEllipse(80, 40)
+  .cx(300)
+  .cy(90)
+  .fill('lightblue')
   .stroke('steelblue')
+  .strokeWidth(2)
 
-File outputFile = exampleSupport.outputFile('builder-shape-factories.svg')
+// Labels
+svg.addText('rx/ry fluent setters')
+  .x(100)
+  .y(155)
+  .textAnchor('middle')
+  .fontSize(12)
+  .fill('#333')
+
+svg.addText('rx/ry via constructor')
+  .x(300)
+  .y(155)
+  .textAnchor('middle')
+  .fontSize(12)
+  .fill('#333')
+
+File outputFile = exampleSupport.outputFile('builder-ellipse-setters.svg')
 SvgRenderer.toSvgFile(svg, outputFile)

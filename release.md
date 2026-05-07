@@ -1,5 +1,135 @@
 # gsvg release notes
 
+## Version 1.1.0 - 2026-05-07
+
+### Added
+
+#### Ellipse fluent setters
+- `Ellipse.rx(Number)`, `rx(String)`, `ry(Number)`, `ry(String)` — fluent setters for x/y radii, matching the pattern used by Circle's `r()` and Ellipse's own `cx()`/`cy()`.
+
+```groovy
+def svg = new Svg()
+svg.addEllipse()
+   .cx(100).cy(75)
+   .rx(50).ry(30)
+   .fill('steelblue')
+```
+
+#### Marker methods on all shapes
+- `markerStart(String)`, `markerMid(String)`, `markerEnd(String)` with corresponding getters promoted from `Line` to `AbstractShape`, so all shape elements (Path, Polyline, Polygon, Line, etc.) can use markers per the SVG spec.
+
+```groovy
+def svg = new Svg(200, 200)
+svg.addPath()
+   .d('M10,80 C40,10 65,10 95,80 S150,150 180,80')
+   .markerStart('url(#arrow)')
+   .markerMid('url(#dot)')
+   .markerEnd('url(#arrow)')
+```
+
+#### Convenience factory overloads
+- `addCircle(Number cx, Number cy, Number r)` — one-liner circle creation
+- `addEllipse(Number cx, Number cy, Number rx, Number ry)` — one-liner ellipse creation
+- `addRect(Number x, Number y, Number width, Number height)` — positioned rectangle in one call
+- `addPathData(String d)` — creates a Path and sets its `d` attribute directly (avoids confusion with `addPath(String id)`)
+- `addPolyline()` — no-arg factory (mirrors addCircle(), addRect(), etc.)
+- `addPolyline(String points)` — create polyline with inline points string (mirrors existing `addPolygon(String)`)
+- `addPolygon()` — no-arg factory
+
+```groovy
+def svg = new Svg(400, 300)
+svg.addCircle(100, 100, 50).fill('red')
+svg.addEllipse(250, 100, 80, 40).fill('blue')
+svg.addRect(50, 200, 120, 60).fill('green')
+svg.addPathData('M10,80 L50,10 L90,80 Z').fill('orange')
+svg.addPolyline('10,10 50,50 90,10').stroke('black').fill('none')
+```
+
+#### Text presentation attributes
+- `Text` now supports stroke, opacity, and transform convenience methods directly, without changing its class hierarchy:
+  - `stroke(String)`, `stroke(Color)`, `getStroke()`
+  - `strokeWidth(Number/String)`, `strokeOpacity(Number/String)`, `strokeDasharray(String)`, `strokeLinecap(String)`, `strokeLinejoin(String)` with getters
+  - `opacity(Number/String)`, `getOpacity()`
+  - `fill(Color)` overload (Text already had `fill(String)`)
+  - Transform convenience methods: `rotate(Number, Number, Number)`, `translate(Number, Number)`, `translate(Number)`, `scale(Number, Number)`, `scale(Number)`, `skewX(Number)`, `skewY(Number)`
+
+```groovy
+def svg = new Svg(400, 100)
+svg.addText('Outlined Text')
+   .x(50).y(60)
+   .fontSize(36)
+   .fill(Color.WHITE)
+   .stroke(Color.BLACK)
+   .strokeWidth(2)
+   .rotate(5, 200, 50)
+```
+
+#### SVG cloning and resizing
+- `Svg.clone()` — deep clone of an SVG including attributes, namespaces, and all children.
+- `Svg.clone(Number width, Number height)` — deep clone with new dimensions (viewBox preserved).
+- `Svg.clone(String width, String height)` — deep clone with unit-aware dimensions.
+- New `SvgResizer` class in `gsvg-export` for unit-aware resizing that returns deep copies, supporting px, in, cm, mm, pt, pc, and percentage units.
+- New `RendererOptionsBuilder` fluent API for building `SvgRenderer` options maps.
+
+```groovy
+// Clone and resize
+Svg copy = svg.clone(800, 600)
+
+// Unit-aware resizing
+Svg resized = SvgResizer.resize(svg, '10cm', '8cm')
+Svg scaled = SvgResizer.scale(svg, 2.0)
+```
+
+#### Export module enhancements
+- `SvgRenderer.toJpeg(Svg, OutputStream, Map)` — write JPEG to any OutputStream with render options.
+- `SvgRenderer.toSvgFile(Svg, OutputStream)` — write SVG XML to any OutputStream.
+
+```groovy
+def baos = new ByteArrayOutputStream()
+SvgRenderer.toJpeg(svg, baos, RendererOptionsBuilder.create().size(800, 600).build())
+
+def svgOut = new ByteArrayOutputStream()
+SvgRenderer.toSvgFile(svg, svgOut)
+```
+
+### Changed
+- `@CompileStatic` added to `RendererOptionsBuilder` in `gsvg-export`.
+- New `PresentationAttributes` trait extracts shared fill, stroke, opacity, and transform convenience methods from `AbstractShape` and `Text` into a single reusable trait. `Tspan` also implements the trait, gaining the full set of presentation attributes. `appendTransform(String)` is now a public method on all implementing classes.
+- Marker methods removed from `Line` — now inherited from `AbstractShape`.
+- Title and desc fields in `SvgElement` refactored from stored fields to child-list lookups, fixing cloning and re-parenting issues.
+- `AccessibilityRule` updated to use the new `getTitle()`/`getDesc()` child lookups.
+
+### Documentation
+- GroovyDoc added to `Ellipse`, `Circle`, `Polygon`, `Polyline` constructors and all new public methods.
+- `RendererOptionsBuilder` class-level GroovyDoc updated to document `build()`/`toMap()` usage.
+- Root `readme.md` updated: version references, Groovy version, new Highlights section, convenience factory examples.
+- `gsvg-export/README.md` rewritten from placeholder to full module documentation with API reference and examples.
+- New and updated example scripts in `gsvg-examples`:
+  - Convenience factory overloads
+  - Ellipse rx/ry setters
+  - Marker support on multiple shapes
+  - Text presentation attributes
+  - SVG resizing
+
+### Dependency updates
+
+| Dependency | From | To |
+|------------|------|----|
+| extra-enforcer-rules | 1.11.0 | 1.12.0 |
+| gmavenplus-plugin | 4.2.1 | 4.3.1 |
+| Groovy | 5.0.3 | 5.0.6 |
+| Jaxen | 2.0.0 | 2.0.1 |
+| JUnit 5 | 6.0.2 | 6.0.3 |
+| maven-compiler-plugin | 3.14.1 | 3.15.0 |
+| maven-surefire-plugin | 3.5.4 | 3.5.5 |
+| ph-css | 8.1.1 | 8.2.0 |
+| spotbugs-maven-plugin | 4.9.8.2 | 4.9.8.3 |
+| versions-maven-plugin | 2.20.1 | 2.21.0 |
+
+### Tests
+- 844 total tests (794 core + 50 export), all passing.
+- New tests for Ellipse rx/ry setters, marker methods on Path/Polyline/Line, all convenience factory overloads, Text stroke/opacity/transform/fill(Color), SvgRenderer OutputStream overloads.
+
 ## Version 1.0.0 - 2026-01-18
 
 ### Added

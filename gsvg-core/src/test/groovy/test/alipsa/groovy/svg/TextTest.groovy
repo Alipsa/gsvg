@@ -2,6 +2,8 @@ package test.alipsa.groovy.svg
 
 import se.alipsa.groovy.svg.Svg
 
+import java.awt.Color
+
 import static org.junit.jupiter.api.Assertions.*
 
 import org.junit.jupiter.api.Test
@@ -164,6 +166,74 @@ class TextTest {
     assertEquals('5', text.dx)
     assertEquals('10', text.dy)
     assertEquals('blue', text.fill)
+  }
+
+  @Test
+  void testTextStrokeAttributes() {
+    Svg svg = new Svg(400, 200)
+    def text = svg.addText('Outlined')
+        .x(10).y(50)
+        .fill('none')
+        .stroke('black')
+        .strokeWidth(2)
+        .strokeOpacity(0.8)
+        .strokeDasharray('5 3')
+        .strokeLinecap('round')
+        .strokeLinejoin('bevel')
+
+    assertEquals('none', text.fill)
+    assertEquals('black', text.stroke)
+    assertEquals('2', text.strokeWidth)
+    assertEquals('0.8', text.strokeOpacity)
+    assertEquals('5 3', text.strokeDasharray)
+    assertEquals('round', text.strokeLinecap)
+    assertEquals('bevel', text.strokeLinejoin)
+  }
+
+  @Test
+  void testTextFillColor() {
+    Svg svg = new Svg(400, 200)
+    def text = svg.addText('Colored').x(10).y(50)
+        .fill(Color.RED)
+
+    assertEquals('#ff0000', text.fill)
+  }
+
+  @Test
+  void testTextStrokeColor() {
+    Svg svg = new Svg(400, 200)
+    def text = svg.addText('Stroked').x(10).y(50)
+        .stroke(Color.BLUE)
+
+    assertEquals('#0000ff', text.stroke)
+  }
+
+  @Test
+  void testTextOpacity() {
+    Svg svg = new Svg(400, 200)
+    def text = svg.addText('Faded').x(10).y(50)
+        .opacity(0.5)
+
+    assertEquals('0.5', text.opacity)
+  }
+
+  @Test
+  void testTextTransformConvenience() {
+    Svg svg = new Svg(400, 200)
+    def text = svg.addText('Transformed').x(10).y(50)
+        .translate(100, 50)
+        .scale(2)
+
+    assertEquals('translate(100 50) scale(2)', text.transform)
+  }
+
+  @Test
+  void testTextRotateWithCenter() {
+    Svg svg = new Svg(400, 200)
+    def text = svg.addText('Rotated').x(10).y(50)
+        .rotate(45, 100, 100)
+
+    assertEquals('rotate(45 100 100)', text.transform)
   }
 
   @Test

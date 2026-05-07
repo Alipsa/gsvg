@@ -1,7 +1,9 @@
 package test.alipsa.groovy.svg
 
 import se.alipsa.groovy.svg.Circle
+import se.alipsa.groovy.svg.Line
 import se.alipsa.groovy.svg.Path
+import se.alipsa.groovy.svg.Polyline
 import se.alipsa.groovy.svg.Rect
 import se.alipsa.groovy.svg.Svg
 
@@ -331,6 +333,46 @@ class AbstractShapeTest {
 
         assertEquals('75%', rect.opacity)
         assertTrue(rect.toXml().contains('opacity="75%"'))
+    }
+
+    @Test
+    void testMarkerOnLine() {
+        Svg svg = new Svg(200, 100)
+        Line line = svg.addLine(10, 50, 190, 50)
+                .markerStart('url(#arrowStart)')
+                .markerMid('url(#dot)')
+                .markerEnd('url(#arrowEnd)')
+
+        assertEquals('url(#arrowStart)', line.markerStart)
+        assertEquals('url(#dot)', line.markerMid)
+        assertEquals('url(#arrowEnd)', line.markerEnd)
+    }
+
+    @Test
+    void testMarkerOnPath() {
+        Svg svg = new Svg(200, 200)
+        Path path = svg.addPath()
+                .d('M10,10 L100,50 L190,10')
+                .markerStart('url(#start)')
+                .markerEnd('url(#end)')
+
+        assertEquals('url(#start)', path.markerStart)
+        assertEquals('url(#end)', path.markerEnd)
+        assertTrue(path.toXml().contains('marker-start="url(#start)"'))
+        assertTrue(path.toXml().contains('marker-end="url(#end)"'))
+    }
+
+    @Test
+    void testMarkerOnPolyline() {
+        Svg svg = new Svg(200, 200)
+        Polyline polyline = svg.addPolyline([10, 10] as List<Number>, [50, 50] as List<Number>)
+                .markerStart('url(#start)')
+                .markerMid('url(#mid)')
+                .markerEnd('url(#end)')
+
+        assertEquals('url(#start)', polyline.markerStart)
+        assertEquals('url(#mid)', polyline.markerMid)
+        assertEquals('url(#end)', polyline.markerEnd)
     }
 
     @Test

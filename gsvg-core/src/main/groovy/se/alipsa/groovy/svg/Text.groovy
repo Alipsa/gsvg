@@ -7,7 +7,7 @@ import org.dom4j.Element
  * SVG {@code <text>} element that renders text content.
  */
 @CompileStatic
-class Text extends StringContentContainer<Text> implements Animatable<Text> {
+class Text extends StringContentContainer<Text> implements Animatable<Text>, PresentationAttributes<Text> {
 
   static final String NAME='text'
 
@@ -42,24 +42,9 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     super(parent, element)
   }
 
-  /**
-   * Sets the fill attribute.
-   *
-   * @param fill the fill value
-   * @return this element for chaining
-   */
-  Text fill(String fill) {
-    addAttribute('fill', fill)
-  }
-
-  /**
-   * Returns the fill value.
-   *
-   * @return the fill value
-   */
-  String getFill() {
-    getAttribute('fill')
-  }
+  // fill, stroke, strokeWidth, strokeOpacity, strokeDasharray, strokeLinecap, strokeLinejoin,
+  // opacity, transform, rotate, translate, scale, skewX, skewY
+  // are provided by PresentationAttributes trait
 
   /**
    * The x position of the start of the text. Default is 0.
@@ -367,24 +352,8 @@ class Text extends StringContentContainer<Text> implements Animatable<Text> {
     getAttribute('lengthAdjust')
   }
 
-  /**
-   * Sets the transform attribute.
-   *
-   * @param transform value
-   * @return this element for chaining
-   */
-  Text transform(String transform) {
-    addAttribute('transform', transform)
-  }
-
-  /**
-   * Returns the transform value.
-   *
-   * @return the transform value
-   */
-  String getTransform() {
-    getAttribute('transform')
-  }
+  // transform, rotate(angle,cx,cy), translate, scale, skewX, skewY
+  // are provided by PresentationAttributes trait
 
   /**
    * Sets the baseline shift attribute.
