@@ -509,6 +509,63 @@ class AbstractShape<T extends SvgElement<T>> extends SvgElement<T> implements An
   }
 
   /**
+   * Sets the marker reference to draw at the start of the shape (for example {@code url(#markerId)}).
+   *
+   * @param start the start marker reference
+   * @return this element for chaining
+   */
+  T markerStart(String start) {
+    addAttribute('marker-start', start)
+  }
+
+  /**
+   * Returns the marker reference drawn at the start of the shape.
+   *
+   * @return the marker-start value
+   */
+  String getMarkerStart() {
+    getAttribute('marker-start')
+  }
+
+  /**
+   * Sets the marker reference to draw at the midpoints of the shape (for example {@code url(#markerId)}).
+   *
+   * @param mid the mid marker reference
+   * @return this element for chaining
+   */
+  T markerMid(String mid) {
+    addAttribute('marker-mid', mid)
+  }
+
+  /**
+   * Returns the marker reference drawn at the midpoints of the shape.
+   *
+   * @return the marker-mid value
+   */
+  String getMarkerMid() {
+    getAttribute('marker-mid')
+  }
+
+  /**
+   * Sets the marker reference to draw at the end of the shape (for example {@code url(#markerId)}).
+   *
+   * @param end the end marker reference
+   * @return this element for chaining
+   */
+  T markerEnd(String end) {
+    addAttribute('marker-end', end)
+  }
+
+  /**
+   * Returns the marker reference drawn at the end of the shape.
+   *
+   * @return the marker-end value
+   */
+  String getMarkerEnd() {
+    getAttribute('marker-end')
+  }
+
+  /**
    * Helper method to append a transform to the existing transform attribute.
    * If the transform attribute doesn't exist, it creates it.
    * If it exists, it appends the new transform with a space separator.

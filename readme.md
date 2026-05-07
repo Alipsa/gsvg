@@ -14,10 +14,10 @@ See the test for various ways to create, parse and write SVG
 
 to use it add the following to your Gradle build script
 ```groovy
-implementation("org.apache.groovy:groovy:5.0.3")
-implementation("se.alipsa.groovy:gsvg:1.0.0")
+implementation("org.apache.groovy:groovy:5.0.6")
+implementation("se.alipsa.groovy:gsvg:1.1.0")
 // Optional rendering/export module
-implementation("se.alipsa.groovy:gsvg-export:1.0.0")
+implementation("se.alipsa.groovy:gsvg-export:1.1.0")
 ```
 or if you prefer maven:
 ```xml
@@ -25,17 +25,17 @@ or if you prefer maven:
   <dependency>
       <groupId>org.apache.groovy</groupId>
       <artifactId>groovy</artifactId>
-      <version>5.0.3</version>
+      <version>5.0.6</version>
   </dependency>
   <dependency>
       <groupId>se.alipsa.groovy</groupId>
       <artifactId>gsvg</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
   </dependency>
   <dependency>
       <groupId>se.alipsa.groovy</groupId>
       <artifactId>gsvg-export</artifactId>
-      <version>1.0.0</version>
+      <version>1.1.0</version>
   </dependency>
 </dependencies>
 ```
@@ -45,6 +45,12 @@ or if you prefer maven:
 - CSS selector queries alongside XPath
 - SVG validation rules with accessibility helpers
 - Export module for SVG rendering and optimization
+- Ellipse rx/ry fluent setters
+- Marker support on all shapes (markerStart, markerMid, markerEnd)
+- Convenience factory methods: `addCircle(cx,cy,r)`, `addEllipse(cx,cy,rx,ry)`, `addRect(x,y,w,h)`, `addPathData(d)`
+- No-arg `addPolyline()`/`addPolygon()` and `addPolyline(String)` factories
+- Text presentation attributes (stroke, opacity, transforms)
+- SVG/JPEG OutputStream export overloads
 
 ## Quick start
 
@@ -59,6 +65,11 @@ svg.addText('Hello SVG')
    .x(30).y(70)
    .fill('white')
    .fontSize(24)
+
+// v1.1.0 convenience factories
+svg.addCircle(100, 60, 20).fill('orange')
+svg.addEllipse(50, 90, 30, 15).fill('green')
+svg.addRect(140, 80, 40, 30).fill('purple')
 
 println SvgWriter.toXmlPretty(svg)
 ```

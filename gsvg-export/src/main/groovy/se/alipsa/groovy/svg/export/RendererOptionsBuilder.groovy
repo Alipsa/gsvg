@@ -1,20 +1,29 @@
 package se.alipsa.groovy.svg.export
 
+import groovy.transform.CompileStatic
+
 /**
  * Fluent API for building SvgRenderer options maps.
+ *
+ * <p>Use {@link #create()} or {@link #builder()} to obtain a new instance,
+ * configure it with the setter methods, then call {@link #build()} (or its alias
+ * {@link #toMap()}) to get the options map.</p>
  *
  * <p>Example usage:</p>
  * <pre>
  * def options = RendererOptionsBuilder.create()
  *     .size(600, 400)
+ *     .backgroundColor('white')
+ *     .quality(0.9)
  *     .antialiasing(true)
  *     .build()
  *
- * SvgRenderer.toPng(svg, outputFile, options)
+ * SvgRenderer.toJpeg(svg, outputFile, options)
  * </pre>
  *
  * @since 1.1.0
  */
+@CompileStatic
 class RendererOptionsBuilder {
 
     private final Map<String, Object> options = [:]

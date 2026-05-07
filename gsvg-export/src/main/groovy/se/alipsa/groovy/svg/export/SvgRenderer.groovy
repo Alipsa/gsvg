@@ -34,6 +34,16 @@ class SvgRenderer {
     }
 
     /**
+     * Saves the SVG content to an output stream.
+     *
+     * @param svg The SVG object to save
+     * @param outputStream The output stream
+     */
+    static void toSvgFile(Svg svg, OutputStream outputStream) {
+        outputStream.write(svg.toXml().getBytes(StandardCharsets.UTF_8))
+    }
+
+    /**
      * Renders an SVG to PNG format and saves to a file.
      *
      * @param svg The SVG object to render
