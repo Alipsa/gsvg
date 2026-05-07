@@ -41,6 +41,7 @@ class SvgRenderer {
      */
     static void toSvgFile(Svg svg, OutputStream outputStream) {
         outputStream.write(svg.toXml().getBytes(StandardCharsets.UTF_8))
+        outputStream.flush()
     }
 
     /**

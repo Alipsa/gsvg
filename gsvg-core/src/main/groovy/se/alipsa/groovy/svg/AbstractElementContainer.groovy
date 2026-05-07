@@ -534,7 +534,7 @@ abstract class AbstractElementContainer<T extends AbstractElementContainer<T>> e
    * @return the created element
    */
   Rect addRect(Number x, Number y, Number width, Number height) {
-    addRect(width, height).x(x).y(y)
+    addRect().x(x).y(y).width(width).height(height)
   }
 
   /**
