@@ -94,6 +94,7 @@ SvgRenderer.toSvgFile(svg, svgOut)
 
 ### Changed
 - `@CompileStatic` added to `RendererOptionsBuilder` in `gsvg-export`.
+- New `PresentationAttributes` trait extracts shared fill, stroke, opacity, and transform convenience methods from `AbstractShape` and `Text` into a single reusable trait. `Tspan` also implements the trait, gaining the full set of presentation attributes. `appendTransform(String)` is now a public method on all implementing classes.
 - Marker methods removed from `Line` — now inherited from `AbstractShape`.
 - Title and desc fields in `SvgElement` refactored from stored fields to child-list lookups, fixing cloning and re-parenting issues.
 - `AccessibilityRule` updated to use the new `getTitle()`/`getDesc()` child lookups.
