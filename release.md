@@ -10,6 +10,7 @@
 - `SvgWriter.toXml(Svg, String)` and `SvgWriter.toXmlPretty(Svg, String)` serialize a cloned, namespaced SVG, leaving the caller's SVG model unchanged.
 - `SvgMerger` keeps existing IDs by default; use `mergeHorizontallyNamespaced`, `mergeVerticallyNamespaced`, or `mergeOnTopNamespaced` when merging documents that may contain colliding IDs.
 - All `SvgMerger` methods return a new SVG for a single input as well as multiple inputs; mutating a merge result no longer mutates its input.
+- `SvgReader` now preserves XML comments during parse and serialize round trips. `SvgOptimizer` honors its documented `removeComments` option (enabled by default) to remove them from optimized output.
 
 ```groovy
 String inlineSvg = SvgWriter.toXml(chart.render(), 'report-1-')

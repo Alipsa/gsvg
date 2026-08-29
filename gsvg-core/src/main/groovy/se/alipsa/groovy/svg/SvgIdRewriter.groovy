@@ -98,7 +98,7 @@ class SvgIdRewriter {
       }
     }
     if (element.name == 'style' && element.text != null) {
-      rewriteStyleContent(element, rewriteStyle(element.text, replacements, keyframes))
+      rewriteStyleContent(element, replacements, keyframes)
     }
     element.elements().each { Element child -> rewrite(child, replacements, keyframes) }
   }
@@ -138,15 +138,25 @@ class SvgIdRewriter {
     result.toString()
   }
 
-  /** Replaces all direct style text nodes while retaining CDATA serialization when present. */
-  private static void rewriteStyleContent(Element element, String rewritten) {
+  /** Rewrites contiguous style text runs without moving comments or other content nodes. */
+  private static void rewriteStyleContent(Element element, Map<String, String> replacements, Map<String, String> keyframes) {
     List content = element.content()
-    List textNodes = content.findAll { it instanceof org.dom4j.Text || it instanceof org.dom4j.CDATA }
-    if (!textNodes.isEmpty()) {
-      int index = content.indexOf(textNodes[0])
-      boolean containsCdata = textNodes.any { it instanceof org.dom4j.CDATA }
-      content.removeAll(textNodes)
-      content.add(index, containsCdata ? org.dom4j.DocumentHelper.createCDATA(rewritten) : org.dom4j.DocumentHelper.createText(rewritten))
+    List textNodes = []
+    StringBuilder css = new StringBuilder()
+    for (int index = 0; index <= content.size(); index++) {
+      Object node = index < content.size() ? content[index] : null
+      if (node instanceof org.dom4j.Text || node instanceof org.dom4j.CDATA) {
+        textNodes << node
+        css.append((node as org.dom4j.CharacterData).text)
+      } else if (!textNodes.isEmpty()) {
+        int insertionIndex = content.indexOf(textNodes[0])
+        boolean containsCdata = textNodes.any { it instanceof org.dom4j.CDATA }
+        content.removeAll(textNodes)
+        String rewritten = rewriteStyle(css.toString(), replacements, keyframes)
+        content.add(insertionIndex, containsCdata ? org.dom4j.DocumentHelper.createCDATA(rewritten) : org.dom4j.DocumentHelper.createText(rewritten))
+        textNodes = []
+        css = new StringBuilder()
+      }
     }
   }
 

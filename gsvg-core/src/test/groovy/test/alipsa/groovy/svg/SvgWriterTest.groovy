@@ -222,4 +222,14 @@ class SvgWriterTest {
         assertTrue(xml.contains('animation: p-fade-1 1s, p-fade 2s'))
         assertFalse(xml.contains('p-p-fade'))
     }
+
+    @Test
+    void namespacingStyleRetainsCommentPosition() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style>#a{fill:red}<!--mid-->#b{fill:blue}</style><rect id="a"/><rect id="b"/></svg>')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertTrue(xml.indexOf('#p-a{fill:red}') < xml.indexOf('<!--mid-->'))
+        assertTrue(xml.indexOf('<!--mid-->') < xml.indexOf('#p-b{fill:blue}'))
+    }
 }

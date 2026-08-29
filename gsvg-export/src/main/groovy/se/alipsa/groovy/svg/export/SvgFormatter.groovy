@@ -97,11 +97,11 @@ class SvgFormatter {
                 !(element as ElementContainer).children.isEmpty()
         String textContent = element.element.getText()
         boolean hasTextContent = textContent != null && !textContent.isEmpty()
-        boolean hasInlineContent = element.element.content().any { node ->
-            node instanceof org.dom4j.Text || node instanceof org.dom4j.CDATA || node instanceof org.dom4j.Comment
-        }
+        boolean hasComment = element.element.content().any { node -> node instanceof org.dom4j.Comment }
+        boolean hasCdata = element.element.content().any { node -> node instanceof org.dom4j.CDATA }
+        boolean hasMixedText = hasTextContent || hasCdata
 
-        if (!hasChildren && !hasTextContent && !hasInlineContent) {
+        if (!hasChildren && !hasMixedText && !hasComment) {
             // Self-closing tag
             sb.append('/>')
             sb.append(newline)
@@ -112,7 +112,7 @@ class SvgFormatter {
             def children = container.children
 
             // Keep text-only elements (for example title, text, and style) on one line.
-            boolean simpleContent = children.isEmpty() && hasTextContent
+            boolean simpleContent = children.isEmpty() && hasTextContent && !hasComment
 
             if (simpleContent) {
                 // Keep text content on same line
@@ -121,7 +121,7 @@ class SvgFormatter {
                 sb.append(element.element.qualifiedName)
                 sb.append('>')
                 sb.append(newline)
-            } else if (hasTextContent || hasInlineContent) {
+            } else if (hasMixedText) {
                 appendMixedContent(element.element, sb, sortAttrs, namespaces)
                 sb.append('</')
                 sb.append(element.element.qualifiedName)
@@ -131,7 +131,9 @@ class SvgFormatter {
                 // Format children with indentation
                 sb.append(newline)
 
-                if (groupElems) {
+                if (hasComment) {
+                    appendIndentedContent(element.element, children, sb, depth, indent, newline, sortAttrs, groupElems, namespaces)
+                } else if (groupElems) {
                     // Group similar elements
                     String lastType = null
                     children.each { child ->
@@ -154,6 +156,23 @@ class SvgFormatter {
                 sb.append(element.element.qualifiedName)
                 sb.append('>')
                 sb.append(newline)
+            }
+        }
+    }
+
+    /** Writes element children and comments on separate, correctly indented lines. */
+    private static void appendIndentedContent(org.dom4j.Element element, List<SvgElement> children, StringBuilder sb,
+                                              int depth, String indent, String newline, boolean sortAttrs,
+                                              boolean groupElems, Map<String, String> namespaces) {
+        Map<org.dom4j.Element, SvgElement> wrappers = children.collectEntries { SvgElement child -> [(child.element): child] }
+        element.content().each { node ->
+            if (node instanceof org.dom4j.Comment) {
+                sb.append(indent * (depth + 1)).append('<!--').append((node as org.dom4j.Comment).text).append('-->').append(newline)
+            } else if (node instanceof org.dom4j.Element) {
+                SvgElement child = wrappers[node as org.dom4j.Element]
+                if (child != null) {
+                    formatElement(child, sb, depth + 1, indent, newline, sortAttrs, groupElems, namespaces)
+                }
             }
         }
     }

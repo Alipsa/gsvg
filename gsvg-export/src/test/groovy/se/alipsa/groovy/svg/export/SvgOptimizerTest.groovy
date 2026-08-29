@@ -2,10 +2,19 @@ package se.alipsa.groovy.svg.export
 
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.io.SvgReader
 
 import static org.junit.jupiter.api.Assertions.*
 
 class SvgOptimizerTest {
+
+    @Test
+    void removesParsedCommentsByDefaultAndCanRetainThem() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><!--comment--><rect width="1" height="1"/></svg>')
+
+        assertFalse(SvgOptimizer.optimize(svg).toXml().contains('<!--comment-->'))
+        assertTrue(SvgOptimizer.optimize(svg, [removeComments: false]).toXml().contains('<!--comment-->'))
+    }
 
     @Test
     void keepsDefinitionsReferencedFromStyleContent() {

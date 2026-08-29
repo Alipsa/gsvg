@@ -292,6 +292,16 @@ class SvgFormatterTest {
     }
 
     @Test
+    void testPrettifyKeepsCommentedElementChildrenIndented() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><!--license--><g><rect width="1" height="1"/></g></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('\n  <!--license-->\n  <g>\n    <rect width="1" height="1"/>\n  </g>\n'))
+        assertFalse(formatted.contains('<!--license--><g>'))
+    }
+
+    @Test
     void testMultipleLevelsOfNesting() {
         Svg svg = new Svg(200, 200)
         G g1 = svg.addG().id('g1')

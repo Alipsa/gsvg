@@ -171,10 +171,12 @@ class SvgElementFactory {
       case View.NAME: return new View(parent, element)
 
       default:
-        if (parent instanceof Metadata || parent instanceof MetadataElement || sourceType == MetadataElement) {
+        if (parent instanceof Metadata || parent instanceof MetadataElement ||
+            (sourceType != null && MetadataElement.isAssignableFrom(sourceType))) {
           return new MetadataElement(parent, element)
         }
-        if (parent instanceof ExternalElementContainer || sourceType == ForeignElement) {
+        if (parent instanceof ExternalElementContainer ||
+            (sourceType != null && ForeignElement.isAssignableFrom(sourceType))) {
           return new ForeignElement(parent, element)
         }
         return null
@@ -190,10 +192,10 @@ class SvgElementFactory {
    * @return the copied element
    */
   static <T extends SvgElement> T deepCopy(T source, AbstractElementContainer newParent) {
-    SvgElement result = fromOwnedElement(newParent, source.element.createCopy(), source.getClass())
+    Element clonedElement = source.element.createCopy()
+    SvgElement result = fromOwnedElement(newParent, clonedElement, source.getClass())
 
     if (result == null) {
-      Element clonedElement = source.element.createCopy()
       newParent.element.add(clonedElement)
       return null
     }

@@ -56,6 +56,7 @@ class SvgOptimizer {
      */
     static void optimizeInPlace(Svg svg, Map options = [:]) {
         // Set defaults
+        boolean removeComments = options.removeComments != null ? options.removeComments : true
         boolean removeMetadata = options.removeMetadata != null ? options.removeMetadata : true
         boolean removeUnusedDefs = options.removeUnusedDefs != null ? options.removeUnusedDefs : true
         boolean removeDefaults = options.removeDefaults != null ? options.removeDefaults : true
@@ -64,6 +65,10 @@ class SvgOptimizer {
         boolean minifyPathData = options.minifyPathData != null ? options.minifyPathData : true
         boolean collapseGroups = options.collapseGroups != null ? options.collapseGroups : true
         Integer precision = options.precision as Integer ?: 2
+
+        if (removeComments) {
+            removeCommentsFrom(svg.element)
+        }
 
         // Remove metadata elements
         if (removeMetadata) {
@@ -104,6 +109,12 @@ class SvgOptimizer {
         if (removeUnusedDefs) {
             removeUnusedDefinitions(svg)
         }
+    }
+
+    /** Removes comments recursively from the DOM tree. */
+    private static void removeCommentsFrom(org.dom4j.Element element) {
+        element.elements().each { org.dom4j.Element child -> removeCommentsFrom(child) }
+        element.content().removeAll(element.content().findAll { it instanceof org.dom4j.Comment })
     }
 
     /**
