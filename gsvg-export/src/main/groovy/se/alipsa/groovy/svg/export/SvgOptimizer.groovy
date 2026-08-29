@@ -365,7 +365,7 @@ class SvgOptimizer {
     /** Collects local fragment IDs from CSS or presentation-attribute url() values. */
     private static void collectUrlReferences(String value, Set<String> ids) {
         if (value) {
-            def matcher = (value =~ /url\(\s*['"]?#([^)'"]+)['"]?\s*\)/)
+            def matcher = (value =~ /url\(\s*['"]?#\s*([^)'"\s]+)\s*['"]?\s*\)/)
             matcher.each {
                 ids.add(it[1])
             }

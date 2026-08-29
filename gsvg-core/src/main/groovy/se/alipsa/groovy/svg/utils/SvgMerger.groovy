@@ -34,12 +34,32 @@ class SvgMerger {
    * @return a new svg svg containing all the svgs merged horizontally.
    */
   static Svg mergeHorizontally(Svg... svgs) {
+    mergeHorizontally(false, svgs)
+  }
+
+  /**
+   * Merge SVGs horizontally while assigning each copied input a unique ID namespace.
+   *
+   * @param svgs the svgs to merge
+   * @return a new SVG with collision-free IDs
+   */
+  static Svg mergeHorizontallyNamespaced(Svg... svgs) {
+    mergeHorizontally(true, svgs)
+  }
+
+  private static Svg mergeHorizontally(boolean namespaceIds, Svg... svgs) {
     if (svgs == null || svgs.length == 0) {
       return new Svg()
     }
 
-    if (svgs.length == 1) {
+    if (svgs.length == 1 && !namespaceIds) {
       return svgs[0]
+    }
+
+    if (svgs.length == 1) {
+      Svg copy = svgs[0].clone()
+      SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      return copy
     }
 
     // Calculate dimensions
@@ -78,7 +98,9 @@ class SvgMerger {
       // Copy all child elements using factory
       // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
-      SvgIdRewriter.prefixIds(group, "merge-${i}-")
+      if (namespaceIds) {
+        SvgIdRewriter.prefixIds(group, "merge-${i}-")
+      }
 
       // Update offset for next SVG
       currentX += dim.width
@@ -96,12 +118,32 @@ class SvgMerger {
    * @return a new svg containing all the svgs merged vertically.
    */
   static Svg mergeVertically(Svg... svgs) {
+    mergeVertically(false, svgs)
+  }
+
+  /**
+   * Merge SVGs vertically while assigning each copied input a unique ID namespace.
+   *
+   * @param svgs the svgs to merge
+   * @return a new SVG with collision-free IDs
+   */
+  static Svg mergeVerticallyNamespaced(Svg... svgs) {
+    mergeVertically(true, svgs)
+  }
+
+  private static Svg mergeVertically(boolean namespaceIds, Svg... svgs) {
     if (svgs == null || svgs.length == 0) {
       return new Svg()
     }
 
-    if (svgs.length == 1) {
+    if (svgs.length == 1 && !namespaceIds) {
       return svgs[0]
+    }
+
+    if (svgs.length == 1) {
+      Svg copy = svgs[0].clone()
+      SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      return copy
     }
 
     // Calculate dimensions
@@ -140,7 +182,9 @@ class SvgMerger {
       // Copy all child elements using factory
       // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
-      SvgIdRewriter.prefixIds(group, "merge-${i}-")
+      if (namespaceIds) {
+        SvgIdRewriter.prefixIds(group, "merge-${i}-")
+      }
 
       // Update offset for next SVG
       currentY += dim.height
@@ -159,12 +203,32 @@ class SvgMerger {
    * @return a new svg containing all the svgs layered on top of each other.
    */
   static Svg mergeOnTop(Svg... svgs) {
+    mergeOnTop(false, svgs)
+  }
+
+  /**
+   * Layer SVGs while assigning each copied input a unique ID namespace.
+   *
+   * @param svgs the svgs to merge
+   * @return a new SVG with collision-free IDs
+   */
+  static Svg mergeOnTopNamespaced(Svg... svgs) {
+    mergeOnTop(true, svgs)
+  }
+
+  private static Svg mergeOnTop(boolean namespaceIds, Svg... svgs) {
     if (svgs == null || svgs.length == 0) {
       return new Svg()
     }
 
-    if (svgs.length == 1) {
+    if (svgs.length == 1 && !namespaceIds) {
       return svgs[0]
+    }
+
+    if (svgs.length == 1) {
+      Svg copy = svgs[0].clone()
+      SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      return copy
     }
 
     // Calculate dimensions - use maximum width and height
@@ -193,7 +257,9 @@ class SvgMerger {
       // Copy all child elements using factory
       // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
-      SvgIdRewriter.prefixIds(group, "merge-${i}-")
+      if (namespaceIds) {
+        SvgIdRewriter.prefixIds(group, "merge-${i}-")
+      }
     }
 
     // Pure OO: No XML serialization needed!

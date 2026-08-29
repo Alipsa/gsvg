@@ -21,13 +21,21 @@ class SvgMergerTest {
     second.addDefs().addLinearGradient().id('gradient')
     second.addRect(10, 10).fill('url(#gradient)')
 
-    Svg merged = SvgMerger.mergeHorizontally(first, second)
+    Svg merged = SvgMerger.mergeHorizontallyNamespaced(first, second)
     String xml = merged.toXml()
 
     assertTrue(xml.contains('id="merge-0-gradient"'))
     assertTrue(xml.contains('id="merge-1-gradient"'))
     assertTrue(xml.contains('url(#merge-0-gradient)'))
     assertTrue(xml.contains('url(#merge-1-gradient)'))
+  }
+
+  @Test
+  void defaultMergeLeavesExistingIdsUnchanged() {
+    Svg svg = new Svg(10, 10)
+    svg.addRect(10, 10).id('logo')
+
+    assertTrue(SvgMerger.mergeHorizontally(svg, new Svg(10, 10)).toXml().contains('id="logo"'))
   }
 
   @Test

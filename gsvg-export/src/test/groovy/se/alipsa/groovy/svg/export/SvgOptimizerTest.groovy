@@ -21,6 +21,18 @@ class SvgOptimizerTest {
     }
 
     @Test
+    void keepsDefinitionsReferencedByWhitespaceDelimitedUrl() {
+        Svg svg = new Svg(100, 100)
+        Defs defs = svg.addDefs()
+        defs.addLinearGradient().id('g1')
+        svg.addRect(10, 10).fill('url( #g1 )')
+
+        SvgOptimizer.optimizeInPlace(svg, [removeUnusedDefs: true])
+
+        assertEquals(['g1'], defs.children.collect { (it as SvgElement).id })
+    }
+
+    @Test
     void testOptimizeReturnsNewSvg() {
         Svg original = new Svg(200, 200)
         original.addCircle().cx(100).cy(100).r(50).fill('red')

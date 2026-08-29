@@ -244,6 +244,23 @@ class SvgFormatterTest {
     }
 
     @Test
+    void testPrettifyPreservesMixedTextContent() {
+        Svg svg = new Svg(100, 100)
+        Text text = svg.addText('Hello ')
+        text.addTspan('world')
+        text.addContent('!')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        int hello = formatted.indexOf('Hello ')
+        int world = formatted.indexOf('world')
+        int exclamation = formatted.indexOf('!')
+        assertTrue(hello >= 0)
+        assertTrue(world > hello)
+        assertTrue(exclamation > world)
+    }
+
+    @Test
     void testMultipleLevelsOfNesting() {
         Svg svg = new Svg(200, 200)
         G g1 = svg.addG().id('g1')

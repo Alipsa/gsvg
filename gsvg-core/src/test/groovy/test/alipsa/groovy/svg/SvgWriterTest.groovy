@@ -2,6 +2,7 @@ package test.alipsa.groovy.svg
 
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.assertEquals
@@ -102,5 +103,52 @@ class SvgWriterTest {
         assertTrue(xml.contains('fill: #abc'))
         assertTrue(xml.contains('url(#nb-abc)'))
         assertTrue(xml.contains('fill="#abc"'))
+    }
+
+    @Test
+    void namespacedSerializationDoesNotDuplicateNestedElements() {
+        Svg svg = new Svg()
+        svg.addDefs().addRect(10, 10).id('r')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertEquals(1, xml.count('id="p-r"'))
+        assertEquals(1, xml.count('<rect'))
+    }
+
+    @Test
+    void namespacesKeyframesAcrossShorthandOrdersAndInlineStyles() {
+        Svg svg = new Svg()
+        svg.addStyle().addContent('@media print { #clip { animation: 1s ease fade; } } @keyframes fade { from { opacity: 0; } }')
+        svg.addRect(10, 10).id('clip').addAttribute('style', 'animation: fade 2s')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertTrue(xml.contains('@keyframes p-fade'))
+        assertTrue(xml.contains('animation: 1s ease p-fade'))
+        assertTrue(xml.contains('animation: p-fade 2s'))
+        assertTrue(xml.contains('#p-clip'))
+    }
+
+    @Test
+    void namespacedSerializationPreservesStyleCdata() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style><![CDATA[#clip { fill: url(#clip); }]]></style><rect id="clip"/></svg>')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertTrue(xml.contains('<![CDATA['))
+        assertTrue(xml.contains('#p-clip { fill: url(#p-clip); }'), xml)
+    }
+
+    @Test
+    void namespacingAvoidsExistingPrefixedIdCollisions() {
+        Svg svg = new Svg()
+        svg.addRect(10, 10).id('x')
+        svg.addRect(10, 10).id('merge-0-x')
+
+        String xml = SvgWriter.toXml(svg, 'merge-0-')
+
+        assertTrue(xml.contains('id="merge-0-x-1"'))
+        assertEquals(1, xml.count('id="merge-0-x"'))
     }
 }

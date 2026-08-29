@@ -26,7 +26,7 @@ class SvgElementFactory {
    */
   static SvgElement fromElement(AbstractElementContainer parent, Element element) {
     String name = element.getName()
-    SvgElement result = createElement(parent, element, name)
+    SvgElement result = createElement(parent, shallowCopy(element), name)
 
     if (result == null) {
       // Unknown element - fall back to generic handling
@@ -46,6 +46,17 @@ class SvgElementFactory {
     }
 
     return result
+  }
+
+  /**
+   * Copies an element's attributes, namespaces, and direct text without copying
+   * element children. Child wrappers are constructed by {@link #fromElement}
+   * during its recursive pass.
+   */
+  private static Element shallowCopy(Element element) {
+    Element copy = element.createCopy()
+    copy.elements().each { Element child -> copy.remove(child) }
+    copy
   }
 
   /**
@@ -183,10 +194,7 @@ class SvgElementFactory {
     SvgElement result = fromElement(newParent, source.element)
 
     if (result == null) {
-      // Fall back to adding cloned DOM element directly
-      // This handles elements not yet supported by the factory
-      Element clonedElement = source.element.createCopy()
-      newParent.element.add(clonedElement)
+      // The caller performs the single DOM fallback copy for unsupported elements.
       return null
     }
 

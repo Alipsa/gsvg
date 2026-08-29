@@ -118,6 +118,12 @@ class SvgFormatter {
                 sb.append(element.element.qualifiedName)
                 sb.append('>')
                 sb.append(newline)
+            } else if (hasTextContent) {
+                appendMixedContent(element, sb)
+                sb.append('</')
+                sb.append(element.element.qualifiedName)
+                sb.append('>')
+                sb.append(newline)
             } else {
                 // Format children with indentation
                 sb.append(newline)
@@ -145,6 +151,17 @@ class SvgFormatter {
                 sb.append(element.element.qualifiedName)
                 sb.append('>')
                 sb.append(newline)
+            }
+        }
+    }
+
+    /** Writes mixed text/element content in DOM order to preserve text around tspans. */
+    private static void appendMixedContent(SvgElement element, StringBuilder sb) {
+        element.element.content().each { node ->
+            if (node instanceof org.dom4j.Text) {
+                sb.append(escapeXml((node as org.dom4j.Text).text))
+            } else if (node instanceof org.dom4j.Element) {
+                sb.append((node as org.dom4j.Element).asXML())
             }
         }
     }
