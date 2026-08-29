@@ -24,9 +24,14 @@ class SvgElementFactory {
    * @param element the DOM4J element to convert
    * @return the created SvgElement
    */
-  static SvgElement fromElement(AbstractElementContainer parent, Element element) {
+  static SvgElement fromElement(SvgElement parent, Element element) {
+    fromOwnedElement(parent, element.createCopy())
+  }
+
+  /** Builds wrappers around an already-owned element tree without copying it again. */
+  private static SvgElement fromOwnedElement(SvgElement parent, Element element) {
     String name = element.getName()
-    SvgElement result = createElement(parent, shallowCopy(element), name)
+    SvgElement result = createElement(parent, element, name)
 
     if (result == null) {
       // Unknown element - fall back to generic handling
@@ -37,26 +42,11 @@ class SvgElementFactory {
     // Add to parent's children list
     parent.add(result)
 
-    // Recursively process children if this is a container
-    if (result instanceof AbstractElementContainer) {
-      AbstractElementContainer container = result as AbstractElementContainer
-      element.elements().each { Element childElement ->
-        fromElement(container, childElement)
-      }
-    }
+    // Every SvgElement implements ElementContainer, including text and foreign
+    // content elements, so all child wrappers must be rebuilt.
+    element.elements().each { Element childElement -> fromOwnedElement(result, childElement) }
 
     return result
-  }
-
-  /**
-   * Copies an element's attributes, namespaces, and direct text without copying
-   * element children. Child wrappers are constructed by {@link #fromElement}
-   * during its recursive pass.
-   */
-  private static Element shallowCopy(Element element) {
-    Element copy = element.createCopy()
-    copy.elements().each { Element child -> copy.remove(child) }
-    copy
   }
 
   /**
@@ -194,7 +184,10 @@ class SvgElementFactory {
     SvgElement result = fromElement(newParent, source.element)
 
     if (result == null) {
-      // The caller performs the single DOM fallback copy for unsupported elements.
+      // Retain unsupported DOM subtrees for callers that do not have an explicit
+      // fallback (for example SvgElement.clone(AbstractElementContainer)).
+      Element clonedElement = source.element.createCopy()
+      newParent.element.add(clonedElement)
       return null
     }
 
@@ -212,12 +205,7 @@ class SvgElementFactory {
     for (SvgElement child : source.getChildren()) {
       SvgElement copied = deepCopy(child, target)
 
-      // If deepCopy returned null (unsupported element type),
-      // fall back to direct DOM cloning
-      if (copied == null) {
-        Element cloned = child.element.createCopy()
-        target.element.add(cloned)
-      }
+      // Unsupported elements are copied directly by deepCopy.
     }
   }
 }

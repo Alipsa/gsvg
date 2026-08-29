@@ -69,7 +69,7 @@ class SvgFormatter {
         sb.append(element.element.qualifiedName)
 
         Map<String, String> namespaces = new LinkedHashMap<>(inheritedNamespaces)
-        Map<String, String> declarations = namespaceDeclarations(element, namespaces)
+        Map<String, String> declarations = namespaceDeclarations(element.element, namespaces)
         declarations.each { prefix, uri ->
             sb.append(prefix ? " xmlns:${prefix}=\"" : ' xmlns="')
             sb.append(escapeXml(uri))
@@ -119,7 +119,7 @@ class SvgFormatter {
                 sb.append('>')
                 sb.append(newline)
             } else if (hasTextContent) {
-                appendMixedContent(element, sb)
+                appendMixedContent(element.element, sb, sortAttrs, namespaces)
                 sb.append('</')
                 sb.append(element.element.qualifiedName)
                 sb.append('>')
@@ -155,25 +155,55 @@ class SvgFormatter {
         }
     }
 
-    /** Writes mixed text/element content in DOM order to preserve text around tspans. */
-    private static void appendMixedContent(SvgElement element, StringBuilder sb) {
-        element.element.content().each { node ->
+    /** Writes mixed DOM content in order without losing CDATA, comments, or namespaces. */
+    private static void appendMixedContent(org.dom4j.Element element, StringBuilder sb,
+                                           boolean sortAttrs, Map<String, String> inheritedNamespaces) {
+        element.content().each { node ->
             if (node instanceof org.dom4j.Text) {
                 sb.append(escapeXml((node as org.dom4j.Text).text))
+            } else if (node instanceof org.dom4j.CDATA) {
+                sb.append('<![CDATA[').append((node as org.dom4j.CDATA).text).append(']]>')
+            } else if (node instanceof org.dom4j.Comment) {
+                sb.append('<!--').append((node as org.dom4j.Comment).text).append('-->')
             } else if (node instanceof org.dom4j.Element) {
-                sb.append((node as org.dom4j.Element).asXML())
+                appendInlineElement(node as org.dom4j.Element, sb, sortAttrs, inheritedNamespaces)
             }
         }
     }
 
+    /** Serializes a DOM element inline while keeping namespace declarations scoped to its parent. */
+    private static void appendInlineElement(org.dom4j.Element element, StringBuilder sb,
+                                            boolean sortAttrs, Map<String, String> inheritedNamespaces) {
+        Map<String, String> namespaces = new LinkedHashMap<>(inheritedNamespaces)
+        sb.append('<').append(element.qualifiedName)
+        namespaceDeclarations(element, namespaces).each { prefix, uri ->
+            sb.append(prefix ? " xmlns:${prefix}=\"" : ' xmlns="').append(escapeXml(uri)).append('"')
+            namespaces[prefix] = uri
+        }
+        List<Attribute> attributes = element.attributes() as List<Attribute>
+        if (sortAttrs) {
+            attributes = attributes.sort { Attribute attribute -> attribute.qualifiedName }
+        }
+        attributes.each { Attribute attribute ->
+            sb.append(' ').append(attribute.qualifiedName).append('="').append(escapeXml(attribute.value)).append('"')
+        }
+        if (element.content().isEmpty()) {
+            sb.append('/>')
+        } else {
+            sb.append('>')
+            appendMixedContent(element, sb, sortAttrs, namespaces)
+            sb.append('</').append(element.qualifiedName).append('>')
+        }
+    }
+
     /** Returns namespace declarations needed for the current element. */
-    private static Map<String, String> namespaceDeclarations(SvgElement element, Map<String, String> inheritedNamespaces) {
+    private static Map<String, String> namespaceDeclarations(org.dom4j.Element element, Map<String, String> inheritedNamespaces) {
         Map<String, String> declarations = new LinkedHashMap<>()
-        addNamespaceDeclaration(declarations, inheritedNamespaces, element.element.namespace)
-        element.element.declaredNamespaces().each { Namespace namespace ->
+        addNamespaceDeclaration(declarations, inheritedNamespaces, element.namespace)
+        element.declaredNamespaces().each { Namespace namespace ->
             addNamespaceDeclaration(declarations, inheritedNamespaces, namespace)
         }
-        element.element.attributes().each { Attribute attribute ->
+        element.attributes().each { Attribute attribute ->
             Namespace namespace = attribute.getQName().namespace
             if (namespace != Namespace.NO_NAMESPACE && namespace.prefix != 'xml') {
                 addNamespaceDeclaration(declarations, inheritedNamespaces, namespace)

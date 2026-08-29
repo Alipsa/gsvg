@@ -261,6 +261,20 @@ class SvgFormatterTest {
     }
 
     @Test
+    void testPrettifyPreservesCdataAndNamespaceScopeInMixedForeignContent() {
+        Svg svg = new Svg(100, 100)
+        ForeignObject foreignObject = svg.addForeignObject()
+        foreignObject.addCdataContent('keep me')
+        foreignObject.addElement('div', 'http://www.w3.org/1999/xhtml').addContent('hi')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<![CDATA[keep me]]>'))
+        assertTrue(formatted.contains('<div xmlns="http://www.w3.org/1999/xhtml">hi</div>'))
+        assertEquals(1, formatted.count('xmlns="http://www.w3.org/2000/svg"'))
+    }
+
+    @Test
     void testMultipleLevelsOfNesting() {
         Svg svg = new Svg(200, 200)
         G g1 = svg.addG().id('g1')

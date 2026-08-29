@@ -151,4 +151,35 @@ class SvgWriterTest {
         assertTrue(xml.contains('id="merge-0-x-1"'))
         assertEquals(1, xml.count('id="merge-0-x"'))
     }
+
+    @Test
+    void clonePreservesTextForeignAndMetadataChildren() {
+        Svg svg = SvgReader.parse('''<svg xmlns="http://www.w3.org/2000/svg">
+          <text>Hello <tspan>world</tspan>!</text>
+          <metadata><rdf xmlns="urn:rdf">metadata</rdf></metadata>
+          <foreignObject><div xmlns="http://www.w3.org/1999/xhtml">content</div></foreignObject>
+        </svg>''')
+
+        String xml = SvgWriter.toXml(svg.clone())
+
+        assertTrue(xml.contains('<text>Hello <tspan>world</tspan>!</text>'))
+        assertTrue(xml.contains('<rdf xmlns="urn:rdf">metadata</rdf>'))
+        assertTrue(xml.contains('<div xmlns="http://www.w3.org/1999/xhtml">content</div>'))
+    }
+
+    @Test
+    void namespacesAllStyleTextNodesAndDoesNotMatchHyphenatedKeyframes() {
+        Svg svg = new Svg()
+        svg.addRect(10, 10).id('clip').style('animation: my-fade 2s')
+        svg.addStyle().addContent('@keyframes fade { from { opacity: 0; } } ')
+            .addContent('@keyframes my-fade { from { opacity: 1; } } #clip { animation: fade 1s; }')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertTrue(xml.contains('@keyframes p-fade'))
+        assertTrue(xml.contains('@keyframes p-my-fade'))
+        assertTrue(xml.contains('animation: p-my-fade 2s'))
+        assertFalse(xml.contains('my-p-fade'))
+        assertTrue(xml.contains('#p-clip'))
+    }
 }

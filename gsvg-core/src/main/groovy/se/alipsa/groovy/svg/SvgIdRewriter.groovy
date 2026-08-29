@@ -103,22 +103,20 @@ class SvgIdRewriter {
   private static String rewriteAnimationReferences(String css, Map<String, String> keyframes) {
     String result = css
     keyframes.each { String name, String replacement ->
-      result = result.replaceAll("(?i)(animation(?:-name)?\\s*:\\s*[^;{}]*)\\b${java.util.regex.Pattern.quote(name)}\\b", "\$1${replacement}")
+      result = result.replaceAll("(?i)(animation(?:-name)?\\s*:\\s*[^;{}]*)(?<![A-Za-z0-9_-])${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", "\$1${replacement}")
     }
     result
   }
 
-  /** Updates a single direct text or CDATA node without converting CDATA to escaped text. */
+  /** Replaces all direct style text nodes while retaining CDATA serialization when present. */
   private static void rewriteStyleContent(Element element, String rewritten) {
     List content = element.content()
     List textNodes = content.findAll { it instanceof org.dom4j.Text || it instanceof org.dom4j.CDATA }
-    if (textNodes.size() == 1) {
+    if (!textNodes.isEmpty()) {
       int index = content.indexOf(textNodes[0])
-      if (textNodes[0] instanceof org.dom4j.CDATA) {
-        content[index] = org.dom4j.DocumentHelper.createCDATA(rewritten)
-      } else {
-        (textNodes[0] as org.dom4j.Text).setText(rewritten)
-      }
+      boolean containsCdata = textNodes.any { it instanceof org.dom4j.CDATA }
+      content.removeAll(textNodes)
+      content.add(index, containsCdata ? org.dom4j.DocumentHelper.createCDATA(rewritten) : org.dom4j.DocumentHelper.createText(rewritten))
     }
   }
 
