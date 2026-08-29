@@ -40,7 +40,7 @@
     <url>https://github.com/Alipsa/gsvg/tree/main/</url>
     <connection>scm:git:https://github.com/Alipsa/gsvg.git</connection>
     <developerConnection>scm:git:https://github.com/Alipsa/gsvg.git</developerConnection>
-    <tag>v1.1.0</tag>
+    <tag>v${project.version}</tag>
   </scm>
 
   <!-- Centralized properties -->
