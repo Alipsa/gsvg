@@ -266,11 +266,13 @@ class SvgFormatterTest {
         ForeignObject foreignObject = svg.addForeignObject()
         foreignObject.addCdataContent('keep me')
         foreignObject.addElement('div', 'http://www.w3.org/1999/xhtml').addContent('hi')
+        foreignObject.element.addComment('keep this comment')
 
         String formatted = SvgFormatter.prettify(svg, [:])
 
         assertTrue(formatted.contains('<![CDATA[keep me]]>'))
         assertTrue(formatted.contains('<div xmlns="http://www.w3.org/1999/xhtml">hi</div>'))
+        assertTrue(formatted.contains('<!--keep this comment-->'))
         assertEquals(1, formatted.count('xmlns="http://www.w3.org/2000/svg"'))
     }
 

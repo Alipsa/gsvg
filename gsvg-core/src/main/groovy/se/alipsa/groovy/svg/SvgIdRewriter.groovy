@@ -101,11 +101,19 @@ class SvgIdRewriter {
   }
 
   private static String rewriteAnimationReferences(String css, Map<String, String> keyframes) {
-    String result = css
-    keyframes.each { String name, String replacement ->
-      result = result.replaceAll("(?i)(animation(?:-name)?\\s*:\\s*[^;{}]*)(?<![A-Za-z0-9_-])${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", "\$1${replacement}")
+    java.util.regex.Matcher matcher = java.util.regex.Pattern
+        .compile('(?i)(animation(?:-name)?\\s*:\\s*)([^;{}]*)')
+        .matcher(css)
+    StringBuffer result = new StringBuffer()
+    while (matcher.find()) {
+      String value = matcher.group(2)
+      keyframes.each { String name, String replacement ->
+        value = value.replaceAll("(?<![A-Za-z0-9_-])${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", replacement)
+      }
+      matcher.appendReplacement(result, java.util.regex.Matcher.quoteReplacement(matcher.group(1) + value))
     }
-    result
+    matcher.appendTail(result)
+    result.toString()
   }
 
   /** Replaces all direct style text nodes while retaining CDATA serialization when present. */

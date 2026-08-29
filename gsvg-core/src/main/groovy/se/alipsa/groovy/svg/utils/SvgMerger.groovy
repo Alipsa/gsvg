@@ -52,13 +52,11 @@ class SvgMerger {
       return new Svg()
     }
 
-    if (svgs.length == 1 && !namespaceIds) {
-      return svgs[0]
-    }
-
     if (svgs.length == 1) {
       Svg copy = svgs[0].clone()
-      SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      if (namespaceIds) {
+        SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      }
       return copy
     }
 
@@ -136,13 +134,11 @@ class SvgMerger {
       return new Svg()
     }
 
-    if (svgs.length == 1 && !namespaceIds) {
-      return svgs[0]
-    }
-
     if (svgs.length == 1) {
       Svg copy = svgs[0].clone()
-      SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      if (namespaceIds) {
+        SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      }
       return copy
     }
 
@@ -221,13 +217,11 @@ class SvgMerger {
       return new Svg()
     }
 
-    if (svgs.length == 1 && !namespaceIds) {
-      return svgs[0]
-    }
-
     if (svgs.length == 1) {
       Svg copy = svgs[0].clone()
-      SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      if (namespaceIds) {
+        SvgIdRewriter.prefixIds(copy, 'merge-0-')
+      }
       return copy
     }
 

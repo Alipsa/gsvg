@@ -184,9 +184,13 @@ class SvgElementFactory {
     SvgElement result = fromElement(newParent, source.element)
 
     if (result == null) {
-      // Retain unsupported DOM subtrees for callers that do not have an explicit
-      // fallback (for example SvgElement.clone(AbstractElementContainer)).
       Element clonedElement = source.element.createCopy()
+      if (source instanceof MetadataElement) {
+        return new MetadataElement(newParent, clonedElement) as T
+      }
+      if (source instanceof ForeignElement) {
+        return new ForeignElement(newParent, clonedElement) as T
+      }
       newParent.element.add(clonedElement)
       return null
     }
@@ -203,9 +207,7 @@ class SvgElementFactory {
    */
   static void copyChildren(AbstractElementContainer source, AbstractElementContainer target) {
     for (SvgElement child : source.getChildren()) {
-      SvgElement copied = deepCopy(child, target)
-
-      // Unsupported elements are copied directly by deepCopy.
+      deepCopy(child, target)
     }
   }
 }

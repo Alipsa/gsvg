@@ -51,7 +51,7 @@ class SvgMergerTest {
     svg.addCircle()
 
     Svg result = SvgMerger.mergeHorizontally(svg)
-    assertSame(svg, result)
+    assertNotSame(svg, result)
   }
 
   @Test
@@ -102,7 +102,7 @@ class SvgMergerTest {
     svg.addCircle()
 
     Svg result = SvgMerger.mergeVertically(svg)
-    assertSame(svg, result)
+    assertNotSame(svg, result)
   }
 
   @Test
@@ -258,7 +258,7 @@ class SvgMergerTest {
     svg.addCircle()
 
     Svg result = SvgMerger.mergeOnTop(svg)
-    assertSame(svg, result)
+    assertNotSame(svg, result)
   }
 
   @Test

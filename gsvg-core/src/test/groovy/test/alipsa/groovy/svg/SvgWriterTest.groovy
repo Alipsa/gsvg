@@ -7,6 +7,7 @@ import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.assertEquals
 import static org.junit.jupiter.api.Assertions.assertFalse
+import static org.junit.jupiter.api.Assertions.assertNotNull
 import static org.junit.jupiter.api.Assertions.assertTrue
 
 class SvgWriterTest {
@@ -181,5 +182,28 @@ class SvgWriterTest {
         assertTrue(xml.contains('animation: p-my-fade 2s'))
         assertFalse(xml.contains('my-p-fade'))
         assertTrue(xml.contains('#p-clip'))
+    }
+
+    @Test
+    void cloneReturnsUsableMetadataElementWrapper() {
+        Svg source = new Svg()
+        def rdf = source.addMetadata().addElement('rdf', 'urn:rdf').addContent('metadata')
+        Svg target = new Svg()
+
+        def copy = rdf.clone(target).id('copied-rdf')
+
+        assertNotNull(copy)
+        assertEquals('copied-rdf', copy.id)
+        assertTrue(target.toXml().contains('<rdf xmlns="urn:rdf" id="copied-rdf">metadata</rdf>'))
+    }
+
+    @Test
+    void namespacesEveryRepeatedAnimationReference() {
+        Svg svg = new Svg()
+        svg.addStyle().addContent('@keyframes fade { from { opacity: 0; } } @keyframes slide { from { opacity: 1; } } .a { animation: fade 1s, slide 2s, fade 3s; }')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertTrue(xml.contains('animation: p-fade 1s, p-slide 2s, p-fade 3s'))
     }
 }
