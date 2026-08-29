@@ -2,6 +2,7 @@ package se.alipsa.groovy.svg.export
 
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.io.SvgReader
 
 import static org.junit.jupiter.api.Assertions.*
 
@@ -274,6 +275,20 @@ class SvgFormatterTest {
         assertTrue(formatted.contains('<div xmlns="http://www.w3.org/1999/xhtml">hi</div>'))
         assertTrue(formatted.contains('<!--keep this comment-->'))
         assertEquals(1, formatted.count('xmlns="http://www.w3.org/2000/svg"'))
+    }
+
+    @Test
+    void testPrettifyClonePreservesMetadataAndForeignObjectChildren() {
+        Svg svg = SvgReader.parse('''<svg xmlns="http://www.w3.org/2000/svg">
+          <metadata><rdf xmlns="urn:rdf">m</rdf></metadata>
+          <foreignObject width="5" height="5"><h:div xmlns:h="http://www.w3.org/1999/xhtml">hi</h:div><!--comment--></foreignObject>
+        </svg>''')
+
+        String formatted = SvgFormatter.prettify(svg.clone(), [:])
+
+        assertTrue(formatted.contains('<rdf xmlns="urn:rdf">m</rdf>'))
+        assertTrue(formatted.contains('<h:div xmlns:h="http://www.w3.org/1999/xhtml">hi</h:div>'))
+        assertTrue(formatted.contains('<!--comment-->'))
     }
 
     @Test

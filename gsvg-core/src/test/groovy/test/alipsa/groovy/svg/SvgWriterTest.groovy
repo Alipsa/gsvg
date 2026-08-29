@@ -2,6 +2,7 @@ package test.alipsa.groovy.svg
 
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.SvgIdRewriter
 import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.io.SvgWriter
 
@@ -205,5 +206,20 @@ class SvgWriterTest {
         String xml = SvgWriter.toXml(svg, 'p-')
 
         assertTrue(xml.contains('animation: p-fade 1s, p-slide 2s, p-fade 3s'))
+    }
+
+    @Test
+    void keyframePrefixingIsIdempotentAndAvoidsExistingNames() {
+        Svg svg = new Svg()
+        svg.addStyle().addContent('@keyframes fade { from { opacity: 0; } } @keyframes p-fade { from { opacity: 1; } } .a { animation: fade 1s, p-fade 2s; }')
+
+        SvgIdRewriter.prefixIds(svg, 'p-')
+        SvgIdRewriter.prefixIds(svg, 'p-')
+        String xml = svg.toXml()
+
+        assertTrue(xml.contains('@keyframes p-fade-1'))
+        assertTrue(xml.contains('@keyframes p-fade {'))
+        assertTrue(xml.contains('animation: p-fade-1 1s, p-fade 2s'))
+        assertFalse(xml.contains('p-p-fade'))
     }
 }

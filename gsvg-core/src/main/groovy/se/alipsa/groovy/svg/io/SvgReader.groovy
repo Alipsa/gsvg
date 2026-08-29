@@ -392,6 +392,8 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    */
   @Override
   void comment(char[] ch, int start, int length) throws SAXException {
-
+    if (currentElement != null) {
+      currentElement.element.addComment(new String(ch, start, length))
+    }
   }
 }

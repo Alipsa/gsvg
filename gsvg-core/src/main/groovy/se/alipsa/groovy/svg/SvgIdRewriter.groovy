@@ -24,7 +24,9 @@ class SvgIdRewriter {
     collectExistingIds(element.element, existingIds)
     collectIds(element.element, prefix, replacements, existingIds)
     Map<String, String> keyframes = new LinkedHashMap<>()
-    collectKeyframes(element.element, prefix, keyframes)
+    java.util.Set<String> existingKeyframes = new LinkedHashSet<>()
+    collectExistingKeyframes(element.element, existingKeyframes)
+    collectKeyframes(element.element, prefix, keyframes, existingKeyframes)
     rewrite(element.element, replacements, keyframes)
     element
   }
@@ -53,15 +55,35 @@ class SvgIdRewriter {
     element.elements().each { Element child -> collectIds(child, prefix, replacements, existingIds) }
   }
 
-  private static void collectKeyframes(Element element, String prefix, Map<String, String> keyframes) {
+  private static void collectExistingKeyframes(Element element, java.util.Set<String> keyframes) {
+    if (element.name == 'style') {
+      java.util.regex.Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
+      while (matcher.find()) {
+        keyframes.add(matcher.group(1))
+      }
+    }
+    element.elements().each { Element child -> collectExistingKeyframes(child, keyframes) }
+  }
+
+  private static void collectKeyframes(Element element, String prefix, Map<String, String> keyframes,
+      java.util.Set<String> existingKeyframes) {
     if (element.name == 'style') {
       java.util.regex.Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
         String name = matcher.group(1)
-        keyframes[name] = prefix + name
+        if (!name.startsWith(prefix) && !keyframes.containsKey(name)) {
+          String replacement = prefix + name
+          int suffix = 1
+          while (existingKeyframes.contains(replacement)) {
+            replacement = "${prefix}${name}-${suffix++}"
+          }
+          keyframes[name] = replacement
+          existingKeyframes.remove(name)
+          existingKeyframes.add(replacement)
+        }
       }
     }
-    element.elements().each { Element child -> collectKeyframes(child, prefix, keyframes) }
+    element.elements().each { Element child -> collectKeyframes(child, prefix, keyframes, existingKeyframes) }
   }
 
   private static void rewrite(Element element, Map<String, String> replacements, Map<String, String> keyframes) {

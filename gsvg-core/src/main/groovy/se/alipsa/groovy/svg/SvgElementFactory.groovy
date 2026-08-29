@@ -30,12 +30,15 @@ class SvgElementFactory {
 
   /** Builds wrappers around an already-owned element tree without copying it again. */
   private static SvgElement fromOwnedElement(SvgElement parent, Element element) {
+    fromOwnedElement(parent, element, null)
+  }
+
+  /** Builds wrappers around an owned element tree, retaining a root wrapper type when needed. */
+  private static SvgElement fromOwnedElement(SvgElement parent, Element element, Class sourceType) {
     String name = element.getName()
-    SvgElement result = createElement(parent, element, name)
+    SvgElement result = createElement(parent, element, name, sourceType)
 
     if (result == null) {
-      // Unknown element - fall back to generic handling
-      // For now, just return null and let caller handle
       return null
     }
 
@@ -58,7 +61,7 @@ class SvgElementFactory {
    * @param name the element name
    * @return the created SvgElement or null if not supported
    */
-  private static SvgElement createElement(SvgElement parent, Element element, String name) {
+  private static SvgElement createElement(SvgElement parent, Element element, String name, Class sourceType) {
     switch (name) {
       // Shape elements (7)
       case Circle.NAME: return new Circle(parent, element)
@@ -167,7 +170,14 @@ class SvgElementFactory {
       case Video.NAME: return new Video(parent, element)
       case View.NAME: return new View(parent, element)
 
-      default: return null
+      default:
+        if (parent instanceof Metadata || parent instanceof MetadataElement || sourceType == MetadataElement) {
+          return new MetadataElement(parent, element)
+        }
+        if (parent instanceof ExternalElementContainer || sourceType == ForeignElement) {
+          return new ForeignElement(parent, element)
+        }
+        return null
     }
   }
 
@@ -180,17 +190,10 @@ class SvgElementFactory {
    * @return the copied element
    */
   static <T extends SvgElement> T deepCopy(T source, AbstractElementContainer newParent) {
-    // Create appropriate SvgElement wrapper with recursion
-    SvgElement result = fromElement(newParent, source.element)
+    SvgElement result = fromOwnedElement(newParent, source.element.createCopy(), source.getClass())
 
     if (result == null) {
       Element clonedElement = source.element.createCopy()
-      if (source instanceof MetadataElement) {
-        return new MetadataElement(newParent, clonedElement) as T
-      }
-      if (source instanceof ForeignElement) {
-        return new ForeignElement(newParent, clonedElement) as T
-      }
       newParent.element.add(clonedElement)
       return null
     }

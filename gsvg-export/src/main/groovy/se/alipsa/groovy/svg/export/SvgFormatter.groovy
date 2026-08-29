@@ -97,8 +97,11 @@ class SvgFormatter {
                 !(element as ElementContainer).children.isEmpty()
         String textContent = element.element.getText()
         boolean hasTextContent = textContent != null && !textContent.isEmpty()
+        boolean hasInlineContent = element.element.content().any { node ->
+            node instanceof org.dom4j.Text || node instanceof org.dom4j.CDATA || node instanceof org.dom4j.Comment
+        }
 
-        if (!hasChildren && !hasTextContent) {
+        if (!hasChildren && !hasTextContent && !hasInlineContent) {
             // Self-closing tag
             sb.append('/>')
             sb.append(newline)
@@ -118,7 +121,7 @@ class SvgFormatter {
                 sb.append(element.element.qualifiedName)
                 sb.append('>')
                 sb.append(newline)
-            } else if (hasTextContent) {
+            } else if (hasTextContent || hasInlineContent) {
                 appendMixedContent(element.element, sb, sortAttrs, namespaces)
                 sb.append('</')
                 sb.append(element.element.qualifiedName)
