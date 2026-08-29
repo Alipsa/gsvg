@@ -3,6 +3,8 @@ package se.alipsa.groovy.svg.export
 import se.alipsa.groovy.svg.ElementContainer
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
+import org.dom4j.Attribute
+import org.dom4j.Namespace
 
 /**
  * Provides SVG prettification capabilities for human-readable output.
@@ -33,7 +35,7 @@ class SvgFormatter {
         sb.append('<?xml version="1.0" encoding="UTF-8"?>')
         sb.append(newline)
 
-        formatElement(svg, sb, 0, indent, newline, sortAttributes, groupElements)
+        formatElement(svg, sb, 0, indent, newline, sortAttributes, groupElements, [:])
 
         return sb.toString()
     }
@@ -57,17 +59,27 @@ class SvgFormatter {
      * Formats a single element recursively.
      */
     private static void formatElement(SvgElement element, StringBuilder sb, int depth,
-                                      String indent, String newline, boolean sortAttrs, boolean groupElems) {
+                                      String indent, String newline, boolean sortAttrs, boolean groupElems,
+                                      Map<String, String> inheritedNamespaces) {
         // Add indentation
         sb.append(indent * depth)
 
         // Start tag
         sb.append('<')
-        sb.append(element.getName())
+        sb.append(element.element.qualifiedName)
+
+        Map<String, String> namespaces = new LinkedHashMap<>(inheritedNamespaces)
+        Map<String, String> declarations = namespaceDeclarations(element, namespaces)
+        declarations.each { prefix, uri ->
+            sb.append(prefix ? " xmlns:${prefix}=\"" : ' xmlns="')
+            sb.append(escapeXml(uri))
+            sb.append('"')
+            namespaces[prefix] = uri
+        }
 
         // Add attributes
-        def attributes = element.element.attributes().collectEntries { attr ->
-            [(attr.name): attr.value]
+        def attributes = element.element.attributes().collectEntries { Attribute attr ->
+            [(attr.qualifiedName): attr.value]
         }
         if (sortAttrs) {
             attributes = attributes.sort()
@@ -81,11 +93,12 @@ class SvgFormatter {
             sb.append('"')
         }
 
-        // Check if element has children
         boolean hasChildren = element instanceof ElementContainer &&
                 !(element as ElementContainer).children.isEmpty()
+        String textContent = element.element.getText()
+        boolean hasTextContent = textContent != null && !textContent.isEmpty()
 
-        if (!hasChildren) {
+        if (!hasChildren && !hasTextContent) {
             // Self-closing tag
             sb.append('/>')
             sb.append(newline)
@@ -95,17 +108,14 @@ class SvgFormatter {
             def container = element as ElementContainer
             def children = container.children
 
-            // Check if element has text content but no child elements
-            // This applies to elements like <title>Text</title>, <text>Content</text>, etc.
-            String textContent = element.element.getText()
-            boolean hasTextContent = textContent != null && !textContent.isEmpty()
+            // Keep text-only elements (for example title, text, and style) on one line.
             boolean simpleContent = children.isEmpty() && hasTextContent
 
             if (simpleContent) {
                 // Keep text content on same line
                 sb.append(escapeXml(textContent))
                 sb.append('</')
-                sb.append(element.getName())
+                sb.append(element.element.qualifiedName)
                 sb.append('>')
                 sb.append(newline)
             } else {
@@ -120,22 +130,46 @@ class SvgFormatter {
                         if (lastType != null && lastType != currentType) {
                             sb.append(newline)
                         }
-                        formatElement(child as SvgElement, sb, depth + 1, indent, newline, sortAttrs, groupElems)
+                        formatElement(child as SvgElement, sb, depth + 1, indent, newline, sortAttrs, groupElems, namespaces)
                         lastType = currentType
                     }
                 } else {
                     children.each { child ->
-                        formatElement(child as SvgElement, sb, depth + 1, indent, newline, sortAttrs, groupElems)
+                        formatElement(child as SvgElement, sb, depth + 1, indent, newline, sortAttrs, groupElems, namespaces)
                     }
                 }
 
                 // Closing tag
                 sb.append(indent * depth)
                 sb.append('</')
-                sb.append(element.getName())
+                sb.append(element.element.qualifiedName)
                 sb.append('>')
                 sb.append(newline)
             }
+        }
+    }
+
+    /** Returns namespace declarations needed for the current element. */
+    private static Map<String, String> namespaceDeclarations(SvgElement element, Map<String, String> inheritedNamespaces) {
+        Map<String, String> declarations = new LinkedHashMap<>()
+        addNamespaceDeclaration(declarations, inheritedNamespaces, element.element.namespace)
+        element.element.declaredNamespaces().each { Namespace namespace ->
+            addNamespaceDeclaration(declarations, inheritedNamespaces, namespace)
+        }
+        element.element.attributes().each { Attribute attribute ->
+            Namespace namespace = attribute.getQName().namespace
+            if (namespace != Namespace.NO_NAMESPACE && namespace.prefix != 'xml') {
+                addNamespaceDeclaration(declarations, inheritedNamespaces, namespace)
+            }
+        }
+        declarations
+    }
+
+    private static void addNamespaceDeclaration(Map<String, String> declarations,
+                                                Map<String, String> inheritedNamespaces,
+                                                Namespace namespace) {
+        if (namespace != null && namespace.URI && inheritedNamespaces[namespace.prefix] != namespace.URI) {
+            declarations[namespace.prefix] = namespace.URI
         }
     }
 

@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import se.alipsa.groovy.svg.G
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElementFactory
+import se.alipsa.groovy.svg.SvgIdRewriter
 
 /**
  * Utility for merging multiple SVG documents using a pure object-oriented approach.
@@ -77,6 +78,7 @@ class SvgMerger {
       // Copy all child elements using factory
       // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
+      SvgIdRewriter.prefixIds(group, "merge-${i}-")
 
       // Update offset for next SVG
       currentX += dim.width
@@ -138,6 +140,7 @@ class SvgMerger {
       // Copy all child elements using factory
       // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
+      SvgIdRewriter.prefixIds(group, "merge-${i}-")
 
       // Update offset for next SVG
       currentY += dim.height
@@ -182,13 +185,15 @@ class SvgMerger {
     Svg result = new Svg(maxWidth, maxHeight)
 
     // Layer each SVG on top of each other (no translation)
-    for (Svg sourceSvg : svgs) {
+    for (int i = 0; i < svgs.length; i++) {
+      Svg sourceSvg = svgs[i]
       // Create a group for each SVG's content
       G group = result.addG()
 
       // Copy all child elements using factory
       // Factory uses pure OO approach: both DOM and children lists are populated
       SvgElementFactory.copyChildren(sourceSvg, group)
+      SvgIdRewriter.prefixIds(group, "merge-${i}-")
     }
 
     // Pure OO: No XML serialization needed!

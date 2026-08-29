@@ -13,6 +13,24 @@ import static org.junit.jupiter.api.Assertions.*
 class SvgMergerTest {
 
   @Test
+  void mergePrefixesIdsToAvoidReferenceCollisions() {
+    Svg first = new Svg(10, 10)
+    first.addDefs().addLinearGradient().id('gradient')
+    first.addRect(10, 10).fill('url(#gradient)')
+    Svg second = new Svg(10, 10)
+    second.addDefs().addLinearGradient().id('gradient')
+    second.addRect(10, 10).fill('url(#gradient)')
+
+    Svg merged = SvgMerger.mergeHorizontally(first, second)
+    String xml = merged.toXml()
+
+    assertTrue(xml.contains('id="merge-0-gradient"'))
+    assertTrue(xml.contains('id="merge-1-gradient"'))
+    assertTrue(xml.contains('url(#merge-0-gradient)'))
+    assertTrue(xml.contains('url(#merge-1-gradient)'))
+  }
+
+  @Test
   void testMergeHorizontallyEmpty() {
     Svg result = SvgMerger.mergeHorizontally()
     assertNotNull(result)

@@ -228,6 +228,22 @@ class SvgFormatterTest {
     }
 
     @Test
+    void testPrettifyPreservesTextAndNamespaces() {
+        Svg svg = new Svg(100, 100)
+        svg.addTitle().addContent('Chart title')
+        svg.addText('Hello').x(10).y(20)
+        svg.addUse().xlinkHref('#marker')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<svg xmlns="http://www.w3.org/2000/svg"'))
+        assertTrue(formatted.contains('<title>Chart title</title>'))
+        assertTrue(formatted.contains('<text x="10" y="20">Hello</text>'))
+        assertTrue(formatted.contains('xmlns:xlink="http://www.w3.org/1999/xlink"'))
+        assertTrue(formatted.contains('xlink:href="#marker"'))
+    }
+
+    @Test
     void testMultipleLevelsOfNesting() {
         Svg svg = new Svg(200, 200)
         G g1 = svg.addG().id('g1')

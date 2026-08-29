@@ -5,6 +5,8 @@ import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.junit.jupiter.api.Assertions.assertFalse
+import static org.junit.jupiter.api.Assertions.assertTrue
 
 class SvgWriterTest {
 
@@ -64,5 +66,41 @@ class SvgWriterTest {
         '''.stripIndent(),
                 SvgWriter.toXmlPretty(svg)
         )
+    }
+
+    @Test
+    void namespacesIdsAndReferencesWithoutMutatingTheSource() {
+        Svg svg = new Svg()
+        svg.addDefs().addClipPath().id('clip').addRect(10, 10)
+        svg.addRect(20, 20).addAttribute('clip-path', 'url(#clip)')
+        svg.addStyle().addContent('''
+          #clip { fill: red; }
+          @keyframes fade { from { opacity: 0; } }
+          .mark { animation: fade 1s; animation-name: fade; }
+        '''.stripIndent())
+
+        String xml = SvgWriter.toXml(svg, 'nb-')
+
+        assertTrue(xml.contains('id="nb-clip"'))
+        assertTrue(xml.contains('url(#nb-clip)'))
+        assertTrue(xml.contains('#nb-clip {'))
+        assertTrue(xml.contains('@keyframes nb-fade'))
+        assertTrue(xml.contains('animation: nb-fade 1s'))
+        assertFalse(SvgWriter.toXml(svg).contains('nb-clip'))
+    }
+
+    @Test
+    void namespacesIdsWithoutRewritingColorValues() {
+        Svg svg = new Svg()
+        svg.addRect(10, 10).id('abc').fill('#abc')
+        svg.addStyle().addContent('#abc { fill: #abc; } .shape { fill: url(#abc); }')
+
+        String xml = SvgWriter.toXml(svg, 'nb-')
+
+        assertTrue(xml.contains('id="nb-abc"'))
+        assertTrue(xml.contains('#nb-abc {'))
+        assertTrue(xml.contains('fill: #abc'))
+        assertTrue(xml.contains('url(#nb-abc)'))
+        assertTrue(xml.contains('fill="#abc"'))
     }
 }

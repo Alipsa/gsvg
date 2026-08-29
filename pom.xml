@@ -6,7 +6,7 @@
 
   <groupId>se.alipsa.groovy</groupId>
   <artifactId>gsvg-parent</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <packaging>pom</packaging>
 
   <name>gsvg Parent</name>
@@ -52,12 +52,12 @@
 
     <!-- Dependency versions -->
     <extra-enforcer-rules.version>1.12.0</extra-enforcer-rules.version>
-    <groovy.version>5.0.6</groovy.version>
-    <junit.version>6.0.3</junit.version>
+    <groovy.version>5.1.1</groovy.version>
+    <junit.version>6.1.3</junit.version>
     <dom4j.version>2.2.0</dom4j.version>
-    <jaxen.version>2.0.1</jaxen.version>
+    <jaxen.version>2.0.6</jaxen.version>
     <jmh.version>1.37</jmh.version>
-    <ph-css.version>8.2.0</ph-css.version>
+    <ph-css.version>8.2.1</ph-css.version>
 
     <!-- Plugin versions -->
     <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
@@ -283,7 +283,29 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
         <configuration>
-          <rulesUri>file://${maven.multiModuleProjectDirectory}/version-plugin-rules.xml</rulesUri>
+          <ignoredVersions>
+            <ignoredVersion>.*-preview</ignoredVersion>
+            <ignoredVersion>(?i).*[._+-](alpha|b|beta|rc|m|ea|pr).*</ignoredVersion>
+            <ignoredVersion>.*jre6</ignoredVersion>
+            <ignoredVersion>.*jre7</ignoredVersion>
+            <ignoredVersion>.*jre8</ignoredVersion>
+            <ignoredVersion>.*jre9</ignoredVersion>
+            <ignoredVersion>.*jre10</ignoredVersion>
+            <ignoredVersion>.*jre11</ignoredVersion>
+            <ignoredVersion>.*jre12</ignoredVersion>
+            <ignoredVersion>.*jre13</ignoredVersion>
+            <ignoredVersion>.*jre14</ignoredVersion>
+            <ignoredVersion>.*jre15</ignoredVersion>
+            <ignoredVersion>.*jre16</ignoredVersion>
+            <ignoredVersion>.*jre18</ignoredVersion>
+            <ignoredVersion>.*jre19</ignoredVersion>
+            <ignoredVersion>.*jre20</ignoredVersion>
+            <ignoredVersion>.*jre21</ignoredVersion>
+            <ignoredVersion>.*jre22</ignoredVersion>
+            <ignoredVersion>.*jre23</ignoredVersion>
+            <ignoredVersion>.*jre24</ignoredVersion>
+            <ignoredVersion>.*jre25</ignoredVersion>
+          </ignoredVersions>
         </configuration>
       </plugin>
     </plugins>

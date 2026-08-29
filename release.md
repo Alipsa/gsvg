@@ -1,5 +1,18 @@
 # gsvg release notes
 
+## Version 1.2.0 - In progress
+
+### Added
+
+#### SVG id namespacing
+- `SvgIdRewriter.prefixIds(SvgElement, String)` prefixes IDs in an owned SVG tree and updates `url(#id)`, href, and CSS `#id` references.
+- CSS `@keyframes`, `animation-name`, and simple `animation` references are prefixed with the same namespace, preventing collisions when multiple SVG documents are inlined into one HTML page.
+- `SvgWriter.toXml(Svg, String)` and `SvgWriter.toXmlPretty(Svg, String)` serialize a cloned, namespaced SVG, leaving the caller's SVG model unchanged.
+
+```groovy
+String inlineSvg = SvgWriter.toXml(chart.render(), 'report-1-')
+```
+
 ## Version 1.1.0 - 2026-05-07
 
 ### Added

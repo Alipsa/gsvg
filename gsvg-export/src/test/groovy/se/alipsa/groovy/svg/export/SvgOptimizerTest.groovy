@@ -8,6 +8,19 @@ import static org.junit.jupiter.api.Assertions.*
 class SvgOptimizerTest {
 
     @Test
+    void keepsDefinitionsReferencedFromStyleContent() {
+        Svg svg = new Svg(100, 100)
+        Defs defs = svg.addDefs()
+        defs.addLinearGradient().id('gradient')
+        svg.addStyle().addContent('.shape { fill: url(#gradient); }')
+        svg.addRect(10, 10).addClass('shape')
+
+        SvgOptimizer.optimizeInPlace(svg, [removeUnusedDefs: true])
+
+        assertEquals(['gradient'], defs.children.collect { (it as SvgElement).id })
+    }
+
+    @Test
     void testOptimizeReturnsNewSvg() {
         Svg original = new Svg(200, 200)
         original.addCircle().cx(100).cy(100).r(50).fill('red')

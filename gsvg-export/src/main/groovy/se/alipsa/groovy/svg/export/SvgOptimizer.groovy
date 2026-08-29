@@ -9,6 +9,7 @@ import se.alipsa.groovy.svg.Metadata
 import se.alipsa.groovy.svg.Path
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
+import se.alipsa.groovy.svg.Style
 import se.alipsa.groovy.svg.Title
 import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.utils.NumberFormatter
@@ -345,12 +346,11 @@ class SvgOptimizer {
 
                 // Check url() references in all attributes
                 (element as SvgElement).getAttributes().each { name, value ->
-                    if (value && value.contains('url(#')) {
-                        def matcher = (value =~ /url\(#([^)]+)\)/)
-                        matcher.each {
-                            ids.add(it[1])
-                        }
-                    }
+                    collectUrlReferences(value, ids)
+                }
+
+                if (element instanceof Style) {
+                    collectUrlReferences(element.element.text, ids)
                 }
 
                 if (element instanceof ElementContainer) {
@@ -360,5 +360,15 @@ class SvgOptimizer {
         }
 
         return ids
+    }
+
+    /** Collects local fragment IDs from CSS or presentation-attribute url() values. */
+    private static void collectUrlReferences(String value, Set<String> ids) {
+        if (value) {
+            def matcher = (value =~ /url\(\s*['"]?#([^)'"]+)['"]?\s*\)/)
+            matcher.each {
+                ids.add(it[1])
+            }
+        }
     }
 }
