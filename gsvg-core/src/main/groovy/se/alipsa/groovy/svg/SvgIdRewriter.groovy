@@ -23,11 +23,11 @@ class SvgIdRewriter {
       return element
     }
     Map<String, String> replacements = new LinkedHashMap<>()
-    java.util.Set<String> existingIds = [] as java.util.Set<String>
+    java.util.Set<String> existingIds = []
     collectExistingIds(element.element, existingIds)
     collectIds(element.element, prefix, replacements, existingIds)
     Map<String, String> keyframes = new LinkedHashMap<>()
-    java.util.Set<String> existingKeyframes = [] as java.util.Set<String>
+    java.util.Set<String> existingKeyframes = []
     collectExistingKeyframes(element.element, existingKeyframes)
     collectKeyframes(element.element, prefix, keyframes, existingKeyframes)
     rewrite(element.element, replacements, keyframes)
