@@ -11,7 +11,6 @@ import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
 import se.alipsa.groovy.svg.Style
 import se.alipsa.groovy.svg.Title
-import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.utils.NumberFormatter
 
 /**
@@ -39,8 +38,7 @@ class SvgOptimizer {
      */
     static Svg optimize(Svg svg, Map options = [:]) {
         // Clone the SVG to avoid modifying the original
-        String svgString = svg.toXml()
-        Svg optimized = SvgReader.parse(svgString)
+        Svg optimized = svg.clone()
 
         // Apply optimizations
         optimizeInPlace(optimized, options)
@@ -68,6 +66,7 @@ class SvgOptimizer {
 
         if (removeComments) {
             removeCommentsFrom(svg.element)
+            svg.document.content().removeAll(svg.document.content().findAll { node -> node instanceof org.dom4j.Comment })
         }
 
         // Remove metadata elements

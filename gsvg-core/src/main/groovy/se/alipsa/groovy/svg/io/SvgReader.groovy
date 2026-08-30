@@ -129,8 +129,8 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
         if (!rootSvgAssigned) {
           currentElement = svg = new Svg()
           rootSvgAssigned = true
-          documentComments.eachWithIndex { String comment, int index ->
-            svg.document.content().add(index, org.dom4j.DocumentHelper.createComment(comment))
+          if (!documentComments.isEmpty()) {
+            addPreRootComments(svg, documentComments)
           }
           documentComments.clear()
         } else {
@@ -328,8 +328,26 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    */
   static Svg parse(String content) {
     try (StringReader reader = new StringReader(content)) {
-      return parse(reader)
+      Svg svg = parse(reader)
+      def matcher = (content =~ /(?s)^\s*((?:<!--.*?-->\s*)+)/)
+      if (matcher.find() && !SvgWriter.toXml(svg).contains('<!--')) {
+        List<String> comments = []
+        def commentMatcher = (matcher.group(1) =~ /(?s)<!--(.*?)-->/)
+        while (commentMatcher.find()) {
+          comments << commentMatcher.group(1)
+        }
+        addPreRootComments(svg, comments)
+      }
+      return svg
     }
+  }
+
+  /** Adds comments before the document root while retaining the existing SVG element. */
+  private static void addPreRootComments(Svg svg, List<String> comments) {
+    svg.document.remove(svg.element)
+    def document = org.dom4j.DocumentHelper.createDocument()
+    comments.each { String comment -> document.addComment(comment) }
+    document.add(svg.element)
   }
 
   /**

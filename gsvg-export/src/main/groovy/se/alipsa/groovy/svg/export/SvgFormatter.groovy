@@ -35,9 +35,24 @@ class SvgFormatter {
         sb.append('<?xml version="1.0" encoding="UTF-8"?>')
         sb.append(newline)
 
+        appendDocumentComments(svg, sb, newline, true)
         formatElement(svg, sb, 0, indent, newline, sortAttributes, groupElements, [:])
+        appendDocumentComments(svg, sb, newline, false)
 
         return sb.toString()
+    }
+
+    /** Appends document-level comments before or after the root element. */
+    private static void appendDocumentComments(Svg svg, StringBuilder sb, String newline, boolean beforeRoot) {
+        int rootIndex = svg.document.content().indexOf(svg.element)
+        svg.document.content().eachWithIndex { Object node, int index ->
+            if (node instanceof org.dom4j.Comment && (beforeRoot ? index < rootIndex : index > rootIndex)) {
+                sb.append('<!--')
+                sb.append((node as org.dom4j.Comment).text)
+                sb.append('-->')
+                sb.append(newline)
+            }
+        }
     }
 
     /**

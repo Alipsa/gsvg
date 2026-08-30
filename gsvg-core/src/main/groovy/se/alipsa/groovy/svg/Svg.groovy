@@ -83,15 +83,24 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     copy.documentPrecision = this.documentPrecision
     copyRootAttributesAndNamespaces(copy)
     SvgElementFactory.copyChildren(this, copy)
-    element.content().eachWithIndex { Object node, int index ->
-      if (node instanceof Comment) {
-        copy.element.content().add(index, DocumentHelper.createComment((node as Comment).text))
+    int insertionIndex = 0
+    element.content().each { Object node ->
+      if (node instanceof Element) {
+        insertionIndex++
+      } else {
+        copy.element.content().add(insertionIndex++, ((node as org.dom4j.Node).clone() as org.dom4j.Node))
       }
     }
-    document.content().eachWithIndex { Object node, int index ->
-      if (node instanceof Comment) {
-        copy.document.content().add(index, DocumentHelper.createComment((node as Comment).text))
-      }
+    List documentContent = new ArrayList(getDocument().content())
+    int rootIndex = documentContent.indexOf(element)
+    List<Comment> preRootComments = documentContent.take(rootIndex).findAll { it instanceof Comment } as List<Comment>
+    List<Comment> postRootComments = documentContent.drop(rootIndex + 1).findAll { it instanceof Comment } as List<Comment>
+    if (!preRootComments.isEmpty() || !postRootComments.isEmpty()) {
+      copy.getDocument().remove(copy.element)
+      Document copyDocument = DocumentHelper.createDocument()
+      preRootComments.each { Comment comment -> copyDocument.addComment(comment.text) }
+      copyDocument.add(copy.element)
+      postRootComments.each { Comment comment -> copyDocument.addComment(comment.text) }
     }
     copy
   }

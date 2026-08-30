@@ -3,6 +3,7 @@ package se.alipsa.groovy.svg.export
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.*
 import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.*
 
@@ -23,6 +24,18 @@ class SvgOptimizerTest {
         SvgOptimizer.optimizeInPlace(svg, [removeComments: false, collapseGroups: true])
 
         assertTrue(svg.toXml().contains('<g><!--in--><rect id="a"/></g>'))
+    }
+
+    @Test
+    void handlesDocumentLevelCommentsAccordingToRemoveComments() {
+        Svg svg = SvgReader.parse('<!--generator--><svg xmlns="http://www.w3.org/2000/svg"><!--inner--><rect/></svg>')
+
+        assertTrue(SvgWriter.toXml(SvgOptimizer.optimize(svg, [removeComments: false])).contains('<!--generator-->'))
+        assertTrue(SvgWriter.toXml(SvgOptimizer.optimize(svg, [removeComments: false])).contains('<!--inner-->'))
+        assertFalse(SvgWriter.toXml(SvgOptimizer.optimize(svg)).contains('<!--generator-->'))
+
+        SvgOptimizer.optimizeInPlace(svg, [:])
+        assertFalse(SvgWriter.toXml(svg).contains('<!--generator-->'))
     }
 
     @Test

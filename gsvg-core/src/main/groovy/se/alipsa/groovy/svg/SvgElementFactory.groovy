@@ -25,7 +25,7 @@ class SvgElementFactory {
    * @return the created SvgElement
    */
   static SvgElement fromElement(SvgElement parent, Element element) {
-    fromOwnedElement(parent, element.createCopy())
+    fromOwnedElement(parent, element)
   }
 
   /** Builds wrappers around an already-owned element tree without copying it again. */
@@ -36,9 +36,6 @@ class SvgElementFactory {
   /** Builds wrappers around an owned element tree, retaining a root wrapper type when needed. */
   private static SvgElement fromOwnedElement(SvgElement parent, Element element, Class sourceType) {
     String name = element.getName()
-    if (element.parent != parent.element) {
-      parent.element.add(element)
-    }
     SvgElement result = createElement(parent, element, name, sourceType)
 
     if (result == null) {
@@ -50,7 +47,7 @@ class SvgElementFactory {
 
     // Every SvgElement implements ElementContainer, including text and foreign
     // content elements, so all child wrappers must be rebuilt.
-    element.elements().each { Element childElement -> fromOwnedElement(result, childElement) }
+    result.element.elements().each { Element childElement -> fromOwnedElement(result, childElement) }
 
     return result
   }

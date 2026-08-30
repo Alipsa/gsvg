@@ -2,6 +2,8 @@ package test.alipsa.groovy.svg
 
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.assertEquals
 import static org.junit.jupiter.api.Assertions.assertNotSame
@@ -61,5 +63,33 @@ class SvgCloneTest {
     Svg copy = svg.clone()
 
     assertTrue(copy.toXml().contains('<!--hello-->'))
+  }
+
+  @Test
+  void testClonePreservesRootContentOrderAroundComments() {
+    Svg svg = new Svg()
+    svg.element.addText('   ')
+    svg.element.addComment('comment')
+    svg.addRect(1, 1)
+
+    assertEquals('<svg xmlns="http://www.w3.org/2000/svg">   <!--comment--><rect width="1" height="1"/></svg>', svg.clone().toXml())
+  }
+
+  @Test
+  void testCloneSupportsNestedSvgElements() {
+    Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><svg id="inner"><rect id="r"/></svg></svg>')
+
+    Svg copy = svg.clone()
+
+    assertTrue(copy.toXml().contains('<svg id="inner"><rect id="r"/></svg>'))
+  }
+
+  @Test
+  void testClonePreservesDocumentLevelComments() {
+    Svg svg = SvgReader.parse('<!--generator--><svg xmlns="http://www.w3.org/2000/svg"><rect/></svg>')
+
+    assertTrue(SvgWriter.toXml(svg).startsWith('<!--generator--><svg'))
+    String xml = SvgWriter.toXml(svg.clone())
+    assertTrue(xml.startsWith('<!--generator--><svg'), xml)
   }
 }

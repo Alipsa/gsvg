@@ -18,6 +18,16 @@ class SvgFormatterTest {
     }
 
     @Test
+    void preservesDocumentLevelComments() {
+        Svg svg = SvgReader.parse('<!--generator--><svg xmlns="http://www.w3.org/2000/svg"><rect/></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<!--generator-->'))
+        assertTrue(formatted.indexOf('<!--generator-->') < formatted.indexOf('<svg'))
+    }
+
+    @Test
     void testPrettifyWithDefaultOptions() {
         Svg svg = new Svg(200, 200)
         svg.addCircle().cx(100).cy(100).r(50).fill('red')
