@@ -327,7 +327,7 @@ class SvgOptimizer {
     /**
      * Collects all referenced IDs in the SVG.
      */
-    private static Set<String> collectUsedIds(ElementContainer container) {
+    private static java.util.Set<String> collectUsedIds(ElementContainer container) {
         Set<String> ids = new HashSet<>()
 
         container.children.each { element ->
@@ -376,7 +376,7 @@ class SvgOptimizer {
     }
 
     /** Collects local fragment IDs from CSS or presentation-attribute url() values. */
-    private static void collectUrlReferences(String value, Set<String> ids) {
+    private static void collectUrlReferences(String value, java.util.Set<String> ids) {
         if (value) {
             def matcher = (value =~ /url\(\s*['"]?#\s*([^)'"\s]+)\s*['"]?\s*\)/)
             matcher.each {
@@ -386,7 +386,7 @@ class SvgOptimizer {
     }
 
     /** Collects IDs referenced by CSS selectors. */
-    private static void collectCssIdReferences(String value, Set<String> ids) {
+    private static void collectCssIdReferences(String value, java.util.Set<String> ids) {
         if (value) {
             def ruleMatcher = (value =~ /([^{}]+)\{/)
             ruleMatcher.each { rule ->

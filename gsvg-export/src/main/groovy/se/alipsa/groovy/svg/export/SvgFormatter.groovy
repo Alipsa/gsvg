@@ -112,8 +112,7 @@ class SvgFormatter {
         }
 
         def children = (element as ElementContainer).children
-        boolean hasChildren = element instanceof ElementContainer &&
-                !(element as ElementContainer).children.isEmpty()
+        boolean hasChildren = !children.isEmpty()
         String textContent = element.element.getText()
         boolean hasTextContent = textContent != null && !textContent.isEmpty()
         boolean hasComment = element.element.content().any { node -> node instanceof org.dom4j.Comment }

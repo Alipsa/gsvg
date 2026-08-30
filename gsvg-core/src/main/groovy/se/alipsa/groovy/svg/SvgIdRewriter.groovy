@@ -60,7 +60,7 @@ class SvgIdRewriter {
 
   private static void collectExistingKeyframes(Element element, java.util.Set<String> keyframes) {
     if (element.name == 'style') {
-      Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
+      Matcher matcher = (element.text =~ /(?i)@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
         keyframes.add(matcher.group(1))
       }
@@ -71,7 +71,7 @@ class SvgIdRewriter {
   private static void collectKeyframes(Element element, String prefix, Map<String, String> keyframes,
       java.util.Set<String> existingKeyframes) {
     if (element.name == 'style') {
-      Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
+      Matcher matcher = (element.text =~ /(?i)@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
         String name = matcher.group(1)
         if (!name.startsWith(prefix) && !keyframes.containsKey(name)) {
@@ -110,7 +110,7 @@ class SvgIdRewriter {
     String result = rewriteUrlReferences(css, replacements)
     result = rewriteCssSelectors(result, replacements)
     keyframes.each { String name, String replacement ->
-      result = result.replaceAll("(@keyframes\\s+)${Pattern.quote(name)}(?![A-Za-z0-9_-])", '\$1' + Matcher.quoteReplacement(replacement))
+      result = result.replaceAll("(?i)(@keyframes\\s+)${Pattern.quote(name)}(?![A-Za-z0-9_-])", '\$1' + Matcher.quoteReplacement(replacement))
     }
     rewriteAnimationReferences(result, keyframes)
   }
