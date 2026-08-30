@@ -84,9 +84,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     copyRootAttributesAndNamespaces(copy)
     SvgElementFactory.copyChildren(this, copy)
     Map<Element, Element> copiedChildren = [:]
-    List<Element> sourceElements = element.elements()
-    List<Element> targetElements = copy.element.elements()
-    sourceElements.eachWithIndex { Element child, int index -> copiedChildren[child] = targetElements[index] }
+    children.eachWithIndex { SvgElement child, int index -> copiedChildren[child.element] = copy.children[index].element }
     copy.element.content().clear()
     element.content().each { Object node ->
       if (node instanceof Namespace) {
@@ -99,6 +97,7 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
         copy.element.content().add(((node as org.dom4j.Node).clone() as org.dom4j.Node))
       }
     }
+    copyRootAttributesAndNamespaces(copy)
     List documentContent = new ArrayList(getDocument().content())
     int rootIndex = documentContent.indexOf(element)
     List<Comment> preRootComments = rootIndex >= 0 ? documentContent.take(rootIndex).findAll { it instanceof Comment } as List<Comment> : []

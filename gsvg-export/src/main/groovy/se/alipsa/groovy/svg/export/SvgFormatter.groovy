@@ -114,7 +114,7 @@ class SvgFormatter {
         boolean hasChildren = element instanceof ElementContainer &&
                 !(element as ElementContainer).children.isEmpty()
         String textContent = element.element.getText()
-        boolean hasTextContent = textContent != null && !textContent.isEmpty()
+        boolean hasTextContent = textContent != null && !textContent.isBlank()
         boolean hasComment = element.element.content().any { node -> node instanceof org.dom4j.Comment }
         boolean hasCdata = element.element.content().any { node -> node instanceof org.dom4j.CDATA }
         boolean hasMixedText = hasTextContent || hasCdata

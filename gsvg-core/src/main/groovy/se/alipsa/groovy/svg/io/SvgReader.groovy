@@ -209,7 +209,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   @Override
   void endElement(String uri, String localName, String qName) throws SAXException {
     //print('end element ' + qName)
-    currentElement = currentElement.getParent()
+    currentElement = currentElement == svg ? null : currentElement.getParent()
     //println(', current element is now ' + currentElement.element.getName())
   }
 

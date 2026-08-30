@@ -25,7 +25,7 @@ class SvgElementFactory {
    * @return the created SvgElement
    */
   static SvgElement fromElement(SvgElement parent, Element element) {
-    fromOwnedElement(parent, element)
+    fromOwnedElement(parent, element.createCopy())
   }
 
   /** Builds wrappers around an already-owned element tree without copying it again. */
@@ -71,6 +71,7 @@ class SvgElementFactory {
       case Polygon.NAME: return new Polygon(parent, element)
       case Polyline.NAME: return new Polyline(parent, element)
       case Rect.NAME: return new Rect(parent, element)
+      case Svg.NAME: return new Svg(parent, element)
 
       // Container elements (10)
       case A.NAME: return new A(parent, element)
@@ -192,10 +193,11 @@ class SvgElementFactory {
    * @return the copied element
    */
   static <T extends SvgElement> T deepCopy(T source, AbstractElementContainer newParent) {
-    SvgElement result = fromOwnedElement(newParent, source.element, source.getClass())
+    Element clonedElement = source.element.createCopy()
+    SvgElement result = fromOwnedElement(newParent, clonedElement, source.getClass())
 
     if (result == null) {
-      newParent.element.add(source.element.createCopy())
+      newParent.element.add(clonedElement)
       return null
     }
 

@@ -168,8 +168,9 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
    */
   protected SvgElement(SvgElement<? extends SvgElement> parent, Element existingElement) {
     this.parent = parent
-    Element ownedElement = existingElement.parent == parent.element ?
-        existingElement : existingElement.createCopy()
+    boolean belongsToAnotherTree = existingElement.parent != parent.element &&
+        (existingElement.parent != null || existingElement.document != null)
+    Element ownedElement = belongsToAnotherTree ? existingElement.createCopy() : existingElement
     this.element = ownedElement
     if (ownedElement.parent != parent.element) {
       parent.element.add(ownedElement)

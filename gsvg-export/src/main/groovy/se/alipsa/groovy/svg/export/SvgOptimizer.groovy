@@ -11,6 +11,8 @@ import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
 import se.alipsa.groovy.svg.Style
 import se.alipsa.groovy.svg.Title
+import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.io.SvgWriter
 import se.alipsa.groovy.svg.utils.NumberFormatter
 
 /**
@@ -38,7 +40,7 @@ class SvgOptimizer {
      */
     static Svg optimize(Svg svg, Map options = [:]) {
         // Clone the SVG to avoid modifying the original
-        Svg optimized = svg.clone()
+        Svg optimized = SvgReader.parse(SvgWriter.toXml(svg))
 
         // Apply optimizations
         optimizeInPlace(optimized, options)
@@ -386,8 +388,11 @@ class SvgOptimizer {
     /** Collects IDs referenced by CSS selectors. */
     private static void collectCssIdReferences(String value, Set<String> ids) {
         if (value) {
-            def matcher = (value =~ /#([A-Za-z_][A-Za-z0-9_-]*)/)
-            matcher.each { ids.add(it[1]) }
+            def ruleMatcher = (value =~ /([^{}]+)\{/)
+            ruleMatcher.each { rule ->
+                def idMatcher = (rule[1] =~ /#([A-Za-z_][A-Za-z0-9_-]*)/)
+                idMatcher.each { ids.add(it[1]) }
+            }
         }
     }
 }
