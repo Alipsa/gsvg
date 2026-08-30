@@ -1,6 +1,7 @@
 package test.alipsa.groovy.svg
 
 import org.junit.jupiter.api.Test
+import se.alipsa.groovy.svg.MetadataElement
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.io.SvgWriter
@@ -103,5 +104,30 @@ class SvgCloneTest {
     assertTrue(SvgWriter.toXml(svg).startsWith('<!--generator--><svg'))
     String xml = SvgWriter.toXml(svg.clone())
     assertTrue(xml.startsWith('<!--generator--><svg'), xml)
+  }
+
+  @Test
+  void testCloneSupportsDetachedSvg() {
+    Svg root = new Svg()
+    Svg inner = root.addSvg()
+    inner.addRect(1, 1)
+    root.element.remove(inner.element)
+    root.children.remove(inner)
+
+    Svg copy = inner.clone()
+
+    assertEquals('<svg xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1"/></svg>', copy.toXml())
+  }
+
+  @Test
+  void testCloneRetainsMetadataElementWrappersForCollidingNames() {
+    Svg svg = new Svg()
+    MetadataElement title = svg.addMetadata().addElement('rdf', 'urn:rdf').addElement('title')
+    title.addContent('metadata title')
+
+    MetadataElement copy = title.clone(new Svg())
+
+    assertTrue(copy instanceof MetadataElement)
+    assertEquals('title', copy.name)
   }
 }

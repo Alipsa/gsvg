@@ -46,6 +46,9 @@ class SvgFormatter {
 
     /** Appends document-level comments before or after the root element. */
     private static void appendDocumentComments(Svg svg, StringBuilder sb, String newline, boolean beforeRoot) {
+        if (svg.document == null) {
+            return
+        }
         int rootIndex = svg.document.content().indexOf(svg.element)
         if (rootIndex < 0) {
             return
@@ -114,7 +117,8 @@ class SvgFormatter {
         }
 
         def children = (element as ElementContainer).children
-        boolean hasChildren = !children.isEmpty()
+        List<org.dom4j.Element> domChildren = element.element.elements() as List<org.dom4j.Element>
+        boolean hasChildren = !children.isEmpty() || !domChildren.isEmpty()
         String textContent = element.element.getText()
         boolean hasTextContent = textContent != null && !textContent.isEmpty()
         boolean hasComment = element.element.content().any { node -> node instanceof org.dom4j.Comment }
@@ -148,7 +152,8 @@ class SvgFormatter {
                 // Format children with indentation
                 sb.append(newline)
 
-                if (hasComment) {
+                boolean hasUnwrappedDomChildren = domChildren.any { org.dom4j.Element child -> !children.any { SvgElement wrapper -> wrapper.element.is(child) } }
+                if (hasComment || hasUnwrappedDomChildren) {
                     appendIndentedContent(element.element, children, sb, depth, indent, newline, sortAttrs, groupElems, namespaces)
                 } else if (groupElems) {
                     // Group similar elements
@@ -267,7 +272,8 @@ class SvgFormatter {
     private static void addNamespaceDeclaration(Map<String, String> declarations,
                                                 Map<String, String> inheritedNamespaces,
                                                 Namespace namespace) {
-        if (namespace != null && namespace.URI && inheritedNamespaces[namespace.prefix] != namespace.URI) {
+        if (namespace != null && namespace.URI != null && inheritedNamespaces[namespace.prefix] != namespace.URI &&
+                (namespace.URI || (namespace.prefix == '' && inheritedNamespaces.containsKey(namespace.prefix)))) {
             declarations[namespace.prefix] = namespace.URI
         }
     }

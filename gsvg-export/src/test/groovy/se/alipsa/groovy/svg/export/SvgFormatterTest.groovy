@@ -30,6 +30,25 @@ class SvgFormatterTest {
     }
 
     @Test
+    void preservesDefaultNamespaceResets() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><plain xmlns=""/></foreignObject></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<plain xmlns=""/>'), formatted)
+    }
+
+    @Test
+    void preservesUnwrappedDomChildrenWithoutComments() {
+        Svg svg = new Svg()
+        svg.element.addElement('mystery')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<mystery/>'), formatted)
+    }
+
+    @Test
     void preservesCdataOnlyStyleElements() {
         Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style><![CDATA[#a > #b { fill: red }]]></style></svg>')
 

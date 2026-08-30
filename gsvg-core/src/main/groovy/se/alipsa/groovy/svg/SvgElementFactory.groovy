@@ -62,6 +62,14 @@ class SvgElementFactory {
    * @return the created SvgElement or null if not supported
    */
   private static SvgElement createElement(SvgElement parent, Element element, String name, Class sourceType) {
+    if (parent instanceof Metadata || parent instanceof MetadataElement ||
+        (sourceType != null && MetadataElement.isAssignableFrom(sourceType))) {
+      return new MetadataElement(parent, element)
+    }
+    if (parent instanceof ExternalElementContainer ||
+        (sourceType != null && ForeignElement.isAssignableFrom(sourceType))) {
+      return new ForeignElement(parent, element)
+    }
     switch (name) {
       // Shape elements (7)
       case Circle.NAME: return new Circle(parent, element)
@@ -171,16 +179,7 @@ class SvgElementFactory {
       case Video.NAME: return new Video(parent, element)
       case View.NAME: return new View(parent, element)
 
-      default:
-        if (parent instanceof Metadata || parent instanceof MetadataElement ||
-            (sourceType != null && MetadataElement.isAssignableFrom(sourceType))) {
-          return new MetadataElement(parent, element)
-        }
-        if (parent instanceof ExternalElementContainer ||
-            (sourceType != null && ForeignElement.isAssignableFrom(sourceType))) {
-          return new ForeignElement(parent, element)
-        }
-        return null
+      default: return null
     }
   }
 

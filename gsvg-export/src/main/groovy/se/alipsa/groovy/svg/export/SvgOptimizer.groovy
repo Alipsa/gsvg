@@ -40,7 +40,8 @@ class SvgOptimizer {
      */
     static Svg optimize(Svg svg, Map options = [:]) {
         // Clone the SVG to avoid modifying the original
-        Svg optimized = SvgReader.parse(SvgWriter.toXml(svg))
+        boolean isDocumentRoot = svg.document?.rootElement?.is(svg.element)
+        Svg optimized = SvgReader.parse(isDocumentRoot ? SvgWriter.toXml(svg) : svg.toXml())
 
         // Apply optimizations
         optimizeInPlace(optimized, options)
@@ -68,7 +69,9 @@ class SvgOptimizer {
 
         if (removeComments) {
             removeCommentsFrom(svg.element)
-            svg.document.content().removeAll(svg.document.content().findAll { node -> node instanceof org.dom4j.Comment })
+            if (svg.document != null) {
+                svg.document.content().removeAll(svg.document.content().findAll { node -> node instanceof org.dom4j.Comment })
+            }
         }
 
         // Remove metadata elements

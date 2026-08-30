@@ -101,7 +101,11 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
       }
     }
     copyRootAttributesAndNamespaces(copy)
-    List documentContent = new ArrayList(getDocument().content())
+    Document document = getDocument()
+    if (document == null) {
+      return copy
+    }
+    List documentContent = new ArrayList(document.content())
     int rootIndex = documentContent.indexOf(element)
     List<Comment> preRootComments = rootIndex >= 0 ? documentContent.take(rootIndex).findAll { it instanceof Comment } as List<Comment> : []
     List<Comment> postRootComments = rootIndex >= 0 ? documentContent.drop(rootIndex + 1).findAll { it instanceof Comment } as List<Comment> : []

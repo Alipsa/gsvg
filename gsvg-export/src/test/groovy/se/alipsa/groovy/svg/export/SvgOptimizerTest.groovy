@@ -75,6 +75,19 @@ class SvgOptimizerTest {
     }
 
     @Test
+    void optimizesNestedSvgWithoutIncludingItsOuterDocument() {
+        Svg root = new Svg()
+        root.addRect(1, 1).id('outer')
+        Svg nested = root.addSvg()
+        nested.addRect(1, 1).id('inner')
+
+        String xml = SvgOptimizer.optimize(nested, [removeMetadata: false, removeDefaults: false, removeInvisible: false]).toXml()
+
+        assertTrue(xml.contains('id="inner"'), xml)
+        assertFalse(xml.contains('id="outer"'), xml)
+    }
+
+    @Test
     void testRemoveMetadata() {
         Svg svg = new Svg(200, 200)
         svg.addTitle().with { it.text = 'My SVG' }
