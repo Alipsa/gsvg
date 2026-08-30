@@ -367,6 +367,7 @@
                     <argument>-rulesetfiles=file:${maven.multiModuleProjectDirectory}/config/codenarc/ruleset.groovy</argument>
                     <argument>-includes=**/src/main/groovy/**/*.groovy,**/src/test/groovy/**/*.groovy</argument>
                     <argument>-excludes=**/target/**</argument>
+                    <argument>-report=html:${project.build.directory}/CodeNarcReport.html</argument>
                   </arguments>
                   <includeProjectDependencies>false</includeProjectDependencies>
                   <includePluginDependencies>true</includePluginDependencies>
