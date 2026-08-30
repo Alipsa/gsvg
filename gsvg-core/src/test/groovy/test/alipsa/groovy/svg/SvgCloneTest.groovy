@@ -51,4 +51,15 @@ class SvgCloneTest {
     assertEquals(svg.getViewBox(), resized.getViewBox())
     assertTrue(svg.getWidth().endsWith('px'))
   }
+
+  @Test
+  void testClonePreservesRootLevelComments() {
+    Svg svg = new Svg()
+    svg.element.addComment('hello')
+    svg.addRect(1, 1)
+
+    Svg copy = svg.clone()
+
+    assertTrue(copy.toXml().contains('<!--hello-->'))
+  }
 }

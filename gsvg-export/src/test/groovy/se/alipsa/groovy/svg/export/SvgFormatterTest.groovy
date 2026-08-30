@@ -9,6 +9,15 @@ import static org.junit.jupiter.api.Assertions.*
 class SvgFormatterTest {
 
     @Test
+    void preservesCdataOnlyStyleElements() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style><![CDATA[#a > #b { fill: red }]]></style></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<style><![CDATA[#a > #b { fill: red }]]></style>'), formatted)
+    }
+
+    @Test
     void testPrettifyWithDefaultOptions() {
         Svg svg = new Svg(200, 200)
         svg.addCircle().cx(100).cy(100).r(50).fill('red')

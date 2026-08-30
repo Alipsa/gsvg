@@ -5,3 +5,4 @@
 /gsvg-core/target/
 /gsvg-examples/target/
 /gsvg-export/target/
+**/.flattened-pom.xml

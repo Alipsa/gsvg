@@ -25,6 +25,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   SvgElement currentElement
   boolean rootSvgAssigned = false
   boolean isCdataSection = false
+  List<String> documentComments = []
 
   /**
    * Start document.
@@ -128,6 +129,10 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
         if (!rootSvgAssigned) {
           currentElement = svg = new Svg()
           rootSvgAssigned = true
+          documentComments.eachWithIndex { String comment, int index ->
+            svg.document.content().add(index, org.dom4j.DocumentHelper.createComment(comment))
+          }
+          documentComments.clear()
         } else {
           currentElement = currentElement.addSvg()
         }
@@ -394,6 +399,10 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   void comment(char[] ch, int start, int length) throws SAXException {
     if (currentElement != null) {
       currentElement.element.addComment(new String(ch, start, length))
+    } else if (!rootSvgAssigned) {
+      documentComments << new String(ch, start, length)
+    } else if (svg != null) {
+      svg.document.addComment(new String(ch, start, length))
     }
   }
 }

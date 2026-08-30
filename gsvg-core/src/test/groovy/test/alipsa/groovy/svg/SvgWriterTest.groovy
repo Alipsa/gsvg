@@ -232,4 +232,36 @@ class SvgWriterTest {
         assertTrue(xml.indexOf('#p-a{fill:red}') < xml.indexOf('<!--mid-->'))
         assertTrue(xml.indexOf('<!--mid-->') < xml.indexOf('#p-b{fill:blue}'))
     }
+
+    @Test
+    void namespacingRewritesStyleTextAfterContiguousTextNodes() {
+        Svg svg = new Svg()
+        def style = svg.addStyle().addContent('#a{fill:red}').addContent('#b{fill:blue}')
+        style.element.addComment('mid')
+        style.addContent('#c{fill:green}')
+        svg.addRect(1, 1).id('a')
+        svg.addRect(1, 1).id('b')
+        svg.addRect(1, 1).id('c')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertTrue(xml.contains('#p-a{fill:red}#p-b{fill:blue}<!--mid-->#p-c{fill:green}'))
+    }
+
+    @Test
+    void namespacedSerializationPreservesRootComments() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><!--hello--><rect id="a"/></svg>')
+
+        assertTrue(SvgWriter.toXml(svg, 'p-').contains('<!--hello-->'))
+        assertTrue(SvgWriter.toXmlPretty(svg, 'p-').contains('<!--hello-->'))
+    }
+
+    @Test
+    void readerPreservesCommentsBeforeTheRootElement() {
+        Svg svg = SvgReader.parse('<?xml version="1.0"?><!-- Generator: Illustrator --><svg xmlns="http://www.w3.org/2000/svg"><rect/></svg>')
+
+        String xml = SvgWriter.toXml(svg)
+
+        assertTrue(xml.startsWith('<!-- Generator: Illustrator --><svg'), xml)
+    }
 }

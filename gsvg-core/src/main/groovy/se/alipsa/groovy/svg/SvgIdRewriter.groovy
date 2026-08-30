@@ -141,10 +141,11 @@ class SvgIdRewriter {
   /** Rewrites contiguous style text runs without moving comments or other content nodes. */
   private static void rewriteStyleContent(Element element, Map<String, String> replacements, Map<String, String> keyframes) {
     List content = element.content()
+    List originalContent = new ArrayList(content)
     List textNodes = []
     StringBuilder css = new StringBuilder()
-    for (int index = 0; index <= content.size(); index++) {
-      Object node = index < content.size() ? content[index] : null
+    for (int index = 0; index <= originalContent.size(); index++) {
+      Object node = index < originalContent.size() ? originalContent[index] : null
       if (node instanceof org.dom4j.Text || node instanceof org.dom4j.CDATA) {
         textNodes << node
         css.append((node as org.dom4j.CharacterData).text)

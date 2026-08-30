@@ -36,6 +36,9 @@ class SvgElementFactory {
   /** Builds wrappers around an owned element tree, retaining a root wrapper type when needed. */
   private static SvgElement fromOwnedElement(SvgElement parent, Element element, Class sourceType) {
     String name = element.getName()
+    if (element.parent != parent.element) {
+      parent.element.add(element)
+    }
     SvgElement result = createElement(parent, element, name, sourceType)
 
     if (result == null) {

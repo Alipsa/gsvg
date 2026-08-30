@@ -9,6 +9,7 @@ import org.dom4j.Namespace
 import groovy.transform.CompileStatic
 import org.dom4j.Document
 import org.dom4j.DocumentHelper
+import org.dom4j.Comment
 import se.alipsa.groovy.svg.presets.Shapes
 import se.alipsa.groovy.svg.utils.ViewBox
 import se.alipsa.groovy.svg.validation.ValidationEngine
@@ -82,6 +83,16 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     copy.documentPrecision = this.documentPrecision
     copyRootAttributesAndNamespaces(copy)
     SvgElementFactory.copyChildren(this, copy)
+    element.content().eachWithIndex { Object node, int index ->
+      if (node instanceof Comment) {
+        copy.element.content().add(index, DocumentHelper.createComment((node as Comment).text))
+      }
+    }
+    document.content().eachWithIndex { Object node, int index ->
+      if (node instanceof Comment) {
+        copy.document.content().add(index, DocumentHelper.createComment((node as Comment).text))
+      }
+    }
     copy
   }
 

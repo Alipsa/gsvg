@@ -112,7 +112,7 @@ class SvgFormatter {
             def children = container.children
 
             // Keep text-only elements (for example title, text, and style) on one line.
-            boolean simpleContent = children.isEmpty() && hasTextContent && !hasComment
+            boolean simpleContent = children.isEmpty() && hasTextContent && !hasComment && !hasCdata
 
             if (simpleContent) {
                 // Keep text content on same line

@@ -17,6 +17,15 @@ class SvgOptimizerTest {
     }
 
     @Test
+    void doesNotCollapseGroupsThatContainComments() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><!--top--><g><!--in--><rect id="a"/></g></svg>')
+
+        SvgOptimizer.optimizeInPlace(svg, [removeComments: false, collapseGroups: true])
+
+        assertTrue(svg.toXml().contains('<g><!--in--><rect id="a"/></g>'))
+    }
+
+    @Test
     void keepsDefinitionsReferencedFromStyleContent() {
         Svg svg = new Svg(100, 100)
         Defs defs = svg.addDefs()

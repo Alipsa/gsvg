@@ -277,7 +277,7 @@ class SvgOptimizer {
                 def children = element.children
                 boolean hasAttributes = !element.element.attributes().isEmpty()
 
-                if (children.size() == 1 && !hasAttributes) {
+                if (children.size() == 1 && element.element.content().size() == 1 && !hasAttributes) {
                     toCollapse << [parent: container, group: element, child: children[0]]
                 } else {
                     collapseRedundantGroups(element)
