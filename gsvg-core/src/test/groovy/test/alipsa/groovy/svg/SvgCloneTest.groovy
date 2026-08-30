@@ -3,6 +3,7 @@ package test.alipsa.groovy.svg
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.MetadataElement
 import se.alipsa.groovy.svg.Svg
+import se.alipsa.groovy.svg.Title
 import se.alipsa.groovy.svg.io.SvgReader
 import se.alipsa.groovy.svg.io.SvgWriter
 
@@ -129,5 +130,14 @@ class SvgCloneTest {
 
     assertTrue(copy instanceof MetadataElement)
     assertEquals('title', copy.name)
+  }
+
+  @Test
+  void testCloneRetainsKnownSvgWrappersInsideMetadata() {
+    Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><metadata><rdf xmlns="urn:rdf"><title>metadata title</title></rdf></metadata></svg>')
+
+    Svg copy = svg.clone()
+
+    assertTrue(copy.children[0].children[0].children[0] instanceof Title)
   }
 }

@@ -41,11 +41,12 @@ class SvgFormatterTest {
     @Test
     void preservesUnwrappedDomChildrenWithoutComments() {
         Svg svg = new Svg()
+        svg.element.addText('hello')
         svg.element.addElement('mystery')
 
         String formatted = SvgFormatter.prettify(svg, [:])
 
-        assertTrue(formatted.contains('<mystery/>'), formatted)
+        assertTrue(formatted.contains('hello<mystery/>'), formatted)
     }
 
     @Test

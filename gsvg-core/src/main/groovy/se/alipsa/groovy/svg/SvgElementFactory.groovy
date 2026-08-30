@@ -62,12 +62,10 @@ class SvgElementFactory {
    * @return the created SvgElement or null if not supported
    */
   private static SvgElement createElement(SvgElement parent, Element element, String name, Class sourceType) {
-    if (parent instanceof Metadata || parent instanceof MetadataElement ||
-        (sourceType != null && MetadataElement.isAssignableFrom(sourceType))) {
+    if (sourceType != null && MetadataElement.isAssignableFrom(sourceType)) {
       return new MetadataElement(parent, element)
     }
-    if (parent instanceof ExternalElementContainer ||
-        (sourceType != null && ForeignElement.isAssignableFrom(sourceType))) {
+    if (sourceType != null && ForeignElement.isAssignableFrom(sourceType)) {
       return new ForeignElement(parent, element)
     }
     switch (name) {
@@ -179,7 +177,14 @@ class SvgElementFactory {
       case Video.NAME: return new Video(parent, element)
       case View.NAME: return new View(parent, element)
 
-      default: return null
+      default:
+        if (parent instanceof Metadata || parent instanceof MetadataElement) {
+          return new MetadataElement(parent, element)
+        }
+        if (parent instanceof ExternalElementContainer) {
+          return new ForeignElement(parent, element)
+        }
+        return null
     }
   }
 
@@ -209,10 +214,18 @@ class SvgElementFactory {
    *
    * @param source the source container
    * @param target the target container
+   * @return DOM element copies keyed by their source child element
    */
-  static void copyChildren(AbstractElementContainer source, AbstractElementContainer target) {
+  static Map<Element, Element> copyChildren(AbstractElementContainer source, AbstractElementContainer target) {
+    Map<Element, Element> copiedChildren = [:]
     for (SvgElement child : source.getChildren()) {
-      deepCopy(child, target)
+      Element clonedElement = child.element.createCopy()
+      SvgElement result = fromOwnedElement(target, clonedElement, child.getClass())
+      if (result == null) {
+        target.element.add(clonedElement)
+      }
+      copiedChildren[child.element] = clonedElement
     }
+    copiedChildren
   }
 }

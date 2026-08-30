@@ -133,7 +133,7 @@ class SvgFormatter {
             sb.append('>')
 
             // Keep text-only elements (for example title, text, and style) on one line.
-            boolean simpleContent = children.isEmpty() && hasTextContent && !hasComment && !hasCdata
+            boolean simpleContent = children.isEmpty() && domChildren.isEmpty() && hasTextContent && !hasComment && !hasCdata
 
             if (simpleContent) {
                 // Keep text content on same line
@@ -246,11 +246,17 @@ class SvgFormatter {
 
     /** Closes an empty element while preserving XHTML's explicit end-tag requirement for non-void elements. */
     private static void appendEmptyElementEnd(org.dom4j.Element element, StringBuilder sb) {
-        if (element.namespaceURI == 'http://www.w3.org/1999/xhtml' && !XHTML_VOID_ELEMENTS.contains(element.name)) {
+        if (effectiveNamespaceUri(element) == 'http://www.w3.org/1999/xhtml' && !XHTML_VOID_ELEMENTS.contains(element.name)) {
             sb.append('></').append(element.qualifiedName).append('>')
         } else {
             sb.append('/>')
         }
+    }
+
+    /** Returns the default namespace after applying declarations on the element itself. */
+    private static String effectiveNamespaceUri(org.dom4j.Element element) {
+        Namespace declaration = element.declaredNamespaces().find { Namespace namespace -> namespace.prefix == '' }
+        declaration != null ? declaration.URI : element.namespaceURI
     }
 
     /** Returns namespace declarations needed for the current element. */
