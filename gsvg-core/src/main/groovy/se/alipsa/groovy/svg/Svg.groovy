@@ -97,7 +97,6 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
         copy.element.content().add(((node as org.dom4j.Node).clone() as org.dom4j.Node))
       }
     }
-    copyRootAttributesAndNamespaces(copy)
     List documentContent = new ArrayList(getDocument().content())
     int rootIndex = documentContent.indexOf(element)
     List<Comment> preRootComments = rootIndex >= 0 ? documentContent.take(rootIndex).findAll { it instanceof Comment } as List<Comment> : []

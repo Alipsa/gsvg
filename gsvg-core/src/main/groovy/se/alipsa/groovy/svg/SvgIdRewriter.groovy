@@ -10,6 +10,7 @@ class SvgIdRewriter {
 
   /**
    * Prefix all ids in an SVG subtree and update id references in attributes and style text.
+   * This operation mutates the supplied subtree in place.
    *
    * @param element root of the owned SVG subtree
    * @param prefix namespace prefix

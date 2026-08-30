@@ -178,12 +178,16 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
     }
   }
 
-  /** Enables factory-only adoption of a freshly copied DOM element. */
+  /** Executes an action with factory-only adoption of a freshly copied DOM element. */
   @PackageScope
-  static Boolean setAdoptExistingElement(boolean adopt) {
+  static <T> T withAdoptedElement(Closure<T> action) {
     Boolean previous = adoptExistingElement.get()
-    adoptExistingElement.set(adopt)
-    previous
+    adoptExistingElement.set(true)
+    try {
+      action.call()
+    } finally {
+      adoptExistingElement.set(previous)
+    }
   }
 
   /**

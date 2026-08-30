@@ -232,7 +232,11 @@ class SvgFormatter {
             sb.append(' ').append(attribute.qualifiedName).append('="').append(escapeXml(attribute.value)).append('"')
         }
         if (element.content().isEmpty()) {
-            sb.append('/>')
+            if (element.namespaceURI == 'http://www.w3.org/1999/xhtml') {
+                sb.append('></').append(element.qualifiedName).append('>')
+            } else {
+                sb.append('/>')
+            }
         } else {
             sb.append('>')
             appendMixedContent(element, sb, sortAttrs, namespaces)
