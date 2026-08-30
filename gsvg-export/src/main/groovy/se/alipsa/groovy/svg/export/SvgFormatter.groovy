@@ -127,8 +127,6 @@ class SvgFormatter {
         } else {
             sb.append('>')
 
-            def container = element as ElementContainer
-
             // Keep text-only elements (for example title, text, and style) on one line.
             boolean simpleContent = children.isEmpty() && hasTextContent && !hasComment && !hasCdata
 

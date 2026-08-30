@@ -3,7 +3,6 @@ package se.alipsa.groovy.svg
 import groovy.transform.CompileStatic
 import org.dom4j.Attribute
 import org.dom4j.Element
-import java.util.Set
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
