@@ -122,7 +122,7 @@ class SvgFormatter {
 
         if (!hasChildren && !hasMixedText && !hasComment) {
             // Self-closing tag
-            sb.append('/>')
+            appendEmptyElementEnd(element.element, sb)
             sb.append(newline)
         } else {
             sb.append('>')
@@ -232,15 +232,20 @@ class SvgFormatter {
             sb.append(' ').append(attribute.qualifiedName).append('="').append(escapeXml(attribute.value)).append('"')
         }
         if (element.content().isEmpty()) {
-            if (element.namespaceURI == 'http://www.w3.org/1999/xhtml') {
-                sb.append('></').append(element.qualifiedName).append('>')
-            } else {
-                sb.append('/>')
-            }
+            appendEmptyElementEnd(element, sb)
         } else {
             sb.append('>')
             appendMixedContent(element, sb, sortAttrs, namespaces)
             sb.append('</').append(element.qualifiedName).append('>')
+        }
+    }
+
+    /** Closes an empty element while preserving XHTML's explicit end-tag requirement. */
+    private static void appendEmptyElementEnd(org.dom4j.Element element, StringBuilder sb) {
+        if (element.namespaceURI == 'http://www.w3.org/1999/xhtml') {
+            sb.append('></').append(element.qualifiedName).append('>')
+        } else {
+            sb.append('/>')
         }
     }
 

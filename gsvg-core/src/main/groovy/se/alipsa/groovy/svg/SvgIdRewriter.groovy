@@ -61,7 +61,7 @@ class SvgIdRewriter {
 
   private static void collectExistingKeyframes(Element element, Set<String> keyframes) {
     if (element.name == 'style') {
-      java.util.regex.Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
+      Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
         keyframes.add(matcher.group(1))
       }
@@ -70,9 +70,9 @@ class SvgIdRewriter {
   }
 
   private static void collectKeyframes(Element element, String prefix, Map<String, String> keyframes,
-      java.util.Set<String> existingKeyframes) {
+      Set<String> existingKeyframes) {
     if (element.name == 'style') {
-      java.util.regex.Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
+      Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
         String name = matcher.group(1)
         if (!name.startsWith(prefix) && !keyframes.containsKey(name)) {
@@ -111,7 +111,7 @@ class SvgIdRewriter {
     String result = rewriteUrlReferences(css, replacements)
     result = rewriteCssSelectors(result, replacements)
     keyframes.each { String name, String replacement ->
-      result = result.replaceAll("(@keyframes\\s+)${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", '\$1' + java.util.regex.Matcher.quoteReplacement(replacement))
+      result = result.replaceAll("(@keyframes\\s+)${Pattern.quote(name)}(?![A-Za-z0-9_-])", '\$1' + Matcher.quoteReplacement(replacement))
     }
     rewriteAnimationReferences(result, keyframes)
   }
@@ -120,7 +120,7 @@ class SvgIdRewriter {
     css.replaceAll(/([^{}]+)(\{)/) { String match, String selector, String brace ->
       String rewritten = selector
       replacements.each { String id, String replacement ->
-        rewritten = rewritten.replaceAll("#${java.util.regex.Pattern.quote(id)}(?![A-Za-z0-9_-])", java.util.regex.Matcher.quoteReplacement("#${replacement}"))
+        rewritten = rewritten.replaceAll("#${Pattern.quote(id)}(?![A-Za-z0-9_-])", Matcher.quoteReplacement("#${replacement}"))
       }
       rewritten + brace
     }
@@ -134,9 +134,9 @@ class SvgIdRewriter {
     while (matcher.find()) {
       String value = matcher.group(2)
       keyframes.each { String name, String replacement ->
-        value = value.replaceAll("(?<![A-Za-z0-9_-])${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", java.util.regex.Matcher.quoteReplacement(replacement))
+        value = value.replaceAll("(?<![A-Za-z0-9_-])${Pattern.quote(name)}(?![A-Za-z0-9_-])", Matcher.quoteReplacement(replacement))
       }
-      matcher.appendReplacement(result, java.util.regex.Matcher.quoteReplacement(matcher.group(1) + value))
+      matcher.appendReplacement(result, Matcher.quoteReplacement(matcher.group(1) + value))
     }
     matcher.appendTail(result)
     result.toString()
@@ -181,7 +181,7 @@ class SvgIdRewriter {
     String result = value
     replacements.keySet().sort { String left, String right -> right.length() <=> left.length() }.each { String id ->
       String replacement = replacements[id]
-      result = result.replaceAll("url\\(\\s*(['\\\"]?)#${java.util.regex.Pattern.quote(id)}\\1\\s*\\)", java.util.regex.Matcher.quoteReplacement("url(#${replacement})"))
+      result = result.replaceAll("url\\(\\s*(['\\\"]?)#${Pattern.quote(id)}\\1\\s*\\)", Matcher.quoteReplacement("url(#${replacement})"))
     }
     result
   }
