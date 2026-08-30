@@ -13,6 +13,8 @@ import org.dom4j.Namespace
  */
 class SvgFormatter {
 
+    private static final List<String> XHTML_VOID_ELEMENTS = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']
+
     /**
      * Prettifies an SVG and returns formatted XML string.
      *
@@ -237,9 +239,9 @@ class SvgFormatter {
         }
     }
 
-    /** Closes an empty element while preserving XHTML's explicit end-tag requirement. */
+    /** Closes an empty element while preserving XHTML's explicit end-tag requirement for non-void elements. */
     private static void appendEmptyElementEnd(org.dom4j.Element element, StringBuilder sb) {
-        if (element.namespaceURI == 'http://www.w3.org/1999/xhtml') {
+        if (element.namespaceURI == 'http://www.w3.org/1999/xhtml' && !XHTML_VOID_ELEMENTS.contains(element.name)) {
             sb.append('></').append(element.qualifiedName).append('>')
         } else {
             sb.append('/>')

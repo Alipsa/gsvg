@@ -155,6 +155,17 @@ class SvgWriterTest {
     }
 
     @Test
+    void namespacingRewritesSmilAndCssAttributeIdReferences() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style>[id="target"] { fill: red; }</style><rect id="target"><animate begin="target.click" end="target.end"/></rect></svg>')
+
+        String xml = SvgWriter.toXml(svg, 'p-')
+
+        assertTrue(xml.contains('[id="p-target"]'), xml)
+        assertTrue(xml.contains('begin="p-target.click"'), xml)
+        assertTrue(xml.contains('end="p-target.end"'), xml)
+    }
+
+    @Test
     void clonePreservesTextForeignAndMetadataChildren() {
         Svg svg = SvgReader.parse('''<svg xmlns="http://www.w3.org/2000/svg">
           <text>Hello <tspan>world</tspan>!</text>

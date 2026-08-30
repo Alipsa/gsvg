@@ -19,6 +19,17 @@ class SvgFormatterTest {
     }
 
     @Test
+    void preservesSelfClosingTagsForXhtmlVoidElements() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><div xmlns="http://www.w3.org/1999/xhtml">a<br/>b<img src="x"/></div></foreignObject></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('a<br/>b<img src="x"/>'), formatted)
+        assertFalse(formatted.contains('</br>'), formatted)
+        assertFalse(formatted.contains('</img>'), formatted)
+    }
+
+    @Test
     void preservesCdataOnlyStyleElements() {
         Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style><![CDATA[#a > #b { fill: red }]]></style></svg>')
 

@@ -85,6 +85,18 @@ class SvgCloneTest {
   }
 
   @Test
+  void testClonePreservesRootNamespaceDeclarations() {
+    Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"><use xlink:href="#target"/></svg>')
+
+    Svg copy = svg.clone()
+    String xml = copy.toXml()
+
+    assertTrue(xml.contains('xmlns:svg="http://www.w3.org/2000/svg"'), xml)
+    assertTrue(xml.contains('xmlns:xlink="http://www.w3.org/1999/xlink"'), xml)
+    assertTrue(xml.contains('xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"'), xml)
+  }
+
+  @Test
   void testClonePreservesDocumentLevelComments() {
     Svg svg = SvgReader.parse('<!--generator--><svg xmlns="http://www.w3.org/2000/svg"><rect/></svg>')
 

@@ -120,6 +120,7 @@ class SvgIdRewriter {
       String rewritten = selector
       replacements.each { String id, String replacement ->
         rewritten = rewritten.replaceAll("#${Pattern.quote(id)}(?![A-Za-z0-9_-])", Matcher.quoteReplacement("#${replacement}"))
+        rewritten = rewritten.replaceAll("(\\[\\s*id\\s*=\\s*(['\\\"]))${Pattern.quote(id)}(\\2\\s*\\])", '\\$1' + Matcher.quoteReplacement(replacement) + '\\$3')
       }
       rewritten + brace
     }
@@ -171,6 +172,11 @@ class SvgIdRewriter {
         if (result == "#${id}") {
           result = "#${replacement}"
         }
+      }
+    }
+    if (attribute.qualifiedName == 'begin' || attribute.qualifiedName == 'end') {
+      replacements.each { String id, String replacement ->
+        result = result.replaceAll("(?<![A-Za-z0-9_-])${Pattern.quote(id)}(?=\\.)", Matcher.quoteReplacement(replacement))
       }
     }
     result
