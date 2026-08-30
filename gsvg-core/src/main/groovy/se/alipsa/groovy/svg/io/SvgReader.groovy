@@ -328,17 +328,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    */
   static Svg parse(String content) {
     try (StringReader reader = new StringReader(content)) {
-      Svg svg = parse(reader)
-      def matcher = (content =~ /(?s)^\s*((?:<!--.*?-->\s*)+)/)
-      if (matcher.find() && !SvgWriter.toXml(svg).contains('<!--')) {
-        List<String> comments = []
-        def commentMatcher = (matcher.group(1) =~ /(?s)<!--(.*?)-->/)
-        while (commentMatcher.find()) {
-          comments << commentMatcher.group(1)
-        }
-        addPreRootComments(svg, comments)
-      }
-      return svg
+      return parse(reader)
     }
   }
 

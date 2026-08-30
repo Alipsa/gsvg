@@ -83,18 +83,26 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     copy.documentPrecision = this.documentPrecision
     copyRootAttributesAndNamespaces(copy)
     SvgElementFactory.copyChildren(this, copy)
-    int insertionIndex = 0
+    Map<Element, Element> copiedChildren = [:]
+    List<Element> sourceElements = element.elements()
+    List<Element> targetElements = copy.element.elements()
+    sourceElements.eachWithIndex { Element child, int index -> copiedChildren[child] = targetElements[index] }
+    copy.element.content().clear()
     element.content().each { Object node ->
+      if (node instanceof Namespace) {
+        return
+      }
       if (node instanceof Element) {
-        insertionIndex++
+        Element copiedElement = copiedChildren[node as Element]
+        copy.element.add(copiedElement ?: (node as Element).createCopy())
       } else {
-        copy.element.content().add(insertionIndex++, ((node as org.dom4j.Node).clone() as org.dom4j.Node))
+        copy.element.content().add(((node as org.dom4j.Node).clone() as org.dom4j.Node))
       }
     }
     List documentContent = new ArrayList(getDocument().content())
     int rootIndex = documentContent.indexOf(element)
-    List<Comment> preRootComments = documentContent.take(rootIndex).findAll { it instanceof Comment } as List<Comment>
-    List<Comment> postRootComments = documentContent.drop(rootIndex + 1).findAll { it instanceof Comment } as List<Comment>
+    List<Comment> preRootComments = rootIndex >= 0 ? documentContent.take(rootIndex).findAll { it instanceof Comment } as List<Comment> : []
+    List<Comment> postRootComments = rootIndex >= 0 ? documentContent.drop(rootIndex + 1).findAll { it instanceof Comment } as List<Comment> : []
     if (!preRootComments.isEmpty() || !postRootComments.isEmpty()) {
       copy.getDocument().remove(copy.element)
       Document copyDocument = DocumentHelper.createDocument()

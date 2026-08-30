@@ -361,6 +361,7 @@ class SvgOptimizer {
 
                 if (element instanceof Style) {
                     collectUrlReferences(element.element.text, ids)
+                    collectCssIdReferences(element.element.text, ids)
                 }
 
                 if (element instanceof ElementContainer) {
@@ -379,6 +380,14 @@ class SvgOptimizer {
             matcher.each {
                 ids.add(it[1])
             }
+        }
+    }
+
+    /** Collects IDs referenced by CSS selectors. */
+    private static void collectCssIdReferences(String value, Set<String> ids) {
+        if (value) {
+            def matcher = (value =~ /#([A-Za-z_][A-Za-z0-9_-]*)/)
+            matcher.each { ids.add(it[1]) }
         }
     }
 }

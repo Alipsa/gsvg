@@ -45,6 +45,9 @@ class SvgFormatter {
     /** Appends document-level comments before or after the root element. */
     private static void appendDocumentComments(Svg svg, StringBuilder sb, String newline, boolean beforeRoot) {
         int rootIndex = svg.document.content().indexOf(svg.element)
+        if (rootIndex < 0) {
+            return
+        }
         svg.document.content().eachWithIndex { Object node, int index ->
             if (node instanceof org.dom4j.Comment && (beforeRoot ? index < rootIndex : index > rootIndex)) {
                 sb.append('<!--')
@@ -187,6 +190,10 @@ class SvgFormatter {
                 SvgElement child = wrappers[node as org.dom4j.Element]
                 if (child != null) {
                     formatElement(child, sb, depth + 1, indent, newline, sortAttrs, groupElems, namespaces)
+                } else {
+                    sb.append(indent * (depth + 1))
+                    appendInlineElement(node as org.dom4j.Element, sb, sortAttrs, namespaces)
+                    sb.append(newline)
                 }
             }
         }

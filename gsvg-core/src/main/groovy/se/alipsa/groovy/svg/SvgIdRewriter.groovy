@@ -107,7 +107,7 @@ class SvgIdRewriter {
     String result = rewriteUrlReferences(css, replacements)
     result = rewriteCssSelectors(result, replacements)
     keyframes.each { String name, String replacement ->
-      result = result.replaceAll("(@keyframes\\s+)${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", "\$1${replacement}")
+      result = result.replaceAll("(@keyframes\\s+)${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", '\$1' + java.util.regex.Matcher.quoteReplacement(replacement))
     }
     rewriteAnimationReferences(result, keyframes)
   }
@@ -116,7 +116,7 @@ class SvgIdRewriter {
     css.replaceAll(/([^{}]+)(\{)/) { String match, String selector, String brace ->
       String rewritten = selector
       replacements.each { String id, String replacement ->
-        rewritten = rewritten.replaceAll("#${java.util.regex.Pattern.quote(id)}(?![A-Za-z0-9_-])", "#${replacement}")
+        rewritten = rewritten.replaceAll("#${java.util.regex.Pattern.quote(id)}(?![A-Za-z0-9_-])", java.util.regex.Matcher.quoteReplacement("#${replacement}"))
       }
       rewritten + brace
     }
@@ -130,7 +130,7 @@ class SvgIdRewriter {
     while (matcher.find()) {
       String value = matcher.group(2)
       keyframes.each { String name, String replacement ->
-        value = value.replaceAll("(?<![A-Za-z0-9_-])${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", replacement)
+        value = value.replaceAll("(?<![A-Za-z0-9_-])${java.util.regex.Pattern.quote(name)}(?![A-Za-z0-9_-])", java.util.regex.Matcher.quoteReplacement(replacement))
       }
       matcher.appendReplacement(result, java.util.regex.Matcher.quoteReplacement(matcher.group(1) + value))
     }
@@ -177,7 +177,7 @@ class SvgIdRewriter {
     String result = value
     replacements.keySet().sort { String left, String right -> right.length() <=> left.length() }.each { String id ->
       String replacement = replacements[id]
-      result = result.replaceAll("url\\(\\s*(['\\\"]?)#${java.util.regex.Pattern.quote(id)}\\1\\s*\\)", "url(#${replacement})")
+      result = result.replaceAll("url\\(\\s*(['\\\"]?)#${java.util.regex.Pattern.quote(id)}\\1\\s*\\)", java.util.regex.Matcher.quoteReplacement("url(#${replacement})"))
     }
     result
   }

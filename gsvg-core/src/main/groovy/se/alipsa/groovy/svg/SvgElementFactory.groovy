@@ -192,11 +192,10 @@ class SvgElementFactory {
    * @return the copied element
    */
   static <T extends SvgElement> T deepCopy(T source, AbstractElementContainer newParent) {
-    Element clonedElement = source.element.createCopy()
-    SvgElement result = fromOwnedElement(newParent, clonedElement, source.getClass())
+    SvgElement result = fromOwnedElement(newParent, source.element, source.getClass())
 
     if (result == null) {
-      newParent.element.add(clonedElement)
+      newParent.element.add(source.element.createCopy())
       return null
     }
 
