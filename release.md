@@ -11,6 +11,7 @@
 - `SvgMerger` keeps existing IDs by default; use `mergeHorizontallyNamespaced`, `mergeVerticallyNamespaced`, or `mergeOnTopNamespaced` when merging documents that may contain colliding IDs.
 - All `SvgMerger` methods return a new SVG for a single input as well as multiple inputs; mutating a merge result no longer mutates its input.
 - `SvgReader` now preserves XML comments during parse and serialize round trips. `SvgOptimizer` honors its documented `removeComments` option (enabled by default) to remove them from optimized output.
+- For secure parsing, `SvgReader` rejects XML documents containing a `DOCTYPE` declaration.
 
 ```groovy
 String inlineSvg = SvgWriter.toXml(chart.render(), 'report-1-')

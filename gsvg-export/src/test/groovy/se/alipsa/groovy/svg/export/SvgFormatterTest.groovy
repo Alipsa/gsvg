@@ -9,6 +9,16 @@ import static org.junit.jupiter.api.Assertions.*
 class SvgFormatterTest {
 
     @Test
+    void preservesExplicitClosingTagForEmptyXhtmlElements() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><div xmlns="http://www.w3.org/1999/xhtml"></div></foreignObject></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+        assertTrue(formatted.contains('<div'))
+        assertTrue(formatted.contains('</div>'))
+        assertFalse(formatted.contains('<div/>'))
+    }
+
+    @Test
     void preservesCdataOnlyStyleElements() {
         Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style><![CDATA[#a > #b { fill: red }]]></style></svg>')
 

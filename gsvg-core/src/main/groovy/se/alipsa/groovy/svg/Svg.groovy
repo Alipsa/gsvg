@@ -84,7 +84,11 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
     copyRootAttributesAndNamespaces(copy)
     SvgElementFactory.copyChildren(this, copy)
     Map<Element, Element> copiedChildren = [:]
-    children.eachWithIndex { SvgElement child, int index -> copiedChildren[child.element] = copy.children[index].element }
+    children.eachWithIndex { SvgElement child, int index ->
+      if (index < copy.children.size()) {
+        copiedChildren[child.element] = copy.children[index].element
+      }
+    }
     copy.element.content().clear()
     element.content().each { Object node ->
       if (node instanceof Namespace) {

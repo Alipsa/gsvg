@@ -3,6 +3,9 @@ package se.alipsa.groovy.svg
 import groovy.transform.CompileStatic
 import org.dom4j.Attribute
 import org.dom4j.Element
+import java.util.Set
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /** Rewrites SVG ids and the references that target them. */
 @CompileStatic
@@ -21,18 +24,18 @@ class SvgIdRewriter {
       return element
     }
     Map<String, String> replacements = new LinkedHashMap<>()
-    java.util.Set<String> existingIds = new LinkedHashSet<>()
+    Set<String> existingIds = new LinkedHashSet<>()
     collectExistingIds(element.element, existingIds)
     collectIds(element.element, prefix, replacements, existingIds)
     Map<String, String> keyframes = new LinkedHashMap<>()
-    java.util.Set<String> existingKeyframes = new LinkedHashSet<>()
+    Set<String> existingKeyframes = new LinkedHashSet<>()
     collectExistingKeyframes(element.element, existingKeyframes)
     collectKeyframes(element.element, prefix, keyframes, existingKeyframes)
     rewrite(element.element, replacements, keyframes)
     element
   }
 
-  private static void collectExistingIds(Element element, java.util.Set<String> ids) {
+  private static void collectExistingIds(Element element, Set<String> ids) {
     String id = element.attributeValue('id')
     if (id != null) {
       ids.add(id)
@@ -40,7 +43,7 @@ class SvgIdRewriter {
     element.elements().each { Element child -> collectExistingIds(child, ids) }
   }
 
-  private static void collectIds(Element element, String prefix, Map<String, String> replacements, java.util.Set<String> existingIds) {
+  private static void collectIds(Element element, String prefix, Map<String, String> replacements, Set<String> existingIds) {
     String id = element.attributeValue('id')
     if (id != null && !id.startsWith(prefix)) {
       String replacement = prefix + id
@@ -56,7 +59,7 @@ class SvgIdRewriter {
     element.elements().each { Element child -> collectIds(child, prefix, replacements, existingIds) }
   }
 
-  private static void collectExistingKeyframes(Element element, java.util.Set<String> keyframes) {
+  private static void collectExistingKeyframes(Element element, Set<String> keyframes) {
     if (element.name == 'style') {
       java.util.regex.Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
@@ -124,7 +127,7 @@ class SvgIdRewriter {
   }
 
   private static String rewriteAnimationReferences(String css, Map<String, String> keyframes) {
-    java.util.regex.Matcher matcher = java.util.regex.Pattern
+    Matcher matcher = Pattern
         .compile('(?i)(animation(?:-name)?\\s*:\\s*)([^;{}]*)')
         .matcher(css)
     StringBuffer result = new StringBuffer()
