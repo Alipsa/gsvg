@@ -111,6 +111,7 @@ class SvgFormatter {
             sb.append('"')
         }
 
+        def children = (element as ElementContainer).children
         boolean hasChildren = element instanceof ElementContainer &&
                 !(element as ElementContainer).children.isEmpty()
         String textContent = element.element.getText()
@@ -127,7 +128,6 @@ class SvgFormatter {
             sb.append('>')
 
             def container = element as ElementContainer
-            def children = container.children
 
             // Keep text-only elements (for example title, text, and style) on one line.
             boolean simpleContent = children.isEmpty() && hasTextContent && !hasComment && !hasCdata
