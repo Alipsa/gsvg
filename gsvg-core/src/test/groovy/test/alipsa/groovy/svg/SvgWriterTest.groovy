@@ -78,7 +78,7 @@ class SvgWriterTest {
         svg.addRect(20, 20).addAttribute('clip-path', 'url(#clip)')
         svg.addStyle().addContent('''
           #clip { fill: red; }
-          @keyframes fade { from { opacity: 0; } }
+          @KEYFRAMES fade { from { opacity: 0; } }
           .mark { animation: fade 1s; animation-name: fade; }
         '''.stripIndent())
 
@@ -87,7 +87,7 @@ class SvgWriterTest {
         assertTrue(xml.contains('id="nb-clip"'))
         assertTrue(xml.contains('url(#nb-clip)'))
         assertTrue(xml.contains('#nb-clip {'))
-        assertTrue(xml.contains('@keyframes nb-fade'))
+        assertTrue(xml.contains('@KEYFRAMES nb-fade'))
         assertTrue(xml.contains('animation: nb-fade 1s'))
         assertFalse(SvgWriter.toXml(svg).contains('nb-clip'))
     }

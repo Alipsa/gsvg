@@ -328,7 +328,7 @@ class SvgOptimizer {
      * Collects all referenced IDs in the SVG.
      */
     private static java.util.Set<String> collectUsedIds(ElementContainer container) {
-        Set<String> ids = new HashSet<>()
+        java.util.Set<String> ids = new HashSet<>()
 
         container.children.each { element ->
             if (element instanceof SvgElement) {
