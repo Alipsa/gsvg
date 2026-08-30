@@ -9,9 +9,9 @@ This guide provides a minimal smoke-test plan to verify gsvg works inside popula
 ```groovy
 // build.gradle
 dependencies {
-  implementation "se.alipsa.groovy:gsvg:1.1.0"
+  implementation "se.alipsa.groovy:gsvg:1.2.0"
   // Optional: rendering/export helpers
-  // implementation "se.alipsa.groovy:gsvg-export:1.1.0"
+  // implementation "se.alipsa.groovy:gsvg-export:1.2.0"
 }
 ```
 
@@ -54,7 +54,7 @@ Browse to `http://localhost:8080/svg` (adjust for your URL mapping) and confirm 
 dependencies {
   implementation "org.apache.groovy:groovy:5.0.6"
   implementation "io.ratpack:ratpack-groovy:<your-version>"
-  implementation "se.alipsa.groovy:gsvg:1.1.0"
+  implementation "se.alipsa.groovy:gsvg:1.2.0"
 }
 ```
 

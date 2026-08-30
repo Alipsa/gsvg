@@ -7,9 +7,9 @@ This project provides a Groovy-friendly object model for creating, parsing, and 
 Gradle:
 ```groovy
 implementation "org.apache.groovy:groovy:5.0.6"
-implementation "se.alipsa.groovy:gsvg:1.1.0"
+implementation "se.alipsa.groovy:gsvg:1.2.0"
 // Optional rendering/export module
-implementation "se.alipsa.groovy:gsvg-export:1.1.0"
+implementation "se.alipsa.groovy:gsvg-export:1.2.0"
 ```
 
 Maven:
@@ -22,12 +22,12 @@ Maven:
 <dependency>
   <groupId>se.alipsa.groovy</groupId>
   <artifactId>gsvg</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 <dependency>
   <groupId>se.alipsa.groovy</groupId>
   <artifactId>gsvg-export</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 

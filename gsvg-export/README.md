@@ -6,7 +6,7 @@ Export and transformation module for the [gsvg](../readme.md) library. Provides 
 
 Gradle:
 ```groovy
-implementation("se.alipsa.groovy:gsvg-export:1.1.0")
+implementation("se.alipsa.groovy:gsvg-export:1.2.0")
 ```
 
 Maven:
@@ -14,7 +14,7 @@ Maven:
 <dependency>
     <groupId>se.alipsa.groovy</groupId>
     <artifactId>gsvg-export</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 

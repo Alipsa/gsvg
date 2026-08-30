@@ -21,11 +21,13 @@ groovy src/main/groovy/examples/10-practical-use-cases/Example01ExportFormats.gr
 
 ## Running All Examples via Maven
 
-Use the `run-examples` profile to execute all scripts in one go. Outputs are written to `target/examples-output` and removed with `mvn clean`.
+Use the repository script to execute all scripts in one go. Outputs are written to `target/examples-output` and removed with `mvn clean`.
 
 ```bash
-mvn -pl gsvg-examples -am -Prun-examples verify
+./scripts/verify-examples.sh
 ```
+
+It invokes Maven's `run-examples` profile, which discovers each `.groovy` file under `src/main/groovy/examples`, excluding shared helpers and the runner itself. Maven arguments can be passed through, for example `./scripts/verify-examples.sh -o`.
 
 ## Build Notes
 

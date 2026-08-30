@@ -1,8 +1,8 @@
 import groovy.transform.Field
 import groovy.transform.SourceURI
 
-@Grab('se.alipsa.groovy:gsvg:1.1.0')
-@Grab('se.alipsa.groovy:gsvg-export:1.1.0')
+@Grab('se.alipsa.groovy:gsvg:1.2.0')
+@Grab('se.alipsa.groovy:gsvg-export:1.2.0')
 
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.utils.PathBuilder
