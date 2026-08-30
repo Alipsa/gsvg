@@ -23,18 +23,18 @@ class SvgIdRewriter {
       return element
     }
     Map<String, String> replacements = new LinkedHashMap<>()
-    Set<String> existingIds = new LinkedHashSet<>()
+    java.util.Set<String> existingIds = [] as java.util.Set<String>
     collectExistingIds(element.element, existingIds)
     collectIds(element.element, prefix, replacements, existingIds)
     Map<String, String> keyframes = new LinkedHashMap<>()
-    Set<String> existingKeyframes = new LinkedHashSet<>()
+    java.util.Set<String> existingKeyframes = [] as java.util.Set<String>
     collectExistingKeyframes(element.element, existingKeyframes)
     collectKeyframes(element.element, prefix, keyframes, existingKeyframes)
     rewrite(element.element, replacements, keyframes)
     element
   }
 
-  private static void collectExistingIds(Element element, Set<String> ids) {
+  private static void collectExistingIds(Element element, java.util.Set<String> ids) {
     String id = element.attributeValue('id')
     if (id != null) {
       ids.add(id)
@@ -42,7 +42,7 @@ class SvgIdRewriter {
     element.elements().each { Element child -> collectExistingIds(child, ids) }
   }
 
-  private static void collectIds(Element element, String prefix, Map<String, String> replacements, Set<String> existingIds) {
+  private static void collectIds(Element element, String prefix, Map<String, String> replacements, java.util.Set<String> existingIds) {
     String id = element.attributeValue('id')
     if (id != null && !id.startsWith(prefix)) {
       String replacement = prefix + id
@@ -58,7 +58,7 @@ class SvgIdRewriter {
     element.elements().each { Element child -> collectIds(child, prefix, replacements, existingIds) }
   }
 
-  private static void collectExistingKeyframes(Element element, Set<String> keyframes) {
+  private static void collectExistingKeyframes(Element element, java.util.Set<String> keyframes) {
     if (element.name == 'style') {
       Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
@@ -69,7 +69,7 @@ class SvgIdRewriter {
   }
 
   private static void collectKeyframes(Element element, String prefix, Map<String, String> keyframes,
-      Set<String> existingKeyframes) {
+      java.util.Set<String> existingKeyframes) {
     if (element.name == 'style') {
       Matcher matcher = (element.text =~ /@keyframes\s+([A-Za-z_][A-Za-z0-9_-]*)/)
       while (matcher.find()) {
