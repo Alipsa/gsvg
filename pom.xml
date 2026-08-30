@@ -6,7 +6,7 @@
 
   <groupId>se.alipsa.groovy</groupId>
   <artifactId>gsvg-parent</artifactId>
-  <version>1.1.0</version>
+  <version>${revision}</version>
   <packaging>pom</packaging>
 
   <name>gsvg Parent</name>
@@ -40,11 +40,12 @@
     <url>https://github.com/Alipsa/gsvg/tree/main/</url>
     <connection>scm:git:https://github.com/Alipsa/gsvg.git</connection>
     <developerConnection>scm:git:https://github.com/Alipsa/gsvg.git</developerConnection>
-    <tag>v1.1.0</tag>
+    <tag>v${project.version}</tag>
   </scm>
 
   <!-- Centralized properties -->
   <properties>
+    <revision>1.2.0</revision>
     <java.version>17</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -52,12 +53,12 @@
 
     <!-- Dependency versions -->
     <extra-enforcer-rules.version>1.12.0</extra-enforcer-rules.version>
-    <groovy.version>5.0.6</groovy.version>
-    <junit.version>6.0.3</junit.version>
+    <groovy.version>5.1.1</groovy.version>
+    <junit.version>6.1.3</junit.version>
     <dom4j.version>2.2.0</dom4j.version>
-    <jaxen.version>2.0.1</jaxen.version>
+    <jaxen.version>2.0.6</jaxen.version>
     <jmh.version>1.37</jmh.version>
-    <ph-css.version>8.2.0</ph-css.version>
+    <ph-css.version>8.2.1</ph-css.version>
 
     <!-- Plugin versions -->
     <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
@@ -65,6 +66,7 @@
     <gmavenplus-plugin.version>4.3.1</gmavenplus-plugin.version>
     <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
     <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+    <flatten-maven-plugin.version>1.8.0</flatten-maven-plugin.version>
     <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
     <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     <maven-antrun-plugin.version>3.2.0</maven-antrun-plugin.version>
@@ -132,6 +134,11 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>flatten-maven-plugin</artifactId>
+          <version>${flatten-maven-plugin.version}</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
@@ -254,6 +261,29 @@
     <!-- Parent-level plugins (all modules) -->
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <configuration>
+          <flattenMode>resolveCiFriendliesOnly</flattenMode>
+          <updatePomFile>true</updatePomFile>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <executions>
@@ -283,7 +313,29 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
         <configuration>
-          <rulesUri>file://${maven.multiModuleProjectDirectory}/version-plugin-rules.xml</rulesUri>
+          <ignoredVersions>
+            <ignoredVersion>.*-preview</ignoredVersion>
+            <ignoredVersion>(?i).*[._+-](alpha|b|beta|rc|m|ea|pr).*</ignoredVersion>
+            <ignoredVersion>.*jre6</ignoredVersion>
+            <ignoredVersion>.*jre7</ignoredVersion>
+            <ignoredVersion>.*jre8</ignoredVersion>
+            <ignoredVersion>.*jre9</ignoredVersion>
+            <ignoredVersion>.*jre10</ignoredVersion>
+            <ignoredVersion>.*jre11</ignoredVersion>
+            <ignoredVersion>.*jre12</ignoredVersion>
+            <ignoredVersion>.*jre13</ignoredVersion>
+            <ignoredVersion>.*jre14</ignoredVersion>
+            <ignoredVersion>.*jre15</ignoredVersion>
+            <ignoredVersion>.*jre16</ignoredVersion>
+            <ignoredVersion>.*jre18</ignoredVersion>
+            <ignoredVersion>.*jre19</ignoredVersion>
+            <ignoredVersion>.*jre20</ignoredVersion>
+            <ignoredVersion>.*jre21</ignoredVersion>
+            <ignoredVersion>.*jre22</ignoredVersion>
+            <ignoredVersion>.*jre23</ignoredVersion>
+            <ignoredVersion>.*jre24</ignoredVersion>
+            <ignoredVersion>.*jre25</ignoredVersion>
+          </ignoredVersions>
         </configuration>
       </plugin>
     </plugins>
@@ -315,6 +367,7 @@
                     <argument>-rulesetfiles=file:${maven.multiModuleProjectDirectory}/config/codenarc/ruleset.groovy</argument>
                     <argument>-includes=**/src/main/groovy/**/*.groovy,**/src/test/groovy/**/*.groovy</argument>
                     <argument>-excludes=**/target/**</argument>
+                    <argument>-report=html:${project.build.directory}/CodeNarcReport.html</argument>
                   </arguments>
                   <includeProjectDependencies>false</includeProjectDependencies>
                   <includePluginDependencies>true</includePluginDependencies>

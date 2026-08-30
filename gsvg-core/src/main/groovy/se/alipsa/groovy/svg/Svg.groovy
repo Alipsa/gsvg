@@ -9,6 +9,7 @@ import org.dom4j.Namespace
 import groovy.transform.CompileStatic
 import org.dom4j.Document
 import org.dom4j.DocumentHelper
+import org.dom4j.Comment
 import se.alipsa.groovy.svg.presets.Shapes
 import se.alipsa.groovy.svg.utils.ViewBox
 import se.alipsa.groovy.svg.validation.ValidationEngine
@@ -80,8 +81,35 @@ class Svg extends AbstractElementContainer<Svg> implements GradientContainer, An
   Svg clone() {
     Svg copy = new Svg()
     copy.documentPrecision = this.documentPrecision
+    Map<Element, Element> copiedChildren = SvgElementFactory.copyChildren(this, copy)
+    copy.element.content().clear()
+    element.content().each { Object node ->
+      if (node instanceof Namespace) {
+        return
+      }
+      if (node instanceof Element) {
+        Element copiedElement = copiedChildren[node as Element]
+        copy.element.add(copiedElement ?: (node as Element).createCopy())
+      } else {
+        copy.element.content().add(((node as org.dom4j.Node).clone() as org.dom4j.Node))
+      }
+    }
     copyRootAttributesAndNamespaces(copy)
-    SvgElementFactory.copyChildren(this, copy)
+    Document document = getDocument()
+    if (document == null) {
+      return copy
+    }
+    List documentContent = new ArrayList(document.content())
+    int rootIndex = documentContent.indexOf(element)
+    List<Comment> preRootComments = rootIndex >= 0 ? documentContent.take(rootIndex).findAll { it instanceof Comment } as List<Comment> : []
+    List<Comment> postRootComments = rootIndex >= 0 ? documentContent.drop(rootIndex + 1).findAll { it instanceof Comment } as List<Comment> : []
+    if (!preRootComments.isEmpty() || !postRootComments.isEmpty()) {
+      copy.getDocument().remove(copy.element)
+      Document copyDocument = DocumentHelper.createDocument()
+      preRootComments.each { Comment comment -> copyDocument.addComment(comment.text) }
+      copyDocument.add(copy.element)
+      postRootComments.each { Comment comment -> copyDocument.addComment(comment.text) }
+    }
     copy
   }
 

@@ -24,26 +24,30 @@ class SvgElementFactory {
    * @param element the DOM4J element to convert
    * @return the created SvgElement
    */
-  static SvgElement fromElement(AbstractElementContainer parent, Element element) {
+  static SvgElement fromElement(SvgElement parent, Element element) {
+    fromOwnedElement(parent, element.createCopy())
+  }
+
+  /** Builds wrappers around an already-owned element tree without copying it again. */
+  private static SvgElement fromOwnedElement(SvgElement parent, Element element) {
+    fromOwnedElement(parent, element, null)
+  }
+
+  /** Builds wrappers around an owned element tree, retaining a root wrapper type when needed. */
+  private static SvgElement fromOwnedElement(SvgElement parent, Element element, Class sourceType) {
     String name = element.getName()
-    SvgElement result = createElement(parent, element, name)
+    SvgElement result = SvgElement.withAdoptedElement { createElement(parent, element, name, sourceType) }
 
     if (result == null) {
-      // Unknown element - fall back to generic handling
-      // For now, just return null and let caller handle
       return null
     }
 
     // Add to parent's children list
     parent.add(result)
 
-    // Recursively process children if this is a container
-    if (result instanceof AbstractElementContainer) {
-      AbstractElementContainer container = result as AbstractElementContainer
-      element.elements().each { Element childElement ->
-        fromElement(container, childElement)
-      }
-    }
+    // Every SvgElement implements ElementContainer, including text and foreign
+    // content elements, so all child wrappers must be rebuilt.
+    result.element.elements().each { Element childElement -> fromOwnedElement(result, childElement) }
 
     return result
   }
@@ -57,7 +61,13 @@ class SvgElementFactory {
    * @param name the element name
    * @return the created SvgElement or null if not supported
    */
-  private static SvgElement createElement(SvgElement parent, Element element, String name) {
+  private static SvgElement createElement(SvgElement parent, Element element, String name, Class sourceType) {
+    if (sourceType != null && MetadataElement.isAssignableFrom(sourceType)) {
+      return new MetadataElement(parent, element)
+    }
+    if (sourceType != null && ForeignElement.isAssignableFrom(sourceType)) {
+      return new ForeignElement(parent, element)
+    }
     switch (name) {
       // Shape elements (7)
       case Circle.NAME: return new Circle(parent, element)
@@ -67,6 +77,7 @@ class SvgElementFactory {
       case Polygon.NAME: return new Polygon(parent, element)
       case Polyline.NAME: return new Polyline(parent, element)
       case Rect.NAME: return new Rect(parent, element)
+      case Svg.NAME: return new Svg(parent, element)
 
       // Container elements (10)
       case A.NAME: return new A(parent, element)
@@ -166,7 +177,14 @@ class SvgElementFactory {
       case Video.NAME: return new Video(parent, element)
       case View.NAME: return new View(parent, element)
 
-      default: return null
+      default:
+        if (parent instanceof Metadata || parent instanceof MetadataElement) {
+          return new MetadataElement(parent, element)
+        }
+        if (parent instanceof ExternalElementContainer) {
+          return new ForeignElement(parent, element)
+        }
+        return null
     }
   }
 
@@ -179,13 +197,10 @@ class SvgElementFactory {
    * @return the copied element
    */
   static <T extends SvgElement> T deepCopy(T source, AbstractElementContainer newParent) {
-    // Create appropriate SvgElement wrapper with recursion
-    SvgElement result = fromElement(newParent, source.element)
+    Element clonedElement = source.element.createCopy()
+    SvgElement result = fromOwnedElement(newParent, clonedElement, source.getClass())
 
     if (result == null) {
-      // Fall back to adding cloned DOM element directly
-      // This handles elements not yet supported by the factory
-      Element clonedElement = source.element.createCopy()
       newParent.element.add(clonedElement)
       return null
     }
@@ -199,17 +214,18 @@ class SvgElementFactory {
    *
    * @param source the source container
    * @param target the target container
+   * @return DOM element copies keyed by their source child element
    */
-  static void copyChildren(AbstractElementContainer source, AbstractElementContainer target) {
+  static Map<Element, Element> copyChildren(AbstractElementContainer source, AbstractElementContainer target) {
+    Map<Element, Element> copiedChildren = [:]
     for (SvgElement child : source.getChildren()) {
-      SvgElement copied = deepCopy(child, target)
-
-      // If deepCopy returned null (unsupported element type),
-      // fall back to direct DOM cloning
-      if (copied == null) {
-        Element cloned = child.element.createCopy()
-        target.element.add(cloned)
+      Element clonedElement = child.element.createCopy()
+      SvgElement result = fromOwnedElement(target, clonedElement, child.getClass())
+      if (result == null) {
+        target.element.add(clonedElement)
       }
+      copiedChildren[child.element] = clonedElement
     }
+    copiedChildren
   }
 }

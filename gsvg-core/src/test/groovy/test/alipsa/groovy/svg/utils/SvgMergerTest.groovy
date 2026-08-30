@@ -13,6 +13,32 @@ import static org.junit.jupiter.api.Assertions.*
 class SvgMergerTest {
 
   @Test
+  void mergePrefixesIdsToAvoidReferenceCollisions() {
+    Svg first = new Svg(10, 10)
+    first.addDefs().addLinearGradient().id('gradient')
+    first.addRect(10, 10).fill('url(#gradient)')
+    Svg second = new Svg(10, 10)
+    second.addDefs().addLinearGradient().id('gradient')
+    second.addRect(10, 10).fill('url(#gradient)')
+
+    Svg merged = SvgMerger.mergeHorizontallyNamespaced(first, second)
+    String xml = merged.toXml()
+
+    assertTrue(xml.contains('id="merge-0-gradient"'))
+    assertTrue(xml.contains('id="merge-1-gradient"'))
+    assertTrue(xml.contains('url(#merge-0-gradient)'))
+    assertTrue(xml.contains('url(#merge-1-gradient)'))
+  }
+
+  @Test
+  void defaultMergeLeavesExistingIdsUnchanged() {
+    Svg svg = new Svg(10, 10)
+    svg.addRect(10, 10).id('logo')
+
+    assertTrue(SvgMerger.mergeHorizontally(svg, new Svg(10, 10)).toXml().contains('id="logo"'))
+  }
+
+  @Test
   void testMergeHorizontallyEmpty() {
     Svg result = SvgMerger.mergeHorizontally()
     assertNotNull(result)
@@ -25,7 +51,7 @@ class SvgMergerTest {
     svg.addCircle()
 
     Svg result = SvgMerger.mergeHorizontally(svg)
-    assertSame(svg, result)
+    assertNotSame(svg, result)
   }
 
   @Test
@@ -76,7 +102,7 @@ class SvgMergerTest {
     svg.addCircle()
 
     Svg result = SvgMerger.mergeVertically(svg)
-    assertSame(svg, result)
+    assertNotSame(svg, result)
   }
 
   @Test
@@ -232,7 +258,7 @@ class SvgMergerTest {
     svg.addCircle()
 
     Svg result = SvgMerger.mergeOnTop(svg)
-    assertSame(svg, result)
+    assertNotSame(svg, result)
   }
 
   @Test

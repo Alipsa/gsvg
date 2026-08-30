@@ -2,10 +2,66 @@ package se.alipsa.groovy.svg.export
 
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.io.SvgWriter
 
 import static org.junit.jupiter.api.Assertions.*
 
 class SvgOptimizerTest {
+
+    @Test
+    void removesParsedCommentsByDefaultAndCanRetainThem() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><!--comment--><rect width="1" height="1"/></svg>')
+
+        assertFalse(SvgOptimizer.optimize(svg).toXml().contains('<!--comment-->'))
+        assertTrue(SvgOptimizer.optimize(svg, [removeComments: false]).toXml().contains('<!--comment-->'))
+    }
+
+    @Test
+    void doesNotCollapseGroupsThatContainComments() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><!--top--><g><!--in--><rect id="a"/></g></svg>')
+
+        SvgOptimizer.optimizeInPlace(svg, [removeComments: false, collapseGroups: true])
+
+        assertTrue(svg.toXml().contains('<g><!--in--><rect id="a"/></g>'))
+    }
+
+    @Test
+    void handlesDocumentLevelCommentsAccordingToRemoveComments() {
+        Svg svg = SvgReader.parse('<!--generator--><svg xmlns="http://www.w3.org/2000/svg"><!--inner--><rect/></svg>')
+
+        assertTrue(SvgWriter.toXml(SvgOptimizer.optimize(svg, [removeComments: false])).contains('<!--generator-->'))
+        assertTrue(SvgWriter.toXml(SvgOptimizer.optimize(svg, [removeComments: false])).contains('<!--inner-->'))
+        assertFalse(SvgWriter.toXml(SvgOptimizer.optimize(svg)).contains('<!--generator-->'))
+
+        SvgOptimizer.optimizeInPlace(svg, [:])
+        assertFalse(SvgWriter.toXml(svg).contains('<!--generator-->'))
+    }
+
+    @Test
+    void keepsDefinitionsReferencedFromStyleContent() {
+        Svg svg = new Svg(100, 100)
+        Defs defs = svg.addDefs()
+        defs.addLinearGradient().id('gradient')
+        svg.addStyle().addContent('.shape { fill: url(#gradient); }')
+        svg.addRect(10, 10).addClass('shape')
+
+        SvgOptimizer.optimizeInPlace(svg, [removeUnusedDefs: true])
+
+        assertEquals(['gradient'], defs.children.collect { (it as SvgElement).id })
+    }
+
+    @Test
+    void keepsDefinitionsReferencedByWhitespaceDelimitedUrl() {
+        Svg svg = new Svg(100, 100)
+        Defs defs = svg.addDefs()
+        defs.addLinearGradient().id('g1')
+        svg.addRect(10, 10).fill('url( #g1 )')
+
+        SvgOptimizer.optimizeInPlace(svg, [removeUnusedDefs: true])
+
+        assertEquals(['g1'], defs.children.collect { (it as SvgElement).id })
+    }
 
     @Test
     void testOptimizeReturnsNewSvg() {
@@ -16,6 +72,19 @@ class SvgOptimizerTest {
 
         assertNotNull(optimized)
         assertNotSame(original, optimized)
+    }
+
+    @Test
+    void optimizesNestedSvgWithoutIncludingItsOuterDocument() {
+        Svg root = new Svg()
+        root.addRect(1, 1).id('outer')
+        Svg nested = root.addSvg()
+        nested.addRect(1, 1).id('inner')
+
+        String xml = SvgOptimizer.optimize(nested, [removeMetadata: false, removeDefaults: false, removeInvisible: false]).toXml()
+
+        assertTrue(xml.contains('id="inner"'), xml)
+        assertFalse(xml.contains('id="outer"'), xml)
     }
 
     @Test

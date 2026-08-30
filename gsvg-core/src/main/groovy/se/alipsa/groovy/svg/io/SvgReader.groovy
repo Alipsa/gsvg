@@ -25,6 +25,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   SvgElement currentElement
   boolean rootSvgAssigned = false
   boolean isCdataSection = false
+  List<String> documentComments = []
 
   /**
    * Start document.
@@ -128,6 +129,10 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
         if (!rootSvgAssigned) {
           currentElement = svg = new Svg()
           rootSvgAssigned = true
+          if (!documentComments.isEmpty()) {
+            addPreRootComments(svg, documentComments)
+          }
+          documentComments.clear()
         } else {
           currentElement = currentElement.addSvg()
         }
@@ -204,7 +209,7 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
   @Override
   void endElement(String uri, String localName, String qName) throws SAXException {
     //print('end element ' + qName)
-    currentElement = currentElement.getParent()
+    currentElement = currentElement == svg ? null : currentElement.getParent()
     //println(', current element is now ' + currentElement.element.getName())
   }
 
@@ -327,6 +332,14 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
     }
   }
 
+  /** Adds comments before the document root while retaining the existing SVG element. */
+  private static void addPreRootComments(Svg svg, List<String> comments) {
+    svg.document.remove(svg.element)
+    def document = org.dom4j.DocumentHelper.createDocument()
+    comments.each { String comment -> document.addComment(comment) }
+    document.add(svg.element)
+  }
+
   /**
    * Start dtd.
    *
@@ -392,6 +405,12 @@ class SvgReader extends DefaultHandler implements LexicalHandler {
    */
   @Override
   void comment(char[] ch, int start, int length) throws SAXException {
-
+    if (currentElement != null) {
+      currentElement.element.addComment(new String(ch, start, length))
+    } else if (!rootSvgAssigned) {
+      documentComments << new String(ch, start, length)
+    } else if (svg != null) {
+      svg.document.addComment(new String(ch, start, length))
+    }
   }
 }

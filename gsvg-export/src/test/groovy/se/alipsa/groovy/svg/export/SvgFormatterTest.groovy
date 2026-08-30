@@ -2,10 +2,71 @@ package se.alipsa.groovy.svg.export
 
 import org.junit.jupiter.api.Test
 import se.alipsa.groovy.svg.*
+import se.alipsa.groovy.svg.io.SvgReader
 
 import static org.junit.jupiter.api.Assertions.*
 
 class SvgFormatterTest {
+
+    @Test
+    void preservesExplicitClosingTagForEmptyXhtmlElements() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><div xmlns="http://www.w3.org/1999/xhtml"></div></foreignObject></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+        assertTrue(formatted.contains('<div'))
+        assertTrue(formatted.contains('</div>'))
+        assertFalse(formatted.contains('<div/>'))
+    }
+
+    @Test
+    void preservesSelfClosingTagsForXhtmlVoidElements() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><div xmlns="http://www.w3.org/1999/xhtml">a<br/>b<img src="x"/></div></foreignObject></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('a<br/>b<img src="x"/>'), formatted)
+        assertFalse(formatted.contains('</br>'), formatted)
+        assertFalse(formatted.contains('</img>'), formatted)
+    }
+
+    @Test
+    void preservesDefaultNamespaceResets() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><foreignObject><plain xmlns=""/></foreignObject></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<plain xmlns=""/>'), formatted)
+    }
+
+    @Test
+    void preservesUnwrappedDomChildrenWithoutComments() {
+        Svg svg = new Svg()
+        svg.element.addText('hello')
+        svg.element.addElement('mystery')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('hello<mystery/>'), formatted)
+    }
+
+    @Test
+    void preservesCdataOnlyStyleElements() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><style><![CDATA[#a > #b { fill: red }]]></style></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<style><![CDATA[#a > #b { fill: red }]]></style>'), formatted)
+    }
+
+    @Test
+    void preservesDocumentLevelComments() {
+        Svg svg = SvgReader.parse('<!--generator--><svg xmlns="http://www.w3.org/2000/svg"><rect/></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<!--generator-->'))
+        assertTrue(formatted.indexOf('<!--generator-->') < formatted.indexOf('<svg'))
+    }
 
     @Test
     void testPrettifyWithDefaultOptions() {
@@ -225,6 +286,79 @@ class SvgFormatterTest {
         // Self-closing tags should end with />
         assertTrue(formatted.contains('<circle') && formatted.contains('/>'))
         assertTrue(formatted.contains('<rect') && formatted.contains('/>'))
+    }
+
+    @Test
+    void testPrettifyPreservesTextAndNamespaces() {
+        Svg svg = new Svg(100, 100)
+        svg.addTitle().addContent('Chart title')
+        svg.addText('Hello').x(10).y(20)
+        svg.addUse().xlinkHref('#marker')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<svg xmlns="http://www.w3.org/2000/svg"'))
+        assertTrue(formatted.contains('<title>Chart title</title>'))
+        assertTrue(formatted.contains('<text x="10" y="20">Hello</text>'))
+        assertTrue(formatted.contains('xmlns:xlink="http://www.w3.org/1999/xlink"'))
+        assertTrue(formatted.contains('xlink:href="#marker"'))
+    }
+
+    @Test
+    void testPrettifyPreservesMixedTextContent() {
+        Svg svg = new Svg(100, 100)
+        Text text = svg.addText('Hello ')
+        text.addTspan('world')
+        text.addContent('!')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        int hello = formatted.indexOf('Hello ')
+        int world = formatted.indexOf('world')
+        int exclamation = formatted.indexOf('!')
+        assertTrue(hello >= 0)
+        assertTrue(world > hello)
+        assertTrue(exclamation > world)
+    }
+
+    @Test
+    void testPrettifyPreservesCdataAndNamespaceScopeInMixedForeignContent() {
+        Svg svg = new Svg(100, 100)
+        ForeignObject foreignObject = svg.addForeignObject()
+        foreignObject.addCdataContent('keep me')
+        foreignObject.addElement('div', 'http://www.w3.org/1999/xhtml').addContent('hi')
+        foreignObject.element.addComment('keep this comment')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('<![CDATA[keep me]]>'))
+        assertTrue(formatted.contains('<div xmlns="http://www.w3.org/1999/xhtml">hi</div>'))
+        assertTrue(formatted.contains('<!--keep this comment-->'))
+        assertEquals(1, formatted.count('xmlns="http://www.w3.org/2000/svg"'))
+    }
+
+    @Test
+    void testPrettifyClonePreservesMetadataAndForeignObjectChildren() {
+        Svg svg = SvgReader.parse('''<svg xmlns="http://www.w3.org/2000/svg">
+          <metadata><rdf xmlns="urn:rdf">m</rdf></metadata>
+          <foreignObject width="5" height="5"><h:div xmlns:h="http://www.w3.org/1999/xhtml">hi</h:div><!--comment--></foreignObject>
+        </svg>''')
+
+        String formatted = SvgFormatter.prettify(svg.clone(), [:])
+
+        assertTrue(formatted.contains('<rdf xmlns="urn:rdf">m</rdf>'))
+        assertTrue(formatted.contains('<h:div xmlns:h="http://www.w3.org/1999/xhtml">hi</h:div>'))
+        assertTrue(formatted.contains('<!--comment-->'))
+    }
+
+    @Test
+    void testPrettifyKeepsCommentedElementChildrenIndented() {
+        Svg svg = SvgReader.parse('<svg xmlns="http://www.w3.org/2000/svg"><!--license--><g><rect width="1" height="1"/></g></svg>')
+
+        String formatted = SvgFormatter.prettify(svg, [:])
+
+        assertTrue(formatted.contains('\n  <!--license-->\n  <g>\n    <rect width="1" height="1"/>\n  </g>\n'))
+        assertFalse(formatted.contains('<!--license--><g>'))
     }
 
     @Test

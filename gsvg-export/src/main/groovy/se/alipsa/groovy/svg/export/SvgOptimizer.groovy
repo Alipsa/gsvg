@@ -9,8 +9,10 @@ import se.alipsa.groovy.svg.Metadata
 import se.alipsa.groovy.svg.Path
 import se.alipsa.groovy.svg.Svg
 import se.alipsa.groovy.svg.SvgElement
+import se.alipsa.groovy.svg.Style
 import se.alipsa.groovy.svg.Title
 import se.alipsa.groovy.svg.io.SvgReader
+import se.alipsa.groovy.svg.io.SvgWriter
 import se.alipsa.groovy.svg.utils.NumberFormatter
 
 /**
@@ -38,8 +40,8 @@ class SvgOptimizer {
      */
     static Svg optimize(Svg svg, Map options = [:]) {
         // Clone the SVG to avoid modifying the original
-        String svgString = svg.toXml()
-        Svg optimized = SvgReader.parse(svgString)
+        boolean isDocumentRoot = svg.document?.rootElement?.is(svg.element)
+        Svg optimized = SvgReader.parse(isDocumentRoot ? SvgWriter.toXml(svg) : svg.toXml())
 
         // Apply optimizations
         optimizeInPlace(optimized, options)
@@ -55,6 +57,7 @@ class SvgOptimizer {
      */
     static void optimizeInPlace(Svg svg, Map options = [:]) {
         // Set defaults
+        boolean removeComments = options.removeComments != null ? options.removeComments : true
         boolean removeMetadata = options.removeMetadata != null ? options.removeMetadata : true
         boolean removeUnusedDefs = options.removeUnusedDefs != null ? options.removeUnusedDefs : true
         boolean removeDefaults = options.removeDefaults != null ? options.removeDefaults : true
@@ -63,6 +66,13 @@ class SvgOptimizer {
         boolean minifyPathData = options.minifyPathData != null ? options.minifyPathData : true
         boolean collapseGroups = options.collapseGroups != null ? options.collapseGroups : true
         Integer precision = options.precision as Integer ?: 2
+
+        if (removeComments) {
+            removeCommentsFrom(svg.element)
+            if (svg.document != null) {
+                svg.document.content().removeAll(svg.document.content().findAll { node -> node instanceof org.dom4j.Comment })
+            }
+        }
 
         // Remove metadata elements
         if (removeMetadata) {
@@ -103,6 +113,12 @@ class SvgOptimizer {
         if (removeUnusedDefs) {
             removeUnusedDefinitions(svg)
         }
+    }
+
+    /** Removes comments recursively from the DOM tree. */
+    private static void removeCommentsFrom(org.dom4j.Element element) {
+        element.elements().each { org.dom4j.Element child -> removeCommentsFrom(child) }
+        element.content().removeAll(element.content().findAll { it instanceof org.dom4j.Comment })
     }
 
     /**
@@ -265,7 +281,7 @@ class SvgOptimizer {
                 def children = element.children
                 boolean hasAttributes = !element.element.attributes().isEmpty()
 
-                if (children.size() == 1 && !hasAttributes) {
+                if (children.size() == 1 && element.element.content().size() == 1 && !hasAttributes) {
                     toCollapse << [parent: container, group: element, child: children[0]]
                 } else {
                     collapseRedundantGroups(element)
@@ -314,8 +330,8 @@ class SvgOptimizer {
     /**
      * Collects all referenced IDs in the SVG.
      */
-    private static Set<String> collectUsedIds(ElementContainer container) {
-        Set<String> ids = new HashSet<>()
+    private static java.util.Set<String> collectUsedIds(ElementContainer container) {
+        java.util.Set<String> ids = new HashSet<>()
 
         container.children.each { element ->
             if (element instanceof SvgElement) {
@@ -345,12 +361,12 @@ class SvgOptimizer {
 
                 // Check url() references in all attributes
                 (element as SvgElement).getAttributes().each { name, value ->
-                    if (value && value.contains('url(#')) {
-                        def matcher = (value =~ /url\(#([^)]+)\)/)
-                        matcher.each {
-                            ids.add(it[1])
-                        }
-                    }
+                    collectUrlReferences(value, ids)
+                }
+
+                if (element instanceof Style) {
+                    collectUrlReferences(element.element.text, ids)
+                    collectCssIdReferences(element.element.text, ids)
                 }
 
                 if (element instanceof ElementContainer) {
@@ -360,5 +376,26 @@ class SvgOptimizer {
         }
 
         return ids
+    }
+
+    /** Collects local fragment IDs from CSS or presentation-attribute url() values. */
+    private static void collectUrlReferences(String value, java.util.Set<String> ids) {
+        if (value) {
+            def matcher = (value =~ /url\(\s*['"]?#\s*([^)'"\s]+)\s*['"]?\s*\)/)
+            matcher.each {
+                ids.add(it[1])
+            }
+        }
+    }
+
+    /** Collects IDs referenced by CSS selectors. */
+    private static void collectCssIdReferences(String value, java.util.Set<String> ids) {
+        if (value) {
+            def ruleMatcher = (value =~ /([^{}]+)\{/)
+            ruleMatcher.each { rule ->
+                def idMatcher = (rule[1] =~ /#([A-Za-z_][A-Za-z0-9_-]*)/)
+                idMatcher.each { ids.add(it[1]) }
+            }
+        }
     }
 }

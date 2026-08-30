@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
 import org.dom4j.Attribute
 import org.dom4j.Element
 import org.dom4j.Namespace
@@ -44,6 +45,8 @@ import se.alipsa.groovy.svg.utils.NumberFormatter
  */
 @CompileStatic
 abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, Cloneable {
+
+  private static final ThreadLocal<Boolean> adoptExistingElement = ThreadLocal.withInitial { false }
 
   Namespace xlinkNs = new Namespace('xlink', 'http://www.w3.org/1999/xlink')
   Element element
@@ -158,18 +161,33 @@ abstract class SvgElement<T extends SvgElement<T>> implements ElementContainer, 
   }
 
   /**
-   * Creates a SvgElement by adopting an existing DOM4J Element.
-   * This constructor is used for cloning/copying elements.
-   * The element is detached from its old parent and added to the new parent.
+   * Creates a SvgElement from an existing DOM4J Element.
+   * This constructor is used for cloning/copying elements. Elements not already
+   * attached to the supplied parent are copied so constructing a public element
+   * wrapper never aliases, detaches, or rejects the caller's source node.
    *
    * @param parent the parent SVG element
-   * @param existingElement the DOM4J element to adopt
+   * @param existingElement the DOM4J element to copy or adopt
    */
   protected SvgElement(SvgElement<? extends SvgElement> parent, Element existingElement) {
     this.parent = parent
-    Element cloned = existingElement.createCopy()
-    this.element = cloned
-    parent.element.add(cloned)
+    Element ownedElement = adoptExistingElement.get() ? existingElement : existingElement.createCopy()
+    this.element = ownedElement
+    if (ownedElement.parent != parent.element) {
+      parent.element.add(ownedElement)
+    }
+  }
+
+  /** Executes an action with factory-only adoption of a freshly copied DOM element. */
+  @PackageScope
+  static <T> T withAdoptedElement(Closure<T> action) {
+    Boolean previous = adoptExistingElement.get()
+    adoptExistingElement.set(true)
+    try {
+      action.call()
+    } finally {
+      adoptExistingElement.set(previous)
+    }
   }
 
   /**

@@ -1,6 +1,7 @@
 package se.alipsa.groovy.svg
 
 import groovy.transform.CompileStatic
+import org.dom4j.Element
 import org.dom4j.Namespace
 import org.dom4j.QName
 
@@ -28,6 +29,16 @@ class MetadataElement extends StringContentContainer<MetadataElement> implements
    */
   MetadataElement(SvgElement parent, QName qName) {
     super(parent, qName)
+  }
+
+  /**
+   * Creates a MetadataElement from an existing DOM4J element.
+   *
+   * @param parent the parent SVG element
+   * @param element the DOM4J element to copy or adopt
+   */
+  MetadataElement(SvgElement parent, Element element) {
+    super(parent, element)
   }
 
   /**
